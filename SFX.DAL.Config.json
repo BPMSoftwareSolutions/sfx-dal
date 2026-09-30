@@ -1,0 +1,940 @@
+﻿{
+    "ProjectName":  "SFX.DAL",
+    "ConnectionStringEnvVar":  "sidefx-connection-string",
+    "OutputDirectory":  "C:\\lab\\repos\\sfx-dal",
+    "EnvironmentVariableTarget":  "Machine",
+    "VariableTarget":  "Machine",
+    "CustomQueries":  [
+
+                      ],
+    "Views":  [
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_selected_semantic_definition",
+                      "KeyColumns":  [
+                                         "semantic_object_definition_pk"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_capability_execution_declaration",
+                      "KeyColumns":  [
+                                         "capability_id",
+                                         "entry_id"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_scenario_invocation_closure",
+                      "KeyColumns":  [
+                                         "selected_scenario_version_pk",
+                                         "downstream_scenario_version_pk"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_capability_graph_source",
+                      "KeyColumns":  [
+                                         "capability_id",
+                                         "root_scenario_id"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_declared_platform_implementation",
+                      "KeyColumns":  [
+                                         "capability_version_pk",
+                                         "platform_capability_id",
+                                         "provider_definition_pk"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_provider_slot_resolution",
+                      "KeyColumns":  [
+                                         "provider_slot_pk"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_capability_keyword_index",
+                      "KeyColumns":  [
+                                         "capability_id",
+                                         "keyword",
+                                         "keyword_source"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_target_provider_profile",
+                      "KeyColumns":  [
+                                         "target_id",
+                                         "provider_profile_version_pk"
+                                     ]
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_capability_fixture_owner_drift"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_declared_mechanic_resolution"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_declared_native_mechanic_resolution"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_declared_port_transformation"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_estate_provider_resolved_port_semantics"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_provider_slot_candidate"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_scenario_embodiment_readiness"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_scenario_embodiment_requirement"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_scenario_language_resolution"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_target_capability_provider"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_target_provider_implementation"
+                  },
+                  {
+                      "Schema":  "analysis",
+                      "Name":  "v_tool_keyword_index"
+                  }
+              ],
+    "Functions":  [
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "capability_declared_transitions"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_contract_face_compatibility"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_contract_satisfiability"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_expression_semantics"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_expression_totality"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_reachability_cycles"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_route_variant_coverage"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_scenario_predicates"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_witnesses"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "scenario_transformation_mechanics"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "capability_execution_declaration"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "capability_graph_source"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "declared_native_mechanic_resolutions"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "declared_platform_implementations"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fn_contract_schema_closure"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "scenario_embodiment_requirements"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "accepted_gate"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "authority_operations"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "blueprint"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "candidate_receipts"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "capability"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "capability_manifest"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "current_model_pin"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "install_admission"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "invocation_closure"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "placement_state"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "platform_capability"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "port_definition"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "provider_author"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "provider_blueprint_declaration"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "reach_transformations"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "read_authority_fingerprint"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "relink_probe"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "root_scenario"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "route_state"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "scenario_faces"
+                      },
+                      {
+                          "Schema":  "probe",
+                          "Name":  "tool_registry"
+                      }
+                  ],
+    "SchemaReaderConfig":  {
+                               "SchemaReaderType":  "SqlServer",
+                               "SchemaFilter":  "",
+                               "ConnectionString":  null,
+                               "Owner":  ""
+                           },
+    "Catalog":  [
+                    {
+                        "Id":  "scenario_port_bindings",
+                        "Schema":  "analysis",
+                        "Name":  "fv_scenario_port_bindings",
+                        "Kind":  "read",
+                        "Sql":  "WITH newest AS (\n  SELECT d.semantic_object_pk, MAX(d.semantic_object_definition_pk) AS newest_sod\n  FROM model.estate_definition ed\n  JOIN model.semantic_object_definition d ON d.semantic_object_definition_pk = ed.semantic_object_definition_pk\n  WHERE ed.estate_model_pk = @estate_model_pk\n  GROUP BY d.semantic_object_pk)\nSELECT c.capability_id, s.scenario_id, cs.scenario_version_pk,\n  eo.ordinal, eo.operation_id, eo.operation_kind,\n  p.port_id, p.port_pk, opi.port_version_pk AS linked_port_version_pk,\n  pv.semantic_object_definition_pk AS linked_sod, nw.newest_sod AS newest_selected_sod,\n  CONVERT(bit, CASE WHEN pv.semantic_object_definition_pk = nw.newest_sod THEN 1 ELSE 0 END) AS linked_is_newest,\n  CONVERT(bit, CASE WHEN ed2.semantic_object_definition_pk IS NULL THEN 0 ELSE 1 END) AS linked_selected,\n  JSON_VALUE(env.body, \u0027$.semantics.platformCapabilityId\u0027) AS platform_capability_id,\n  JSON_VALUE(env.body, \u0027$.semantics.configuration.providerId\u0027) AS provider_id,\n  analysis.fv_definition_label(N\u0027sidefx:providers\u0027, JSON_VALUE(env.body, \u0027$.semantics.configuration.providerId\u0027)) AS provider_label,\n  CONVERT(bit, CASE WHEN JSON_QUERY(env.body, \u0027$.semantics.configuration\u0027) IS NOT NULL THEN 1 ELSE 0 END) AS has_configuration,\n  JSON_QUERY(env.body, \u0027$.semantics.configuration\u0027) AS configuration_json\nFROM model.estate_capability ec\nJOIN model.capability c ON c.capability_pk = ec.capability_pk\nJOIN model.capability_scenario cs ON cs.capability_version_pk = ec.capability_version_pk\nJOIN model.scenario s ON s.scenario_pk = cs.scenario_pk\nJOIN model.scenario_event se ON se.scenario_version_pk = cs.scenario_version_pk\nJOIN model.execution_operation eo ON eo.execution_authority_version_pk = se.execution_authority_version_pk\nJOIN model.operation_port_invocation opi ON opi.execution_operation_pk = eo.execution_operation_pk\nJOIN model.port_version pv ON pv.port_version_pk = opi.port_version_pk\nJOIN model.port p ON p.port_pk = pv.port_pk\nJOIN model.semantic_object_definition d ON d.semantic_object_definition_pk = pv.semantic_object_definition_pk\nJOIN source.content_object co ON co.content_object_pk = d.canonical_content_pk\nLEFT JOIN model.estate_definition ed2 ON ed2.estate_model_pk = @estate_model_pk\n  AND ed2.semantic_object_definition_pk = pv.semantic_object_definition_pk\nLEFT JOIN newest nw ON nw.semantic_object_pk = p.semantic_object_pk\nCROSS APPLY (SELECT CONVERT(nvarchar(max), CONVERT(varchar(max), co.content_bytes)\n  COLLATE Latin1_General_100_BIN2_UTF8) AS body) env\nWHERE ec.estate_model_pk = @estate_model_pk\n  AND c.capability_id = @capability_id\n  AND (@scenario_id IS NULL OR s.scenario_id = @scenario_id)",
+                        "Parameters":  [
+                                           {
+                                               "Name":  "estate_model_pk",
+                                               "DataType":  "bigint",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "capability_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "scenario_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  "NULL"
+                                           }
+                                       ],
+                        "ResultColumns":  [
+                                              {
+                                                  "Name":  "capability_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "scenario_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "scenario_version_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "ordinal",
+                                                  "DataType":  "int",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "operation_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "operation_kind",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "port_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "port_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "linked_port_version_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "linked_sod",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "newest_selected_sod",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "linked_is_newest",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "linked_selected",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "platform_capability_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "provider_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "provider_label",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "has_configuration",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "configuration_json",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              }
+                                          ],
+                        "DependsOn":  [
+                                          "fv_definition_label"
+                                      ]
+                    },
+                    {
+                        "Id":  "definition_generations",
+                        "Schema":  "analysis",
+                        "Name":  "fv_definition_generations",
+                        "Kind":  "read",
+                        "Sql":  "WITH base AS (\n  SELECT g.semantic_object_pk, g.namespace_id, g.declared_id, g.selection_source,\n         g.newest_selected_sod, g.selected_generation_count, g.total_generation_count,\n         g.typed_version_pk AS newest_typed_version_pk, g.typed_row_present, g.newest_sod_with_typed\n  FROM analysis.fv_selected_definition(@estate_model_pk, @object_kind, @declared_id, @namespace_id) g\n  WHERE @namespace_id IS NULL OR g.namespace_id = @namespace_id COLLATE Latin1_General_100_BIN2),\ntyped AS (\n  SELECT CAST(\u0027TRANSFORMATION\u0027 AS varchar(64)) AS object_kind, semantic_object_pk, semantic_object_definition_pk AS sod, transformation_version_pk AS version_pk FROM model.transformation_version\n  UNION ALL SELECT \u0027PORT\u0027,       semantic_object_pk, semantic_object_definition_pk, port_version_pk        FROM model.port_version\n  UNION ALL SELECT \u0027SCENARIO\u0027,   semantic_object_pk, semantic_object_definition_pk, scenario_version_pk    FROM model.scenario_version\n  UNION ALL SELECT \u0027CAPABILITY\u0027, semantic_object_pk, semantic_object_definition_pk, capability_version_pk  FROM model.capability_version\n  UNION ALL SELECT \u0027PROVIDER\u0027,   semantic_object_pk, semantic_object_definition_pk, provider_definition_pk FROM model.provider_definition\n  UNION ALL SELECT \u0027CONTRACT\u0027,   semantic_object_pk, semantic_object_definition_pk, contract_version_pk    FROM model.contract_version),\ngens AS (\n  SELECT b.semantic_object_pk, b.namespace_id, b.declared_id, b.selection_source,\n         b.newest_selected_sod, b.selected_generation_count, b.total_generation_count,\n         b.newest_typed_version_pk, b.typed_row_present, b.newest_sod_with_typed,\n         d.semantic_object_definition_pk, d.definition_digest, d.canonical_content_pk,\n         ROW_NUMBER() OVER (PARTITION BY b.semantic_object_pk ORDER BY d.semantic_object_definition_pk) AS generation_ordinal,\n         CONVERT(bit, CASE WHEN d.semantic_object_definition_pk = b.newest_selected_sod THEN 1 ELSE 0 END) AS selected_is_newest,\n         CONVERT(bit, CASE WHEN @object_kind = \u0027CAPABILITY\u0027\n             THEN CASE WHEN d.semantic_object_definition_pk = b.newest_selected_sod THEN 1 ELSE 0 END\n             WHEN EXISTS (SELECT 1 FROM model.estate_definition ed\n                    WHERE ed.estate_model_pk = @estate_model_pk\n                      AND ed.semantic_object_definition_pk = d.semantic_object_definition_pk) THEN 1\n             ELSE 0 END) AS selected\n  FROM base b\n  JOIN model.semantic_object_definition d ON d.semantic_object_pk = b.semantic_object_pk)\nSELECT TOP (2147483647) g.semantic_object_definition_pk, g.semantic_object_pk, g.namespace_id,\n  @object_kind AS object_kind, g.declared_id, g.generation_ordinal, g.selected, g.selected_is_newest,\n  g.definition_digest, LOWER(CONVERT(varchar(64), g.definition_digest, 2)) AS definition_digest_hex,\n  g.canonical_content_pk, t.version_pk AS typed_version_pk,\n  CONVERT(bit, CASE WHEN t.version_pk IS NULL THEN 0 ELSE 1 END) AS has_typed_row,\n  g.newest_typed_version_pk, g.typed_row_present, g.newest_sod_with_typed,\n  g.selection_source, g.selected_generation_count, g.total_generation_count\nFROM gens g\nLEFT JOIN typed t ON t.object_kind = @object_kind\n  AND t.semantic_object_pk = g.semantic_object_pk\n  AND t.sod = g.semantic_object_definition_pk\nORDER BY g.semantic_object_pk, g.semantic_object_definition_pk",
+                        "Parameters":  [
+                                           {
+                                               "Name":  "estate_model_pk",
+                                               "DataType":  "bigint",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "namespace_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  "NULL"
+                                           },
+                                           {
+                                               "Name":  "object_kind",
+                                               "DataType":  "varchar(64)",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "declared_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  ""
+                                           }
+                                       ],
+                        "ResultColumns":  [
+                                              {
+                                                  "Name":  "semantic_object_definition_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "semantic_object_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "namespace_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "object_kind",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "declared_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "generation_ordinal",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "selected",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "selected_is_newest",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "definition_digest",
+                                                  "DataType":  "binary",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "definition_digest_hex",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "canonical_content_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  false
+                                              },
+                                              {
+                                                  "Name":  "typed_version_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "has_typed_row",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "newest_typed_version_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "typed_row_present",
+                                                  "DataType":  "bit",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "newest_sod_with_typed",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "selection_source",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "selected_generation_count",
+                                                  "DataType":  "int",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "total_generation_count",
+                                                  "DataType":  "int",
+                                                  "IsNullable":  true
+                                              }
+                                          ],
+                        "DependsOn":  [
+                                          "fv_selected_definition"
+                                      ]
+                    },
+                    {
+                        "Id":  "references",
+                        "Schema":  "analysis",
+                        "Name":  "fv_references",
+                        "Kind":  "read",
+                        "Sql":  "WITH targets AS (\n  SELECT so.semantic_object_pk, so.object_kind, so.declared_id, n.namespace_id\n  FROM model.semantic_object so\n  JOIN model.identity_namespace n ON n.namespace_pk = so.namespace_pk\n  WHERE so.object_kind = @object_kind\n    AND so.declared_id = @declared_id COLLATE Latin1_General_100_BIN2\n    AND (@namespace_id IS NULL OR n.namespace_id = @namespace_id COLLATE Latin1_General_100_BIN2)),\nscan_kinds AS (\n  SELECT object_kind FROM (VALUES\n    (\u0027PORT\u0027), (\u0027PROVIDER\u0027), (\u0027TRANSFORMATION\u0027), (\u0027FIXTURE\u0027), (\u0027AUTHORITY\u0027), (\u0027SCENARIO\u0027),\n    (\u0027CONTRACT\u0027), (\u0027CAPABILITY\u0027), (\u0027EXECUTION_AUTHORITY\u0027), (\u0027BLUEPRINT\u0027), (\u0027FEATURE\u0027),\n    (\u0027MECHANIC\u0027), (\u0027TOOL\u0027), (\u0027OBSERVABLE_CONDITION\u0027)) k(object_kind)),\nsites AS (\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk) AS referencing_definition_pk,\n    CAST(\u0027TYPED\u0027 AS varchar(16)) AS site_class, CAST(\u0027model.operation_port_invocation\u0027 AS varchar(128)) AS site_table,\n    CAST(\u0027port_version_pk\u0027 AS varchar(128)) AS site_column, CAST(NULL AS nvarchar(400)) AS site_json_path,\n    CONVERT(nvarchar(400), opi.port_version_pk) AS matched_value, CAST(\u0027EXACT\u0027 AS varchar(8)) AS match_quality,\n    CAST(\u0027MATCH\u0027 AS varchar(16)) AS scan_state\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.operation_port_invocation opi ON opi.port_version_pk = pv.port_version_pk\n  JOIN model.execution_operation eo ON eo.execution_operation_pk = opi.execution_operation_pk\n  JOIN model.scenario_event se ON se.execution_authority_version_pk = eo.execution_authority_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = se.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, bv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.slot_port_requirement\u0027 AS varchar(128)), CAST(\u0027port_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), spr.port_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.slot_port_requirement spr ON spr.port_version_pk = pv.port_version_pk\n  JOIN model.provider_slot ps ON ps.provider_slot_pk = spr.provider_slot_pk\n  JOIN model.blueprint_version bv ON bv.blueprint_version_pk = ps.blueprint_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, bv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.binding_port_implementation\u0027 AS varchar(128)), CAST(\u0027port_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), bpi.port_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.binding_port_implementation bpi ON bpi.port_version_pk = pv.port_version_pk\n  JOIN model.provider_slot ps ON ps.provider_slot_pk = bpi.provider_slot_pk\n  JOIN model.blueprint_version bv ON bv.blueprint_version_pk = ps.blueprint_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pd.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.provider_port_implementation\u0027 AS varchar(128)), CAST(\u0027port_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), ppi.port_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.provider_port_implementation ppi ON ppi.port_version_pk = pv.port_version_pk\n  JOIN model.provider_definition pd ON pd.provider_definition_pk = ppi.provider_definition_pk\n  UNION ALL\n  SELECT CONVERT(bigint, fi.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.fixture_port_outcome\u0027 AS varchar(128)), CAST(\u0027port_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), fpo.port_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.fixture_port_outcome fpo ON fpo.port_version_pk = pv.port_version_pk\n  JOIN model.fixture_case fc ON fc.fixture_case_pk = fpo.fixture_case_pk\n  JOIN model.fixture fi ON fi.fixture_pk = fc.fixture_pk\n  UNION ALL\n  SELECT CONVERT(bigint, ctv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.port_contract\u0027 AS varchar(128)), CAST(\u0027port_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), pc.port_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.port p ON p.semantic_object_pk = t.semantic_object_pk\n  JOIN model.port_version pv ON pv.port_pk = p.port_pk\n  JOIN model.port_contract pc ON pc.port_version_pk = pv.port_version_pk\n  JOIN model.contract_version ctv ON ctv.contract_version_pk = pc.contract_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, tv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.transformation_expression_node\u0027 AS varchar(128)), CAST(\u0027reference_name\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), ten.reference_name), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.transformation tr ON tr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.transformation_version tv ON tv.transformation_pk = tr.transformation_pk\n  JOIN model.transformation_expression_node ten ON ten.transformation_version_pk = tv.transformation_version_pk\n    AND ten.reference_name = t.declared_id COLLATE Latin1_General_100_BIN2\n  UNION ALL\n  SELECT CONVERT(bigint, tv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.expression_semantic_reference\u0027 AS varchar(128)), CAST(\u0027semantic_object_definition_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), esr.semantic_object_definition_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.semantic_object_definition td ON td.semantic_object_pk = t.semantic_object_pk\n  JOIN model.expression_semantic_reference esr ON esr.semantic_object_definition_pk = td.semantic_object_definition_pk\n  JOIN model.transformation_expression_node ten ON ten.expression_node_pk = esr.expression_node_pk\n  JOIN model.transformation_version tv ON tv.transformation_version_pk = ten.transformation_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.operation_state_projection\u0027 AS varchar(128)), CAST(\u0027transformation_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), osp.transformation_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.transformation tr ON tr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.transformation_version tv ON tv.transformation_pk = tr.transformation_pk\n  JOIN model.operation_state_projection osp ON osp.transformation_version_pk = tv.transformation_version_pk\n  JOIN model.execution_operation eo ON eo.execution_operation_pk = osp.execution_operation_pk\n  JOIN model.scenario_event se ON se.execution_authority_version_pk = eo.execution_authority_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = se.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.operation_transformation\u0027 AS varchar(128)), CAST(\u0027transformation_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), ot.transformation_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.transformation tr ON tr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.transformation_version tv ON tv.transformation_pk = tr.transformation_pk\n  JOIN model.operation_transformation ot ON ot.transformation_version_pk = tv.transformation_version_pk\n  JOIN model.execution_operation eo ON eo.execution_operation_pk = ot.execution_operation_pk\n  JOIN model.scenario_event se ON se.execution_authority_version_pk = eo.execution_authority_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = se.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.scenario_input\u0027 AS varchar(128)), CAST(\u0027input_contract_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), si.input_contract_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.contract ct ON ct.semantic_object_pk = t.semantic_object_pk\n  JOIN model.contract_version cv ON cv.contract_pk = ct.contract_pk\n  JOIN model.scenario_input si ON si.input_contract_version_pk = cv.contract_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = si.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.scenario_outcome_contract\u0027 AS varchar(128)), CAST(\u0027contract_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), soc.contract_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.contract ct ON ct.semantic_object_pk = t.semantic_object_pk\n  JOIN model.contract_version cv ON cv.contract_pk = ct.contract_pk\n  JOIN model.scenario_outcome_contract soc ON soc.contract_version_pk = cv.contract_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = soc.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pd.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.product_definition\u0027 AS varchar(128)), CAST(\u0027contract_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), pd.contract_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.contract ct ON ct.semantic_object_pk = t.semantic_object_pk\n  JOIN model.contract_version cv ON cv.contract_pk = ct.contract_pk\n  JOIN model.product_definition pd ON pd.contract_version_pk = cv.contract_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.port_contract\u0027 AS varchar(128)), CAST(\u0027contract_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), pc.contract_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.contract ct ON ct.semantic_object_pk = t.semantic_object_pk\n  JOIN model.contract_version cv ON cv.contract_pk = ct.contract_pk\n  JOIN model.port_contract pc ON pc.contract_version_pk = cv.contract_version_pk\n  JOIN model.port_version pv ON pv.port_version_pk = pc.port_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, cv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.capability_scenario\u0027 AS varchar(128)), CAST(\u0027scenario_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), cs.scenario_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.scenario s ON s.semantic_object_pk = t.semantic_object_pk\n  JOIN model.capability_scenario cs ON cs.scenario_pk = s.scenario_pk\n  JOIN model.capability_version cv ON cv.capability_version_pk = cs.capability_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, fv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.feature_scenario\u0027 AS varchar(128)), CAST(\u0027scenario_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), fs.scenario_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.scenario s ON s.semantic_object_pk = t.semantic_object_pk\n  JOIN model.feature_scenario fs ON fs.scenario_pk = s.scenario_pk\n  JOIN model.feature_version fv ON fv.feature_version_pk = fs.feature_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, bv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.blueprint_node_scenario\u0027 AS varchar(128)), CAST(\u0027scenario_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), bns.scenario_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.scenario s ON s.semantic_object_pk = t.semantic_object_pk\n  JOIN model.scenario_version ts ON ts.scenario_pk = s.scenario_pk\n  JOIN model.blueprint_node_scenario bns ON bns.scenario_version_pk = ts.scenario_version_pk\n  JOIN model.blueprint_version bv ON bv.blueprint_version_pk = bns.blueprint_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, fi.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.fixture_scenario_step\u0027 AS varchar(128)), CAST(\u0027scenario_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), fss.scenario_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.scenario s ON s.semantic_object_pk = t.semantic_object_pk\n  JOIN model.scenario_version ts ON ts.scenario_pk = s.scenario_pk\n  JOIN model.fixture_scenario_step fss ON fss.scenario_version_pk = ts.scenario_version_pk\n  JOIN model.fixture_case fc ON fc.fixture_case_pk = fss.fixture_case_pk\n  JOIN model.fixture fi ON fi.fixture_pk = fc.fixture_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.operation_scenario_invocation\u0027 AS varchar(128)), CAST(\u0027target_scenario_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), osi.target_scenario_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.scenario s ON s.semantic_object_pk = t.semantic_object_pk\n  JOIN model.scenario_version ts ON ts.scenario_pk = s.scenario_pk\n  JOIN model.operation_scenario_invocation osi ON osi.target_scenario_version_pk = ts.scenario_version_pk\n  JOIN model.execution_operation eo ON eo.execution_operation_pk = osi.execution_operation_pk\n  JOIN model.scenario_event se ON se.execution_authority_version_pk = eo.execution_authority_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = se.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pd.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.provider_capability_implementation\u0027 AS varchar(128)), CAST(\u0027capability_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), pci.capability_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.capability c ON c.semantic_object_pk = t.semantic_object_pk\n  JOIN model.capability_version cv ON cv.capability_pk = c.capability_pk\n  JOIN model.provider_capability_implementation pci ON pci.capability_version_pk = cv.capability_version_pk\n  JOIN model.provider_definition pd ON pd.provider_definition_pk = pci.provider_definition_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.provider_port_implementation\u0027 AS varchar(128)), CAST(\u0027provider_definition_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), ppi.provider_definition_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.provider pr ON pr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.provider_definition pd ON pd.provider_pk = pr.provider_pk\n  JOIN model.provider_port_implementation ppi ON ppi.provider_definition_pk = pd.provider_definition_pk\n  JOIN model.port_version pv ON pv.port_version_pk = ppi.port_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, bv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.binding_port_implementation\u0027 AS varchar(128)), CAST(\u0027provider_definition_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), bpi.provider_definition_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.provider pr ON pr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.provider_definition pd ON pd.provider_pk = pr.provider_pk\n  JOIN model.binding_port_implementation bpi ON bpi.provider_definition_pk = pd.provider_definition_pk\n  JOIN model.provider_slot ps ON ps.provider_slot_pk = bpi.provider_slot_pk\n  JOIN model.blueprint_version bv ON bv.blueprint_version_pk = ps.blueprint_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, cv.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.provider_capability_implementation\u0027 AS varchar(128)), CAST(\u0027provider_definition_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), pci.provider_definition_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.provider pr ON pr.semantic_object_pk = t.semantic_object_pk\n  JOIN model.provider_definition pd ON pd.provider_pk = pr.provider_pk\n  JOIN model.provider_capability_implementation pci ON pci.provider_definition_pk = pd.provider_definition_pk\n  JOIN model.capability_version cv ON cv.capability_version_pk = pci.capability_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, sve.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.scenario_event\u0027 AS varchar(128)), CAST(\u0027execution_authority_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), se.execution_authority_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.execution_authority ea ON ea.semantic_object_pk = t.semantic_object_pk\n  JOIN model.execution_authority_version eav ON eav.execution_authority_pk = ea.execution_authority_pk\n  JOIN model.scenario_event se ON se.execution_authority_version_pk = eav.execution_authority_version_pk\n  JOIN model.scenario_version sve ON sve.scenario_version_pk = se.scenario_version_pk\n  UNION ALL\n  SELECT CONVERT(bigint, pd.semantic_object_definition_pk), CAST(\u0027TYPED\u0027 AS varchar(16)),\n    CAST(\u0027model.provider_port_implementation\u0027 AS varchar(128)), CAST(\u0027provider_profile_version_pk\u0027 AS varchar(128)),\n    CAST(NULL AS nvarchar(400)), CONVERT(nvarchar(400), ppi.provider_profile_version_pk), CAST(\u0027EXACT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM targets t\n  JOIN model.provider_profile_version ppv ON ppv.semantic_object_pk = t.semantic_object_pk\n  JOIN model.provider_port_implementation ppi ON ppi.provider_profile_version_pk = ppv.provider_profile_version_pk\n  JOIN model.provider_definition pd ON pd.provider_definition_pk = ppi.provider_definition_pk),\ndocs AS (\n  SELECT sod.semantic_object_definition_pk, so.semantic_object_pk, so.object_kind, so.declared_id, n.namespace_id,\n    co.byte_length, co.content_bytes\n  FROM model.semantic_object_definition sod\n  JOIN source.content_object co ON co.content_object_pk = sod.canonical_content_pk\n  JOIN model.semantic_object so ON so.semantic_object_pk = sod.semantic_object_pk\n  JOIN model.identity_namespace n ON n.namespace_pk = so.namespace_pk\n  WHERE so.object_kind IN (SELECT k.object_kind FROM scan_kinds k)\n    AND NOT EXISTS (SELECT 1 FROM targets t WHERE t.semantic_object_pk = so.semantic_object_pk)\n    AND EXISTS (\n      SELECT 1 FROM model.estate_definition ed\n      WHERE ed.estate_model_pk = @estate_model_pk AND ed.semantic_object_definition_pk = sod.semantic_object_definition_pk\n      UNION ALL\n      SELECT 1 FROM model.estate_capability ec\n      JOIN model.capability_version cv2 ON cv2.capability_version_pk = ec.capability_version_pk\n      WHERE ec.estate_model_pk = @estate_model_pk AND cv2.semantic_object_definition_pk = sod.semantic_object_definition_pk)\n    AND CHARINDEX(CONVERT(varbinary(800), CONVERT(varchar(800), @declared_id)), co.content_bytes) \u003e 0),\nscan_docs AS (\n  SELECT d.semantic_object_definition_pk, d.semantic_object_pk, d.object_kind, d.declared_id, d.namespace_id, d.byte_length,\n    CONVERT(nvarchar(max), CONVERT(varchar(max), d.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) COLLATE DATABASE_DEFAULT AS body\n  FROM docs d\n  WHERE d.byte_length \u003c= @size_bound_bytes),\nwalk AS (\n  SELECT d.semantic_object_definition_pk, d.semantic_object_pk, d.object_kind, d.declared_id, d.namespace_id, d.byte_length,\n    CAST((N\u0027$.\u0027 + j.[key]) COLLATE DATABASE_DEFAULT AS nvarchar(400)) AS site_json_path, j.[key], j.[value], j.[type]\n  FROM scan_docs d\n  CROSS APPLY OPENJSON(CAST(CASE WHEN ISJSON(d.body) = 1 THEN d.body ELSE N\u0027{}\u0027 END AS nvarchar(max))) j\n  UNION ALL\n  SELECT w.semantic_object_definition_pk, w.semantic_object_pk, w.object_kind, w.declared_id, w.namespace_id, w.byte_length,\n    CAST((w.site_json_path + CASE WHEN w.[type] = 4 THEN N\u0027[\u0027 + j.[key] + N\u0027]\u0027 ELSE N\u0027.\u0027 + j.[key] END) COLLATE DATABASE_DEFAULT AS nvarchar(400)),\n    j.[key], j.[value], j.[type]\n  FROM walk w\n  CROSS APPLY OPENJSON(CAST(CASE WHEN w.[type] IN (4, 5) THEN w.[value] ELSE N\u0027{}\u0027 END AS nvarchar(max))) j\n  WHERE w.[type] IN (4, 5)),\nhits AS (\n  SELECT w.semantic_object_definition_pk AS referencing_definition_pk,\n    CAST(\u0027MEMBER\u0027 AS varchar(16)) AS site_class, CAST(\u0027source.content_object\u0027 AS varchar(128)) AS site_table,\n    CAST(\u0027content_bytes\u0027 AS varchar(128)) AS site_column, w.site_json_path,\n    CONVERT(nvarchar(400), w.[value]) AS matched_value, CAST(\u0027EXACT\u0027 AS varchar(8)) AS match_quality,\n    CAST(\u0027MATCH\u0027 AS varchar(16)) AS scan_state\n  FROM walk w\n  WHERE w.[type] = 1 AND w.[value] = @declared_id COLLATE Latin1_General_100_BIN2\n  UNION ALL\n  SELECT w.semantic_object_definition_pk, CAST(\u0027STATEMENT\u0027 AS varchar(16)), CAST(\u0027source.content_object\u0027 AS varchar(128)),\n    CAST(\u0027content_bytes\u0027 AS varchar(128)), w.site_json_path, CONVERT(nvarchar(400), w.[value]),\n    CAST(\u0027TEXT\u0027 AS varchar(8)), CAST(\u0027MATCH\u0027 AS varchar(16))\n  FROM walk w\n  WHERE w.[type] = 1 AND w.[value] \u003c\u003e @declared_id COLLATE Latin1_General_100_BIN2\n    AND (w.site_json_path LIKE N\u0027%.statement\u0027 OR w.site_json_path LIKE N\u0027%.requestPath\u0027)\n    AND CHARINDEX(@declared_id COLLATE Latin1_General_100_BIN2, w.[value]) \u003e 0\n  UNION ALL\n  SELECT d.semantic_object_definition_pk, CAST(\u0027MEMBER\u0027 AS varchar(16)), CAST(\u0027source.content_object\u0027 AS varchar(128)),\n    CAST(\u0027content_bytes\u0027 AS varchar(128)), CAST(NULL AS nvarchar(400)), CAST(NULL AS nvarchar(400)),\n    CAST(NULL AS varchar(8)), CAST(\u0027SIZE_BOUND\u0027 AS varchar(16))\n  FROM docs d\n  WHERE d.byte_length \u003e @size_bound_bytes),\nsource_hits AS (\n  SELECT CONVERT(bigint, sl.semantic_object_definition_pk) AS referencing_definition_pk,\n    CAST(\u0027SOURCE\u0027 AS varchar(16)) AS site_class, CAST(\u0027source.relationship_observation\u0027 AS varchar(128)) AS site_table,\n    CAST(CASE WHEN ro.target_reference = @declared_id COLLATE Latin1_General_100_BIN2 THEN \u0027target_reference\u0027 ELSE \u0027source_reference\u0027 END AS varchar(128)) AS site_column,\n    CAST(NULL AS nvarchar(400)) AS site_json_path,\n    CONVERT(nvarchar(400), CASE WHEN ro.target_reference = @declared_id COLLATE Latin1_General_100_BIN2 THEN ro.target_reference ELSE ro.source_reference END) AS matched_value,\n    CAST(\u0027EXACT\u0027 AS varchar(8)) AS match_quality, CAST(\u0027MATCH\u0027 AS varchar(16)) AS scan_state\n  FROM source.relationship_observation ro\n  OUTER APPLY (SELECT TOP (1) x.semantic_object_definition_pk\n    FROM source.source_lineage x\n    WHERE x.source_observation_pk = ro.source_observation_pk\n    ORDER BY x.source_lineage_pk) sl\n  WHERE ro.source_reference = @declared_id COLLATE Latin1_General_100_BIN2\n    OR ro.target_reference = @declared_id COLLATE Latin1_General_100_BIN2)\nSELECT so.object_kind AS referencing_object_kind, n.namespace_id AS referencing_namespace_id,\n  so.declared_id AS referencing_declared_id, a.referencing_definition_pk,\n  sod.definition_digest AS referencing_digest, a.site_class, a.site_table, a.site_column,\n  a.site_json_path, a.matched_value, a.match_quality, CAST(\u0027SELECTED\u0027 AS varchar(16)) AS scope, a.scan_state\nFROM (\n  SELECT referencing_definition_pk, site_class, site_table, site_column, site_json_path, matched_value, match_quality, scan_state FROM sites\n  UNION ALL\n  SELECT referencing_definition_pk, site_class, site_table, site_column, site_json_path, matched_value, match_quality, scan_state FROM hits\n  UNION ALL\n  SELECT referencing_definition_pk, site_class, site_table, site_column, site_json_path, matched_value, match_quality, scan_state FROM source_hits\n) a\nLEFT JOIN model.semantic_object_definition sod ON sod.semantic_object_definition_pk = a.referencing_definition_pk\nLEFT JOIN model.semantic_object so ON so.semantic_object_pk = sod.semantic_object_pk\nLEFT JOIN model.identity_namespace n ON n.namespace_pk = so.namespace_pk\nWHERE @site_class IS NULL OR a.site_class = @site_class\nORDER BY so.object_kind, n.namespace_id, so.declared_id, a.site_class, a.site_table, a.site_json_path, a.matched_value\nOFFSET @offset ROWS FETCH NEXT @fetch ROWS ONLY",
+                        "Parameters":  [
+                                           {
+                                               "Name":  "estate_model_pk",
+                                               "DataType":  "bigint",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "namespace_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  "NULL"
+                                           },
+                                           {
+                                               "Name":  "object_kind",
+                                               "DataType":  "varchar(64)",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "declared_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Default":  ""
+                                           },
+                                           {
+                                               "Name":  "site_class",
+                                               "DataType":  "varchar(16)",
+                                               "Default":  "NULL"
+                                           },
+                                           {
+                                               "Name":  "offset",
+                                               "DataType":  "int",
+                                               "Default":  "0"
+                                           },
+                                           {
+                                               "Name":  "fetch",
+                                               "DataType":  "int",
+                                               "Default":  "200"
+                                           },
+                                           {
+                                               "Name":  "size_bound_bytes",
+                                               "DataType":  "int",
+                                               "Default":  "65536"
+                                           }
+                                       ],
+                        "ResultColumns":  [
+                                              {
+                                                  "Name":  "referencing_object_kind",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "referencing_namespace_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "referencing_declared_id",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "referencing_definition_pk",
+                                                  "DataType":  "bigint",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "referencing_digest",
+                                                  "DataType":  "binary",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "site_class",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "site_table",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "site_column",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "site_json_path",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "matched_value",
+                                                  "DataType":  "nvarchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "match_quality",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "scope",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              },
+                                              {
+                                                  "Name":  "scan_state",
+                                                  "DataType":  "varchar",
+                                                  "IsNullable":  true
+                                              }
+                                          ],
+                        "DependsOn":  [
+
+                                      ]
+                    }
+                ],
+    "Writers":  [
+                    {
+                        "Id":  "append-scenario-operation",
+                        "Schema":  "model",
+                        "Name":  "append_scenario_operation",
+                        "Parameters":  [
+                                           {
+                                               "Name":  "capability_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "authority_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "operation_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "operation_kind",
+                                               "DataType":  "varchar(64)",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "port_id",
+                                               "DataType":  "nvarchar(400)",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "port_version_pk",
+                                               "DataType":  "bigint",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "expected_authority_version_pk",
+                                               "DataType":  "bigint",
+                                               "Direction":  "Input"
+                                           },
+                                           {
+                                               "Name":  "authority_version_pk",
+                                               "DataType":  "bigint",
+                                               "Direction":  "Output"
+                                           }
+                                       ],
+                        "Body":  "SET NOCOUNT ON;\nDECLARE @lock int;\nEXEC @lock=sys.sp_getapplock @Resource=N\u0027sidefx:model-write\u0027,@LockMode=N\u0027Exclusive\u0027,@LockOwner=N\u0027Transaction\u0027,@LockTimeout=300000;\nIF @lock\u003c0 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_LOCK_FAILED\u0027,1;\nDECLARE @estate bigint=(SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1);\nIF @estate IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_MODEL_NOT_FOUND\u0027,1;\nDECLARE @capability_pk bigint=(SELECT c.capability_pk FROM model.capability c JOIN model.identity_namespace n ON n.namespace_pk=c.namespace_pk WHERE n.namespace_id=N\u0027sidefx:capabilities\u0027 AND c.capability_id=@capability_id COLLATE Latin1_General_100_BIN2);\nIF @capability_pk IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_CAPABILITY_NOT_FOUND\u0027,1;\nDECLARE @capability_version_pk bigint=(SELECT capability_version_pk FROM model.estate_capability WHERE estate_model_pk=@estate AND capability_pk=@capability_pk);\nIF @capability_version_pk IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_CAPABILITY_NOT_SELECTED\u0027,1;\nDECLARE @scenario_version_pk bigint=(SELECT cs.scenario_version_pk FROM model.capability_scenario cs JOIN model.scenario s ON s.scenario_pk=cs.scenario_pk WHERE cs.capability_version_pk=@capability_version_pk AND s.scenario_id=@capability_id COLLATE Latin1_General_100_BIN2);\nIF @scenario_version_pk IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_SCENARIO_NOT_LINKED\u0027,1;\nDECLARE @linked_authority_version_pk bigint=(SELECT execution_authority_version_pk FROM model.scenario_event WHERE scenario_version_pk=@scenario_version_pk);\nIF @linked_authority_version_pk IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_NOT_FOUND\u0027,1;\nIF @expected_authority_version_pk\u003e0 AND @expected_authority_version_pk\u003c\u003e@linked_authority_version_pk THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_STALE_EXPECTATION\u0027,1;\nDECLARE @namespace_id nvarchar(400)=(SELECT n.namespace_id FROM model.execution_authority_version eav JOIN model.semantic_object so ON so.semantic_object_pk=eav.semantic_object_pk JOIN model.identity_namespace n ON n.namespace_pk=so.namespace_pk WHERE eav.execution_authority_version_pk=@linked_authority_version_pk);\nIF @namespace_id IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_NAMESPACE_NOT_FOUND\u0027,1;\nIF NOT EXISTS (SELECT 1 FROM model.port_version pv JOIN model.port p ON p.port_pk=pv.port_pk WHERE pv.port_version_pk=@port_version_pk AND p.port_id=@port_id COLLATE Latin1_General_100_BIN2) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_PORT_VERSION_NOT_FOUND\u0027,1;\nIF EXISTS (SELECT 1 FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=@linked_authority_version_pk AND eo.operation_id=@operation_id COLLATE Latin1_General_100_BIN2) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_OPERATION_ID_ALREADY_DECLARED\u0027,1;\nDECLARE @links_before TABLE(ordinal int PRIMARY KEY,port_id nvarchar(400) COLLATE Latin1_General_100_BIN2,operation_kind varchar(64) COLLATE Latin1_General_100_BIN2,port_version_pk bigint);\nINSERT @links_before(ordinal,port_id,operation_kind,port_version_pk) SELECT eo.ordinal,p.port_id COLLATE Latin1_General_100_BIN2,opi.operation_kind,opi.port_version_pk FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk JOIN model.port_version pv ON pv.port_version_pk=opi.port_version_pk JOIN model.port p ON p.port_pk=pv.port_pk WHERE eo.execution_authority_version_pk=@linked_authority_version_pk;\nDECLARE @operation_count_before int=(SELECT COUNT(*) FROM model.execution_operation WHERE execution_authority_version_pk=@linked_authority_version_pk);\nDECLARE @link_count_before int=(SELECT COUNT(*) FROM @links_before);\nIF EXISTS (SELECT 1 FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=@linked_authority_version_pk AND (eo.ordinal\u003c0 OR eo.ordinal\u003e=@operation_count_before)) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_ORDINALS_NOT_CONTIGUOUS\u0027,1;\nDECLARE @auth_sod bigint=(SELECT newest_selected_sod FROM analysis.fv_selected_definition(@estate,N\u0027EXECUTION_AUTHORITY\u0027,@authority_id,@namespace_id));\nIF @auth_sod IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_DEFINITION_NOT_FOUND\u0027,1;\nDECLARE @auth_object bigint,@auth_semantics nvarchar(max);\nSELECT @auth_object=d.semantic_object_pk,@auth_semantics=JSON_QUERY(j.js,N\u0027$.semantics\u0027) FROM model.semantic_object_definition d JOIN source.content_object co ON co.content_object_pk=d.canonical_content_pk CROSS APPLY (SELECT CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS js) j WHERE d.semantic_object_definition_pk=@auth_sod;\nIF @auth_semantics IS NULL OR ISJSON(@auth_semantics)\u003c\u003e1 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_NOT_JSON\u0027,1;\nDECLARE @ops_old nvarchar(max)=JSON_QUERY(@auth_semantics,N\u0027$.authority.operations\u0027);\nIF @ops_old IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATIONS_MISSING\u0027,1;\nIF (SELECT COUNT(*) FROM OPENJSON(@ops_old))\u003c\u003e@operation_count_before THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATION_SET_MISMATCH\u0027,1;\nDECLARE @op_new nvarchar(max)=N\u0027{\"operationId\":\"\u0027+STRING_ESCAPE(@operation_id,\u0027json\u0027)+\u0027\",\"kind\":\"\u0027+STRING_ESCAPE(@operation_kind,\u0027json\u0027)+\u0027\",\"portId\":\"\u0027+STRING_ESCAPE(@port_id,\u0027json\u0027)+\u0027\"}\u0027;\nDECLARE @ops_new nvarchar(max)=JSON_MODIFY(@ops_old,N\u0027append $\u0027,JSON_QUERY(@op_new));\nIF (SELECT COUNT(*) FROM OPENJSON(@ops_new))\u003c\u003e@operation_count_before+1 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATIONS_NOT_APPENDED\u0027,1;\nSET @auth_semantics=JSON_MODIFY(@auth_semantics,N\u0027strict $.authority.operations\u0027,JSON_QUERY(@ops_new));\nDECLARE @auth_definition bigint,@auth_digest binary(32);\nEXEC model.put_semantic_definition \u0027EXECUTION_AUTHORITY\u0027,@namespace_id,@authority_id,@auth_semantics,@auth_object OUTPUT,@auth_definition OUTPUT,@auth_digest OUTPUT;\nIF (SELECT MAX(d.semantic_object_definition_pk) FROM model.estate_definition ed JOIN model.semantic_object_definition d ON d.semantic_object_definition_pk=ed.semantic_object_definition_pk WHERE ed.estate_model_pk=@estate AND d.semantic_object_pk=@auth_object)\u003c\u003e@auth_definition THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_CONTENT_RETAINED\u0027,1;\nDECLARE @auth_pk bigint=(SELECT execution_authority_pk FROM model.execution_authority WHERE semantic_object_pk=@auth_object);\nIF @auth_pk IS NULL THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_ROW_MISSING\u0027,1;\nDECLARE @auth_version_new bigint=(SELECT execution_authority_version_pk FROM model.execution_authority_version WHERE semantic_object_definition_pk=@auth_definition);\nIF @auth_version_new IS NULL\nBEGIN\n INSERT model.execution_authority_version(execution_authority_pk,semantic_object_pk,semantic_object_definition_pk,definition_digest,authority_profile,object_kind,_owner_definition_pk,_canonical_pointer) VALUES(@auth_pk,@auth_object,@auth_definition,@auth_digest,\u0027execution-authorities.v1\u0027,\u0027EXECUTION_AUTHORITY\u0027,@auth_definition,N\u0027\u0027);\n SET @auth_version_new=SCOPE_IDENTITY();\nEND\nIF @auth_version_new=@linked_authority_version_pk THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_AUTHORITY_VERSION_NOT_ADVANCED\u0027,1;\nINSERT model.execution_operation(execution_authority_version_pk,operation_id,ordinal,operation_kind,_owner_definition_pk,_canonical_pointer) SELECT @auth_version_new,JSON_VALUE(value,\u0027$.operationId\u0027),CONVERT(int,[key]),JSON_VALUE(value,\u0027$.kind\u0027),@auth_definition,N\u0027/semantics/authority/operations/\u0027+[key] FROM OPENJSON(@ops_new);\nINSERT model.operation_port_invocation(execution_operation_pk,port_version_pk,operation_kind,_owner_definition_pk,_canonical_pointer) SELECT eo.execution_operation_pk,b.port_version_pk,b.operation_kind,@auth_definition,eo._canonical_pointer FROM model.execution_operation eo JOIN @links_before b ON b.ordinal=eo.ordinal WHERE eo.execution_authority_version_pk=@auth_version_new;\nINSERT model.operation_port_invocation(execution_operation_pk,port_version_pk,operation_kind,_owner_definition_pk,_canonical_pointer) SELECT eo.execution_operation_pk,@port_version_pk,@operation_kind,@auth_definition,eo._canonical_pointer FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=@auth_version_new AND eo.ordinal=@operation_count_before;\nIF EXISTS (SELECT 1 FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=@auth_version_new AND eo.operation_kind=\u0027invoke-port\u0027 AND NOT EXISTS (SELECT 1 FROM model.operation_port_invocation ip WHERE ip.execution_operation_pk=eo.execution_operation_pk)) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_OPERATION_BINDING_NOT_DECLARED\u0027,1;\nUPDATE model.scenario_event SET execution_authority_version_pk=@auth_version_new WHERE scenario_version_pk=@scenario_version_pk AND execution_authority_version_pk=@linked_authority_version_pk;\nIF @@ROWCOUNT\u003c\u003e1 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_SCENARIO_EVENT_NOT_RELINKED\u0027,1;\nIF (SELECT COUNT(*) FROM model.execution_operation WHERE execution_authority_version_pk=@auth_version_new)\u003c\u003e@operation_count_before+1 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_OPERATION_SET_NOT_APPENDED\u0027,1;\nIF NOT EXISTS (SELECT 1 FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=@auth_version_new AND eo.ordinal=@operation_count_before AND eo.operation_id=@operation_id COLLATE Latin1_General_100_BIN2 AND opi.port_version_pk=@port_version_pk) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_OPERATION_NOT_LINKED\u0027,1;\nIF EXISTS (SELECT 1 FROM @links_before b JOIN model.execution_operation eo ON eo.execution_authority_version_pk=@auth_version_new AND eo.ordinal=b.ordinal JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE opi.port_version_pk\u003c\u003eb.port_version_pk) THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_EXISTING_LINK_MOVED\u0027,1;\nIF (SELECT COUNT(*) FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=@auth_version_new)\u003c\u003e@link_count_before+1 THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_LINK_COUNT_NOT_PRESERVED\u0027,1;\nIF (SELECT COUNT(*) FROM model.execution_operation WHERE execution_authority_version_pk=@linked_authority_version_pk)\u003c\u003e@operation_count_before THROW 51000,N\u0027APPEND_SCENARIO_OPERATION_HISTORY_REWRITTEN\u0027,1;\nSET @authority_version_pk=@auth_version_new;\nSELECT N\u0027append_scenario_operation\u0027 AS result_set,@capability_id AS capability_id,@authority_id AS authority_id,@linked_authority_version_pk AS authority_before,@auth_version_new AS authority_after,@operation_count_before AS operations_before,@link_count_before AS links_before,@operation_id AS operation_id,@port_id AS port_id,@port_version_pk AS port_version_pk;",
+                        "Refusals":  [
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_LOCK_FAILED",
+                                             "Message":  "Could not acquire the exclusive sidefx:model-write application lock."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_MODEL_NOT_FOUND",
+                                             "Message":  "The current model pin (source.current_model singleton_id=1) was not found."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_CAPABILITY_NOT_FOUND",
+                                             "Message":  "The capability id was not found in the sidefx:capabilities namespace."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_CAPABILITY_NOT_SELECTED",
+                                             "Message":  "The capability is not selected in the current estate model."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_SCENARIO_NOT_LINKED",
+                                             "Message":  "The capability version has no scenario version for the capability id."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_NOT_FOUND",
+                                             "Message":  "The scenario event has no linked execution authority version."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_STALE_EXPECTATION",
+                                             "Message":  "The expected authority version does not match the linked authority version; pass 0 to skip the expectation."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_NAMESPACE_NOT_FOUND",
+                                             "Message":  "The linked authority version does not resolve to an identity namespace."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_PORT_VERSION_NOT_FOUND",
+                                             "Message":  "The declared port_version_pk does not belong to the named port_id."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_OPERATION_ID_ALREADY_DECLARED",
+                                             "Message":  "The linked authority version already declares this operation id; a replay is refused."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_ORDINALS_NOT_CONTIGUOUS",
+                                             "Message":  "The linked authority version ordinals are not contiguous from zero."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_DEFINITION_NOT_FOUND",
+                                             "Message":  "No selected execution authority definition was found for the authority id and namespace."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_NOT_JSON",
+                                             "Message":  "The selected authority definition semantics are missing or not JSON."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATIONS_MISSING",
+                                             "Message":  "The selected authority semantics have no authority.operations array."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATION_SET_MISMATCH",
+                                             "Message":  "The authority operations array does not match the linked authority version operation rows."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_OPERATIONS_NOT_APPENDED",
+                                             "Message":  "Appending the operation did not grow the operations array by exactly one."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_CONTENT_RETAINED",
+                                             "Message":  "The minted authority definition is not the newest selected definition."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_ROW_MISSING",
+                                             "Message":  "The authority semantic object has no execution_authority row."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_AUTHORITY_VERSION_NOT_ADVANCED",
+                                             "Message":  "The authority version did not advance; the append is a no-op."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_OPERATION_BINDING_NOT_DECLARED",
+                                             "Message":  "An invoke-port operation on the new authority version has no port invocation link."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_SCENARIO_EVENT_NOT_RELINKED",
+                                             "Message":  "The scenario event was not relinked to the new authority version."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_OPERATION_SET_NOT_APPENDED",
+                                             "Message":  "The new authority version does not contain exactly one more operation than the old one."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_OPERATION_NOT_LINKED",
+                                             "Message":  "The appended operation is not linked to the declared port version."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_EXISTING_LINK_MOVED",
+                                             "Message":  "A preserved operation link no longer points at its original port version."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_LINK_COUNT_NOT_PRESERVED",
+                                             "Message":  "The new authority version link count is not the preserved link count plus one."
+                                         },
+                                         {
+                                             "Code":  "APPEND_SCENARIO_OPERATION_HISTORY_REWRITTEN",
+                                             "Message":  "The old authority version operation rows changed."
+                                         }
+                                     ]
+                    }
+                ],
+    "Operations":  [
+                       {
+                           "Id":  "append-invoke-port",
+                           "Kind":  "WriterCall",
+                           "Procedure":  "model.append_scenario_operation",
+                           "Parameters":  [
+                                              {
+                                                  "Name":  "capability_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "authority_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "operation_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "operation_kind",
+                                                  "Type":  "varchar(64)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "port_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "port_version_pk",
+                                                  "Type":  "bigint",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "expected_authority_version_pk",
+                                                  "Type":  "bigint",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "authority_version_pk",
+                                                  "Type":  "bigint",
+                                                  "Direction":  "Output",
+                                                  "Bind":  "caller",
+                                                  "Required":  false
+                                              }
+                                          ],
+                           "ExpectedTokens":  [
+                                                  "authority_version_pk"
+                                              ],
+                           "VerifyRead":  "SELECT TOP (1) av.execution_authority_version_pk AS authority_version_pk,(SELECT COUNT(*) FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS operation_count,(SELECT COUNT(*) FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS link_count FROM model.execution_authority_version av ORDER BY av.execution_authority_version_pk DESC",
+                           "EmitMigrationPair":  true
+                       }
+                   ],
+    "Documents":  [
+                      {
+                          "Id":  "shape-objective-invocation-result",
+                          "ObjectKind":  "TRANSFORMATION",
+                          "NamespaceId":  "sidefx:capability:request-capability-from-objective",
+                          "DeclaredId":  "shape-objective-invocation-result",
+                          "Json":  "{\"id\":\"shape-objective-invocation-result\",\"expression\":{\"op\":\"let\",\"bindings\":{\"result\":{\"op\":\"path\",\"from\":\"input\",\"path\":\"result\"},\"nestedContract\":{\"op\":\"path\",\"from\":\"input\",\"path\":\"result.contractId\"},\"refusalModelDisposition\":{\"op\":\"path\",\"from\":\"input\",\"path\":\"result.model.disposition\"},\"disposition\":{\"op\":\"if\",\"when\":{\"op\":\"path\",\"from\":\"result\",\"path\":\"\"},\"then\":{\"op\":\"if\",\"when\":{\"op\":\"equals\",\"left\":{\"op\":\"path\",\"from\":\"nestedContract\",\"path\":\"\"},\"right\":{\"op\":\"literal\",\"value\":\"agent-refusal-evidence.v1\"}},\"then\":{\"op\":\"if\",\"when\":{\"op\":\"equals\",\"left\":{\"op\":\"path\",\"from\":\"refusalModelDisposition\",\"path\":\"\"},\"right\":{\"op\":\"literal\",\"value\":\"PROVIDER_UNAVAILABLE\"}},\"then\":{\"op\":\"literal\",\"value\":\"PROVIDER_UNAVAILABLE\"},\"else\":{\"op\":\"literal\",\"value\":\"REFUSED\"}},\"else\":{\"op\":\"literal\",\"value\":\"ADMITTED\"}},\"else\":{\"op\":\"path\",\"from\":\"input\",\"path\":\"disposition\"}}},\"value\":{\"op\":\"if\",\"when\":{\"op\":\"equals\",\"left\":{\"op\":\"path\",\"from\":\"disposition\",\"path\":\"\"},\"right\":{\"op\":\"literal\",\"value\":\"ADMITTED\"}},\"then\":{\"op\":\"object\",\"fields\":{\"contractId\":{\"op\":\"literal\",\"value\":\"invoke-database-capability-result.v1\"},\"disposition\":{\"op\":\"path\",\"from\":\"disposition\",\"path\":\"\"},\"result\":{\"op\":\"path\",\"from\":\"result\",\"path\":\"\"},\"invocationDisposition\":{\"op\":\"path\",\"from\":\"input\",\"path\":\"disposition\"}}},\"else\":{\"op\":\"object\",\"fields\":{\"contractId\":{\"op\":\"literal\",\"value\":\"invoke-database-capability-result.v1\"},\"disposition\":{\"op\":\"path\",\"from\":\"disposition\",\"path\":\"\"},\"result\":{\"op\":\"path\",\"from\":\"result\",\"path\":\"\"}}}}}}",
+                          "MintProcedure":  "model.put_semantic_definition",
+                          "NormalizeProcedure":  "model.normalize_transformation_expression",
+                          "TypedRowSql":  "-- A5 typed row (declare-objective-invoke-outcome-shaping.commit.sql:131-153; fix-objective-shaping-expression.commit.sql:77-89).\nIF (SELECT MAX(d.semantic_object_definition_pk)\n    FROM model.estate_definition ed\n    JOIN model.semantic_object_definition d ON d.semantic_object_definition_pk=ed.semantic_object_definition_pk\n    WHERE ed.estate_model_pk=(SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1)\n      AND d.semantic_object_pk=@object) \u003c\u003e{definition_pk}\n THROW 51000,N\u0027OBJECTIVE_SHAPING_TRANSFORMATION_CONTENT_RETAINED\u0027,1;\nDECLARE @t_transformation_pk bigint,@t_version_pk bigint;\nSET @t_transformation_pk=(SELECT transformation_pk FROM model.transformation WHERE semantic_object_pk=@object);\nIF @t_transformation_pk IS NULL\nBEGIN\n INSERT model.transformation(namespace_pk,transformation_id,semantic_object_pk,object_kind)\n SELECT namespace_pk,{declared_id},@object,{object_kind}\n FROM model.semantic_object WHERE semantic_object_pk=@object;\n SET @t_transformation_pk=SCOPE_IDENTITY();\nEND\nSET @t_version_pk=(SELECT transformation_version_pk FROM model.transformation_version WHERE semantic_object_definition_pk={definition_pk});\nIF @t_version_pk IS NULL\nBEGIN\n INSERT model.transformation_version(transformation_pk,semantic_object_pk,semantic_object_definition_pk,definition_digest,\n  expression_profile,object_kind,_owner_definition_pk,_canonical_pointer)\n VALUES(@t_transformation_pk,@object,{definition_pk},{digest},\u0027json-expression-tree.v1\u0027,{object_kind},{definition_pk},N\u0027\u0027);\n SET @t_version_pk=SCOPE_IDENTITY();\nEND\nIF NOT EXISTS (SELECT 1 FROM model.transformation_version WHERE transformation_version_pk=@t_version_pk AND semantic_object_definition_pk={definition_pk})\n THROW 51000,N\u0027OBJECTIVE_SHAPING_TYPED_ROW_MISSING\u0027,1;\nSET @definition=@t_version_pk;",
+                          "VerificationRead":  "SELECT g.newest_selected_sod AS semantic_object_definition_pk,\n g.definition_digest_hex AS definition_digest,\n CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json,\n CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present,\n g.selected_generation_count\nFROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), {object_kind}, {declared_id}, {namespace_id}) g\nJOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk",
+                          "ExpectedBeforeDigest":  "f23d61daa878b292ea652ebe3fe0be52a8a05cb61aaf0cb0516a0a8260ec0109"
+                      }
+                  ],
+    "Repairs":  [
+                    {
+                        "Id":  "objective-invoke-outcome",
+                        "Diagnose":  [
+                                         {
+                                             "Entry":  "scenario_port_bindings",
+                                             "Arguments":  [
+                                                               "request-capability-from-objective",
+                                                               "request-capability-from-objective"
+                                                           ]
+                                         }
+                                     ],
+                        "Load":  [
+                                     {
+                                         "Entry":  "definition_generations",
+                                         "Arguments":  [
+                                                           "sidefx:capability:request-capability-from-objective",
+                                                           "TRANSFORMATION",
+                                                           "shape-objective-invocation-result"
+                                                       ]
+                                     }
+                                 ],
+                        "Document":  "shape-objective-invocation-result",
+                        "Operation":  "append-invoke-port",
+                        "Preserve":  "the seven existing operation links are carried to the new authority version unchanged (ordinal -\u003e port_version compared before/after)",
+                        "Assert":  "the invoked variant is declared (every declared outcome variant is produced by exactly one branch; the shaping step cannot emit an undeclared outcome); the graph digest delta is scoped to the capability",
+                        "AssertRead":  "WITH estate AS (\n  SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1\n),\nlive AS (\n  SELECT c.capability_id, s.scenario_id, cs.scenario_version_pk, se.execution_authority_version_pk\n  FROM model.capability c\n  JOIN model.identity_namespace n ON n.namespace_pk=c.namespace_pk\n  JOIN model.estate_capability ec ON ec.capability_pk=c.capability_pk AND ec.estate_model_pk=(SELECT estate_model_pk FROM estate)\n  JOIN model.capability_scenario cs ON cs.capability_version_pk=ec.capability_version_pk\n  JOIN model.scenario s ON s.scenario_pk=cs.scenario_pk\n  JOIN model.scenario_event se ON se.scenario_version_pk=cs.scenario_version_pk\n  WHERE n.namespace_id=N\u0027sidefx:capabilities\u0027\n    AND c.capability_id=N\u0027request-capability-from-objective\u0027 COLLATE Latin1_General_100_BIN2\n    AND s.scenario_id=N\u0027request-capability-from-objective\u0027 COLLATE Latin1_General_100_BIN2\n),\nops AS (\n  SELECT l.capability_id, l.scenario_id, l.scenario_version_pk, l.execution_authority_version_pk,\n    eo.ordinal, eo.operation_id, eo.operation_kind, p.port_id, opi.port_version_pk\n  FROM live l\n  JOIN model.execution_operation eo ON eo.execution_authority_version_pk=l.execution_authority_version_pk\n  LEFT JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk\n  LEFT JOIN model.port_version pv ON pv.port_version_pk=opi.port_version_pk\n  LEFT JOIN model.port p ON p.port_pk=pv.port_pk\n),\nshaping AS (\n  SELECT g.newest_selected_sod, g.definition_digest_hex, g.typed_version_pk\n  FROM analysis.fv_selected_definition((SELECT estate_model_pk FROM estate), \u0027TRANSFORMATION\u0027, N\u0027shape-objective-invocation-result\u0027, N\u0027sidefx:capability:request-capability-from-objective\u0027) g\n)\nSELECT o.capability_id, o.scenario_id, o.scenario_version_pk, o.execution_authority_version_pk AS authority_version_pk,\n  COUNT(*) AS operation_count,\n  COUNT(o.port_version_pk) AS link_count,\n  SUM(CASE WHEN o.ordinal \u003c 7 THEN 1 ELSE 0 END) AS preserved_link_count,\n  MAX(CASE WHEN o.operation_id=N\u0027request-capability-from-objective.shape\u0027 THEN o.ordinal END) AS shape_ordinal,\n  MAX(CASE WHEN o.ordinal=7 THEN o.operation_id END) AS shape_operation_id,\n  MAX(CASE WHEN o.ordinal=7 THEN o.port_id END) AS shape_port_id,\n  MAX(CASE WHEN o.ordinal=7 THEN o.port_version_pk END) AS shape_port_version_pk,\n  LOWER(CONVERT(varchar(64),HASHBYTES(\u0027SHA2_256\u0027,CONVERT(varbinary(max),\n    STRING_AGG(CONVERT(nvarchar(max),CONVERT(nvarchar(20),o.ordinal)+N\u0027|\u0027+ISNULL(o.operation_id,N\u0027\u0027)\n      +N\u0027|\u0027+o.operation_kind+N\u0027|\u0027+ISNULL(o.port_id,N\u0027\u0027)+N\u0027|\u0027+ISNULL(CONVERT(nvarchar(20),o.port_version_pk),N\u0027\u0027)),N\u0027;\u0027)\n    WITHIN GROUP (ORDER BY o.ordinal))),2)) AS operation_set_digest,\n  s.newest_selected_sod AS shaping_sod, s.definition_digest_hex AS shaping_digest_hex, s.typed_version_pk,\n  CONVERT(bit,CASE WHEN s.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present,\n  CONVERT(bit,CASE WHEN tv.definition_digest=sd.definition_digest THEN 1 ELSE 0 END) AS typed_digest_matches,\n  (SELECT COUNT(*) FROM model.transformation_root r WHERE r.transformation_version_pk=s.typed_version_pk) AS expression_root_count,\n  (SELECT COUNT(*) FROM model.transformation_expression_node nd WHERE nd.transformation_version_pk=s.typed_version_pk) AS expression_node_count,\n  (SELECT COUNT(*) FROM model.outcome_variant ov WHERE ov.scenario_version_pk=o.scenario_version_pk\n    AND (ov.variant_id=N\u0027ADMITTED\u0027 AND ov.classification=N\u0027success\u0027\n      OR ov.variant_id=N\u0027REFUSED\u0027 AND ov.classification=N\u0027failure\u0027\n      OR ov.variant_id=N\u0027PROVIDER_UNAVAILABLE\u0027 AND ov.classification=N\u0027failure\u0027)) AS declared_variants_matched,\n  (SELECT LOWER(CONVERT(varchar(64),HASHBYTES(\u0027SHA2_256\u0027,CONVERT(varbinary(max),g.graph_source)),2))\n    FROM analysis.capability_graph_source(N\u0027request-capability-from-objective\u0027,CONVERT(bit,0),NULL) g) AS graph_digest\nFROM ops o\nCROSS JOIN shaping s\nLEFT JOIN model.semantic_object_definition sd ON sd.semantic_object_definition_pk=s.newest_selected_sod\nLEFT JOIN model.transformation_version tv ON tv.transformation_version_pk=s.typed_version_pk\nGROUP BY o.capability_id, o.scenario_id, o.scenario_version_pk, o.execution_authority_version_pk,\n  s.newest_selected_sod, s.definition_digest_hex, s.typed_version_pk, sd.definition_digest, tv.definition_digest;",
+                        "OperationArguments":  [
+                                                   "request-capability-from-objective",
+                                                   "request-capability-from-objective.v1",
+                                                   "request-capability-from-objective.shape",
+                                                   "invoke-port",
+                                                   "shape-objective-invocation-result-port",
+                                                   "4863",
+                                                   "112923"
+                                               ]
+                    }
+                ],
+    "WriteScope":  {
+                       "Resource":  "sidefx:model-write",
+                       "LockMode":  "Exclusive",
+                       "LockTimeoutMs":  60000
+                   },
+    "Promotion":  {
+                      "DestinationDirectory":  "C:\\lab\\repos\\sfx-dal-promoted",
+                      "StampDigest":  true
+                  },
+    "Manifest":  {
+                     "Enabled":  true,
+                     "Path":  "catalog-manifest.v1.json"
+                 }
+}
