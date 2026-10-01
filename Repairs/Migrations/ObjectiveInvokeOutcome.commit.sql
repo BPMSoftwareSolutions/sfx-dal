@@ -4,7 +4,7 @@
 --     Declared writer operation: append-invoke-port
 --     Writer procedure: model.append_scenario_operation
 --     COMMIT DRAFT: calls the writer inside the guarded block and commits.
---     Replace every <placeholder> value before running.
+--     Instantiated: caller-bound values are declared; no placeholders remain.
 -- </auto-generated>
 --------------------------------------------------------------------------------
 SET NOCOUNT ON;
@@ -13,16 +13,16 @@ BEGIN TRANSACTION;
 DECLARE @lock int;
 EXEC @lock = sp_getapplock @Resource = N'sidefx:model-write', @LockMode = N'Exclusive', @LockOwner = N'Transaction', @LockTimeout = 60000;
 IF @lock < 0 THROW 51000, N'APPEND_INVOKE_PORT_LOCK_FAILED', 1;
--- Caller-bound parameters: replace every placeholder value before running.
-DECLARE @capability_id nvarchar(max) = N'<capability_id>';
-DECLARE @authority_id nvarchar(max) = N'<authority_id>';
-DECLARE @operation_id nvarchar(max) = N'<operation_id>';
-DECLARE @operation_kind nvarchar(max) = N'<operation_kind>';
-DECLARE @port_id nvarchar(max) = N'<port_id>';
-DECLARE @port_version_pk bigint = 0;
-DECLARE @expected_authority_version_pk bigint = 0;
--- Expected-token guard: replace every placeholder with the observed token value.
-DECLARE @expectedToken nvarchar(400) = N'<expected-token-authority_version_pk>';
+-- Caller-bound parameters: instantiated from declared operation arguments.
+DECLARE @capability_id nvarchar(max) = N'request-capability-from-objective';
+DECLARE @authority_id nvarchar(max) = N'request-capability-from-objective.v1';
+DECLARE @operation_id nvarchar(max) = N'request-capability-from-objective.shape';
+DECLARE @operation_kind nvarchar(max) = N'invoke-port';
+DECLARE @port_id nvarchar(max) = N'shape-objective-invocation-result-port';
+DECLARE @port_version_pk bigint = 4863;
+DECLARE @expected_authority_version_pk bigint = 112923;
+-- Expected-token guard: instantiated from the declared expected-token argument.
+DECLARE @expectedToken nvarchar(400) = @expected_authority_version_pk;
 DECLARE @currentToken nvarchar(400) = (SELECT TOP (1) CONVERT(nvarchar(400), [authority_version_pk]) FROM (SELECT TOP (1) av.execution_authority_version_pk AS authority_version_pk,(SELECT COUNT(*) FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS operation_count,(SELECT COUNT(*) FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS link_count FROM model.execution_authority_version av JOIN model.execution_authority ea ON ea.execution_authority_pk=av.execution_authority_pk WHERE ea.execution_authority_id=@authority_id COLLATE Latin1_General_100_BIN2 ORDER BY av.execution_authority_version_pk DESC) AS [_verify_read]);
 IF (@currentToken <> @expectedToken) THROW 51000, N'APPEND_INVOKE_PORT_EXPECTED_TOKEN_MISMATCH', 1;
 DECLARE @authority_version_pk bigint;

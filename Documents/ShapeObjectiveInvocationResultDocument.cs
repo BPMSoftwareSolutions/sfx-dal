@@ -25,6 +25,9 @@ namespace SFX.DAL.Documents
     /// must return at least the semantic_object_definition_pk and definition_digest columns.
     /// The declared typed row is emitted between the mint and the optional normalize as a
     /// declared write statement inside the guarded model write scope.
+    /// When an expected before-digest is declared, the configured verification read must
+    /// return a definition_digest column; DryRunAsync and ApplyAsync refuse to mint when
+    /// the installed digest is not null and differs from the declared value.
     /// </summary>
     public sealed partial class ShapeObjectiveInvocationResultDocument
     {
@@ -66,15 +69,12 @@ SET @definition=@t_version_pk;
 EXEC model.normalize_transformation_expression @definition;
 -- Verification read: the configured read must return at least
 -- semantic_object_definition_pk and definition_digest for the minted definition.
-SELECT g.newest_selected_sod AS semantic_object_definition_pk,
- g.definition_digest_hex AS definition_digest,
- CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json,
- CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present,
- g.selected_generation_count
-FROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), 'TRANSFORMATION', N'shape-objective-invocation-result', N'sidefx:capability:request-capability-from-objective') g
-JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk
+SELECT g.newest_selected_sod AS semantic_object_definition_pk, g.definition_digest AS definition_digest, g.definition_digest_hex AS definition_digest_hex, CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json, CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present, g.selected_generation_count FROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), 'TRANSFORMATION', N'shape-objective-invocation-result', N'sidefx:capability:request-capability-from-objective') g JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk
 
 ";
+        private const string ExpectedBeforeDigest = "f23d61daa878b292ea652ebe3fe0be52a8a05cb61aaf0cb0516a0a8260ec0109";
+
+        private const string BeforeDigestSql = @"SELECT g.newest_selected_sod AS semantic_object_definition_pk, g.definition_digest AS definition_digest, g.definition_digest_hex AS definition_digest_hex, CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json, CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present, g.selected_generation_count FROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), 'TRANSFORMATION', N'shape-objective-invocation-result', N'sidefx:capability:request-capability-from-objective') g JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk";
 
         /// <summary>
         /// Mints the document inside the guarded model write scope and rolls the transaction
@@ -86,6 +86,7 @@ JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk
             await using var scope = await ModelWriteScope.BeginAsync().ConfigureAwait(false);
             try
             {
+                await VerifyExpectedBeforeDigestAsync(scope).ConfigureAwait(false);
                 var result = await ExecuteMintAsync(scope).ConfigureAwait(false);
                 await scope.RollbackAsync().ConfigureAwait(false);
                 return result;
@@ -112,6 +113,7 @@ JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk
             DocumentMintResult result;
             try
             {
+                await VerifyExpectedBeforeDigestAsync(scope).ConfigureAwait(false);
                 result = await ExecuteMintAsync(scope).ConfigureAwait(false);
             }
             catch
@@ -157,6 +159,34 @@ JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk
                 TheNewestSelected = reader.FieldCount > 3 && reader.IsDBNull(3) == false && reader.GetBoolean(3),
                 SelectedGenerationCount = reader.FieldCount > 4 && reader.IsDBNull(4) == false ? reader.GetInt32(4) : 0
             };
+        }
+
+        private static async Task VerifyExpectedBeforeDigestAsync(ModelWriteScope scope)
+        {
+            using var command = new SqlCommand(BeforeDigestSql, scope.Connection, scope.Transaction);
+            command.CommandType = CommandType.Text;
+
+            using var reader = await command.ExecuteReaderAsync().ConfigureAwait(false);
+            if (await reader.ReadAsync().ConfigureAwait(false) == false)
+            {
+                return;
+            }
+
+            int digestOrdinal = reader.GetOrdinal("definition_digest");
+            byte[]? digest = reader.IsDBNull(digestOrdinal) ? null : (byte[])reader.GetValue(digestOrdinal);
+            if (digest == null)
+            {
+                return;
+            }
+
+            string observedDigest = Convert.ToHexString(digest).ToLowerInvariant();
+            if (string.Equals(observedDigest, ExpectedBeforeDigest, StringComparison.Ordinal) == false)
+            {
+                throw new ExpectedDigestMismatchException(
+                    "The document 'shape-objective-invocation-result' expects before-digest 'f23d61daa878b292ea652ebe3fe0be52a8a05cb61aaf0cb0516a0a8260ec0109' but observed '" + observedDigest + "'.",
+                    ExpectedBeforeDigest,
+                    observedDigest);
+            }
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:b3d460650c10f9840e9135d88008fcfa5001244bb910740949e94565381eaf88",
+  "catalogDigest": "sha256:32b71e380fb8f3e6f2c0854e1ea2773258ba6f1ae3681b89fdc003f4d6349b91",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+9eae71d70c7ad9356a94c836b43c1afd1519bd92",
@@ -10,6 +10,13 @@
   "encoding": "utf-8",
   "lineEndings": "lf",
   "artifacts": [
+    {
+      "path": "Documents/ExpectedDigestMismatchException.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f5fe9f4b05b7210775e25fc3acc96fac2838dd2eef74d454874a1f519ae3039c",
+      "bytes": 1801
+    },
     {
       "path": "Documents/ExpectedTokenMismatchException.cs",
       "kind": "csharp",
@@ -21,15 +28,15 @@
       "path": "Documents/Migrations/shape-objective-invocation-result.commit.sql",
       "kind": "sql",
       "operationId": null,
-      "sha256": "d30b07900ce1adb4241c5a73a5f3143a583cacd30dbe8aee543b8ef6ce63504f",
-      "bytes": 5765
+      "sha256": "3c637552630075d4839e46e4e7ae92638a30110e2736cc4c572990aa33f16d06",
+      "bytes": 7124
     },
     {
       "path": "Documents/Migrations/shape-objective-invocation-result.preflight.sql",
       "kind": "sql",
       "operationId": null,
-      "sha256": "30d8292c5ef07316c2b75fee8be361d9ebca189ccd45959f860ade84514afecd",
-      "bytes": 5756
+      "sha256": "521924769193dd233a816acb4d830a69ca6b7fa2b4099043be14ea583926535f",
+      "bytes": 7115
     },
     {
       "path": "Documents/ShapeObjectiveInvocationResultDocument.Custom.cs",
@@ -42,8 +49,8 @@
       "path": "Documents/ShapeObjectiveInvocationResultDocument.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "af1b43755e7f029734d41cef7f837e470e4163eb3af3bbdf833dd13b0561569e",
-      "bytes": 11505
+      "sha256": "aa83c3ab3dbfc40c0443a394db658703e35e9dc2eab74247e026dec663d3c642",
+      "bytes": 14174
     },
     {
       "path": "Functions/Interfaces/IAnalysisCapabilityDeclaredTransitionsRepository.Custom.cs",
@@ -5929,8 +5936,22 @@
       "path": "Operations/AppendInvokePortOperation.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "0e915ae28ef3e49e247bcf8ca656a8e4d3ea68d7eabbaef6b68a5834b3eb15b0",
-      "bytes": 8909
+      "sha256": "110af01a4d35755da7f4fa66be07e2e86597febaf2735de31826fbf78f78019c",
+      "bytes": 10122
+    },
+    {
+      "path": "Operations/BindProviderOperation.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f369ef750ca6bf73a75a7c9d62b37297821a26f56799a83bac50b8fa846da2e1",
+      "bytes": 194
+    },
+    {
+      "path": "Operations/BindProviderOperation.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d3f134bb4f745e331872d1075c84705d5ca4b63c42eb84e2875744614f4d30cc",
+      "bytes": 8656
     },
     {
       "path": "Operations/ExpectedTokenMismatchException.cs",
@@ -5943,15 +5964,29 @@
       "path": "Operations/Migrations/append-invoke-port.commit.sql",
       "kind": "sql",
       "operationId": null,
-      "sha256": "76223e609d7ed70fbe76f08d7e4507cc67d637077217019ef42c4e7a47e4a000",
-      "bytes": 4077
+      "sha256": "a2b1d30d7b0e42c396f1af5f717dd9479179e071d1cbc614a461f48de0b0e5ff",
+      "bytes": 4578
     },
     {
       "path": "Operations/Migrations/append-invoke-port.preflight.sql",
       "kind": "sql",
       "operationId": null,
-      "sha256": "f4b3f88272bb7bfe102bf35b292486f31b7c9df760bcd3f8f3a2498ac6c48e08",
-      "bytes": 4091
+      "sha256": "2dc7b1a8cd9278fae7cc47129972919fc866a5befcf8b7b27599e9138f7cc19b",
+      "bytes": 4592
+    },
+    {
+      "path": "Operations/Migrations/bind-provider.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "a1e4a7d43ca818d80aa27ec80a51fab6e4fe1d0e6e2656426aae48f074c9d506",
+      "bytes": 2934
+    },
+    {
+      "path": "Operations/Migrations/bind-provider.preflight.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "b962adb7498258a86badf487c0f5477671eb18690c8b23333f6342599f6aef66",
+      "bytes": 2948
     },
     {
       "path": "Operations/OperationResult.cs",
@@ -5959,6 +5994,20 @@
       "operationId": null,
       "sha256": "4caa38f9cb444415379cd1b55f1d66c5526d1d0d62d4481ba8a01fdf4ba2f6dc",
       "bytes": 1787
+    },
+    {
+      "path": "Repairs/Migrations/ObjectiveInvokeOutcome.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "1c5fd47a4f857c0f600192b352c1c52bd0e86d65c3d16b30804a2202cb43a640",
+      "bytes": 4686
+    },
+    {
+      "path": "Repairs/Migrations/ObjectiveInvokeOutcome.preflight.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "a330472c877d6c6cee64a5501d8cd6f559128b02b644116595791c8e32542878",
+      "bytes": 4700
     },
     {
       "path": "Repairs/ObjectiveInvokeOutcome.assert.sql",
@@ -8010,6 +8059,20 @@
       "operationId": null,
       "sha256": "d2c9e56bf3257fe790ab9b4991371746e2842d74ac7d2c2292ee8b64e7819a70",
       "bytes": 23552
+    },
+    {
+      "path": "Rows/Migrations/provider-identity.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "08ee6d790af8bb4e339b882e24d6dde8d6ea1606c95265a9e714853d3b66c2ab",
+      "bytes": 845
+    },
+    {
+      "path": "Rows/Migrations/provider-identity.preflight.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "cfc03f5da3cc0b2d1a76a1b4b8107642c597c76d0c44233d98007be73275a5ad",
+      "bytes": 847
     },
     {
       "path": "Views/Interfaces/IVCapabilityExecutionDeclarationRepository.Custom.cs",

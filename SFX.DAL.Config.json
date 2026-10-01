@@ -868,7 +868,54 @@
                            "ExpectedTokens":  [
                                                   "authority_version_pk"
                                               ],
-                           "VerifyRead":  "SELECT TOP (1) av.execution_authority_version_pk AS authority_version_pk,(SELECT COUNT(*) FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS operation_count,(SELECT COUNT(*) FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS link_count FROM model.execution_authority_version av ORDER BY av.execution_authority_version_pk DESC",
+                           "VerifyRead":  "SELECT TOP (1) av.execution_authority_version_pk AS authority_version_pk,(SELECT COUNT(*) FROM model.execution_operation eo WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS operation_count,(SELECT COUNT(*) FROM model.execution_operation eo JOIN model.operation_port_invocation opi ON opi.execution_operation_pk=eo.execution_operation_pk WHERE eo.execution_authority_version_pk=av.execution_authority_version_pk) AS link_count FROM model.execution_authority_version av JOIN model.execution_authority ea ON ea.execution_authority_pk=av.execution_authority_pk WHERE ea.execution_authority_id=@authority_id COLLATE Latin1_General_100_BIN2 ORDER BY av.execution_authority_version_pk DESC",
+                           "EmitMigrationPair":  true
+                       },
+                       {
+                           "Id":  "bind-provider",
+                           "Kind":  "WriterCall",
+                           "Procedure":  "model.bind_provider",
+                           "Parameters":  [
+                                              {
+                                                  "Name":  "capability_id",
+                                                  "Type":  "nvarchar(120)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "mechanic_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "provider_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  true
+                                              },
+                                              {
+                                                  "Name":  "platform_capability_id",
+                                                  "Type":  "nvarchar(400)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  false
+                                              },
+                                              {
+                                                  "Name":  "configuration_json",
+                                                  "Type":  "nvarchar(max)",
+                                                  "Direction":  "Input",
+                                                  "Bind":  "caller",
+                                                  "Required":  false
+                                              }
+                                          ],
+                           "ExpectedTokens":  [
+                                                  "port_version_pk"
+                                              ],
+                           "VerifyRead":  "SELECT TOP (1) pv.port_version_pk AS port_version_pk, p.port_id AS port_id, n.namespace_id AS namespace_id FROM model.port p JOIN model.identity_namespace n ON n.namespace_pk=p.namespace_pk JOIN model.port_version pv ON pv.port_pk=p.port_pk ORDER BY pv.port_version_pk DESC",
                            "EmitMigrationPair":  true
                        }
                    ],
@@ -882,7 +929,7 @@
                           "MintProcedure":  "model.put_semantic_definition",
                           "NormalizeProcedure":  "model.normalize_transformation_expression",
                           "TypedRowSql":  "-- A5 typed row (declare-objective-invoke-outcome-shaping.commit.sql:131-153; fix-objective-shaping-expression.commit.sql:77-89).\nIF (SELECT MAX(d.semantic_object_definition_pk)\n    FROM model.estate_definition ed\n    JOIN model.semantic_object_definition d ON d.semantic_object_definition_pk=ed.semantic_object_definition_pk\n    WHERE ed.estate_model_pk=(SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1)\n      AND d.semantic_object_pk=@object) \u003c\u003e{definition_pk}\n THROW 51000,N\u0027OBJECTIVE_SHAPING_TRANSFORMATION_CONTENT_RETAINED\u0027,1;\nDECLARE @t_transformation_pk bigint,@t_version_pk bigint;\nSET @t_transformation_pk=(SELECT transformation_pk FROM model.transformation WHERE semantic_object_pk=@object);\nIF @t_transformation_pk IS NULL\nBEGIN\n INSERT model.transformation(namespace_pk,transformation_id,semantic_object_pk,object_kind)\n SELECT namespace_pk,{declared_id},@object,{object_kind}\n FROM model.semantic_object WHERE semantic_object_pk=@object;\n SET @t_transformation_pk=SCOPE_IDENTITY();\nEND\nSET @t_version_pk=(SELECT transformation_version_pk FROM model.transformation_version WHERE semantic_object_definition_pk={definition_pk});\nIF @t_version_pk IS NULL\nBEGIN\n INSERT model.transformation_version(transformation_pk,semantic_object_pk,semantic_object_definition_pk,definition_digest,\n  expression_profile,object_kind,_owner_definition_pk,_canonical_pointer)\n VALUES(@t_transformation_pk,@object,{definition_pk},{digest},\u0027json-expression-tree.v1\u0027,{object_kind},{definition_pk},N\u0027\u0027);\n SET @t_version_pk=SCOPE_IDENTITY();\nEND\nIF NOT EXISTS (SELECT 1 FROM model.transformation_version WHERE transformation_version_pk=@t_version_pk AND semantic_object_definition_pk={definition_pk})\n THROW 51000,N\u0027OBJECTIVE_SHAPING_TYPED_ROW_MISSING\u0027,1;\nSET @definition=@t_version_pk;",
-                          "VerificationRead":  "SELECT g.newest_selected_sod AS semantic_object_definition_pk,\n g.definition_digest_hex AS definition_digest,\n CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json,\n CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present,\n g.selected_generation_count\nFROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), {object_kind}, {declared_id}, {namespace_id}) g\nJOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk",
+                          "VerificationRead":  "SELECT g.newest_selected_sod AS semantic_object_definition_pk, g.definition_digest AS definition_digest, g.definition_digest_hex AS definition_digest_hex, CONVERT(nvarchar(max),CONVERT(varchar(max),co.content_bytes) COLLATE Latin1_General_100_BIN2_UTF8) AS definition_json, CONVERT(bit,CASE WHEN g.typed_version_pk IS NULL THEN 0 ELSE 1 END) AS typed_row_present, g.selected_generation_count FROM analysis.fv_selected_definition((SELECT estate_model_pk FROM source.current_model WHERE singleton_id=1), {object_kind}, {declared_id}, {namespace_id}) g JOIN source.content_object co ON co.content_object_pk=g.canonical_content_pk",
                           "ExpectedBeforeDigest":  "f23d61daa878b292ea652ebe3fe0be52a8a05cb61aaf0cb0516a0a8260ec0109"
                       }
                   ],
@@ -936,5 +983,27 @@
     "Manifest":  {
                      "Enabled":  true,
                      "Path":  "catalog-manifest.v1.json"
+                 },
+    "Rows":  [
+                 {
+                     "Id":  "provider-identity",
+                     "Schema":  "model",
+                     "Table":  "provider",
+                     "Columns":  [
+                                     "namespace_pk",
+                                     "provider_id",
+                                     "semantic_object_pk",
+                                     "object_kind"
+                                 ],
+                     "Values":  [
+                                    [
+                                        "3778",
+                                        "N\u0027ScenarioKernel.NodePlatform\u0027",
+                                        "8756",
+                                        "N\u0027PROVIDER\u0027"
+                                    ]
+                                ],
+                     "Conflict":  "ignore"
                  }
+             ]
 }
