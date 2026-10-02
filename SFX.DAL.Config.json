@@ -269,6 +269,10 @@
                       {
                           "Schema":  "probe",
                           "Name":  "tool_registry"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_capability_topology_conformance"
                       }
                   ],
     "SchemaReaderConfig":  {
@@ -1005,5 +1009,295 @@
                                 ],
                      "Conflict":  "ignore"
                  }
-             ]
+             ],
+    "Procedures":  [
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_inspection"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_operations"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_deck_observation_map"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_definition_body"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_live_scenario_circuit"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_bindings"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_details"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_ports"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "render_integrated_scenario_circuit"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "add_example"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "add_mechanic"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "add_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "append_scenario_operation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "apply_blueprint_finding_repair"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "assert_capability_topology_conformance"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "author_capability_meaning"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "bind_port_from_contract"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "bind_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "bind_provider_port"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "clone_port_pipeline_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "configure_contract"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "configure_interface"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "configure_mechanic"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "configure_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_blueprint_finding_repair"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_capability_document"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_capability_envelope"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_capability_feature"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_capability_interface"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_contract"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_estate_pattern_correspondence"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_estate_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_port_overlay_rule"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_mechanic"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_port"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_scenario"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_scenario_from_contract"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "inspect_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_capability_authoring_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_contract_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_execution_authority_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_feature_binding_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_model_placement_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_provider_binding_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_scenario_authoring_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_scenario_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_transformation_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "normalize_transformation_expression"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "put_semantic_definition"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "reconcile_scenario_variants"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "record_alignment_evaluation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "record_candidate_decision"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "record_proof_receipt"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "record_repair_receipt"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "register_capability_candidate"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_capability_scenario"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_mechanic"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_scenario_circuit_residue"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_scenario_operations"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "repair_binding_path_compatibility"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "replace_port_configuration"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "repoint_capability_feature"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "retire_model_placement"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "revise_transformation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "scaffold_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "scaffold_capability_backed_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "scaffold_composed_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "scaffold_estate_provider_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "set_definition_label"
+                       },
+                       {
+                           "Schema":  "source",
+                           "Name":  "publish_model"
+                       },
+                       {
+                           "Schema":  "source",
+                           "Name":  "validate_canonical_features"
+                       },
+                       {
+                           "Schema":  "source",
+                           "Name":  "validate_model"
+                       }
+                   ]
 }
