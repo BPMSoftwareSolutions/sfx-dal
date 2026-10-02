@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelAddMechanicRepository
     {
-        ProcedureCallResult<object?> Execute(string capabilityId, string mechanicId, string mode, string argumentsJson, string outputField, int position);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string mechanicId, string mode, string argumentsJson, string outputField, int position);
+        ProcedureCallResult<object?> Execute(string capabilityId, string mechanicId, string? mode, string? argumentsJson, string outputField, int? position = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string mechanicId, string? mode, string? argumentsJson, string outputField, int? position = null);
     }
 }

@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadDefinitionBody>> ExecuteAsync(string objectKind, string declaredId, long estateModelPk, string path, int topN, int maxDepth)
+        public async Task<ProcedureCallResult<AnalysisReadDefinitionBody>> ExecuteAsync(string objectKind, string declaredId, long? estateModelPk = null, string? path = null, int? topN = null, int? maxDepth = null)
         {
             var entities = new List<AnalysisReadDefinitionBody>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -41,29 +41,47 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@object_kind", objectKind ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@declared_id", declaredId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@path", path ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@top_n", topN);
-                    command.Parameters.AddWithValue("@max_depth", maxDepth);
+                    command.Parameters.AddWithValue("@top_n", topN ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@max_depth", maxDepth ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadDefinitionBody(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadDefinitionBody(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadDefinitionBody>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -74,10 +92,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadDefinitionBody> Execute(string objectKind, string declaredId, long estateModelPk, string path, int topN, int maxDepth)
+        public ProcedureCallResult<AnalysisReadDefinitionBody> Execute(string objectKind, string declaredId, long? estateModelPk = null, string? path = null, int? topN = null, int? maxDepth = null)
         {
             var entities = new List<AnalysisReadDefinitionBody>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -86,29 +104,47 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@object_kind", objectKind ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@declared_id", declaredId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@path", path ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@top_n", topN);
-                    command.Parameters.AddWithValue("@max_depth", maxDepth);
+                    command.Parameters.AddWithValue("@top_n", topN ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@max_depth", maxDepth ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadDefinitionBody(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadDefinitionBody(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadDefinitionBody>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -119,17 +155,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadDefinitionBody MapReaderToAnalysisReadDefinitionBody(SqlDataReader reader)
+        public AnalysisReadDefinitionBody MapRowToAnalysisReadDefinitionBody(DataRow row)
         {
             return new AnalysisReadDefinitionBody
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
-                NamespaceId = reader.GetString(reader.GetOrdinal("namespace_id")),
-                DeclaredId = reader.GetString(reader.GetOrdinal("declared_id")),
-                SemanticObjectDefinitionPk = reader.GetInt64(reader.GetOrdinal("semantic_object_definition_pk")),
-                ByteLength = reader.GetInt64(reader.GetOrdinal("byte_length")),
-                Chars = reader.IsDBNull(reader.GetOrdinal("chars")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("chars"))
+                ResultSet = (string)row["result_set"],
+                ObjectKind = (string)row["object_kind"],
+                NamespaceId = (string)row["namespace_id"],
+                DeclaredId = (string)row["declared_id"],
+                SemanticObjectDefinitionPk = (long)row["semantic_object_definition_pk"],
+                ByteLength = (long)row["byte_length"],
+                Chars = row.IsNull("chars") ? (long?)null : (long)row["chars"]
             };
         }
         

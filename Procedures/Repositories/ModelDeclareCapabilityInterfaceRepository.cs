@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelDeclareCapabilityInterface>> ExecuteAsync(string capabilityId, string cliJson, string inputType, string inputContract, string inputPath, string displaySelect, string displayAs)
+        public async Task<ProcedureCallResult<ModelDeclareCapabilityInterface>> ExecuteAsync(string capabilityId, string? cliJson = null, string? inputType = null, string? inputContract = null, string? inputPath = null, string? displaySelect = null, string? displayAs = null)
         {
             var entities = new List<ModelDeclareCapabilityInterface>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -50,21 +50,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareCapabilityInterface(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareCapabilityInterface(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityInterface>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -75,10 +93,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelDeclareCapabilityInterface> Execute(string capabilityId, string cliJson, string inputType, string inputContract, string inputPath, string displaySelect, string displayAs)
+        public ProcedureCallResult<ModelDeclareCapabilityInterface> Execute(string capabilityId, string? cliJson = null, string? inputType = null, string? inputContract = null, string? inputPath = null, string? displaySelect = null, string? displayAs = null)
         {
             var entities = new List<ModelDeclareCapabilityInterface>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -96,21 +114,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareCapabilityInterface(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareCapabilityInterface(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityInterface>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -121,15 +157,15 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelDeclareCapabilityInterface MapReaderToModelDeclareCapabilityInterface(SqlDataReader reader)
+        public ModelDeclareCapabilityInterface MapRowToModelDeclareCapabilityInterface(DataRow row)
         {
             return new ModelDeclareCapabilityInterface
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                VersionPk = reader.IsDBNull(reader.GetOrdinal("version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("version_pk")),
-                DefinitionPk = reader.IsDBNull(reader.GetOrdinal("definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_pk")),
-                Digest = reader.IsDBNull(reader.GetOrdinal("digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("digest"))
+                Action = (string)row["action"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                VersionPk = row.IsNull("version_pk") ? (long?)null : (long)row["version_pk"],
+                DefinitionPk = row.IsNull("definition_pk") ? (long?)null : (long)row["definition_pk"],
+                Digest = row.IsNull("digest") ? (string?)null : (string)row["digest"]
             };
         }
         

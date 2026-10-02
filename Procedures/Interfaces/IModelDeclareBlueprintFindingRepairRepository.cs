@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareBlueprintFindingRepairRepository
     {
-        ProcedureCallResult<object?> Execute(string findingCode, string repairProcedure, string parameterContract, string requiredParameters, string disposition, string nextUnit, string parameterDefaults, string findingSource);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string findingCode, string repairProcedure, string parameterContract, string requiredParameters, string disposition, string nextUnit, string parameterDefaults, string findingSource);
+        ProcedureCallResult<object?> Execute(string findingCode, string? repairProcedure = null, string? parameterContract = null, string? requiredParameters = null, string? disposition = null, string? nextUnit = null, string? parameterDefaults = null, string? findingSource = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string findingCode, string? repairProcedure = null, string? parameterContract = null, string? requiredParameters = null, string? disposition = null, string? nextUnit = null, string? parameterDefaults = null, string? findingSource = null);
     }
 }

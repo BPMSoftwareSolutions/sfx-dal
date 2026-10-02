@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelReplacePortConfiguration>> ExecuteAsync(string @namespace, string port, string configurationJson)
         {
             var entities = new List<ModelReplacePortConfiguration>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -46,21 +46,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelReplacePortConfiguration(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelReplacePortConfiguration(row));
                         }
                     }
                     return new ProcedureCallResult<ModelReplacePortConfiguration>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -74,7 +92,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelReplacePortConfiguration> Execute(string @namespace, string port, string configurationJson)
         {
             var entities = new List<ModelReplacePortConfiguration>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -88,21 +106,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelReplacePortConfiguration(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelReplacePortConfiguration(row));
                         }
                     }
                     return new ProcedureCallResult<ModelReplacePortConfiguration>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -113,12 +149,12 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelReplacePortConfiguration MapReaderToModelReplacePortConfiguration(SqlDataReader reader)
+        public ModelReplacePortConfiguration MapRowToModelReplacePortConfiguration(DataRow row)
         {
             return new ModelReplacePortConfiguration
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                PortId = reader.IsDBNull(reader.GetOrdinal("port_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("port_id"))
+                ResultSet = (string)row["result_set"],
+                PortId = row.IsNull("port_id") ? (string?)null : (string)row["port_id"]
             };
         }
         

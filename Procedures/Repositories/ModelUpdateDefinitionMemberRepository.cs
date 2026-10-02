@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelUpdateDefinitionMember>> ExecuteAsync(string @namespace, string declaredId, string jsonPath, string valueJson, string expectedDefinitionDigest)
+        public async Task<ProcedureCallResult<ModelUpdateDefinitionMember>> ExecuteAsync(string @namespace, string declaredId, string jsonPath, string valueJson, string? expectedDefinitionDigest = null)
         {
             var entities = new List<ModelUpdateDefinitionMember>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,21 +48,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelUpdateDefinitionMember(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelUpdateDefinitionMember(row));
                         }
                     }
                     return new ProcedureCallResult<ModelUpdateDefinitionMember>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelUpdateDefinitionMember> Execute(string @namespace, string declaredId, string jsonPath, string valueJson, string expectedDefinitionDigest)
+        public ProcedureCallResult<ModelUpdateDefinitionMember> Execute(string @namespace, string declaredId, string jsonPath, string valueJson, string? expectedDefinitionDigest = null)
         {
             var entities = new List<ModelUpdateDefinitionMember>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -92,21 +110,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelUpdateDefinitionMember(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelUpdateDefinitionMember(row));
                         }
                     }
                     return new ProcedureCallResult<ModelUpdateDefinitionMember>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,18 +153,18 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelUpdateDefinitionMember MapReaderToModelUpdateDefinitionMember(SqlDataReader reader)
+        public ModelUpdateDefinitionMember MapRowToModelUpdateDefinitionMember(DataRow row)
         {
             return new ModelUpdateDefinitionMember
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                NamespaceId = reader.IsDBNull(reader.GetOrdinal("namespace_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("namespace_id")),
-                DeclaredId = reader.IsDBNull(reader.GetOrdinal("declared_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("declared_id")),
-                ObjectKind = reader.IsDBNull(reader.GetOrdinal("object_kind")) ? (string?)null : reader.GetString(reader.GetOrdinal("object_kind")),
-                JsonPath = reader.IsDBNull(reader.GetOrdinal("json_path")) ? (string?)null : reader.GetString(reader.GetOrdinal("json_path")),
-                BeforeDigest = reader.IsDBNull(reader.GetOrdinal("before_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("before_digest")),
-                AfterDigest = reader.IsDBNull(reader.GetOrdinal("after_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("after_digest")),
-                Action = reader.GetString(reader.GetOrdinal("action"))
+                ResultSet = (string)row["result_set"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                DeclaredId = row.IsNull("declared_id") ? (string?)null : (string)row["declared_id"],
+                ObjectKind = row.IsNull("object_kind") ? (string?)null : (string)row["object_kind"],
+                JsonPath = row.IsNull("json_path") ? (string?)null : (string)row["json_path"],
+                BeforeDigest = row.IsNull("before_digest") ? (string?)null : (string)row["before_digest"],
+                AfterDigest = row.IsNull("after_digest") ? (string?)null : (string)row["after_digest"],
+                Action = (string)row["action"]
             };
         }
         

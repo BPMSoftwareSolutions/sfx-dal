@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRemovePortProviderReferenceRepository
     {
-        ProcedureCallResult<object?> Execute(long portVersionPk, string expectedDefinitionDigest);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(long portVersionPk, string expectedDefinitionDigest);
+        ProcedureCallResult<object?> Execute(long portVersionPk, string? expectedDefinitionDigest = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(long portVersionPk, string? expectedDefinitionDigest = null);
     }
 }

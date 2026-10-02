@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelAddProviderRepository
     {
-        ProcedureCallResult<object?> Execute(string providerId, string name, string capabilitiesJson, string operationsJson, string configurationJson, string onExists);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, string name, string capabilitiesJson, string operationsJson, string configurationJson, string onExists);
+        ProcedureCallResult<object?> Execute(string providerId, string? name = null, string? capabilitiesJson = null, string? operationsJson = null, string? configurationJson = null, string? onExists = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, string? name = null, string? capabilitiesJson = null, string? operationsJson = null, string? configurationJson = null, string? onExists = null);
     }
 }

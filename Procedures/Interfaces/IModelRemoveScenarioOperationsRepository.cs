@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRemoveScenarioOperationsRepository
     {
-        ProcedureCallResult<ModelRemoveScenarioOperations> Execute(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings);
-        Task<ProcedureCallResult<ModelRemoveScenarioOperations>> ExecuteAsync(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings);
+        ProcedureCallResult<ModelRemoveScenarioOperations> Execute(string capabilityId, string scenario, string? operationIds = null, bool? removeUninvokedBindings = null);
+        Task<ProcedureCallResult<ModelRemoveScenarioOperations>> ExecuteAsync(string capabilityId, string scenario, string? operationIds = null, bool? removeUninvokedBindings = null);
     }
 }

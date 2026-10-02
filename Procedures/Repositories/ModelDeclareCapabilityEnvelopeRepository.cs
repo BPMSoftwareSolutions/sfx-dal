@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelDeclareCapabilityEnvelope>> ExecuteAsync(string capabilityId, string semantics, long expectedDefinitionPk)
+        public async Task<ProcedureCallResult<ModelDeclareCapabilityEnvelope>> ExecuteAsync(string capabilityId, string semantics, long? expectedDefinitionPk = null)
         {
             var entities = new List<ModelDeclareCapabilityEnvelope>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -41,26 +41,44 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@semantics", semantics ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk);
+                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareCapabilityEnvelope(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareCapabilityEnvelope(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityEnvelope>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -71,10 +89,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelDeclareCapabilityEnvelope> Execute(string capabilityId, string semantics, long expectedDefinitionPk)
+        public ProcedureCallResult<ModelDeclareCapabilityEnvelope> Execute(string capabilityId, string semantics, long? expectedDefinitionPk = null)
         {
             var entities = new List<ModelDeclareCapabilityEnvelope>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -83,26 +101,44 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@semantics", semantics ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk);
+                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareCapabilityEnvelope(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareCapabilityEnvelope(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityEnvelope>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -113,15 +149,15 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelDeclareCapabilityEnvelope MapReaderToModelDeclareCapabilityEnvelope(SqlDataReader reader)
+        public ModelDeclareCapabilityEnvelope MapRowToModelDeclareCapabilityEnvelope(DataRow row)
         {
             return new ModelDeclareCapabilityEnvelope
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                VersionPk = reader.IsDBNull(reader.GetOrdinal("version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("version_pk")),
-                DefinitionPk = reader.IsDBNull(reader.GetOrdinal("definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_pk")),
-                Digest = reader.IsDBNull(reader.GetOrdinal("digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("digest"))
+                Action = (string)row["action"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                VersionPk = row.IsNull("version_pk") ? (long?)null : (long)row["version_pk"],
+                DefinitionPk = row.IsNull("definition_pk") ? (long?)null : (long)row["definition_pk"],
+                Digest = row.IsNull("digest") ? (string?)null : (string)row["digest"]
             };
         }
         

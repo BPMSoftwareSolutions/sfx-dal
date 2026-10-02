@@ -29,38 +29,56 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadProviderConformanceSignal>> ExecuteAsync(long estateModelPk, string expectedSignalDigest, bool failOnMismatch)
+        public async Task<ProcedureCallResult<AnalysisReadProviderConformanceSignal>> ExecuteAsync(long? estateModelPk = null, string? expectedSignalDigest = null, bool? failOnMismatch = null)
         {
             var entities = new List<AnalysisReadProviderConformanceSignal>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand("[analysis].[read_provider_conformance_signal]", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_signal_digest", expectedSignalDigest ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@fail_on_mismatch", failOnMismatch);
+                    command.Parameters.AddWithValue("@fail_on_mismatch", failOnMismatch ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderConformanceSignal(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadProviderConformanceSignal(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadProviderConformanceSignal>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -71,38 +89,56 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadProviderConformanceSignal> Execute(long estateModelPk, string expectedSignalDigest, bool failOnMismatch)
+        public ProcedureCallResult<AnalysisReadProviderConformanceSignal> Execute(long? estateModelPk = null, string? expectedSignalDigest = null, bool? failOnMismatch = null)
         {
             var entities = new List<AnalysisReadProviderConformanceSignal>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand("[analysis].[read_provider_conformance_signal]", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_signal_digest", expectedSignalDigest ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@fail_on_mismatch", failOnMismatch);
+                    command.Parameters.AddWithValue("@fail_on_mismatch", failOnMismatch ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderConformanceSignal(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadProviderConformanceSignal(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadProviderConformanceSignal>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -113,39 +149,39 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadProviderConformanceSignal MapReaderToAnalysisReadProviderConformanceSignal(SqlDataReader reader)
+        public AnalysisReadProviderConformanceSignal MapRowToAnalysisReadProviderConformanceSignal(DataRow row)
         {
             return new AnalysisReadProviderConformanceSignal
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                EstateModelPk = reader.IsDBNull(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                ReferencedPairs = reader.IsDBNull(reader.GetOrdinal("referenced_pairs")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("referenced_pairs")),
-                ReferencedProviders = reader.IsDBNull(reader.GetOrdinal("referenced_providers")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("referenced_providers")),
-                AuthorityOnlyPairs = reader.IsDBNull(reader.GetOrdinal("authority_only_pairs")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("authority_only_pairs")),
-                UndeclaredPairs = reader.IsDBNull(reader.GetOrdinal("undeclared_pairs")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("undeclared_pairs")),
-                AuthorityEntries = reader.IsDBNull(reader.GetOrdinal("authority_entries")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("authority_entries")),
-                RelationBindingResolved = reader.IsDBNull(reader.GetOrdinal("relation_binding_resolved")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("relation_binding_resolved")),
-                EvidenceBindingNamedByTransformation = reader.IsDBNull(reader.GetOrdinal("evidence_binding_named_by_transformation")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("evidence_binding_named_by_transformation")),
-                RelationEndpointResolved = reader.IsDBNull(reader.GetOrdinal("relation_endpoint_resolved")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("relation_endpoint_resolved")),
-                EvidenceEndpointInPort = reader.IsDBNull(reader.GetOrdinal("evidence_endpoint_in_port")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("evidence_endpoint_in_port")),
-                ApplicationRefEntries = reader.IsDBNull(reader.GetOrdinal("application_ref_entries")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("application_ref_entries")),
-                RelationApplicationResolved = reader.IsDBNull(reader.GetOrdinal("relation_application_resolved")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("relation_application_resolved")),
-                EvidenceApplicationSelected = reader.IsDBNull(reader.GetOrdinal("evidence_application_selected")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("evidence_application_selected")),
-                BindingCheckPortSelfSatisfied = reader.IsDBNull(reader.GetOrdinal("binding_check_port_self_satisfied")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("binding_check_port_self_satisfied")),
-                RelationEvidenceDisagreements = reader.IsDBNull(reader.GetOrdinal("relation_evidence_disagreements")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("relation_evidence_disagreements")),
-                ProvidersNoPciNoRole = reader.IsDBNull(reader.GetOrdinal("providers_no_pci_no_role")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("providers_no_pci_no_role")),
-                OverlayPresenceWithoutContent = reader.IsDBNull(reader.GetOrdinal("overlay_presence_without_content")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("overlay_presence_without_content")),
-                ConfigRefsWithoutParticipation = reader.IsDBNull(reader.GetOrdinal("config_refs_without_participation")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("config_refs_without_participation")),
-                GateProviderRoleViolations = reader.IsDBNull(reader.GetOrdinal("gate_provider_role_violations")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("gate_provider_role_violations")),
-                GateProviderViolations = reader.IsDBNull(reader.GetOrdinal("gate_provider_violations")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("gate_provider_violations")),
-                CatalogEntries = reader.IsDBNull(reader.GetOrdinal("catalog_entries")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("catalog_entries")),
-                CatalogBodyDrift = reader.IsDBNull(reader.GetOrdinal("catalog_body_drift")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("catalog_body_drift")),
-                RelationBodySha256 = reader.IsDBNull(reader.GetOrdinal("relation_body_sha256")) ? (string?)null : reader.GetString(reader.GetOrdinal("relation_body_sha256")),
-                GateBodySha256 = reader.IsDBNull(reader.GetOrdinal("gate_body_sha256")) ? (string?)null : reader.GetString(reader.GetOrdinal("gate_body_sha256")),
-                ProfileDefinitionDigest = reader.IsDBNull(reader.GetOrdinal("profile_definition_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("profile_definition_digest")),
-                SignalDigest = reader.IsDBNull(reader.GetOrdinal("signal_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("signal_digest")),
-                ExpectedSignalDigest = reader.IsDBNull(reader.GetOrdinal("expected_signal_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("expected_signal_digest")),
-                Disposition = reader.IsDBNull(reader.GetOrdinal("disposition")) ? (string?)null : reader.GetString(reader.GetOrdinal("disposition"))
+                ResultSet = (string)row["result_set"],
+                EstateModelPk = row.IsNull("estate_model_pk") ? (long?)null : (long)row["estate_model_pk"],
+                ReferencedPairs = row.IsNull("referenced_pairs") ? (long?)null : (long)row["referenced_pairs"],
+                ReferencedProviders = row.IsNull("referenced_providers") ? (long?)null : (long)row["referenced_providers"],
+                AuthorityOnlyPairs = row.IsNull("authority_only_pairs") ? (long?)null : (long)row["authority_only_pairs"],
+                UndeclaredPairs = row.IsNull("undeclared_pairs") ? (long?)null : (long)row["undeclared_pairs"],
+                AuthorityEntries = row.IsNull("authority_entries") ? (long?)null : (long)row["authority_entries"],
+                RelationBindingResolved = row.IsNull("relation_binding_resolved") ? (long?)null : (long)row["relation_binding_resolved"],
+                EvidenceBindingNamedByTransformation = row.IsNull("evidence_binding_named_by_transformation") ? (long?)null : (long)row["evidence_binding_named_by_transformation"],
+                RelationEndpointResolved = row.IsNull("relation_endpoint_resolved") ? (long?)null : (long)row["relation_endpoint_resolved"],
+                EvidenceEndpointInPort = row.IsNull("evidence_endpoint_in_port") ? (long?)null : (long)row["evidence_endpoint_in_port"],
+                ApplicationRefEntries = row.IsNull("application_ref_entries") ? (long?)null : (long)row["application_ref_entries"],
+                RelationApplicationResolved = row.IsNull("relation_application_resolved") ? (long?)null : (long)row["relation_application_resolved"],
+                EvidenceApplicationSelected = row.IsNull("evidence_application_selected") ? (long?)null : (long)row["evidence_application_selected"],
+                BindingCheckPortSelfSatisfied = row.IsNull("binding_check_port_self_satisfied") ? (long?)null : (long)row["binding_check_port_self_satisfied"],
+                RelationEvidenceDisagreements = row.IsNull("relation_evidence_disagreements") ? (long?)null : (long)row["relation_evidence_disagreements"],
+                ProvidersNoPciNoRole = row.IsNull("providers_no_pci_no_role") ? (long?)null : (long)row["providers_no_pci_no_role"],
+                OverlayPresenceWithoutContent = row.IsNull("overlay_presence_without_content") ? (long?)null : (long)row["overlay_presence_without_content"],
+                ConfigRefsWithoutParticipation = row.IsNull("config_refs_without_participation") ? (long?)null : (long)row["config_refs_without_participation"],
+                GateProviderRoleViolations = row.IsNull("gate_provider_role_violations") ? (long?)null : (long)row["gate_provider_role_violations"],
+                GateProviderViolations = row.IsNull("gate_provider_violations") ? (long?)null : (long)row["gate_provider_violations"],
+                CatalogEntries = row.IsNull("catalog_entries") ? (long?)null : (long)row["catalog_entries"],
+                CatalogBodyDrift = row.IsNull("catalog_body_drift") ? (long?)null : (long)row["catalog_body_drift"],
+                RelationBodySha256 = row.IsNull("relation_body_sha256") ? (string?)null : (string)row["relation_body_sha256"],
+                GateBodySha256 = row.IsNull("gate_body_sha256") ? (string?)null : (string)row["gate_body_sha256"],
+                ProfileDefinitionDigest = row.IsNull("profile_definition_digest") ? (string?)null : (string)row["profile_definition_digest"],
+                SignalDigest = row.IsNull("signal_digest") ? (string?)null : (string)row["signal_digest"],
+                ExpectedSignalDigest = row.IsNull("expected_signal_digest") ? (string?)null : (string)row["expected_signal_digest"],
+                Disposition = row.IsNull("disposition") ? (string?)null : (string)row["disposition"]
             };
         }
         

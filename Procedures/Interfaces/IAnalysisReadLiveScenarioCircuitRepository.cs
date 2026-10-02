@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IAnalysisReadLiveScenarioCircuitRepository
     {
-        ProcedureCallResult<AnalysisReadLiveScenarioCircuit> Execute(string input, long estateModelPk, bool emit);
-        Task<ProcedureCallResult<AnalysisReadLiveScenarioCircuit>> ExecuteAsync(string input, long estateModelPk, bool emit);
+        ProcedureCallResult<AnalysisReadLiveScenarioCircuit> Execute(string input, long estateModelPk, bool? emit = null);
+        Task<ProcedureCallResult<AnalysisReadLiveScenarioCircuit>> ExecuteAsync(string input, long estateModelPk, bool? emit = null);
     }
 }

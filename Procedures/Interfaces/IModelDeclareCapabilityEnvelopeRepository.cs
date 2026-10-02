@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareCapabilityEnvelopeRepository
     {
-        ProcedureCallResult<ModelDeclareCapabilityEnvelope> Execute(string capabilityId, string semantics, long expectedDefinitionPk);
-        Task<ProcedureCallResult<ModelDeclareCapabilityEnvelope>> ExecuteAsync(string capabilityId, string semantics, long expectedDefinitionPk);
+        ProcedureCallResult<ModelDeclareCapabilityEnvelope> Execute(string capabilityId, string semantics, long? expectedDefinitionPk = null);
+        Task<ProcedureCallResult<ModelDeclareCapabilityEnvelope>> ExecuteAsync(string capabilityId, string semantics, long? expectedDefinitionPk = null);
     }
 }

@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelDeclareProviderRole>> ExecuteAsync(string providerId, string role, string expectedDefinitionDigest, string onConflict)
+        public async Task<ProcedureCallResult<ModelDeclareProviderRole>> ExecuteAsync(string providerId, string role, string? expectedDefinitionDigest = null, string? onConflict = null)
         {
             var entities = new List<ModelDeclareProviderRole>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -47,21 +47,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareProviderRole(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareProviderRole(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderRole>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,10 +90,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelDeclareProviderRole> Execute(string providerId, string role, string expectedDefinitionDigest, string onConflict)
+        public ProcedureCallResult<ModelDeclareProviderRole> Execute(string providerId, string role, string? expectedDefinitionDigest = null, string? onConflict = null)
         {
             var entities = new List<ModelDeclareProviderRole>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -90,21 +108,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareProviderRole(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareProviderRole(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderRole>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -115,17 +151,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelDeclareProviderRole MapReaderToModelDeclareProviderRole(SqlDataReader reader)
+        public ModelDeclareProviderRole MapRowToModelDeclareProviderRole(DataRow row)
         {
             return new ModelDeclareProviderRole
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                ProviderId = reader.IsDBNull(reader.GetOrdinal("provider_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_id")),
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                ProviderDefinitionPk = reader.IsDBNull(reader.GetOrdinal("provider_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("provider_definition_pk")),
-                DefinitionAfter = reader.IsDBNull(reader.GetOrdinal("definition_after")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_after")),
-                ProviderRole = reader.IsDBNull(reader.GetOrdinal("provider_role")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_role")),
-                DefinitionDigest = reader.IsDBNull(reader.GetOrdinal("definition_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("definition_digest"))
+                ResultSet = (string)row["result_set"],
+                ProviderId = row.IsNull("provider_id") ? (string?)null : (string)row["provider_id"],
+                Action = (string)row["action"],
+                ProviderDefinitionPk = row.IsNull("provider_definition_pk") ? (long?)null : (long)row["provider_definition_pk"],
+                DefinitionAfter = row.IsNull("definition_after") ? (long?)null : (long)row["definition_after"],
+                ProviderRole = row.IsNull("provider_role") ? (string?)null : (string)row["provider_role"],
+                DefinitionDigest = row.IsNull("definition_digest") ? (string?)null : (string)row["definition_digest"]
             };
         }
         

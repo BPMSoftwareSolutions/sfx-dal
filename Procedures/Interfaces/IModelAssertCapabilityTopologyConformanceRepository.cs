@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelAssertCapabilityTopologyConformanceRepository
     {
-        ProcedureCallResult<ModelAssertCapabilityTopologyConformance> Execute(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk);
-        Task<ProcedureCallResult<ModelAssertCapabilityTopologyConformance>> ExecuteAsync(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk);
+        ProcedureCallResult<ModelAssertCapabilityTopologyConformance> Execute(string capabilityId, string? expectedBeforeDigest = null, bool? failOnHard = null, long? estateModelPk = null);
+        Task<ProcedureCallResult<ModelAssertCapabilityTopologyConformance>> ExecuteAsync(string capabilityId, string? expectedBeforeDigest = null, bool? failOnHard = null, long? estateModelPk = null);
     }
 }

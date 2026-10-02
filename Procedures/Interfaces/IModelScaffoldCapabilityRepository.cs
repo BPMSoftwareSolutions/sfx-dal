@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelScaffoldCapabilityRepository
     {
-        ProcedureCallResult<object?> Execute(string capabilityId, string greetingTemplate, string inputId, string inputContract, string outcomeId, string outcomeContract, string onExists);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string greetingTemplate, string inputId, string inputContract, string outcomeId, string outcomeContract, string onExists);
+        ProcedureCallResult<object?> Execute(string capabilityId, string? greetingTemplate = null, string? inputId = null, string? inputContract = null, string? outcomeId = null, string? outcomeContract = null, string? onExists = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string? greetingTemplate = null, string? inputId = null, string? inputContract = null, string? outcomeId = null, string? outcomeContract = null, string? onExists = null);
     }
 }

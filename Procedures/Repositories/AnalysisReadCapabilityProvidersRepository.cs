@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadCapabilityProviders>> ExecuteAsync(string capabilityId, long estateModelPk)
+        public async Task<ProcedureCallResult<AnalysisReadCapabilityProviders>> ExecuteAsync(string capabilityId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadCapabilityProviders>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -40,26 +40,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadCapabilityProviders(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadCapabilityProviders(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadCapabilityProviders>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -70,10 +88,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadCapabilityProviders> Execute(string capabilityId, long estateModelPk)
+        public ProcedureCallResult<AnalysisReadCapabilityProviders> Execute(string capabilityId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadCapabilityProviders>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,26 +99,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadCapabilityProviders(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadCapabilityProviders(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadCapabilityProviders>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -111,18 +147,18 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadCapabilityProviders MapReaderToAnalysisReadCapabilityProviders(SqlDataReader reader)
+        public AnalysisReadCapabilityProviders MapRowToAnalysisReadCapabilityProviders(DataRow row)
         {
             return new AnalysisReadCapabilityProviders
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                Providers = reader.IsDBNull(reader.GetOrdinal("providers")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("providers")),
-                OverlayProviders = reader.IsDBNull(reader.GetOrdinal("overlay_providers")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("overlay_providers")),
-                BindingProviders = reader.IsDBNull(reader.GetOrdinal("binding_providers")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("binding_providers")),
-                PlatformProviders = reader.IsDBNull(reader.GetOrdinal("platform_providers")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("platform_providers")),
-                Operations = reader.IsDBNull(reader.GetOrdinal("operations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("operations")),
-                PlatformCapabilities = reader.IsDBNull(reader.GetOrdinal("platform_capabilities")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("platform_capabilities"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                Providers = row.IsNull("providers") ? (int?)null : (int)row["providers"],
+                OverlayProviders = row.IsNull("overlay_providers") ? (int?)null : (int)row["overlay_providers"],
+                BindingProviders = row.IsNull("binding_providers") ? (int?)null : (int)row["binding_providers"],
+                PlatformProviders = row.IsNull("platform_providers") ? (int?)null : (int)row["platform_providers"],
+                Operations = row.IsNull("operations") ? (int?)null : (int)row["operations"],
+                PlatformCapabilities = row.IsNull("platform_capabilities") ? (int?)null : (int)row["platform_capabilities"]
             };
         }
         

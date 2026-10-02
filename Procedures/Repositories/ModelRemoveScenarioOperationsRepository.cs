@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelRemoveScenarioOperations>> ExecuteAsync(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings)
+        public async Task<ProcedureCallResult<ModelRemoveScenarioOperations>> ExecuteAsync(string capabilityId, string scenario, string? operationIds = null, bool? removeUninvokedBindings = null)
         {
             var entities = new List<ModelRemoveScenarioOperations>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -42,26 +42,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@scenario", scenario ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@operation_ids", operationIds ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@remove_uninvoked_bindings", removeUninvokedBindings);
+                    command.Parameters.AddWithValue("@remove_uninvoked_bindings", removeUninvokedBindings ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRemoveScenarioOperations(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRemoveScenarioOperations(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioOperations>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,10 +90,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelRemoveScenarioOperations> Execute(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings)
+        public ProcedureCallResult<ModelRemoveScenarioOperations> Execute(string capabilityId, string scenario, string? operationIds = null, bool? removeUninvokedBindings = null)
         {
             var entities = new List<ModelRemoveScenarioOperations>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -85,26 +103,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@scenario", scenario ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@operation_ids", operationIds ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@remove_uninvoked_bindings", removeUninvokedBindings);
+                    command.Parameters.AddWithValue("@remove_uninvoked_bindings", removeUninvokedBindings ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRemoveScenarioOperations(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRemoveScenarioOperations(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioOperations>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -115,26 +151,26 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelRemoveScenarioOperations MapReaderToModelRemoveScenarioOperations(SqlDataReader reader)
+        public ModelRemoveScenarioOperations MapRowToModelRemoveScenarioOperations(DataRow row)
         {
             return new ModelRemoveScenarioOperations
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                Scenario = reader.IsDBNull(reader.GetOrdinal("scenario")) ? (string?)null : reader.GetString(reader.GetOrdinal("scenario")),
-                EstateModelPk = reader.IsDBNull(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                CapabilityVersionPk = reader.IsDBNull(reader.GetOrdinal("capability_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_version_pk")),
-                ScenarioPk = reader.IsDBNull(reader.GetOrdinal("scenario_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("scenario_pk")),
-                ScenarioVersionPk = reader.IsDBNull(reader.GetOrdinal("scenario_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("scenario_version_pk")),
-                ExecutionAuthorityPk = reader.IsDBNull(reader.GetOrdinal("execution_authority_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("execution_authority_pk")),
-                SelectedAuthorityVersionPk = reader.IsDBNull(reader.GetOrdinal("selected_authority_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("selected_authority_version_pk")),
-                OperationMode = reader.IsDBNull(reader.GetOrdinal("operation_mode")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("operation_mode")),
-                RemoveUninvokedBindings = reader.IsDBNull(reader.GetOrdinal("remove_uninvoked_bindings")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("remove_uninvoked_bindings")),
-                RequestedKeys = reader.IsDBNull(reader.GetOrdinal("requested_keys")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("requested_keys")),
-                KeysAlreadyRemoved = reader.IsDBNull(reader.GetOrdinal("keys_already_removed")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("keys_already_removed")),
-                NamedOperationRowsAllVersions = reader.IsDBNull(reader.GetOrdinal("named_operation_rows_all_versions")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("named_operation_rows_all_versions")),
-                NamedOperationRowsSelected = reader.IsDBNull(reader.GetOrdinal("named_operation_rows_selected")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("named_operation_rows_selected"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                Scenario = row.IsNull("scenario") ? (string?)null : (string)row["scenario"],
+                EstateModelPk = row.IsNull("estate_model_pk") ? (long?)null : (long)row["estate_model_pk"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                CapabilityVersionPk = row.IsNull("capability_version_pk") ? (long?)null : (long)row["capability_version_pk"],
+                ScenarioPk = row.IsNull("scenario_pk") ? (long?)null : (long)row["scenario_pk"],
+                ScenarioVersionPk = row.IsNull("scenario_version_pk") ? (long?)null : (long)row["scenario_version_pk"],
+                ExecutionAuthorityPk = row.IsNull("execution_authority_pk") ? (long?)null : (long)row["execution_authority_pk"],
+                SelectedAuthorityVersionPk = row.IsNull("selected_authority_version_pk") ? (long?)null : (long)row["selected_authority_version_pk"],
+                OperationMode = row.IsNull("operation_mode") ? (bool?)null : (bool)row["operation_mode"],
+                RemoveUninvokedBindings = row.IsNull("remove_uninvoked_bindings") ? (bool?)null : (bool)row["remove_uninvoked_bindings"],
+                RequestedKeys = row.IsNull("requested_keys") ? (int?)null : (int)row["requested_keys"],
+                KeysAlreadyRemoved = row.IsNull("keys_already_removed") ? (int?)null : (int)row["keys_already_removed"],
+                NamedOperationRowsAllVersions = row.IsNull("named_operation_rows_all_versions") ? (int?)null : (int)row["named_operation_rows_all_versions"],
+                NamedOperationRowsSelected = row.IsNull("named_operation_rows_selected") ? (int?)null : (int)row["named_operation_rows_selected"]
             };
         }
         

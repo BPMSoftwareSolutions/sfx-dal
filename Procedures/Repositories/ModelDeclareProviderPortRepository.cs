@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelDeclareProviderPort>> ExecuteAsync(string namespaceId, string portId, string platformCapabilityId)
         {
             var entities = new List<ModelDeclareProviderPort>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -46,21 +46,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareProviderPort(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareProviderPort(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderPort>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -74,7 +92,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelDeclareProviderPort> Execute(string namespaceId, string portId, string platformCapabilityId)
         {
             var entities = new List<ModelDeclareProviderPort>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -88,21 +106,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclareProviderPort(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclareProviderPort(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderPort>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -113,16 +149,16 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelDeclareProviderPort MapReaderToModelDeclareProviderPort(SqlDataReader reader)
+        public ModelDeclareProviderPort MapRowToModelDeclareProviderPort(DataRow row)
         {
             return new ModelDeclareProviderPort
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                NamespaceId = reader.IsDBNull(reader.GetOrdinal("namespace_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("namespace_id")),
-                PortId = reader.IsDBNull(reader.GetOrdinal("port_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("port_id")),
-                PlatformCapabilityId = reader.IsDBNull(reader.GetOrdinal("platform_capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("platform_capability_id")),
-                ObjectPk = reader.IsDBNull(reader.GetOrdinal("object_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("object_pk")),
-                DefinitionPk = reader.IsDBNull(reader.GetOrdinal("definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_pk"))
+                ResultSet = (string)row["result_set"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                PortId = row.IsNull("port_id") ? (string?)null : (string)row["port_id"],
+                PlatformCapabilityId = row.IsNull("platform_capability_id") ? (string?)null : (string)row["platform_capability_id"],
+                ObjectPk = row.IsNull("object_pk") ? (long?)null : (long)row["object_pk"],
+                DefinitionPk = row.IsNull("definition_pk") ? (long?)null : (long)row["definition_pk"]
             };
         }
         

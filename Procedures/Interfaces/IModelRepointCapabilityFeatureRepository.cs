@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRepointCapabilityFeatureRepository
     {
-        ProcedureCallResult<ModelRepointCapabilityFeature> Execute(string capabilityId, long featureVersionPk);
-        Task<ProcedureCallResult<ModelRepointCapabilityFeature>> ExecuteAsync(string capabilityId, long featureVersionPk);
+        ProcedureCallResult<ModelRepointCapabilityFeature> Execute(string capabilityId, long? featureVersionPk = null);
+        Task<ProcedureCallResult<ModelRepointCapabilityFeature>> ExecuteAsync(string capabilityId, long? featureVersionPk = null);
     }
 }

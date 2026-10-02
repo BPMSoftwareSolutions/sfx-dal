@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelInspectCapability>> ExecuteAsync(string capabilityId)
         {
             var entities = new List<ModelInspectCapability>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -44,21 +44,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelInspectCapability(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelInspectCapability(row));
                         }
                     }
                     return new ProcedureCallResult<ModelInspectCapability>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,7 +90,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelInspectCapability> Execute(string capabilityId)
         {
             var entities = new List<ModelInspectCapability>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -84,21 +102,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelInspectCapability(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelInspectCapability(row));
                         }
                     }
                     return new ProcedureCallResult<ModelInspectCapability>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -109,16 +145,16 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelInspectCapability MapReaderToModelInspectCapability(SqlDataReader reader)
+        public ModelInspectCapability MapRowToModelInspectCapability(DataRow row)
         {
             return new ModelInspectCapability
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
-                CapabilityVersionPk = reader.IsDBNull(reader.GetOrdinal("capability_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_version_pk")),
-                CapabilityDefinitionPk = reader.IsDBNull(reader.GetOrdinal("capability_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_definition_pk")),
-                CapabilityDefinitionDigest = reader.IsDBNull(reader.GetOrdinal("capability_definition_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_definition_digest")),
-                Intent = reader.IsDBNull(reader.GetOrdinal("intent")) ? (string?)null : reader.GetString(reader.GetOrdinal("intent"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = (string)row["capability_id"],
+                CapabilityVersionPk = row.IsNull("capability_version_pk") ? (long?)null : (long)row["capability_version_pk"],
+                CapabilityDefinitionPk = row.IsNull("capability_definition_pk") ? (long?)null : (long)row["capability_definition_pk"],
+                CapabilityDefinitionDigest = row.IsNull("capability_definition_digest") ? (string?)null : (string)row["capability_definition_digest"],
+                Intent = row.IsNull("intent") ? (string?)null : (string)row["intent"]
             };
         }
         

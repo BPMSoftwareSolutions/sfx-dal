@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRemoveCapabilityScenarioRepository
     {
-        ProcedureCallResult<object?> Execute(string capabilityId, string scenario, long expectedVersionPk);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string scenario, long expectedVersionPk);
+        ProcedureCallResult<object?> Execute(string capabilityId, string scenario, long? expectedVersionPk = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string scenario, long? expectedVersionPk = null);
     }
 }

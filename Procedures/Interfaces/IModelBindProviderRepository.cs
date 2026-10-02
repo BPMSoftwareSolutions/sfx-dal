@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelBindProviderRepository
     {
-        ProcedureCallResult<ModelBindProvider> Execute(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson);
-        Task<ProcedureCallResult<ModelBindProvider>> ExecuteAsync(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson);
+        ProcedureCallResult<ModelBindProvider> Execute(string capabilityId, string mechanicId, string providerId, string? platformCapabilityId = null, string? configurationJson = null);
+        Task<ProcedureCallResult<ModelBindProvider>> ExecuteAsync(string capabilityId, string mechanicId, string providerId, string? platformCapabilityId = null, string? configurationJson = null);
     }
 }

@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelDeclarePortOverlayRule>> ExecuteAsync(string namespaceId, string portId, string mechanicId, string providerProfileId, string providerProfileDigest, string implementationRef)
         {
             var entities = new List<ModelDeclarePortOverlayRule>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -49,21 +49,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclarePortOverlayRule(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclarePortOverlayRule(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclarePortOverlayRule>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -77,7 +95,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelDeclarePortOverlayRule> Execute(string namespaceId, string portId, string mechanicId, string providerProfileId, string providerProfileDigest, string implementationRef)
         {
             var entities = new List<ModelDeclarePortOverlayRule>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -94,21 +112,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelDeclarePortOverlayRule(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelDeclarePortOverlayRule(row));
                         }
                     }
                     return new ProcedureCallResult<ModelDeclarePortOverlayRule>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -119,17 +155,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelDeclarePortOverlayRule MapReaderToModelDeclarePortOverlayRule(SqlDataReader reader)
+        public ModelDeclarePortOverlayRule MapRowToModelDeclarePortOverlayRule(DataRow row)
         {
             return new ModelDeclarePortOverlayRule
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                NamespaceId = reader.IsDBNull(reader.GetOrdinal("namespace_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("namespace_id")),
-                PortId = reader.IsDBNull(reader.GetOrdinal("port_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("port_id")),
-                MechanicId = reader.IsDBNull(reader.GetOrdinal("mechanic_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("mechanic_id")),
-                ProviderProfileId = reader.IsDBNull(reader.GetOrdinal("provider_profile_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_profile_id")),
-                PortVersionPk = reader.IsDBNull(reader.GetOrdinal("port_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("port_version_pk")),
-                DefinitionPk = reader.IsDBNull(reader.GetOrdinal("definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_pk"))
+                Action = (string)row["action"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                PortId = row.IsNull("port_id") ? (string?)null : (string)row["port_id"],
+                MechanicId = row.IsNull("mechanic_id") ? (string?)null : (string)row["mechanic_id"],
+                ProviderProfileId = row.IsNull("provider_profile_id") ? (string?)null : (string)row["provider_profile_id"],
+                PortVersionPk = row.IsNull("port_version_pk") ? (long?)null : (long)row["port_version_pk"],
+                DefinitionPk = row.IsNull("definition_pk") ? (long?)null : (long)row["definition_pk"]
             };
         }
         

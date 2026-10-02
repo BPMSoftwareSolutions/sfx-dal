@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelSetDefinitionLabelRepository
     {
-        ProcedureCallResult<ModelSetDefinitionLabel> Execute(string namespaceId, string declaredId, string versionLabel, string objectKind, long semanticObjectDefinitionPk);
-        Task<ProcedureCallResult<ModelSetDefinitionLabel>> ExecuteAsync(string namespaceId, string declaredId, string versionLabel, string objectKind, long semanticObjectDefinitionPk);
+        ProcedureCallResult<ModelSetDefinitionLabel> Execute(string namespaceId, string declaredId, string versionLabel, string? objectKind = null, long? semanticObjectDefinitionPk = null);
+        Task<ProcedureCallResult<ModelSetDefinitionLabel>> ExecuteAsync(string namespaceId, string declaredId, string versionLabel, string? objectKind = null, long? semanticObjectDefinitionPk = null);
     }
 }

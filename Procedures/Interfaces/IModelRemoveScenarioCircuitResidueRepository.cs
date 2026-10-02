@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRemoveScenarioCircuitResidueRepository
     {
-        ProcedureCallResult<ModelRemoveScenarioCircuitResidue> Execute(string capabilityId, string scenarios, long expectedVersionPk, bool removeTransitions, long expectedDefinitionPk, bool rewriteSuperseded);
-        Task<ProcedureCallResult<ModelRemoveScenarioCircuitResidue>> ExecuteAsync(string capabilityId, string scenarios, long expectedVersionPk, bool removeTransitions, long expectedDefinitionPk, bool rewriteSuperseded);
+        ProcedureCallResult<ModelRemoveScenarioCircuitResidue> Execute(string capabilityId, string scenarios, long expectedVersionPk, bool? removeTransitions = null, long? expectedDefinitionPk = null, bool? rewriteSuperseded = null);
+        Task<ProcedureCallResult<ModelRemoveScenarioCircuitResidue>> ExecuteAsync(string capabilityId, string scenarios, long expectedVersionPk, bool? removeTransitions = null, long? expectedDefinitionPk = null, bool? rewriteSuperseded = null);
     }
 }

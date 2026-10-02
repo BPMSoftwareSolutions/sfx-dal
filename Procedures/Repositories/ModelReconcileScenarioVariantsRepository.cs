@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelReconcileScenarioVariants>> ExecuteAsync(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk)
+        public async Task<ProcedureCallResult<ModelReconcileScenarioVariants>> ExecuteAsync(string capabilityId, string scenario, string variants, string? terminalDisposition = null, long? expectedVersionPk = null)
         {
             var entities = new List<ModelReconcileScenarioVariants>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -43,26 +43,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@scenario", scenario ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@variants", variants ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@terminal_disposition", terminalDisposition ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk);
+                    command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelReconcileScenarioVariants(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelReconcileScenarioVariants(row));
                         }
                     }
                     return new ProcedureCallResult<ModelReconcileScenarioVariants>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelReconcileScenarioVariants> Execute(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk)
+        public ProcedureCallResult<ModelReconcileScenarioVariants> Execute(string capabilityId, string scenario, string variants, string? terminalDisposition = null, long? expectedVersionPk = null)
         {
             var entities = new List<ModelReconcileScenarioVariants>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,26 +105,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@scenario", scenario ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@variants", variants ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@terminal_disposition", terminalDisposition ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk);
+                    command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelReconcileScenarioVariants(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelReconcileScenarioVariants(row));
                         }
                     }
                     return new ProcedureCallResult<ModelReconcileScenarioVariants>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,22 +153,22 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelReconcileScenarioVariants MapReaderToModelReconcileScenarioVariants(SqlDataReader reader)
+        public ModelReconcileScenarioVariants MapRowToModelReconcileScenarioVariants(DataRow row)
         {
             return new ModelReconcileScenarioVariants
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                Scenario = reader.IsDBNull(reader.GetOrdinal("scenario")) ? (string?)null : reader.GetString(reader.GetOrdinal("scenario")),
-                EstateModelPk = reader.IsDBNull(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                CapabilityVersionPk = reader.IsDBNull(reader.GetOrdinal("capability_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_version_pk")),
-                ScenarioPk = reader.IsDBNull(reader.GetOrdinal("scenario_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("scenario_pk")),
-                ScenarioVersionPk = reader.IsDBNull(reader.GetOrdinal("scenario_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("scenario_version_pk")),
-                OwnerDefinitionPk = reader.IsDBNull(reader.GetOrdinal("owner_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("owner_definition_pk")),
-                ExpectedVersionPk = reader.IsDBNull(reader.GetOrdinal("expected_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("expected_version_pk")),
-                DeclaredVariants = reader.IsDBNull(reader.GetOrdinal("declared_variants")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("declared_variants")),
-                RemovalCandidates = reader.IsDBNull(reader.GetOrdinal("removal_candidates")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("removal_candidates"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                Scenario = row.IsNull("scenario") ? (string?)null : (string)row["scenario"],
+                EstateModelPk = row.IsNull("estate_model_pk") ? (long?)null : (long)row["estate_model_pk"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                CapabilityVersionPk = row.IsNull("capability_version_pk") ? (long?)null : (long)row["capability_version_pk"],
+                ScenarioPk = row.IsNull("scenario_pk") ? (long?)null : (long)row["scenario_pk"],
+                ScenarioVersionPk = row.IsNull("scenario_version_pk") ? (long?)null : (long)row["scenario_version_pk"],
+                OwnerDefinitionPk = row.IsNull("owner_definition_pk") ? (long?)null : (long)row["owner_definition_pk"],
+                ExpectedVersionPk = row.IsNull("expected_version_pk") ? (long?)null : (long)row["expected_version_pk"],
+                DeclaredVariants = row.IsNull("declared_variants") ? (int?)null : (int)row["declared_variants"],
+                RemovalCandidates = row.IsNull("removal_candidates") ? (int?)null : (int)row["removal_candidates"]
             };
         }
         

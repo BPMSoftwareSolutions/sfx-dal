@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadProviderDetails>> ExecuteAsync(string providerId, long estateModelPk)
+        public async Task<ProcedureCallResult<AnalysisReadProviderDetails>> ExecuteAsync(string providerId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadProviderDetails>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -40,26 +40,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@provider_id", providerId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderDetails(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadProviderDetails(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadProviderDetails>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -70,10 +88,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadProviderDetails> Execute(string providerId, long estateModelPk)
+        public ProcedureCallResult<AnalysisReadProviderDetails> Execute(string providerId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadProviderDetails>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,26 +99,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@provider_id", providerId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderDetails(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadProviderDetails(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadProviderDetails>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -111,40 +147,40 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadProviderDetails MapReaderToAnalysisReadProviderDetails(SqlDataReader reader)
+        public AnalysisReadProviderDetails MapRowToAnalysisReadProviderDetails(DataRow row)
         {
             return new AnalysisReadProviderDetails
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                ProviderId = reader.GetString(reader.GetOrdinal("provider_id")),
-                NamespaceId = reader.GetString(reader.GetOrdinal("namespace_id")),
-                ProviderPk = reader.GetInt64(reader.GetOrdinal("provider_pk")),
-                SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
-                ProviderDefinitionPk = reader.GetInt64(reader.GetOrdinal("provider_definition_pk")),
-                DeclaredName = reader.IsDBNull(reader.GetOrdinal("declared_name")) ? (string?)null : reader.GetString(reader.GetOrdinal("declared_name")),
-                DeclarationProfile = reader.GetString(reader.GetOrdinal("declaration_profile")),
-                DefinitionDigest = reader.IsDBNull(reader.GetOrdinal("definition_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("definition_digest")),
-                Label = reader.IsDBNull(reader.GetOrdinal("label")) ? (string?)null : reader.GetString(reader.GetOrdinal("label")),
-                DeclaredId = reader.GetString(reader.GetOrdinal("declared_id")),
-                ByteLength = reader.IsDBNull(reader.GetOrdinal("byte_length")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("byte_length")),
-                ProviderRole = reader.IsDBNull(reader.GetOrdinal("provider_role")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_role")),
-                ProviderClass = reader.GetString(reader.GetOrdinal("provider_class")),
-                HasModuleOrExport = reader.IsDBNull(reader.GetOrdinal("has_module_or_export")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("has_module_or_export")),
-                PciCount = reader.IsDBNull(reader.GetOrdinal("pci_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("pci_count")),
-                OperationsCount = reader.IsDBNull(reader.GetOrdinal("operations_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("operations_count")),
-                SourcePropertyCount = reader.IsDBNull(reader.GetOrdinal("source_property_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("source_property_count")),
-                CandidateCapabilitiesCount = reader.IsDBNull(reader.GetOrdinal("candidate_capabilities_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("candidate_capabilities_count")),
-                CapabilitiesCount = reader.IsDBNull(reader.GetOrdinal("capabilities_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("capabilities_count")),
-                OverlayReferenceCount = reader.IsDBNull(reader.GetOrdinal("overlay_reference_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("overlay_reference_count")),
-                OverlayTopLevelReferenceCount = reader.IsDBNull(reader.GetOrdinal("overlay_top_level_reference_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("overlay_top_level_reference_count")),
-                OverlayAuthorityReferenceCount = reader.IsDBNull(reader.GetOrdinal("overlay_authority_reference_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("overlay_authority_reference_count")),
-                ResolvedProviderAuthorityCount = reader.IsDBNull(reader.GetOrdinal("resolved_provider_authority_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("resolved_provider_authority_count")),
-                ResolvedBindingReferenceCount = reader.IsDBNull(reader.GetOrdinal("resolved_binding_reference_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("resolved_binding_reference_count")),
-                ResolvedEndpointAuthorityCount = reader.IsDBNull(reader.GetOrdinal("resolved_endpoint_authority_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("resolved_endpoint_authority_count")),
-                ResolvedApplicationRefCount = reader.IsDBNull(reader.GetOrdinal("resolved_application_ref_count")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("resolved_application_ref_count")),
-                RoleEvidenceStatus = reader.IsDBNull(reader.GetOrdinal("role_evidence_status")) ? (string?)null : reader.GetString(reader.GetOrdinal("role_evidence_status")),
-                DefinitionGenerations = reader.IsDBNull(reader.GetOrdinal("definition_generations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("definition_generations")),
-                SelectedGenerations = reader.IsDBNull(reader.GetOrdinal("selected_generations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("selected_generations"))
+                ResultSet = (string)row["result_set"],
+                ProviderId = (string)row["provider_id"],
+                NamespaceId = (string)row["namespace_id"],
+                ProviderPk = (long)row["provider_pk"],
+                SemanticObjectPk = (long)row["semantic_object_pk"],
+                ProviderDefinitionPk = (long)row["provider_definition_pk"],
+                DeclaredName = row.IsNull("declared_name") ? (string?)null : (string)row["declared_name"],
+                DeclarationProfile = (string)row["declaration_profile"],
+                DefinitionDigest = row.IsNull("definition_digest") ? (string?)null : (string)row["definition_digest"],
+                Label = row.IsNull("label") ? (string?)null : (string)row["label"],
+                DeclaredId = (string)row["declared_id"],
+                ByteLength = row.IsNull("byte_length") ? (long?)null : (long)row["byte_length"],
+                ProviderRole = row.IsNull("provider_role") ? (string?)null : (string)row["provider_role"],
+                ProviderClass = (string)row["provider_class"],
+                HasModuleOrExport = row.IsNull("has_module_or_export") ? (bool?)null : (bool)row["has_module_or_export"],
+                PciCount = row.IsNull("pci_count") ? (int?)null : (int)row["pci_count"],
+                OperationsCount = row.IsNull("operations_count") ? (int?)null : (int)row["operations_count"],
+                SourcePropertyCount = row.IsNull("source_property_count") ? (int?)null : (int)row["source_property_count"],
+                CandidateCapabilitiesCount = row.IsNull("candidate_capabilities_count") ? (int?)null : (int)row["candidate_capabilities_count"],
+                CapabilitiesCount = row.IsNull("capabilities_count") ? (int?)null : (int)row["capabilities_count"],
+                OverlayReferenceCount = row.IsNull("overlay_reference_count") ? (int?)null : (int)row["overlay_reference_count"],
+                OverlayTopLevelReferenceCount = row.IsNull("overlay_top_level_reference_count") ? (int?)null : (int)row["overlay_top_level_reference_count"],
+                OverlayAuthorityReferenceCount = row.IsNull("overlay_authority_reference_count") ? (int?)null : (int)row["overlay_authority_reference_count"],
+                ResolvedProviderAuthorityCount = row.IsNull("resolved_provider_authority_count") ? (int?)null : (int)row["resolved_provider_authority_count"],
+                ResolvedBindingReferenceCount = row.IsNull("resolved_binding_reference_count") ? (int?)null : (int)row["resolved_binding_reference_count"],
+                ResolvedEndpointAuthorityCount = row.IsNull("resolved_endpoint_authority_count") ? (int?)null : (int)row["resolved_endpoint_authority_count"],
+                ResolvedApplicationRefCount = row.IsNull("resolved_application_ref_count") ? (int?)null : (int)row["resolved_application_ref_count"],
+                RoleEvidenceStatus = row.IsNull("role_evidence_status") ? (string?)null : (string)row["role_evidence_status"],
+                DefinitionGenerations = row.IsNull("definition_generations") ? (int?)null : (int)row["definition_generations"],
+                SelectedGenerations = row.IsNull("selected_generations") ? (int?)null : (int)row["selected_generations"]
             };
         }
         

@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelUpdateDefinitionMemberRepository
     {
-        ProcedureCallResult<ModelUpdateDefinitionMember> Execute(string @namespace, string declaredId, string jsonPath, string valueJson, string expectedDefinitionDigest);
-        Task<ProcedureCallResult<ModelUpdateDefinitionMember>> ExecuteAsync(string @namespace, string declaredId, string jsonPath, string valueJson, string expectedDefinitionDigest);
+        ProcedureCallResult<ModelUpdateDefinitionMember> Execute(string @namespace, string declaredId, string jsonPath, string valueJson, string? expectedDefinitionDigest = null);
+        Task<ProcedureCallResult<ModelUpdateDefinitionMember>> ExecuteAsync(string @namespace, string declaredId, string jsonPath, string valueJson, string? expectedDefinitionDigest = null);
     }
 }

@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareOverlayProviderRepository
     {
-        ProcedureCallResult<object?> Execute(string providerId, string name, string candidateCapabilitiesJson, string operationsJson, string configurationJson);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, string name, string candidateCapabilitiesJson, string operationsJson, string configurationJson);
+        ProcedureCallResult<object?> Execute(string providerId, string? name = null, string? candidateCapabilitiesJson = null, string? operationsJson = null, string? configurationJson = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, string? name = null, string? candidateCapabilitiesJson = null, string? operationsJson = null, string? configurationJson = null);
     }
 }

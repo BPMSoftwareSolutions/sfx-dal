@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IAnalysisReadProviderCanonicalBodyRepository
     {
-        ProcedureCallResult<AnalysisReadProviderCanonicalBody> Execute(string providerId, long estateModelPk);
-        Task<ProcedureCallResult<AnalysisReadProviderCanonicalBody>> ExecuteAsync(string providerId, long estateModelPk);
+        ProcedureCallResult<AnalysisReadProviderCanonicalBody> Execute(string providerId, long? estateModelPk = null);
+        Task<ProcedureCallResult<AnalysisReadProviderCanonicalBody>> ExecuteAsync(string providerId, long? estateModelPk = null);
     }
 }

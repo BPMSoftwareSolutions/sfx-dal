@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelReconcileScenarioVariantsRepository
     {
-        ProcedureCallResult<ModelReconcileScenarioVariants> Execute(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk);
-        Task<ProcedureCallResult<ModelReconcileScenarioVariants>> ExecuteAsync(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk);
+        ProcedureCallResult<ModelReconcileScenarioVariants> Execute(string capabilityId, string scenario, string variants, string? terminalDisposition = null, long? expectedVersionPk = null);
+        Task<ProcedureCallResult<ModelReconcileScenarioVariants>> ExecuteAsync(string capabilityId, string scenario, string variants, string? terminalDisposition = null, long? expectedVersionPk = null);
     }
 }

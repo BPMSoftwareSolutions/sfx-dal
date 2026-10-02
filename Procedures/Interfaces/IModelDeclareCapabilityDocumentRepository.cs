@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareCapabilityDocumentRepository
     {
-        ProcedureCallResult<object?> Execute(string document, string onUnchanged);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string document, string onUnchanged);
+        ProcedureCallResult<object?> Execute(string document, string? onUnchanged = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string document, string? onUnchanged = null);
     }
 }

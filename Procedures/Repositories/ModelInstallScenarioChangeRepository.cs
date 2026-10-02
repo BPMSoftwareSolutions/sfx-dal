@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelInstallScenarioChange>> ExecuteAsync(string document)
         {
             var entities = new List<ModelInstallScenarioChange>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -44,21 +44,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelInstallScenarioChange(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelInstallScenarioChange(row));
                         }
                     }
                     return new ProcedureCallResult<ModelInstallScenarioChange>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,7 +90,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelInstallScenarioChange> Execute(string document)
         {
             var entities = new List<ModelInstallScenarioChange>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -84,21 +102,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelInstallScenarioChange(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelInstallScenarioChange(row));
                         }
                     }
                     return new ProcedureCallResult<ModelInstallScenarioChange>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -109,13 +145,13 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelInstallScenarioChange MapReaderToModelInstallScenarioChange(SqlDataReader reader)
+        public ModelInstallScenarioChange MapRowToModelInstallScenarioChange(DataRow row)
         {
             return new ModelInstallScenarioChange
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                ScenarioId = reader.IsDBNull(reader.GetOrdinal("scenario_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("scenario_id"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                ScenarioId = row.IsNull("scenario_id") ? (string?)null : (string)row["scenario_id"]
             };
         }
         

@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelAddExample>> ExecuteAsync(string capabilityId, string fixtureId, string inputJson, string expectedJson, string fixtureProfile)
+        public async Task<ProcedureCallResult<ModelAddExample>> ExecuteAsync(string capabilityId, string fixtureId, string inputJson, string expectedJson, string? fixtureProfile = null)
         {
             var entities = new List<ModelAddExample>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,21 +48,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelAddExample(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelAddExample(row));
                         }
                     }
                     return new ProcedureCallResult<ModelAddExample>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelAddExample> Execute(string capabilityId, string fixtureId, string inputJson, string expectedJson, string fixtureProfile)
+        public ProcedureCallResult<ModelAddExample> Execute(string capabilityId, string fixtureId, string inputJson, string expectedJson, string? fixtureProfile = null)
         {
             var entities = new List<ModelAddExample>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -92,21 +110,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelAddExample(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelAddExample(row));
                         }
                     }
                     return new ProcedureCallResult<ModelAddExample>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,15 +153,15 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelAddExample MapReaderToModelAddExample(SqlDataReader reader)
+        public ModelAddExample MapRowToModelAddExample(DataRow row)
         {
             return new ModelAddExample
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                FixtureId = reader.IsDBNull(reader.GetOrdinal("fixture_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("fixture_id")),
-                DefinitionAfter = reader.IsDBNull(reader.GetOrdinal("definition_after")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_after")),
-                ExpectedValue = reader.IsDBNull(reader.GetOrdinal("expected_value")) ? (string?)null : reader.GetString(reader.GetOrdinal("expected_value"))
+                Action = (string)row["action"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                FixtureId = row.IsNull("fixture_id") ? (string?)null : (string)row["fixture_id"],
+                DefinitionAfter = row.IsNull("definition_after") ? (long?)null : (long)row["definition_after"],
+                ExpectedValue = row.IsNull("expected_value") ? (string?)null : (string)row["expected_value"]
             };
         }
         

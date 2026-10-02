@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelBackfillProviderLabelsRepository
     {
-        ProcedureCallResult<object?> Execute(string providerId);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId);
+        ProcedureCallResult<object?> Execute(string? providerId = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string? providerId = null);
     }
 }

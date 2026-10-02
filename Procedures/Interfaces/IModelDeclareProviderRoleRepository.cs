@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareProviderRoleRepository
     {
-        ProcedureCallResult<ModelDeclareProviderRole> Execute(string providerId, string role, string expectedDefinitionDigest, string onConflict);
-        Task<ProcedureCallResult<ModelDeclareProviderRole>> ExecuteAsync(string providerId, string role, string expectedDefinitionDigest, string onConflict);
+        ProcedureCallResult<ModelDeclareProviderRole> Execute(string providerId, string role, string? expectedDefinitionDigest = null, string? onConflict = null);
+        Task<ProcedureCallResult<ModelDeclareProviderRole>> ExecuteAsync(string providerId, string role, string? expectedDefinitionDigest = null, string? onConflict = null);
     }
 }

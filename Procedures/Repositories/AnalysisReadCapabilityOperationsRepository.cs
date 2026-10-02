@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadCapabilityOperations>> ExecuteAsync(string capabilityId, long estateModelPk)
+        public async Task<ProcedureCallResult<AnalysisReadCapabilityOperations>> ExecuteAsync(string capabilityId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadCapabilityOperations>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -40,26 +40,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadCapabilityOperations(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadCapabilityOperations(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadCapabilityOperations>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -70,10 +88,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadCapabilityOperations> Execute(string capabilityId, long estateModelPk)
+        public ProcedureCallResult<AnalysisReadCapabilityOperations> Execute(string capabilityId, long? estateModelPk = null)
         {
             var entities = new List<AnalysisReadCapabilityOperations>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,26 +99,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToAnalysisReadCapabilityOperations(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToAnalysisReadCapabilityOperations(row));
                         }
                     }
                     return new ProcedureCallResult<AnalysisReadCapabilityOperations>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -111,19 +147,19 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadCapabilityOperations MapReaderToAnalysisReadCapabilityOperations(SqlDataReader reader)
+        public AnalysisReadCapabilityOperations MapRowToAnalysisReadCapabilityOperations(DataRow row)
         {
             return new AnalysisReadCapabilityOperations
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                Operations = reader.IsDBNull(reader.GetOrdinal("operations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("operations")),
-                InvokePort = reader.IsDBNull(reader.GetOrdinal("invoke_port")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("invoke_port")),
-                InvokeScenario = reader.IsDBNull(reader.GetOrdinal("invoke_scenario")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("invoke_scenario")),
-                OtherKinds = reader.IsDBNull(reader.GetOrdinal("other_kinds")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("other_kinds")),
-                UnboundInvokePort = reader.IsDBNull(reader.GetOrdinal("unbound_invoke_port")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("unbound_invoke_port")),
-                ScenarioVersions = reader.IsDBNull(reader.GetOrdinal("scenario_versions")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("scenario_versions")),
-                AuthorityVersions = reader.IsDBNull(reader.GetOrdinal("authority_versions")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("authority_versions"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                Operations = row.IsNull("operations") ? (int?)null : (int)row["operations"],
+                InvokePort = row.IsNull("invoke_port") ? (int?)null : (int)row["invoke_port"],
+                InvokeScenario = row.IsNull("invoke_scenario") ? (int?)null : (int)row["invoke_scenario"],
+                OtherKinds = row.IsNull("other_kinds") ? (int?)null : (int)row["other_kinds"],
+                UnboundInvokePort = row.IsNull("unbound_invoke_port") ? (int?)null : (int)row["unbound_invoke_port"],
+                ScenarioVersions = row.IsNull("scenario_versions") ? (int?)null : (int)row["scenario_versions"],
+                AuthorityVersions = row.IsNull("authority_versions") ? (int?)null : (int)row["authority_versions"]
             };
         }
         

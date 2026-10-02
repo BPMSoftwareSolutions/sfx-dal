@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelRemoveScenarioCircuitResidue>> ExecuteAsync(string capabilityId, string scenarios, long expectedVersionPk, bool removeTransitions, long expectedDefinitionPk, bool rewriteSuperseded)
+        public async Task<ProcedureCallResult<ModelRemoveScenarioCircuitResidue>> ExecuteAsync(string capabilityId, string scenarios, long expectedVersionPk, bool? removeTransitions = null, long? expectedDefinitionPk = null, bool? rewriteSuperseded = null)
         {
             var entities = new List<ModelRemoveScenarioCircuitResidue>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -42,28 +42,46 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@scenarios", scenarios ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk);
-                    command.Parameters.AddWithValue("@remove_transitions", removeTransitions);
-                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk);
-                    command.Parameters.AddWithValue("@rewrite_superseded", rewriteSuperseded);
+                    command.Parameters.AddWithValue("@remove_transitions", removeTransitions ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@rewrite_superseded", rewriteSuperseded ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRemoveScenarioCircuitResidue(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRemoveScenarioCircuitResidue(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioCircuitResidue>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -74,10 +92,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelRemoveScenarioCircuitResidue> Execute(string capabilityId, string scenarios, long expectedVersionPk, bool removeTransitions, long expectedDefinitionPk, bool rewriteSuperseded)
+        public ProcedureCallResult<ModelRemoveScenarioCircuitResidue> Execute(string capabilityId, string scenarios, long expectedVersionPk, bool? removeTransitions = null, long? expectedDefinitionPk = null, bool? rewriteSuperseded = null)
         {
             var entities = new List<ModelRemoveScenarioCircuitResidue>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,28 +105,46 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@scenarios", scenarios ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_version_pk", expectedVersionPk);
-                    command.Parameters.AddWithValue("@remove_transitions", removeTransitions);
-                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk);
-                    command.Parameters.AddWithValue("@rewrite_superseded", rewriteSuperseded);
+                    command.Parameters.AddWithValue("@remove_transitions", removeTransitions ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@expected_definition_pk", expectedDefinitionPk ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@rewrite_superseded", rewriteSuperseded ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRemoveScenarioCircuitResidue(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRemoveScenarioCircuitResidue(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioCircuitResidue>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -119,33 +155,33 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelRemoveScenarioCircuitResidue MapReaderToModelRemoveScenarioCircuitResidue(SqlDataReader reader)
+        public ModelRemoveScenarioCircuitResidue MapRowToModelRemoveScenarioCircuitResidue(DataRow row)
         {
             return new ModelRemoveScenarioCircuitResidue
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                EstateModelPk = reader.IsDBNull(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                SelectedCapabilityVersionPk = reader.IsDBNull(reader.GetOrdinal("selected_capability_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("selected_capability_version_pk")),
-                SelectedDefinitionPk = reader.IsDBNull(reader.GetOrdinal("selected_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("selected_definition_pk")),
-                SelectedContentObjectPk = reader.IsDBNull(reader.GetOrdinal("selected_content_object_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("selected_content_object_pk")),
-                ExpectedVersionPk = reader.IsDBNull(reader.GetOrdinal("expected_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("expected_version_pk")),
-                RemoveTransitions = reader.IsDBNull(reader.GetOrdinal("remove_transitions")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("remove_transitions")),
-                ExpectedDefinitionPk = reader.IsDBNull(reader.GetOrdinal("expected_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("expected_definition_pk")),
-                RewriteSuperseded = reader.IsDBNull(reader.GetOrdinal("rewrite_superseded")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("rewrite_superseded")),
-                NamedScenarios = reader.IsDBNull(reader.GetOrdinal("named_scenarios")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("named_scenarios")),
-                RoutingEntries = reader.IsDBNull(reader.GetOrdinal("routing_entries")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("routing_entries")),
-                RoutingEntriesNamed = reader.IsDBNull(reader.GetOrdinal("routing_entries_named")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("routing_entries_named")),
-                LegacyScenarioVersions = reader.IsDBNull(reader.GetOrdinal("legacy_scenario_versions")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("legacy_scenario_versions")),
-                LegacyVariants = reader.IsDBNull(reader.GetOrdinal("legacy_variants")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("legacy_variants")),
-                SelectedLinksNamed = reader.IsDBNull(reader.GetOrdinal("selected_links_named")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("selected_links_named")),
-                SupersededLinksNamed = reader.IsDBNull(reader.GetOrdinal("superseded_links_named")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("superseded_links_named")),
-                FeaturePinsNamed = reader.IsDBNull(reader.GetOrdinal("feature_pins_named")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("feature_pins_named")),
-                LegacyAuthorities = reader.IsDBNull(reader.GetOrdinal("legacy_authorities")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("legacy_authorities")),
-                LegacyAuthorityVersions = reader.IsDBNull(reader.GetOrdinal("legacy_authority_versions")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("legacy_authority_versions")),
-                LegacyOperations = reader.IsDBNull(reader.GetOrdinal("legacy_operations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("legacy_operations")),
-                TargetedRows = reader.IsDBNull(reader.GetOrdinal("targeted_rows")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("targeted_rows"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                EstateModelPk = row.IsNull("estate_model_pk") ? (long?)null : (long)row["estate_model_pk"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                SelectedCapabilityVersionPk = row.IsNull("selected_capability_version_pk") ? (long?)null : (long)row["selected_capability_version_pk"],
+                SelectedDefinitionPk = row.IsNull("selected_definition_pk") ? (long?)null : (long)row["selected_definition_pk"],
+                SelectedContentObjectPk = row.IsNull("selected_content_object_pk") ? (long?)null : (long)row["selected_content_object_pk"],
+                ExpectedVersionPk = row.IsNull("expected_version_pk") ? (long?)null : (long)row["expected_version_pk"],
+                RemoveTransitions = row.IsNull("remove_transitions") ? (bool?)null : (bool)row["remove_transitions"],
+                ExpectedDefinitionPk = row.IsNull("expected_definition_pk") ? (long?)null : (long)row["expected_definition_pk"],
+                RewriteSuperseded = row.IsNull("rewrite_superseded") ? (bool?)null : (bool)row["rewrite_superseded"],
+                NamedScenarios = row.IsNull("named_scenarios") ? (int?)null : (int)row["named_scenarios"],
+                RoutingEntries = row.IsNull("routing_entries") ? (int?)null : (int)row["routing_entries"],
+                RoutingEntriesNamed = row.IsNull("routing_entries_named") ? (int?)null : (int)row["routing_entries_named"],
+                LegacyScenarioVersions = row.IsNull("legacy_scenario_versions") ? (int?)null : (int)row["legacy_scenario_versions"],
+                LegacyVariants = row.IsNull("legacy_variants") ? (int?)null : (int)row["legacy_variants"],
+                SelectedLinksNamed = row.IsNull("selected_links_named") ? (int?)null : (int)row["selected_links_named"],
+                SupersededLinksNamed = row.IsNull("superseded_links_named") ? (int?)null : (int)row["superseded_links_named"],
+                FeaturePinsNamed = row.IsNull("feature_pins_named") ? (int?)null : (int)row["feature_pins_named"],
+                LegacyAuthorities = row.IsNull("legacy_authorities") ? (int?)null : (int)row["legacy_authorities"],
+                LegacyAuthorityVersions = row.IsNull("legacy_authority_versions") ? (int?)null : (int)row["legacy_authority_versions"],
+                LegacyOperations = row.IsNull("legacy_operations") ? (int?)null : (int)row["legacy_operations"],
+                TargetedRows = row.IsNull("targeted_rows") ? (int?)null : (int)row["targeted_rows"]
             };
         }
         

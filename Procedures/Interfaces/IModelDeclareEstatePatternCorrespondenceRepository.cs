@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareEstatePatternCorrespondenceRepository
     {
-        ProcedureCallResult<object?> Execute(string correspondenceId, string estateForm, string kernelPattern, string compilerDecision, string status, string evidenceRefs, string contested, string scope, string mappingVersion);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string correspondenceId, string estateForm, string kernelPattern, string compilerDecision, string status, string evidenceRefs, string contested, string scope, string mappingVersion);
+        ProcedureCallResult<object?> Execute(string correspondenceId, string? estateForm = null, string? kernelPattern = null, string? compilerDecision = null, string? status = null, string? evidenceRefs = null, string? contested = null, string? scope = null, string? mappingVersion = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string correspondenceId, string? estateForm = null, string? kernelPattern = null, string? compilerDecision = null, string? status = null, string? evidenceRefs = null, string? contested = null, string? scope = null, string? mappingVersion = null);
     }
 }

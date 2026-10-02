@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelRecordCandidateDecision>> ExecuteAsync(string document)
         {
             var entities = new List<ModelRecordCandidateDecision>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -44,21 +44,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRecordCandidateDecision(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRecordCandidateDecision(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRecordCandidateDecision>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,7 +90,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelRecordCandidateDecision> Execute(string document)
         {
             var entities = new List<ModelRecordCandidateDecision>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -84,21 +102,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRecordCandidateDecision(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRecordCandidateDecision(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRecordCandidateDecision>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -109,13 +145,13 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelRecordCandidateDecision MapReaderToModelRecordCandidateDecision(SqlDataReader reader)
+        public ModelRecordCandidateDecision MapRowToModelRecordCandidateDecision(DataRow row)
         {
             return new ModelRecordCandidateDecision
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CandidateId = reader.IsDBNull(reader.GetOrdinal("candidate_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("candidate_id")),
-                DecisionDigest = reader.IsDBNull(reader.GetOrdinal("decision_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("decision_digest"))
+                ResultSet = (string)row["result_set"],
+                CandidateId = row.IsNull("candidate_id") ? (string?)null : (string)row["candidate_id"],
+                DecisionDigest = row.IsNull("decision_digest") ? (string?)null : (string)row["decision_digest"]
             };
         }
         

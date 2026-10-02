@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelAssertCapabilityTopologyConformance>> ExecuteAsync(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk)
+        public async Task<ProcedureCallResult<ModelAssertCapabilityTopologyConformance>> ExecuteAsync(string capabilityId, string? expectedBeforeDigest = null, bool? failOnHard = null, long? estateModelPk = null)
         {
             var entities = new List<ModelAssertCapabilityTopologyConformance>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -41,27 +41,45 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_before_digest", expectedBeforeDigest ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@fail_on_hard", failOnHard);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@fail_on_hard", failOnHard ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelAssertCapabilityTopologyConformance(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelAssertCapabilityTopologyConformance(row));
                         }
                     }
                     return new ProcedureCallResult<ModelAssertCapabilityTopologyConformance>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -72,10 +90,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelAssertCapabilityTopologyConformance> Execute(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk)
+        public ProcedureCallResult<ModelAssertCapabilityTopologyConformance> Execute(string capabilityId, string? expectedBeforeDigest = null, bool? failOnHard = null, long? estateModelPk = null)
         {
             var entities = new List<ModelAssertCapabilityTopologyConformance>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -84,27 +102,45 @@ namespace SFX.DAL.Repositories
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@expected_before_digest", expectedBeforeDigest ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@fail_on_hard", failOnHard);
-                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk);
+                    command.Parameters.AddWithValue("@fail_on_hard", failOnHard ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@estate_model_pk", estateModelPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelAssertCapabilityTopologyConformance(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelAssertCapabilityTopologyConformance(row));
                         }
                     }
                     return new ProcedureCallResult<ModelAssertCapabilityTopologyConformance>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -115,19 +151,19 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelAssertCapabilityTopologyConformance MapReaderToModelAssertCapabilityTopologyConformance(SqlDataReader reader)
+        public ModelAssertCapabilityTopologyConformance MapRowToModelAssertCapabilityTopologyConformance(DataRow row)
         {
             return new ModelAssertCapabilityTopologyConformance
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                ConformanceStatus = reader.GetString(reader.GetOrdinal("conformance_status")),
-                StateDigest = reader.IsDBNull(reader.GetOrdinal("state_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("state_digest")),
-                ExpectedBeforeDigest = reader.IsDBNull(reader.GetOrdinal("expected_before_digest")) ? (string?)null : reader.GetString(reader.GetOrdinal("expected_before_digest")),
-                Violations = reader.IsDBNull(reader.GetOrdinal("violations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("violations")),
-                HardViolations = reader.IsDBNull(reader.GetOrdinal("hard_violations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("hard_violations")),
-                WarnViolations = reader.IsDBNull(reader.GetOrdinal("warn_violations")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("warn_violations")),
-                FailOnHard = reader.IsDBNull(reader.GetOrdinal("fail_on_hard")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("fail_on_hard"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                ConformanceStatus = (string)row["conformance_status"],
+                StateDigest = row.IsNull("state_digest") ? (string?)null : (string)row["state_digest"],
+                ExpectedBeforeDigest = row.IsNull("expected_before_digest") ? (string?)null : (string)row["expected_before_digest"],
+                Violations = row.IsNull("violations") ? (int?)null : (int)row["violations"],
+                HardViolations = row.IsNull("hard_violations") ? (int?)null : (int)row["hard_violations"],
+                WarnViolations = row.IsNull("warn_violations") ? (int?)null : (int)row["warn_violations"],
+                FailOnHard = row.IsNull("fail_on_hard") ? (bool?)null : (bool)row["fail_on_hard"]
             };
         }
         

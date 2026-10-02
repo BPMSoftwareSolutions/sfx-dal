@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IAnalysisReadDefinitionBodyRepository
     {
-        ProcedureCallResult<AnalysisReadDefinitionBody> Execute(string objectKind, string declaredId, long estateModelPk, string path, int topN, int maxDepth);
-        Task<ProcedureCallResult<AnalysisReadDefinitionBody>> ExecuteAsync(string objectKind, string declaredId, long estateModelPk, string path, int topN, int maxDepth);
+        ProcedureCallResult<AnalysisReadDefinitionBody> Execute(string objectKind, string declaredId, long? estateModelPk = null, string? path = null, int? topN = null, int? maxDepth = null);
+        Task<ProcedureCallResult<AnalysisReadDefinitionBody>> ExecuteAsync(string objectKind, string declaredId, long? estateModelPk = null, string? path = null, int? topN = null, int? maxDepth = null);
     }
 }

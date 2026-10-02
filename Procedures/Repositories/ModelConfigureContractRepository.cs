@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelConfigureContract>> ExecuteAsync(string capabilityId, string face, string addPropertiesJson, string removePropertiesJson, bool required)
+        public async Task<ProcedureCallResult<ModelConfigureContract>> ExecuteAsync(string capabilityId, string? face = null, string? addPropertiesJson = null, string? removePropertiesJson = null, bool? required = null)
         {
             var entities = new List<ModelConfigureContract>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -43,26 +43,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@face", face ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@add_properties_json", addPropertiesJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@remove_properties_json", removePropertiesJson ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@required", required);
+                    command.Parameters.AddWithValue("@required", required ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelConfigureContract(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelConfigureContract(row));
                         }
                     }
                     return new ProcedureCallResult<ModelConfigureContract>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelConfigureContract> Execute(string capabilityId, string face, string addPropertiesJson, string removePropertiesJson, bool required)
+        public ProcedureCallResult<ModelConfigureContract> Execute(string capabilityId, string? face = null, string? addPropertiesJson = null, string? removePropertiesJson = null, bool? required = null)
         {
             var entities = new List<ModelConfigureContract>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,26 +105,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@face", face ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@add_properties_json", addPropertiesJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@remove_properties_json", removePropertiesJson ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@required", required);
+                    command.Parameters.AddWithValue("@required", required ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelConfigureContract(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelConfigureContract(row));
                         }
                     }
                     return new ProcedureCallResult<ModelConfigureContract>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,17 +153,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelConfigureContract MapReaderToModelConfigureContract(SqlDataReader reader)
+        public ModelConfigureContract MapRowToModelConfigureContract(DataRow row)
         {
             return new ModelConfigureContract
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                Face = reader.IsDBNull(reader.GetOrdinal("face")) ? (string?)null : reader.GetString(reader.GetOrdinal("face")),
-                ContractVersionBefore = reader.IsDBNull(reader.GetOrdinal("contract_version_before")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("contract_version_before")),
-                ContractVersionAfter = reader.IsDBNull(reader.GetOrdinal("contract_version_after")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("contract_version_after")),
-                PayloadPropertiesBefore = reader.IsDBNull(reader.GetOrdinal("payload_properties_before")) ? (string?)null : reader.GetString(reader.GetOrdinal("payload_properties_before")),
-                PayloadPropertiesAfter = reader.IsDBNull(reader.GetOrdinal("payload_properties_after")) ? (string?)null : reader.GetString(reader.GetOrdinal("payload_properties_after"))
+                Action = (string)row["action"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                Face = row.IsNull("face") ? (string?)null : (string)row["face"],
+                ContractVersionBefore = row.IsNull("contract_version_before") ? (long?)null : (long)row["contract_version_before"],
+                ContractVersionAfter = row.IsNull("contract_version_after") ? (long?)null : (long)row["contract_version_after"],
+                PayloadPropertiesBefore = row.IsNull("payload_properties_before") ? (string?)null : (string)row["payload_properties_before"],
+                PayloadPropertiesAfter = row.IsNull("payload_properties_after") ? (string?)null : (string)row["payload_properties_after"]
             };
         }
         

@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelBindProvider>> ExecuteAsync(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson)
+        public async Task<ProcedureCallResult<ModelBindProvider>> ExecuteAsync(string capabilityId, string mechanicId, string providerId, string? platformCapabilityId = null, string? configurationJson = null)
         {
             var entities = new List<ModelBindProvider>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,21 +48,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelBindProvider(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelBindProvider(row));
                         }
                     }
                     return new ProcedureCallResult<ModelBindProvider>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelBindProvider> Execute(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson)
+        public ProcedureCallResult<ModelBindProvider> Execute(string capabilityId, string mechanicId, string providerId, string? platformCapabilityId = null, string? configurationJson = null)
         {
             var entities = new List<ModelBindProvider>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -92,21 +110,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelBindProvider(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelBindProvider(row));
                         }
                     }
                     return new ProcedureCallResult<ModelBindProvider>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,17 +153,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelBindProvider MapReaderToModelBindProvider(SqlDataReader reader)
+        public ModelBindProvider MapRowToModelBindProvider(DataRow row)
         {
             return new ModelBindProvider
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                MechanicId = reader.IsDBNull(reader.GetOrdinal("mechanic_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("mechanic_id")),
-                ProviderId = reader.IsDBNull(reader.GetOrdinal("provider_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_id")),
-                PlatformCapabilityId = reader.IsDBNull(reader.GetOrdinal("platform_capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("platform_capability_id")),
-                DefinitionAfter = reader.IsDBNull(reader.GetOrdinal("definition_after")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_after")),
-                PortVersionPk = reader.IsDBNull(reader.GetOrdinal("port_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("port_version_pk"))
+                Action = (string)row["action"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                MechanicId = row.IsNull("mechanic_id") ? (string?)null : (string)row["mechanic_id"],
+                ProviderId = row.IsNull("provider_id") ? (string?)null : (string)row["provider_id"],
+                PlatformCapabilityId = row.IsNull("platform_capability_id") ? (string?)null : (string)row["platform_capability_id"],
+                DefinitionAfter = row.IsNull("definition_after") ? (long?)null : (long)row["definition_after"],
+                PortVersionPk = row.IsNull("port_version_pk") ? (long?)null : (long)row["port_version_pk"]
             };
         }
         

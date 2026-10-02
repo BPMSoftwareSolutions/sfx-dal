@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelRepairBindingPathCompatibilityRepository
     {
-        ProcedureCallResult<object?> Execute(string capabilityId, string scenario, int operationOrdinal, string bindingPort, string requiredPaths);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string scenario, int operationOrdinal, string bindingPort, string requiredPaths);
+        ProcedureCallResult<object?> Execute(string capabilityId, string? scenario = null, int? operationOrdinal = null, string? bindingPort = null, string? requiredPaths = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string? scenario = null, int? operationOrdinal = null, string? bindingPort = null, string? requiredPaths = null);
     }
 }

@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IAnalysisReadProviderConformanceSignalRepository
     {
-        ProcedureCallResult<AnalysisReadProviderConformanceSignal> Execute(long estateModelPk, string expectedSignalDigest, bool failOnMismatch);
-        Task<ProcedureCallResult<AnalysisReadProviderConformanceSignal>> ExecuteAsync(long estateModelPk, string expectedSignalDigest, bool failOnMismatch);
+        ProcedureCallResult<AnalysisReadProviderConformanceSignal> Execute(long? estateModelPk = null, string? expectedSignalDigest = null, bool? failOnMismatch = null);
+        Task<ProcedureCallResult<AnalysisReadProviderConformanceSignal>> ExecuteAsync(long? estateModelPk = null, string? expectedSignalDigest = null, bool? failOnMismatch = null);
     }
 }

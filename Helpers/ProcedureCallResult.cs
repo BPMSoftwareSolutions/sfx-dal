@@ -18,8 +18,8 @@ namespace SFX.DAL.Helpers
     {
         public List<T> Rows { get; set; } = new List<T>();
 
-        /// <summary>Every result set after the first, in order, for multi-result procedures.</summary>
-        public List<DataTable> AdditionalResultSets { get; set; } = new List<DataTable>();
+        /// <summary>Every result set, in order and including the first, with the original SQL column names.</summary>
+        public List<DataTable> ResultSets { get; set; } = new List<DataTable>();
 
         public IReadOnlyDictionary<string, object?> OutputParameters { get; set; } = new Dictionary<string, object?>();
 

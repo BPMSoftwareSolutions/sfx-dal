@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelSetDefinitionLabel>> ExecuteAsync(string namespaceId, string declaredId, string versionLabel, string objectKind, long semanticObjectDefinitionPk)
+        public async Task<ProcedureCallResult<ModelSetDefinitionLabel>> ExecuteAsync(string namespaceId, string declaredId, string versionLabel, string? objectKind = null, long? semanticObjectDefinitionPk = null)
         {
             var entities = new List<ModelSetDefinitionLabel>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -43,26 +43,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@declared_id", declaredId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@version_label", versionLabel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@object_kind", objectKind ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@semantic_object_definition_pk", semanticObjectDefinitionPk);
+                    command.Parameters.AddWithValue("@semantic_object_definition_pk", semanticObjectDefinitionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelSetDefinitionLabel(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelSetDefinitionLabel(row));
                         }
                     }
                     return new ProcedureCallResult<ModelSetDefinitionLabel>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,10 +91,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelSetDefinitionLabel> Execute(string namespaceId, string declaredId, string versionLabel, string objectKind, long semanticObjectDefinitionPk)
+        public ProcedureCallResult<ModelSetDefinitionLabel> Execute(string namespaceId, string declaredId, string versionLabel, string? objectKind = null, long? semanticObjectDefinitionPk = null)
         {
             var entities = new List<ModelSetDefinitionLabel>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,26 +105,44 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@declared_id", declaredId ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@version_label", versionLabel ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@object_kind", objectKind ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@semantic_object_definition_pk", semanticObjectDefinitionPk);
+                    command.Parameters.AddWithValue("@semantic_object_definition_pk", semanticObjectDefinitionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelSetDefinitionLabel(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelSetDefinitionLabel(row));
                         }
                     }
                     return new ProcedureCallResult<ModelSetDefinitionLabel>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,18 +153,18 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelSetDefinitionLabel MapReaderToModelSetDefinitionLabel(SqlDataReader reader)
+        public ModelSetDefinitionLabel MapRowToModelSetDefinitionLabel(DataRow row)
         {
             return new ModelSetDefinitionLabel
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                Disposition = reader.GetString(reader.GetOrdinal("disposition")),
-                NamespaceId = reader.IsDBNull(reader.GetOrdinal("namespace_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("namespace_id")),
-                DeclaredId = reader.IsDBNull(reader.GetOrdinal("declared_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("declared_id")),
-                ObjectKind = reader.IsDBNull(reader.GetOrdinal("object_kind")) ? (string?)null : reader.GetString(reader.GetOrdinal("object_kind")),
-                SemanticObjectPk = reader.IsDBNull(reader.GetOrdinal("semantic_object_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
-                SemanticObjectDefinitionPk = reader.IsDBNull(reader.GetOrdinal("semantic_object_definition_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("semantic_object_definition_pk")),
-                VersionLabel = reader.IsDBNull(reader.GetOrdinal("version_label")) ? (string?)null : reader.GetString(reader.GetOrdinal("version_label"))
+                Action = (string)row["action"],
+                Disposition = (string)row["disposition"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                DeclaredId = row.IsNull("declared_id") ? (string?)null : (string)row["declared_id"],
+                ObjectKind = row.IsNull("object_kind") ? (string?)null : (string)row["object_kind"],
+                SemanticObjectPk = row.IsNull("semantic_object_pk") ? (long?)null : (long)row["semantic_object_pk"],
+                SemanticObjectDefinitionPk = row.IsNull("semantic_object_definition_pk") ? (long?)null : (long)row["semantic_object_definition_pk"],
+                VersionLabel = row.IsNull("version_label") ? (string?)null : (string)row["version_label"]
             };
         }
         

@@ -29,10 +29,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelRepointCapabilityFeature>> ExecuteAsync(string capabilityId, long featureVersionPk)
+        public async Task<ProcedureCallResult<ModelRepointCapabilityFeature>> ExecuteAsync(string capabilityId, long? featureVersionPk = null)
         {
             var entities = new List<ModelRepointCapabilityFeature>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -40,26 +40,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@feature_version_pk", featureVersionPk);
+                    command.Parameters.AddWithValue("@feature_version_pk", featureVersionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRepointCapabilityFeature(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRepointCapabilityFeature(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRepointCapabilityFeature>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -70,10 +88,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelRepointCapabilityFeature> Execute(string capabilityId, long featureVersionPk)
+        public ProcedureCallResult<ModelRepointCapabilityFeature> Execute(string capabilityId, long? featureVersionPk = null)
         {
             var entities = new List<ModelRepointCapabilityFeature>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,26 +99,44 @@ namespace SFX.DAL.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@capability_id", capabilityId ?? (object)DBNull.Value);
-                    command.Parameters.AddWithValue("@feature_version_pk", featureVersionPk);
+                    command.Parameters.AddWithValue("@feature_version_pk", featureVersionPk ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelRepointCapabilityFeature(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelRepointCapabilityFeature(row));
                         }
                     }
                     return new ProcedureCallResult<ModelRepointCapabilityFeature>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -111,19 +147,19 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelRepointCapabilityFeature MapReaderToModelRepointCapabilityFeature(SqlDataReader reader)
+        public ModelRepointCapabilityFeature MapRowToModelRepointCapabilityFeature(DataRow row)
         {
             return new ModelRepointCapabilityFeature
             {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
-                SelectedCapabilityVersionPk = reader.IsDBNull(reader.GetOrdinal("selected_capability_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("selected_capability_version_pk")),
-                FeatureVersionPk = reader.IsDBNull(reader.GetOrdinal("feature_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("feature_version_pk")),
-                PinUpdates = reader.IsDBNull(reader.GetOrdinal("pin_updates")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("pin_updates")),
-                PinInserts = reader.IsDBNull(reader.GetOrdinal("pin_inserts")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("pin_inserts")),
-                BindingAction = reader.IsDBNull(reader.GetOrdinal("binding_action")) ? (string?)null : reader.GetString(reader.GetOrdinal("binding_action")),
-                ChangesMade = reader.GetInt32(reader.GetOrdinal("changes_made"))
+                ResultSet = (string)row["result_set"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                CapabilityPk = row.IsNull("capability_pk") ? (long?)null : (long)row["capability_pk"],
+                SelectedCapabilityVersionPk = row.IsNull("selected_capability_version_pk") ? (long?)null : (long)row["selected_capability_version_pk"],
+                FeatureVersionPk = row.IsNull("feature_version_pk") ? (long?)null : (long)row["feature_version_pk"],
+                PinUpdates = row.IsNull("pin_updates") ? (int?)null : (int)row["pin_updates"],
+                PinInserts = row.IsNull("pin_inserts") ? (int?)null : (int)row["pin_inserts"],
+                BindingAction = row.IsNull("binding_action") ? (string?)null : (string)row["binding_action"],
+                ChangesMade = (int)row["changes_made"]
             };
         }
         

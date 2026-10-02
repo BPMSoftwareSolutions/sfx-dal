@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelConfigureMechanic>> ExecuteAsync(string capabilityId, string greetingTemplate)
         {
             var entities = new List<ModelConfigureMechanic>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -45,21 +45,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelConfigureMechanic(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelConfigureMechanic(row));
                         }
                     }
                     return new ProcedureCallResult<ModelConfigureMechanic>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -73,7 +91,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelConfigureMechanic> Execute(string capabilityId, string greetingTemplate)
         {
             var entities = new List<ModelConfigureMechanic>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -86,21 +104,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelConfigureMechanic(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelConfigureMechanic(row));
                         }
                     }
                     return new ProcedureCallResult<ModelConfigureMechanic>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -111,19 +147,19 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelConfigureMechanic MapReaderToModelConfigureMechanic(SqlDataReader reader)
+        public ModelConfigureMechanic MapRowToModelConfigureMechanic(DataRow row)
         {
             return new ModelConfigureMechanic
             {
-                Action = reader.GetString(reader.GetOrdinal("action")),
-                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
-                MechanicId = reader.IsDBNull(reader.GetOrdinal("mechanic_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("mechanic_id")),
-                TemplateBefore = reader.IsDBNull(reader.GetOrdinal("template_before")) ? (string?)null : reader.GetString(reader.GetOrdinal("template_before")),
-                TemplateAfter = reader.IsDBNull(reader.GetOrdinal("template_after")) ? (string?)null : reader.GetString(reader.GetOrdinal("template_after")),
-                DefinitionBefore = reader.IsDBNull(reader.GetOrdinal("definition_before")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_before")),
-                DefinitionAfter = reader.IsDBNull(reader.GetOrdinal("definition_after")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("definition_after")),
-                TransformationVersionPk = reader.IsDBNull(reader.GetOrdinal("transformation_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("transformation_version_pk")),
-                FixtureId = reader.IsDBNull(reader.GetOrdinal("fixture_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("fixture_id"))
+                Action = (string)row["action"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                MechanicId = row.IsNull("mechanic_id") ? (string?)null : (string)row["mechanic_id"],
+                TemplateBefore = row.IsNull("template_before") ? (string?)null : (string)row["template_before"],
+                TemplateAfter = row.IsNull("template_after") ? (string?)null : (string)row["template_after"],
+                DefinitionBefore = row.IsNull("definition_before") ? (long?)null : (long)row["definition_before"],
+                DefinitionAfter = row.IsNull("definition_after") ? (long?)null : (long)row["definition_after"],
+                TransformationVersionPk = row.IsNull("transformation_version_pk") ? (long?)null : (long)row["transformation_version_pk"],
+                FixtureId = row.IsNull("fixture_id") ? (string?)null : (string)row["fixture_id"]
             };
         }
         

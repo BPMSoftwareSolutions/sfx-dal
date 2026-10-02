@@ -28,10 +28,10 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string providerCapabilityId, string inputContract, string inputSchema, string outcomeContract, string outcomeSchema, string description)
+        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string capabilityId, string providerCapabilityId, string inputContract, string inputSchema, string outcomeContract, string outcomeSchema, string? description = null)
         {
             var entities = new List<object?>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -49,21 +49,33 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            // This procedure does not return a result set.
-                        }
-                        while (await reader.NextResultAsync())
-                        {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
                     }
+                    // This procedure does not return a result set.
                     return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -74,10 +86,10 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<object?> Execute(string capabilityId, string providerCapabilityId, string inputContract, string inputSchema, string outcomeContract, string outcomeSchema, string description)
+        public ProcedureCallResult<object?> Execute(string capabilityId, string providerCapabilityId, string inputContract, string inputSchema, string outcomeContract, string outcomeSchema, string? description = null)
         {
             var entities = new List<object?>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -95,21 +107,33 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            // This procedure does not return a result set.
-                        }
-                        while (reader.NextResult())
-                        {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
                     }
+                    // This procedure does not return a result set.
                     return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }

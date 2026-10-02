@@ -32,7 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelBindProviderPort>> ExecuteAsync(string capabilityId, string portId, string platformCapabilityId, string providerId, string scenario)
         {
             var entities = new List<ModelBindProviderPort>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,21 +48,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
                     {
-                        while (await reader.ReadAsync())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelBindProviderPort(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (await reader.NextResultAsync() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (await reader.NextResultAsync())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelBindProviderPort(row));
                         }
                     }
                     return new ProcedureCallResult<ModelBindProviderPort>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -76,7 +94,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelBindProviderPort> Execute(string capabilityId, string portId, string platformCapabilityId, string providerId, string scenario)
         {
             var entities = new List<ModelBindProviderPort>();
-            var additionalResultSets = new List<DataTable>();
+            var resultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -92,21 +110,39 @@ namespace SFX.DAL.Repositories
                     connection.Open();
                     using (var reader = command.ExecuteReader())
                     {
-                        while (reader.Read())
+                        while (true)
                         {
-                            entities.Add(MapReaderToModelBindProviderPort(reader));
+                            if (reader.FieldCount > 0)
+                            {
+                                // DataTable.Load consumes the current result set and advances past it,
+                                // so do not call NextResult here or alternating sets are skipped. It may
+                                // also close the reader once the last set is consumed.
+                                var resultSet = new DataTable();
+                                resultSet.Load(reader);
+                                resultSets.Add(resultSet);
+                                if (reader.IsClosed)
+                                {
+                                    break;
+                                }
+                                continue;
+                            }
+                            if (reader.NextResult() == false)
+                            {
+                                break;
+                            }
                         }
-                        while (reader.NextResult())
+                    }
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
                         {
-                            var additionalResultSet = new DataTable();
-                            additionalResultSet.Load(reader);
-                            additionalResultSets.Add(additionalResultSet);
+                            entities.Add(MapRowToModelBindProviderPort(row));
                         }
                     }
                     return new ProcedureCallResult<ModelBindProviderPort>
                     {
                         Rows = entities,
-                        AdditionalResultSets = additionalResultSets,
+                        ResultSets = resultSets,
                         OutputParameters = GetOutputParameters(command)
                     };         
                 }
@@ -117,12 +153,12 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelBindProviderPort MapReaderToModelBindProviderPort(SqlDataReader reader)
+        public ModelBindProviderPort MapRowToModelBindProviderPort(DataRow row)
         {
             return new ModelBindProviderPort
             {
-                DeclaredScenario = reader.IsDBNull(reader.GetOrdinal("declared_scenario")) ? (string?)null : reader.GetString(reader.GetOrdinal("declared_scenario")),
-                ScenarioVersionPk = reader.IsDBNull(reader.GetOrdinal("scenario_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("scenario_version_pk"))
+                DeclaredScenario = row.IsNull("declared_scenario") ? (string?)null : (string)row["declared_scenario"],
+                ScenarioVersionPk = row.IsNull("scenario_version_pk") ? (long?)null : (long)row["scenario_version_pk"]
             };
         }
         

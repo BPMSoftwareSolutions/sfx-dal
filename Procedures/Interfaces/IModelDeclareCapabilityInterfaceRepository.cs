@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelDeclareCapabilityInterfaceRepository
     {
-        ProcedureCallResult<ModelDeclareCapabilityInterface> Execute(string capabilityId, string cliJson, string inputType, string inputContract, string inputPath, string displaySelect, string displayAs);
-        Task<ProcedureCallResult<ModelDeclareCapabilityInterface>> ExecuteAsync(string capabilityId, string cliJson, string inputType, string inputContract, string inputPath, string displaySelect, string displayAs);
+        ProcedureCallResult<ModelDeclareCapabilityInterface> Execute(string capabilityId, string? cliJson = null, string? inputType = null, string? inputContract = null, string? inputPath = null, string? displaySelect = null, string? displayAs = null);
+        Task<ProcedureCallResult<ModelDeclareCapabilityInterface>> ExecuteAsync(string capabilityId, string? cliJson = null, string? inputType = null, string? inputContract = null, string? inputPath = null, string? displaySelect = null, string? displayAs = null);
     }
 }

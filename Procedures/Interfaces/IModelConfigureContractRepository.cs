@@ -16,7 +16,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelConfigureContractRepository
     {
-        ProcedureCallResult<ModelConfigureContract> Execute(string capabilityId, string face, string addPropertiesJson, string removePropertiesJson, bool required);
-        Task<ProcedureCallResult<ModelConfigureContract>> ExecuteAsync(string capabilityId, string face, string addPropertiesJson, string removePropertiesJson, bool required);
+        ProcedureCallResult<ModelConfigureContract> Execute(string capabilityId, string? face = null, string? addPropertiesJson = null, string? removePropertiesJson = null, bool? required = null);
+        Task<ProcedureCallResult<ModelConfigureContract>> ExecuteAsync(string capabilityId, string? face = null, string? addPropertiesJson = null, string? removePropertiesJson = null, bool? required = null);
     }
 }
