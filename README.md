@@ -28,6 +28,23 @@ Functions/
    dotnet build C:\lab\repos\sfx-dal\SFX.DAL.csproj
    ```
 
+Stored procedures are explicitly selected in `SFX.DAL.Config.json` under
+`Procedures`. Add newly installed procedures there before regenerating. A changed
+signature also requires regeneration and rebuilding consumers such as
+`sfx-providers/providers/procedure-extract`; an already published API keeps its
+previous DAL until it is rebuilt and deployed. Generating a writer does not admit
+it to the hosted API's reader allowlist.
+
+The [2026-10-02 regeneration receipt](verification/2026-10-02-regeneration.json)
+records the live catalog, generator revision, generated manifest and DLL hashes,
+checks and SQL review findings. This generation covers 90 procedures (eight new
+authoring writers), excluding the three existing `r1_txn_*` test helpers. It also
+adds `expectedDigest` to `ModelUpdateDefinitionValueRepository`. Both DAL and
+procedure-extract Release builds passed with zero warnings/errors; all eight
+provider-reader result sets matched through the consumer, and 13 named SQL
+refusals passed. These checks establish wrapper/transport behavior, not full
+authoring correctness: the receipt records the outstanding SQL findings.
+
 ## Customizing generated code
 
 Place customizations in the matching `.Custom.cs` companion files; those are created once and never overwritten (same folder as the generated file):

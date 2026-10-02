@@ -1338,6 +1338,38 @@
                        {
                            "Schema":  "model",
                            "Name":  "update_transformation_member"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_identity"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_transformation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "establish_capability_feature"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "patch_capability_envelope"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "patch_port_configuration"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "rename_definition_label"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "select_definition_generation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "swap_port_provider"
                        }
                    ]
 }

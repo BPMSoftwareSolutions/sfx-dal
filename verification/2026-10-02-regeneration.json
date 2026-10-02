@@ -1,0 +1,4258 @@
+{
+  "schemaVersion": "sfx-dal-regeneration-review.v1",
+  "capturedAt": "2026-10-02T22:39:29.842Z",
+  "estateModelPk": 34,
+  "reviewedEmbodyThrough": "a1828df984006623526243522c6dacc1b1bf0db4",
+  "generatorCommit": "744d283cace5fa4189bd30a73e1a50ce58e6591b",
+  "previousDalCommit": "ba08f703ef1928e803cee945720b77066b146d57",
+  "configSha256": "2b80d9ea70a44bbd1db5340d46fcce047e5d879a1822608bf99eb53a96ce8ca8",
+  "catalogDigest": "sha256:e3ef750bba6dfadb29c9e38901ceb82d0b86ed17ef34c7c432355f3ab59f10cf",
+  "generatedArtifactCount": 1720,
+  "generatedArtifactHashMismatches": 0,
+  "dalReleaseSha256": "d0d8f0a4bafdc001197bc36f1f4b63c7b022fd216552f34f28011fd9d8124e6c",
+  "consumerReleaseSha256": "680c3630da62de376691ef7174e2d5de234fe25ca556ebcbcac7090e3511c2a1",
+  "installedProcedureCount": 93,
+  "configuredProcedureCount": 90,
+  "excludedProcedures": [
+    "model.r1_txn_ok5",
+    "model.r1_txn_throw4",
+    "model.r1_txn_throw5"
+  ],
+  "newProcedures": [
+    "model.declare_provider_identity",
+    "model.declare_transformation",
+    "model.establish_capability_feature",
+    "model.patch_capability_envelope",
+    "model.patch_port_configuration",
+    "model.rename_definition_label",
+    "model.select_definition_generation",
+    "model.swap_port_provider"
+  ],
+  "signatureRepair": "model.update_definition_value now binds @expected_digest in Execute and ExecuteAsync",
+  "bodyChangesDuringGeneration": [
+    {
+      "procedure": "model.install_contract_change",
+      "before": "b29ffd31b15d605480dc303c4c71ffa3f3e34f4caf43cf895142e58a70ddb65a",
+      "after": "8f41afb0af5e8e020065fd0b7aa0121976775fb8baf254afa1a58d1e04d2f9b3",
+      "signatureUnchanged": true
+    },
+    {
+      "procedure": "model.install_execution_authority_change",
+      "before": "51fc1f8be556e3aac6e1a9848eaecaf6bc290e14b2c82d2d6408952860177d98",
+      "after": "d22b686e0bfd58c2429c203fd12fd9f62b3882003dc58c2c3e2c9f9c77517061",
+      "signatureUnchanged": true
+    },
+    {
+      "procedure": "model.install_feature_binding_change",
+      "before": "b46b80f39c1807b8f4e16aef2bf5e7a395854fc0d0b27ede8c4cf33d88ef560c",
+      "after": "9b9a79aa1dd10d0558f156e92d8f06dae72efd094272decba898d83eeecea487",
+      "signatureUnchanged": true
+    },
+    {
+      "procedure": "model.install_scenario_authoring_change",
+      "before": "2353948e3d2903e7e7c65bc94d9fd9692c48cbb814ce433deb2fb290906007f1",
+      "after": "78b205040410bbfbb425d65372b8bc40faa31eba18a9e435d8f7a45c8e8bf247",
+      "signatureUnchanged": true
+    },
+    {
+      "procedure": "model.install_transformation_change",
+      "before": "f2ce016486f423b230df2156376bde90c0898c33f22b5834df08b0573b2fbf78",
+      "after": "03dcdf50c155c2841668a8c2e435ea107b7dd7a00ca340399175e83ac6e99223",
+      "signatureUnchanged": true
+    }
+  ],
+  "builds": [
+    {
+      "project": "SFX.DAL.csproj",
+      "configuration": "Release",
+      "warnings": 0,
+      "errors": 0
+    },
+    {
+      "project": "sfx-providers/providers/procedure-extract/ProcedureExtract.csproj",
+      "configuration": "Release",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "verification": {
+    "verifiedAt": "2026-10-02T18:40:49.5179702-04:00",
+    "configuredProcedureCount": 90,
+    "checks": [
+      {
+        "procedure": "analysis.read_capability_inspection",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_capability_operations",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_deck_observation_map",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_definition_body",
+        "inputCount": 6,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_live_scenario_circuit",
+        "inputCount": 3,
+        "outputCount": 1
+      },
+      {
+        "procedure": "analysis.read_provider_bindings",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_provider_details",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_provider_ports",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.render_integrated_scenario_circuit",
+        "inputCount": 9,
+        "outputCount": 1
+      },
+      {
+        "procedure": "model.add_example",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.add_mechanic",
+        "inputCount": 6,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.add_provider",
+        "inputCount": 6,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.append_scenario_operation",
+        "inputCount": 7,
+        "outputCount": 1
+      },
+      {
+        "procedure": "model.apply_blueprint_finding_repair",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.assert_capability_topology_conformance",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.author_capability_meaning",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.bind_port_from_contract",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.bind_provider",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.bind_provider_port",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.clone_port_pipeline_capability",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.configure_contract",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.configure_interface",
+        "inputCount": 8,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.configure_mechanic",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.configure_provider",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_blueprint_finding_repair",
+        "inputCount": 8,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_capability_document",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_capability_envelope",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_capability_feature",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_capability_interface",
+        "inputCount": 7,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_contract",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_estate_pattern_correspondence",
+        "inputCount": 9,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_estate_provider",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_port_overlay_rule",
+        "inputCount": 6,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_provider_mechanic",
+        "inputCount": 9,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_provider_port",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_scenario",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_scenario_from_contract",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.inspect_capability",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_capability_authoring_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_contract_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_execution_authority_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_feature_binding_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_model_placement_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_provider_binding_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_scenario_authoring_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_scenario_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.install_transformation_change",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.normalize_transformation_expression",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.put_semantic_definition",
+        "inputCount": 4,
+        "outputCount": 3
+      },
+      {
+        "procedure": "model.reconcile_scenario_variants",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.record_alignment_evaluation",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.record_candidate_decision",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.record_proof_receipt",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.record_repair_receipt",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.register_capability_candidate",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.remove_capability_scenario",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.remove_mechanic",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.remove_scenario_circuit_residue",
+        "inputCount": 6,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.remove_scenario_operations",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.repair_binding_path_compatibility",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.replace_port_configuration",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.repoint_capability_feature",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.retire_model_placement",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.revise_transformation",
+        "inputCount": 4,
+        "outputCount": 3
+      },
+      {
+        "procedure": "model.scaffold_capability",
+        "inputCount": 7,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.scaffold_capability_backed_capability",
+        "inputCount": 7,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.scaffold_composed_capability",
+        "inputCount": 8,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.scaffold_estate_provider_capability",
+        "inputCount": 9,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.set_definition_label",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "source.publish_model",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "source.validate_canonical_features",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "source.validate_model",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_capability_providers",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_provider_canonical_body",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "analysis.read_provider_conformance_signal",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.backfill_provider_labels",
+        "inputCount": 1,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_overlay_provider",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_provider_role",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.remove_port_provider_reference",
+        "inputCount": 2,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.update_definition_member",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.update_definition_value",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.update_transformation_member",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_provider_identity",
+        "inputCount": 5,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.declare_transformation",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.establish_capability_feature",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.patch_capability_envelope",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.patch_port_configuration",
+        "inputCount": 4,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.rename_definition_label",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.select_definition_generation",
+        "inputCount": 3,
+        "outputCount": 0
+      },
+      {
+        "procedure": "model.swap_port_provider",
+        "inputCount": 3,
+        "outputCount": 0
+      }
+    ],
+    "optionalNullDefaultsPassed": true,
+    "expectedDigestPresent": true,
+    "readerSets": [
+      {
+        "name": "provider_canonical_body",
+        "rows": 1,
+        "columns": 9
+      },
+      {
+        "name": "provider_canonical_body_rows",
+        "rows": 10,
+        "columns": 4
+      },
+      {
+        "name": "provider_semantic_rows",
+        "rows": 68,
+        "columns": 8
+      },
+      {
+        "name": "provider_chain_semantics_rows",
+        "rows": 1196,
+        "columns": 9
+      },
+      {
+        "name": "provider_update_targets",
+        "rows": 752,
+        "columns": 7
+      },
+      {
+        "name": "provider_semantic_summary",
+        "rows": 1,
+        "columns": 9
+      },
+      {
+        "name": "provider_reference_rows",
+        "rows": 4,
+        "columns": 11
+      },
+      {
+        "name": "provider_reference_matches",
+        "rows": 20,
+        "columns": 8
+      }
+    ],
+    "fullReaderCellParity": true,
+    "refusalCases": [
+      {
+        "procedure": "model.declare_provider_identity",
+        "refusal": "PROVIDER_IDENTITY_ID_REQUIRED"
+      },
+      {
+        "procedure": "model.declare_transformation",
+        "refusal": "DECLARE_TRANSFORMATION_IDENTITY_REQUIRED"
+      },
+      {
+        "procedure": "model.establish_capability_feature",
+        "refusal": "FEATURE_CAPABILITY_REQUIRED"
+      },
+      {
+        "procedure": "model.patch_capability_envelope",
+        "refusal": "ENVELOPE_CAPABILITY_REQUIRED"
+      },
+      {
+        "procedure": "model.patch_port_configuration",
+        "refusal": "PORT_CONFIGURATION_PATH_OUT_OF_SCOPE"
+      },
+      {
+        "procedure": "model.rename_definition_label",
+        "refusal": "LABEL_IDENTITY_REQUIRED"
+      },
+      {
+        "procedure": "model.select_definition_generation",
+        "refusal": "SELECTION_IDENTITY_REQUIRED"
+      },
+      {
+        "procedure": "model.swap_port_provider",
+        "refusal": "PORT_PROVIDER_PROVIDER_REQUIRED"
+      },
+      {
+        "procedure": "model.install_contract_change",
+        "refusal": "CONTRACT_CHANGE_RETIRED: use model.declare_contract"
+      },
+      {
+        "procedure": "model.install_scenario_authoring_change",
+        "refusal": "SCENARIO_AUTHORING_RETIRED: use model.declare_scenario and model.add_example"
+      },
+      {
+        "procedure": "model.install_transformation_change",
+        "refusal": "TRANSFORMATION_CHANGE_RETIRED: use model.declare_transformation"
+      },
+      {
+        "procedure": "model.install_execution_authority_change",
+        "refusal": "EXECUTION_AUTHORITY_CHANGE_RETIRED: use model.declare_scenario, model.append_scenario_operation or model.remove_scenario_operations"
+      },
+      {
+        "procedure": "model.install_feature_binding_change",
+        "refusal": "FEATURE_BINDING_CHANGE_RETIRED: use model.establish_capability_feature, model.repoint_capability_feature or model.declare_capability_feature"
+      }
+    ],
+    "limitations": "Signature checks cover SQL parameter names, CLR input types/order, output direction and new nullable defaults; not explicit input SqlDbType/length binding. Refusals test transport and SQL input guards, not writer change-path correctness."
+  },
+  "verificationHarnessSha256": "0bb0196b61a5c4f34e64e485b6c6352f4205a72529156bf98ac781b26cc7b55c",
+  "sqlReviewFindings": [
+    {
+      "id": "R1",
+      "priority": "P1",
+      "status": "open, already measured by Turn 2",
+      "title": "Envelope patch leaves selected capability version behind",
+      "file": "sfx-embody/sql/migrations/patch-capability-envelope.commit.sql",
+      "line": 92,
+      "evidence": "turn2-01-type-and-pointer-effects.out.txt: max_estate_definition_sod=217233 while estate_capability_pointer_sod and fv_selected_definition_sod remain 199484. The writer mints semantic rows without capability_version/pointer maintenance.",
+      "requiredRepair": "Maintain typed capability version and selected pointer atomically; add a changing-value acceptance that reads the runtime-selected definition."
+    },
+    {
+      "id": "R2",
+      "priority": "P1",
+      "status": "open; scalar dispatch evaluated read-only on the live database",
+      "title": "Envelope JSON scalar edits are stored as strings",
+      "file": "sfx-embody/sql/migrations/patch-capability-envelope.commit.sql",
+      "line": 84,
+      "evidence": "The writer uses ISJSON(value_json) without a SCALAR constraint. Its quoted-string, numeric and boolean branches reach the text fallback. Live expression results store quoted demo with quote characters, and 42/false as JSON strings. Objects and arrays preserve their types.",
+      "query": "sfx-embody/sql/inspect/ide-authoring-tools/04-envelope-scalar-review.sql",
+      "cases": [
+        {
+          "result_set": "envelope_scalar_dispatch",
+          "case_count": 5,
+          "input_json": "\"demo\"",
+          "isjson_default": 0,
+          "stored_json_type": 1,
+          "stored_value": "\"demo\""
+        },
+        {
+          "result_set": "envelope_scalar_dispatch",
+          "case_count": 5,
+          "input_json": "42",
+          "isjson_default": 0,
+          "stored_json_type": 1,
+          "stored_value": "42"
+        },
+        {
+          "result_set": "envelope_scalar_dispatch",
+          "case_count": 5,
+          "input_json": "false",
+          "isjson_default": 0,
+          "stored_json_type": 1,
+          "stored_value": "false"
+        },
+        {
+          "result_set": "envelope_scalar_dispatch",
+          "case_count": 5,
+          "input_json": "{\"x\":1}",
+          "isjson_default": 1,
+          "stored_json_type": 5,
+          "stored_value": "{\"x\":1}"
+        },
+        {
+          "result_set": "envelope_scalar_dispatch",
+          "case_count": 5,
+          "input_json": "[1]",
+          "isjson_default": 1,
+          "stored_json_type": 4,
+          "stored_value": "[1]"
+        }
+      ],
+      "requiredRepair": "Parse one JSON value with OPENJSON, preserve its scalar type, and add changing-value acceptance for string/number/boolean/null. Reuse the type discipline already present in patch_port_configuration."
+    }
+  ],
+  "installedProcedures": [
+    {
+      "schema_name": "analysis",
+      "name": "read_capability_inspection",
+      "body_digest_utf16le": "e749f7b877e5a6f57540bd06b8f8f9ef16e1ad7eb37a259772faf2fa30fadd1f",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_capability_operations",
+      "body_digest_utf16le": "cc76577c0c21451375ee6d7d94317d2f5f63c461d150e22d606b3723e86bf8da",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_capability_providers",
+      "body_digest_utf16le": "e3ad0ed47c2c607cbc2b2aef78743aa1ce177fb95329b93e0fbfd25213c38761",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_deck_observation_map",
+      "body_digest_utf16le": "9e1e16db6c43f8c50e0741201e86d4c8ad15dbc82f4cfef6b136bee6252c6276",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@input",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_definition_body",
+      "body_digest_utf16le": "655e902b5385f3150b72d301b268d6e159b7a08c4bfb8c0bec033f71792a9f70",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@object_kind",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@top_n",
+          "type_name": "int",
+          "max_length": 4,
+          "precision": 10,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@max_depth",
+          "type_name": "int",
+          "max_length": 4,
+          "precision": 10,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_live_scenario_circuit",
+      "body_digest_utf16le": "c267dce70195e3f7f1d2d2d41f27f125786b7ea2ccd669502a7ed5e6edd40750",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@input",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@result",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": true
+        },
+        {
+          "parameter_id": 4,
+          "name": "@emit",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_provider_bindings",
+      "body_digest_utf16le": "5025d2a47e1fa67186ada713fa87115bce933a10866f16ae71bbfb9ce5a9c5dc",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_provider_canonical_body",
+      "body_digest_utf16le": "b22f6e2e495825a69085f47653a2f3b1f67da5c7305d174c4d9e2693a3cd7eb3",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_provider_conformance_signal",
+      "body_digest_utf16le": "ab42adff7e841d7ca3caa1fc18cf6e356a752e909808a1463c2e813dbadda125",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@expected_signal_digest",
+          "type_name": "varchar",
+          "max_length": 71,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@fail_on_mismatch",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_provider_details",
+      "body_digest_utf16le": "b172788f483e37a59610895a61af67cce095c275ddd7526381e8908b7801f74b",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "read_provider_ports",
+      "body_digest_utf16le": "8caa7a9b77ca36b90e20bfc45a393bbc0b40cba90233ebd0da6590c8479c8819",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "analysis",
+      "name": "render_integrated_scenario_circuit",
+      "body_digest_utf16le": "acb6b7b8707557131f8050e3524ba5f691fa931292a1a352c2ac454f8c8790d5",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@cap",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@event",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@inputCaption",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@outputCaption",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@operations",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@map",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@estate",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 9,
+          "name": "@background",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 10,
+          "name": "@result",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": true
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "add_example",
+      "body_digest_utf16le": "7cd57e5e306a6992f82c4a86f6838aa32935fe00ce0187e2171f3ef75fbb6ac5",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@fixture_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@fixture_profile",
+          "type_name": "nvarchar",
+          "max_length": 200,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "add_mechanic",
+      "body_digest_utf16le": "ad315bd94c25723de900c6e245436f6c221b3eead44c6dd37aa2c33e3e0b2a82",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@mechanic_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@mode",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@arguments_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@output_field",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@position",
+          "type_name": "int",
+          "max_length": 4,
+          "precision": 10,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "add_provider",
+      "body_digest_utf16le": "3b341fc2c23eaf6ea82bf7832d59f398830ce5b12176d5b74f0f4e77b7468c9a",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@name",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@capabilities_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@operations_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@configuration_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@on_exists",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "append_scenario_operation",
+      "body_digest_utf16le": "5b9d3fbbfde4adfee53c61e937fa590a6cc1827d445a5598c41b17cfd7d657a1",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@authority_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@operation_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@operation_kind",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@port_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@port_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@expected_authority_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@authority_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": true
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "apply_blueprint_finding_repair",
+      "body_digest_utf16le": "a27a15591d21e25166249e8a3bd3a633d9ccc2d83a2f89bf5a0750b10478e3cf",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "assert_capability_topology_conformance",
+      "body_digest_utf16le": "8bb4f81f22be184a291c55499579af20c4483f1c9d5020249891152c439238a6",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@expected_before_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@fail_on_hard",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "author_capability_meaning",
+      "body_digest_utf16le": "b5b0ad9e9b439e98c28303a7b3d708783b1932a18250d5c91f9f2d0b9725862a",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@intent",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@outcome",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "backfill_provider_labels",
+      "body_digest_utf16le": "129d3a779eb77c08a4a974eb41e06548cb6697070ff28d16e4588346e9a98898",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "bind_port_from_contract",
+      "body_digest_utf16le": "673c1d1ac4c2637c2808b71e184559868c2d68b0cf87e723761940afd7aee287",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@contract_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port_binding_authority",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "bind_provider",
+      "body_digest_utf16le": "ab42fc36dffa8b1f4aeaa74c091a4cbb12666b463d0341eaba20e66b903a3051",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@mechanic_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@platform_capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@configuration_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "bind_provider_port",
+      "body_digest_utf16le": "a064d1b5538a86f87bc6e5e4a4a8d3a15f4cde8e6ab002eb3be8dfc4f67bee00",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@platform_capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "clone_port_pipeline_capability",
+      "body_digest_utf16le": "5834701ae853df60a577b856970c7837110ba63325f2ae4799066fd21878c1ee",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@source_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@target_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_source_manifest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_authority_version",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "configure_contract",
+      "body_digest_utf16le": "cafdd6786cbc50b893028bd8c122b042ed262e48f6140f5cd35f2bebd02fe8bf",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@face",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@add_properties_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@remove_properties_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@required",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "configure_interface",
+      "body_digest_utf16le": "b1b217aa9156ea6044d4d3b227bd6bf1a7be03f5a751c5f0a598185e04980a4e",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@input_type",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 320,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@input_path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@display_select",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@display_as",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@defaults_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@cli_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "configure_mechanic",
+      "body_digest_utf16le": "b0b20ccafa8cb1fe73853ad4b1a6fc90c94c97313b21adc8774e94d7f8046fd7",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@greeting_template",
+          "type_name": "nvarchar",
+          "max_length": 400,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "configure_provider",
+      "body_digest_utf16le": "983c21fef2442e758c03b7ffd6219b08cb777bae139f7ce54ee7f6432321ed69",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@name",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@operations_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@configuration_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_blueprint_finding_repair",
+      "body_digest_utf16le": "32027ac5f7cc592af2854ade3b56a40b47455ee687a81f53539fd10b70f24475",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@finding_code",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@repair_procedure",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@parameter_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@required_parameters",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@disposition",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@next_unit",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@parameter_defaults",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@finding_source",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_capability_document",
+      "body_digest_utf16le": "1c81e95cf02f35d4d5a55c7403baff51109cc9408c4b9ce1355aae76aca5b635",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@on_unchanged",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_capability_envelope",
+      "body_digest_utf16le": "285e290063b478534150e3bd334c828761b4205d0a7ebc59e678c4befd7ac505",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@semantics",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_definition_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_capability_feature",
+      "body_digest_utf16le": "1127b22ffcf178a21f33c7bdfc28f47e386c1fb4a5c7c6aaabcd1ee25d083a95",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@feature_text",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_capability_interface",
+      "body_digest_utf16le": "9a01c2251d906e21187aac400651d8de1588380582bf48e092861b2fb28cf949",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@cli_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_type",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 320,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@input_path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@display_select",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@display_as",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_contract",
+      "body_digest_utf16le": "11922aa510f87953dd6d89b2800eb6d3b24f13c45c0bc50f34bcfd4813e673ce",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_estate_pattern_correspondence",
+      "body_digest_utf16le": "502ba0592aab2b6225bf323907b7776f9acd99a947045e2e8b16e1eff7584a40",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@correspondence_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@estate_form",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@kernel_pattern",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@compiler_decision",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@status",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@evidence_refs",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@contested",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@scope",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 9,
+          "name": "@mapping_version",
+          "type_name": "nvarchar",
+          "max_length": 200,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_estate_provider",
+      "body_digest_utf16le": "14d08ede562bc710cef5c75bfba0e2e5f3c48949be6af03dad5aef5309535752",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_overlay_provider",
+      "body_digest_utf16le": "061cfe74dd8f7085ef7d688b461d1400dfc64b0412624e9e1dedf3a6df886a31",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@name",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@candidate_capabilities_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@operations_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@configuration_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_port_overlay_rule",
+      "body_digest_utf16le": "a78931e8acb7d6ac2ffffe16b1566b80e94faaf0574e610adebb470a258a17cd",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@mechanic_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@provider_profile_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@provider_profile_digest",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@implementation_ref",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_provider_identity",
+      "body_digest_utf16le": "8389ea26697b4e683ccb58033d2b87436bbbb1000f90eacc8b8c0d95be251845",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@catalog_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@name",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@declaration_profile",
+          "type_name": "nvarchar",
+          "max_length": 400,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_provider_mechanic",
+      "body_digest_utf16le": "752ee555042a34e312e5c885ebae1679729103346590ce149d50b6574f6c305a",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@mechanic_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@meaning",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@effect_classification",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@source_profile",
+          "type_name": "nvarchar",
+          "max_length": 400,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@native_floor",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@outcome_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 9,
+          "name": "@output_field",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_provider_port",
+      "body_digest_utf16le": "c8ae8f9fffb9309969b64516e3292e26a19efc53020e5fd916f6d11198ad7d4f",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@platform_capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_provider_role",
+      "body_digest_utf16le": "1526471490b1ca6a75f596b725be1bd4c7a1e258d79ed912ff37b0e1af854c5b",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@role",
+          "type_name": "nvarchar",
+          "max_length": 80,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@on_conflict",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_scenario",
+      "body_digest_utf16le": "3c8eaa2605c7a11a179cd50e0cb7711817e55f40c3fd6bf2d1a6d37ceabe618b",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@operations",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@port_bindings",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_scenario_from_contract",
+      "body_digest_utf16le": "5b4ed330b430b518a8cd6d7ce3fe6b02dc81e18bafac09917a89fc7a7315fb29",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@contract_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario_authority",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "declare_transformation",
+      "body_digest_utf16le": "0dd6c9b61ed82804e7642b3907fc7e4dede1bdac9f74d38b0a846fe8eacc85d1",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@semantics_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "establish_capability_feature",
+      "body_digest_utf16le": "3d85d1e7cf53be9aa81cf63bba2fd15028e60b7218a5bd7c91a43d880b795ddd",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@feature_reference",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_feature_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "inspect_capability",
+      "body_digest_utf16le": "d6a328084966a53181e88540382e505c754f0b2b50d6cd82faf074bc6d73af41",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_capability_authoring_change",
+      "body_digest_utf16le": "66ac06bf86138bb45dbcdd048435325d11e96aca1850f6d6b50551548d521477",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_contract_change",
+      "body_digest_utf16le": "8f41afb0af5e8e020065fd0b7aa0121976775fb8baf254afa1a58d1e04d2f9b3",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_execution_authority_change",
+      "body_digest_utf16le": "d22b686e0bfd58c2429c203fd12fd9f62b3882003dc58c2c3e2c9f9c77517061",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_feature_binding_change",
+      "body_digest_utf16le": "9b9a79aa1dd10d0558f156e92d8f06dae72efd094272decba898d83eeecea487",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_model_placement_change",
+      "body_digest_utf16le": "c88d0b4f2e100cd9a114f1673111afd60a40f42bbcf83691646c3541e04252e9",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_provider_binding_change",
+      "body_digest_utf16le": "3c6fe77a05479d9ad3a32e009ff532a73885780f6f16922cc64ff3f4e9e04923",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_scenario_authoring_change",
+      "body_digest_utf16le": "78b205040410bbfbb425d65372b8bc40faa31eba18a9e435d8f7a45c8e8bf247",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_scenario_change",
+      "body_digest_utf16le": "c494e77b302439f487d91bf236e0f9c5ce130b5c779ad34e04fdea562a1aba0e",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "install_transformation_change",
+      "body_digest_utf16le": "03dcdf50c155c2841668a8c2e435ea107b7dd7a00ca340399175e83ac6e99223",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "normalize_transformation_expression",
+      "body_digest_utf16le": "7cdf1aa6fc97f0290a13a9a7adfb2e70bc883b5b8eab803ed88b3a239f3579b5",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@transformation_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "patch_capability_envelope",
+      "body_digest_utf16le": "115ad8c2527a8d95e9d40f8f8470130f833c8784115318b71adf8140b8c5b860",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@json_path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@value_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "patch_port_configuration",
+      "body_digest_utf16le": "f35914ba0c999b582abcb1b9343b2a7cda2f51b5ea8667c80a6fd2b588179636",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@port_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@json_path",
+          "type_name": "nvarchar",
+          "max_length": 2000,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@value_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "put_semantic_definition",
+      "body_digest_utf16le": "b74320f9d4ca87d56a1ce19280338951bf37186c48615ee46be8a1fd65d60a70",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@kind",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@semantics",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@object",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": true
+        },
+        {
+          "parameter_id": 6,
+          "name": "@definition",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": true
+        },
+        {
+          "parameter_id": 7,
+          "name": "@digest",
+          "type_name": "binary",
+          "max_length": 32,
+          "precision": 0,
+          "scale": 0,
+          "is_output": true
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "r1_txn_ok5",
+      "body_digest_utf16le": "32fa2cce955b9ac2d82ec7048333349059b84ebc0caa816904d253211f0a588c",
+      "parameters": null
+    },
+    {
+      "schema_name": "model",
+      "name": "r1_txn_throw4",
+      "body_digest_utf16le": "9873ede2f3c07941f736bbc27a7c6f3636faea29ba14a5ae9e1844d14a049ab8",
+      "parameters": null
+    },
+    {
+      "schema_name": "model",
+      "name": "r1_txn_throw5",
+      "body_digest_utf16le": "2937c53ab6b1563d62854bbd5452f9d835a0262c060e3c2796065f655a04dbfd",
+      "parameters": null
+    },
+    {
+      "schema_name": "model",
+      "name": "reconcile_scenario_variants",
+      "body_digest_utf16le": "45f377e05d30774485956a25846b60d53be1230ce9a4c7f6747e6d883a6f3c7b",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@variants",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@terminal_disposition",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "record_alignment_evaluation",
+      "body_digest_utf16le": "24e1fd6e5bc3faf99e6cc6e4ba11ebac0dd0984a90163c63a5cdef6efb77cf20",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "record_candidate_decision",
+      "body_digest_utf16le": "8088b88a85e06f49a9672dfe99a0c6f56b63fb5d62b0098a4d6c700a1d2b2cd6",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "record_proof_receipt",
+      "body_digest_utf16le": "5eb1e925f930602552698429b1e8cf3d51bf32579726ee05e3fac377117a58fb",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "record_repair_receipt",
+      "body_digest_utf16le": "f5fdeacb7849d2185beb6f78630063572bc8c56c959b5bbd70d89ec4b37a27d2",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "register_capability_candidate",
+      "body_digest_utf16le": "aa140973861a42b473f5bb47bd7ad34739173285ea7d1bbe477a860ef2fd9dac",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@document",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "remove_capability_scenario",
+      "body_digest_utf16le": "5726c2aaf9e7b5639c0f6d1bfd2a7f4ea8896760d799c0b8b1f40fa20c421cb2",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "remove_mechanic",
+      "body_digest_utf16le": "fb1599f18823c49a344f76d480bcf7f0f041ba7f3c2a315c4546d8c11534d585",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@output_field",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "remove_port_provider_reference",
+      "body_digest_utf16le": "f91d4d69275aa1fb2f4b94a4a0acc2d2e74cbdb6ef15f38226a8995986580242",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@port_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@expected_definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "remove_scenario_circuit_residue",
+      "body_digest_utf16le": "77f8a1129dc41f8d2975fbed75ceb3613ba9bf5a1fa70856ddedb1703668a2c9",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenarios",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@remove_transitions",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_definition_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@rewrite_superseded",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "remove_scenario_operations",
+      "body_digest_utf16le": "fb53a8f091e0fa0408cccb41bfd087a3eacbf3b7fa3987cd18b9de636ed021e1",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@operation_ids",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@remove_uninvoked_bindings",
+          "type_name": "bit",
+          "max_length": 1,
+          "precision": 1,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "rename_definition_label",
+      "body_digest_utf16le": "b47cbb197fe05be63b4b9a3e8f384b9b3a5d38591431e4ab2710e04a35be9d95",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@label",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "repair_binding_path_compatibility",
+      "body_digest_utf16le": "d10527d9a8d059c4ca4a401ca85b3fc96fb2f0e84a9612296fe690edb6189ad7",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@scenario",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@operation_ordinal",
+          "type_name": "int",
+          "max_length": 4,
+          "precision": 10,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@binding_port",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@required_paths",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "replace_port_configuration",
+      "body_digest_utf16le": "c6b1120565299aa06f3478a211028064fd23788a9ab9347c81040830816ac168",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@configuration_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "repoint_capability_feature",
+      "body_digest_utf16le": "b2c257f95877a953f937bdf6cc06d9cc2a02a843bfcd2530b7a4f938977acee5",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@feature_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "retire_model_placement",
+      "body_digest_utf16le": "50fe0c2af662a36bed0015fa6d654626c2d12fde18c2bc826ce282d317218737",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@port",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@disposition",
+          "type_name": "nvarchar",
+          "max_length": 200,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "revise_transformation",
+      "body_digest_utf16le": "04867c8e48b9b5adc58ca7d161e61e48f08ab27587c298ef26cc5968879b25de",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expression_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@definition",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": true
+        },
+        {
+          "parameter_id": 6,
+          "name": "@digest",
+          "type_name": "binary",
+          "max_length": 32,
+          "precision": 0,
+          "scale": 0,
+          "is_output": true
+        },
+        {
+          "parameter_id": 7,
+          "name": "@path",
+          "type_name": "varchar",
+          "max_length": 20,
+          "precision": 0,
+          "scale": 0,
+          "is_output": true
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "scaffold_capability",
+      "body_digest_utf16le": "09d5cb7f5e89dda0b95fcd256494a4e1a232cc3f5265b13f5987482c1a80b886",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@greeting_template",
+          "type_name": "nvarchar",
+          "max_length": 400,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 320,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@outcome_id",
+          "type_name": "nvarchar",
+          "max_length": 240,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@outcome_contract",
+          "type_name": "nvarchar",
+          "max_length": 320,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@on_exists",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "scaffold_capability_backed_capability",
+      "body_digest_utf16le": "baf4b0bfabcef8e845f774055b66f533b7610faf6e1b3a915943a89a831813e5",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@provider_capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@input_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@outcome_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@outcome_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@description",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "scaffold_composed_capability",
+      "body_digest_utf16le": "89c169f47acffcea080c12dd34afb39c3893e7e8c368b077bbb5de04ad77053b",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@input_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@outcome_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@outcome_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@targets",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@description",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@on_exists",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "scaffold_estate_provider_capability",
+      "body_digest_utf16le": "62db6223a981438dc16bc39e723ccab86494b684cce85403abcc1dba8f1d667d",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@capability_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@provider_module",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@provider_export",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@input_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@input_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 6,
+          "name": "@outcome_contract",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 7,
+          "name": "@outcome_schema",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 8,
+          "name": "@description",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 9,
+          "name": "@on_exists",
+          "type_name": "nvarchar",
+          "max_length": 40,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "select_definition_generation",
+      "body_digest_utf16le": "605f89b2864558f6540a83f96da01f9b502cd0f1c1cc56f2e2462ac22ce57ad2",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "set_definition_label",
+      "body_digest_utf16le": "6307142de5cba39337c588e648eec9ee957541abb917afdc9b2460c66d9229b0",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@version_label",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@object_kind",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@semantic_object_definition_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "swap_port_provider",
+      "body_digest_utf16le": "dbee5ea2b6a4f722f53e2de66c770866d26efe17deafad61454dad91ff2dc8d0",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@port_version_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@provider_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "update_definition_member",
+      "body_digest_utf16le": "43c1aad0f6f276e7cf1f79921bdb678be7ed6839cc70441b05641938bee66a64",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@json_path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@value_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "update_definition_value",
+      "body_digest_utf16le": "3a8ead7c1765d8d7303b14c3219a40cfab39b5d773228a5671fdceff9a1e08dd",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@path_suffix",
+          "type_name": "nvarchar",
+          "max_length": 8000,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@value",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "model",
+      "name": "update_transformation_member",
+      "body_digest_utf16le": "33288f51c79da456fb165e8939b616aae2b8655045b84a813705848910a74f18",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@namespace",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 2,
+          "name": "@declared_id",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 3,
+          "name": "@json_path",
+          "type_name": "nvarchar",
+          "max_length": 800,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 4,
+          "name": "@value_json",
+          "type_name": "nvarchar",
+          "max_length": -1,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        },
+        {
+          "parameter_id": 5,
+          "name": "@expected_definition_digest",
+          "type_name": "varchar",
+          "max_length": 64,
+          "precision": 0,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "source",
+      "name": "publish_model",
+      "body_digest_utf16le": "65f36be66c1428324261f15d9ef881090a5b4b1b64cc5ecea610b0c35c19c444",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "source",
+      "name": "validate_canonical_features",
+      "body_digest_utf16le": "3bd4d950b4e35d7445aabd3f46031830ccf22fff40cee94f964d42318de6bc55",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    },
+    {
+      "schema_name": "source",
+      "name": "validate_model",
+      "body_digest_utf16le": "4a0b38496df8734835e6e563ceaee173a7ae53302541a5a4926812585cc2b16f",
+      "parameters": [
+        {
+          "parameter_id": 1,
+          "name": "@estate_model_pk",
+          "type_name": "bigint",
+          "max_length": 8,
+          "precision": 19,
+          "scale": 0,
+          "is_output": false
+        }
+      ]
+    }
+  ],
+  "scope": "Generated sources were not hand-edited. No SQL migration was installed in this task. Builds and verification used the local generated consumer. No Azure publish, API allowlist expansion, or git push was performed."
+}

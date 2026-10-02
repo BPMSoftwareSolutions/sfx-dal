@@ -15,7 +15,7 @@ namespace SFX.DAL.Interfaces
 {
     public partial interface IModelUpdateDefinitionValueRepository
     {
-        ProcedureCallResult<object?> Execute(string id, string pathSuffix, string value, string? @namespace = null);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string id, string pathSuffix, string value, string? @namespace = null);
+        ProcedureCallResult<object?> Execute(string id, string pathSuffix, string value, string? @namespace = null, string? expectedDigest = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string id, string pathSuffix, string value, string? @namespace = null, string? expectedDigest = null);
     }
 }

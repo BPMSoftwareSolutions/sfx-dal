@@ -1,10 +1,10 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:c64edd6e7322e98bb22f36a4fe7d6f4a9eccad0c33c5eb0dde7fbda950bc7bd1",
+  "catalogDigest": "sha256:e3ef750bba6dfadb29c9e38901ceb82d0b86ed17ef34c7c432355f3ab59f10cf",
   "generator": {
     "name": "Codelightly",
-    "version": "1.0.0+d375dec7510c80ec37f84919e7f76114e9af58f9",
+    "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
     "sourceDigest": null
   },
   "encoding": "utf-8",
@@ -6577,6 +6577,20 @@
       "bytes": 1028
     },
     {
+      "path": "Procedures/Interfaces/IModelDeclareProviderIdentityRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "0e9956274509b2c2e7b2e85eb5e58244813fc8a1d9c58d19d3d759d44335ca6e",
+      "bytes": 242
+    },
+    {
+      "path": "Procedures/Interfaces/IModelDeclareProviderIdentityRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f2838bce79485838d4ed8a839eb758e74fd3fa54cbfc620b254dce36c3c44fb2",
+      "bytes": 947
+    },
+    {
       "path": "Procedures/Interfaces/IModelDeclareProviderMechanicRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -6645,6 +6659,34 @@
       "operationId": null,
       "sha256": "96f3b35ecb020fac9147a3db314f7256f97bd57e6f8c7a023f9facc068ea26f1",
       "bytes": 884
+    },
+    {
+      "path": "Procedures/Interfaces/IModelDeclareTransformationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "961e730e2448eef0a0dfd1c7ed89379105ed3a122e73dbde67ebc30d2705e7f9",
+      "bytes": 240
+    },
+    {
+      "path": "Procedures/Interfaces/IModelDeclareTransformationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c309908c41656018d25b58ad0dd95e375111c247f15c56703eaf1915254431de",
+      "bytes": 873
+    },
+    {
+      "path": "Procedures/Interfaces/IModelEstablishCapabilityFeatureRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "03d03c13f9f091dbbf134f4469f5f13e5f77b8ca68adb4a0f8131475d223aa1c",
+      "bytes": 245
+    },
+    {
+      "path": "Procedures/Interfaces/IModelEstablishCapabilityFeatureRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1001798067c8f1c8a2287c098db70d25bc7d3f134754ba934bcb685640ad8f3f",
+      "bytes": 857
     },
     {
       "path": "Procedures/Interfaces/IModelInspectCapabilityRepository.Custom.cs",
@@ -6799,6 +6841,34 @@
       "operationId": null,
       "sha256": "201bbbe22fac4e2ab1e70ed46d016365934d06a4babb5a196173d8ed27a23a0a",
       "bytes": 775
+    },
+    {
+      "path": "Procedures/Interfaces/IModelPatchCapabilityEnvelopeRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "165e5f38585774159dd72dc7ef6a92f3f563701a4f0887a514f4be0e0637a729",
+      "bytes": 242
+    },
+    {
+      "path": "Procedures/Interfaces/IModelPatchCapabilityEnvelopeRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c6ee1b4c865ee2452d5fdb01d657bd403358888d1b436d62e528159f17cdd448",
+      "bytes": 889
+    },
+    {
+      "path": "Procedures/Interfaces/IModelPatchPortConfigurationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a4e9703abe0f083a5d7fd6786788e5988fcec9fcbdbf9218cc8c80ccac2d409c",
+      "bytes": 241
+    },
+    {
+      "path": "Procedures/Interfaces/IModelPatchPortConfigurationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f8e5073a3c6c2f6db3b4d4b24bcc384a245dd2bf2551f23d4c284023572aef89",
+      "bytes": 849
     },
     {
       "path": "Procedures/Interfaces/IModelPutSemanticDefinitionRepository.Custom.cs",
@@ -6969,6 +7039,20 @@
       "bytes": 974
     },
     {
+      "path": "Procedures/Interfaces/IModelRenameDefinitionLabelRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "240bc3689f9c87aee3719ec9c3e604fc57c4b700ca783a07f388eabf1091d400",
+      "bytes": 240
+    },
+    {
+      "path": "Procedures/Interfaces/IModelRenameDefinitionLabelRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7e0d8bbdf5599010e83f6d69213058910e38cfc758d174ea9c0360ff9825b214",
+      "bytes": 795
+    },
+    {
       "path": "Procedures/Interfaces/IModelRepairBindingPathCompatibilityRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -7095,6 +7179,20 @@
       "bytes": 1129
     },
     {
+      "path": "Procedures/Interfaces/IModelSelectDefinitionGenerationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d3a3e11a06b6052ee25c45a6067d585e9855dbdf490dacfb8c2c3c6e81714af6",
+      "bytes": 245
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSelectDefinitionGenerationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8f9417c94371456c7c5274e2979988de25b6867102b89660200a5e51986c229e",
+      "bytes": 843
+    },
+    {
       "path": "Procedures/Interfaces/IModelSetDefinitionLabelRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -7107,6 +7205,20 @@
       "operationId": null,
       "sha256": "078ff29852a7ddcccde00f86bbc30b51eb71bdf23846fb2fcfdb0eb4328b8830",
       "bytes": 996
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSwapPortProviderRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a0a14f299de964d969b0069c620beb1d980241a8d3778c562e4a0789d0dadc04",
+      "bytes": 235
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSwapPortProviderRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "45ad3aa075a13f41a8254887fb6f8881ff1662cd2f6b0e450525f8b50da22b8d",
+      "bytes": 805
     },
     {
       "path": "Procedures/Interfaces/IModelUpdateDefinitionMemberRepository.Custom.cs",
@@ -7133,8 +7245,8 @@
       "path": "Procedures/Interfaces/IModelUpdateDefinitionValueRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "b8f6a41965f179103195e5729a583082021e67b57105c9405c5cd0e7cdff96e1",
-      "bytes": 833
+      "sha256": "d58e1102100496c8da023962aea88d9d192e0ef8597190b679606f9c9f40a399",
+      "bytes": 895
     },
     {
       "path": "Procedures/Interfaces/IModelUpdateTransformationMemberRepository.Custom.cs",
@@ -8285,6 +8397,20 @@
       "bytes": 9448
     },
     {
+      "path": "Procedures/Repositories/ModelDeclareProviderIdentityRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "28367b0c734a574c657b3f2817dc89ad18e5ccc77e23d5d8e082b0369b5afd64",
+      "bytes": 411
+    },
+    {
+      "path": "Procedures/Repositories/ModelDeclareProviderIdentityRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6e464f170320e9065e286a72f8abf0fe529a9ebba5090637619e7dfd52628273",
+      "bytes": 7666
+    },
+    {
       "path": "Procedures/Repositories/ModelDeclareProviderMechanicRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -8353,6 +8479,34 @@
       "operationId": null,
       "sha256": "f1be3788f4fcece44b1a7e734b13a29e646e4654ae69aef0fb9de700b6795e3f",
       "bytes": 8236
+    },
+    {
+      "path": "Procedures/Repositories/ModelDeclareTransformationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "16d12479dff01ff412ceba15bb57535e4e8e6b60e7d4f47947f4ef185f8b22b4",
+      "bytes": 407
+    },
+    {
+      "path": "Procedures/Repositories/ModelDeclareTransformationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a9f8004ff5bc49578829e9bfac6c2c7cb5b04f09834646adaf1dcf57d24750ce",
+      "bytes": 7362
+    },
+    {
+      "path": "Procedures/Repositories/ModelEstablishCapabilityFeatureRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "87df1507960493662b216273e3509d43ec222dcb40bd6c22d39bab3af68581e6",
+      "bytes": 417
+    },
+    {
+      "path": "Procedures/Repositories/ModelEstablishCapabilityFeatureRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "dfc03ff6a3949b91e82da5eb24b86dc79bb281280bb0808ff854f507ec239501",
+      "bytes": 7206
     },
     {
       "path": "Procedures/Repositories/ModelInspectCapabilityRepository.Custom.cs",
@@ -8507,6 +8661,34 @@
       "operationId": null,
       "sha256": "f9410c382b1cc5f78cfbf8bc9965c8c048d7cf1463a45da477b64e1248f013e3",
       "bytes": 6686
+    },
+    {
+      "path": "Procedures/Repositories/ModelPatchCapabilityEnvelopeRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "aacd397545c8897c5afd99b2c20fe3b40c90fb34c29cf90d2bfba219c2f53fcc",
+      "bytes": 411
+    },
+    {
+      "path": "Procedures/Repositories/ModelPatchCapabilityEnvelopeRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d36d838d9b30dc76c5f0911a86bd7cc4cb84b84d76dd3cf99d5e25ae1f0add91",
+      "bytes": 7424
+    },
+    {
+      "path": "Procedures/Repositories/ModelPatchPortConfigurationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "66c554847ce9cccb818d9e0da5680b8308d23d81d4457547f4fe5a63b5024fc6",
+      "bytes": 409
+    },
+    {
+      "path": "Procedures/Repositories/ModelPatchPortConfigurationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "25e63b6066ad4e6350d32aebfd2052da9af03d58e1fb424c282bf31a0f1bfd79",
+      "bytes": 7294
     },
     {
       "path": "Procedures/Repositories/ModelPutSemanticDefinitionRepository.Custom.cs",
@@ -8677,6 +8859,20 @@
       "bytes": 10157
     },
     {
+      "path": "Procedures/Repositories/ModelRenameDefinitionLabelRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "bb987d17fe83508ad29f51e2f81388c84f0e41b0c2b43c2fde664c830fd2bc56",
+      "bytes": 407
+    },
+    {
+      "path": "Procedures/Repositories/ModelRenameDefinitionLabelRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "655357096e1c1d19e4ea3230d39889a5d1d773606527ff6f590396f386cefe74",
+      "bytes": 7026
+    },
+    {
       "path": "Procedures/Repositories/ModelRepairBindingPathCompatibilityRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -8803,6 +8999,20 @@
       "bytes": 8810
     },
     {
+      "path": "Procedures/Repositories/ModelSelectDefinitionGenerationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3960c691b0a90220977689bdf1860302d247c28287ee8908f162a87ba203e216",
+      "bytes": 417
+    },
+    {
+      "path": "Procedures/Repositories/ModelSelectDefinitionGenerationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9161b3499bdd2debaff643c37b86fa5401a5e86406b74c1e4764de865b829045",
+      "bytes": 7150
+    },
+    {
       "path": "Procedures/Repositories/ModelSetDefinitionLabelRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -8815,6 +9025,20 @@
       "operationId": null,
       "sha256": "2d1731abdec6b3b7eeebe95cdc5d484366369da8fa1513414eb004f6615a86f5",
       "bytes": 9237
+    },
+    {
+      "path": "Procedures/Repositories/ModelSwapPortProviderRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "352854e432a552aae6ae6d9047233ef3e8143d7a85639c2494941efe6df743af",
+      "bytes": 397
+    },
+    {
+      "path": "Procedures/Repositories/ModelSwapPortProviderRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "73f5a011354d804df8445e54759519326a3b30f1e7119c1a6322faeb0b8fbf7d",
+      "bytes": 7014
     },
     {
       "path": "Procedures/Repositories/ModelUpdateDefinitionMemberRepository.Custom.cs",
@@ -8841,8 +9065,8 @@
       "path": "Procedures/Repositories/ModelUpdateDefinitionValueRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "da37db06382994a816b0934b607fe7022ec247a6f09943973f1569384acc2866",
-      "bytes": 7242
+      "sha256": "ca5df56a6e5ff9359287fa1437e15326ab26c09a8361033fa305b0699dfb2729",
+      "bytes": 7532
     },
     {
       "path": "Procedures/Repositories/ModelUpdateTransformationMemberRepository.Custom.cs",
