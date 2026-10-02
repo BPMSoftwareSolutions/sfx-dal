@@ -16,7 +16,6 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using SFX.DAL.Interfaces;
 using SFX.DAL.Helpers;
-using SFX.DAL.Models;
 
 namespace SFX.DAL.Repositories
 {
@@ -29,9 +28,9 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadProviderPorts>> ExecuteAsync(string providerId, long estateModelPk)
+        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, long estateModelPk)
         {
-            var entities = new List<AnalysisReadProviderPorts>();
+            var entities = new List<object?>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -46,10 +45,10 @@ namespace SFX.DAL.Repositories
                     {
                         while (await reader.ReadAsync())
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderPorts(reader));
+                            // This procedure does not return a result set.
                         }
                     }
-                    return new ProcedureCallResult<AnalysisReadProviderPorts>
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         OutputParameters = GetOutputParameters(command)
@@ -62,9 +61,9 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadProviderPorts> Execute(string providerId, long estateModelPk)
+        public ProcedureCallResult<object?> Execute(string providerId, long estateModelPk)
         {
-            var entities = new List<AnalysisReadProviderPorts>();
+            var entities = new List<object?>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -79,10 +78,10 @@ namespace SFX.DAL.Repositories
                     {
                         while (reader.Read())
                         {
-                            entities.Add(MapReaderToAnalysisReadProviderPorts(reader));
+                            // This procedure does not return a result set.
                         }
                     }
-                    return new ProcedureCallResult<AnalysisReadProviderPorts>
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         OutputParameters = GetOutputParameters(command)
@@ -95,23 +94,6 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadProviderPorts MapReaderToAnalysisReadProviderPorts(SqlDataReader reader)
-        {
-            return new AnalysisReadProviderPorts
-            {
-                ResultSet = reader.GetString(reader.GetOrdinal("result_set")),
-                ProviderPortImplementationPk = reader.GetInt64(reader.GetOrdinal("provider_port_implementation_pk")),
-                ProviderDefinitionPk = reader.GetInt64(reader.GetOrdinal("provider_definition_pk")),
-                PortVersionPk = reader.GetInt64(reader.GetOrdinal("port_version_pk")),
-                PortId = reader.GetString(reader.GetOrdinal("port_id")),
-                PortPk = reader.GetInt64(reader.GetOrdinal("port_pk")),
-                Role = reader.IsDBNull(reader.GetOrdinal("role")) ? (string?)null : reader.GetString(reader.GetOrdinal("role")),
-                ProviderProfileVersionPk = reader.IsDBNull(reader.GetOrdinal("provider_profile_version_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("provider_profile_version_pk")),
-                ProfileName = reader.IsDBNull(reader.GetOrdinal("profile_name")) ? (string?)null : reader.GetString(reader.GetOrdinal("profile_name")),
-                PlatformCapabilityId = reader.IsDBNull(reader.GetOrdinal("platform_capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("platform_capability_id")),
-                ProviderIdOverride = reader.IsDBNull(reader.GetOrdinal("provider_id_override")) ? (string?)null : reader.GetString(reader.GetOrdinal("provider_id_override"))
-            };
-        }
         
         private static IReadOnlyDictionary<string, object?> GetOutputParameters(SqlCommand command)
         {

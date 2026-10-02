@@ -25,6 +25,22 @@ namespace SFX.DAL.Models
         public string? Label { get; set; }
         public string DeclaredId { get; set; } = default!;
         public long? ByteLength { get; set; }
+        public string? ProviderRole { get; set; }
+        public string ProviderClass { get; set; } = default!;
+        public bool? HasModuleOrExport { get; set; }
+        public int? PciCount { get; set; }
+        public int? OperationsCount { get; set; }
+        public int? SourcePropertyCount { get; set; }
+        public int? CandidateCapabilitiesCount { get; set; }
+        public int? CapabilitiesCount { get; set; }
+        public int? OverlayReferenceCount { get; set; }
+        public int? OverlayTopLevelReferenceCount { get; set; }
+        public int? OverlayAuthorityReferenceCount { get; set; }
+        public int? ResolvedProviderAuthorityCount { get; set; }
+        public int? ResolvedBindingReferenceCount { get; set; }
+        public int? ResolvedEndpointAuthorityCount { get; set; }
+        public int? ResolvedApplicationRefCount { get; set; }
+        public string? RoleEvidenceStatus { get; set; }
         public int? DefinitionGenerations { get; set; }
         public int? SelectedGenerations { get; set; }
     }
