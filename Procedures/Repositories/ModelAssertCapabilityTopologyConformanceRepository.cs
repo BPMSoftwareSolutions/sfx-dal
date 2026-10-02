@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelAssertCapabilityTopologyConformance>> ExecuteAsync(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk)
         {
             var entities = new List<ModelAssertCapabilityTopologyConformance>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -50,12 +51,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelAssertCapabilityTopologyConformance(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelAssertCapabilityTopologyConformance>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -67,6 +75,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelAssertCapabilityTopologyConformance> Execute(string capabilityId, string expectedBeforeDigest, bool failOnHard, long estateModelPk)
         {
             var entities = new List<ModelAssertCapabilityTopologyConformance>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -85,12 +94,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelAssertCapabilityTopologyConformance(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelAssertCapabilityTopologyConformance>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

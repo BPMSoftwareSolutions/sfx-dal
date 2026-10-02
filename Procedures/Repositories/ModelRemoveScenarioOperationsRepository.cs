@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelRemoveScenarioOperations>> ExecuteAsync(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings)
         {
             var entities = new List<ModelRemoveScenarioOperations>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -50,12 +51,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRemoveScenarioOperations(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioOperations>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -67,6 +75,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelRemoveScenarioOperations> Execute(string capabilityId, string scenario, string operationIds, bool removeUninvokedBindings)
         {
             var entities = new List<ModelRemoveScenarioOperations>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -85,12 +94,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRemoveScenarioOperations(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRemoveScenarioOperations>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

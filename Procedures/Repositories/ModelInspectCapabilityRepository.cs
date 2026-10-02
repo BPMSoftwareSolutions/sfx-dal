@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelInspectCapability>> ExecuteAsync(string capabilityId)
         {
             var entities = new List<ModelInspectCapability>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -47,12 +48,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelInspectCapability(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelInspectCapability>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -64,6 +72,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelInspectCapability> Execute(string capabilityId)
         {
             var entities = new List<ModelInspectCapability>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -79,12 +88,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelInspectCapability(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelInspectCapability>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

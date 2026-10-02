@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelDeclareScenario>> ExecuteAsync(string capabilityId, string scenario, string operations, string portBindings)
         {
             var entities = new List<ModelDeclareScenario>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -50,12 +51,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareScenario(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareScenario>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -67,6 +75,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelDeclareScenario> Execute(string capabilityId, string scenario, string operations, string portBindings)
         {
             var entities = new List<ModelDeclareScenario>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -85,12 +94,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareScenario(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareScenario>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

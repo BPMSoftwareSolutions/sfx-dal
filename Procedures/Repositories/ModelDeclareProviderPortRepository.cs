@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelDeclareProviderPort>> ExecuteAsync(string namespaceId, string portId, string platformCapabilityId)
         {
             var entities = new List<ModelDeclareProviderPort>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -49,12 +50,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareProviderPort(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderPort>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -66,6 +74,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelDeclareProviderPort> Execute(string namespaceId, string portId, string platformCapabilityId)
         {
             var entities = new List<ModelDeclareProviderPort>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -83,12 +92,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareProviderPort(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareProviderPort>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

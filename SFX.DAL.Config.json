@@ -1298,6 +1298,46 @@
                        {
                            "Schema":  "source",
                            "Name":  "validate_model"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_providers"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_canonical_body"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_conformance_signal"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "backfill_provider_labels"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_overlay_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_role"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_port_provider_reference"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "update_definition_member"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "update_definition_value"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "update_transformation_member"
                        }
                    ]
 }

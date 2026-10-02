@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelReconcileScenarioVariants>> ExecuteAsync(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk)
         {
             var entities = new List<ModelReconcileScenarioVariants>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -51,12 +52,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelReconcileScenarioVariants(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelReconcileScenarioVariants>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -68,6 +76,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelReconcileScenarioVariants> Execute(string capabilityId, string scenario, string variants, string terminalDisposition, long expectedVersionPk)
         {
             var entities = new List<ModelReconcileScenarioVariants>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,12 +96,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelReconcileScenarioVariants(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelReconcileScenarioVariants>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

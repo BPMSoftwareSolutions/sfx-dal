@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelRepointCapabilityFeature>> ExecuteAsync(string capabilityId, long featureVersionPk)
         {
             var entities = new List<ModelRepointCapabilityFeature>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,12 +49,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRepointCapabilityFeature(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRepointCapabilityFeature>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -65,6 +73,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelRepointCapabilityFeature> Execute(string capabilityId, long featureVersionPk)
         {
             var entities = new List<ModelRepointCapabilityFeature>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,12 +90,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRepointCapabilityFeature(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRepointCapabilityFeature>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

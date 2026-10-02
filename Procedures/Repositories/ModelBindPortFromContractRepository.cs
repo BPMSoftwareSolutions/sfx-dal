@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelBindPortFromContract>> ExecuteAsync(string contractId, string portBindingAuthority)
         {
             var entities = new List<ModelBindPortFromContract>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,12 +49,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelBindPortFromContract(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelBindPortFromContract>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -65,6 +73,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelBindPortFromContract> Execute(string contractId, string portBindingAuthority)
         {
             var entities = new List<ModelBindPortFromContract>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,12 +90,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelBindPortFromContract(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelBindPortFromContract>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

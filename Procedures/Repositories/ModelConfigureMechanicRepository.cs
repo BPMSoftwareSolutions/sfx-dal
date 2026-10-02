@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelConfigureMechanic>> ExecuteAsync(string capabilityId, string greetingTemplate)
         {
             var entities = new List<ModelConfigureMechanic>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -48,12 +49,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelConfigureMechanic(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelConfigureMechanic>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -65,6 +73,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelConfigureMechanic> Execute(string capabilityId, string greetingTemplate)
         {
             var entities = new List<ModelConfigureMechanic>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -81,12 +90,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelConfigureMechanic(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelConfigureMechanic>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

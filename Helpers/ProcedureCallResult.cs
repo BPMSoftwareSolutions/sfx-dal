@@ -10,12 +10,17 @@
 #nullable enable
 
 using System.Collections.Generic;
+using System.Data;
 
 namespace SFX.DAL.Helpers
 {
     public sealed class ProcedureCallResult<T>
     {
         public List<T> Rows { get; set; } = new List<T>();
+
+        /// <summary>Every result set after the first, in order, for multi-result procedures.</summary>
+        public List<DataTable> AdditionalResultSets { get; set; } = new List<DataTable>();
+
         public IReadOnlyDictionary<string, object?> OutputParameters { get; set; } = new Dictionary<string, object?>();
 
         public object? this[string outputParameterName] => OutputParameters.TryGetValue(outputParameterName, out object? value) ? value : null;

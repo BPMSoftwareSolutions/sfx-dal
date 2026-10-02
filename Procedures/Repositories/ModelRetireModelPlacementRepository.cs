@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelRetireModelPlacement>> ExecuteAsync(string @namespace, string port, string disposition)
         {
             var entities = new List<ModelRetireModelPlacement>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -49,12 +50,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRetireModelPlacement(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRetireModelPlacement>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -66,6 +74,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelRetireModelPlacement> Execute(string @namespace, string port, string disposition)
         {
             var entities = new List<ModelRetireModelPlacement>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -83,12 +92,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelRetireModelPlacement(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelRetireModelPlacement>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

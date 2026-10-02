@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelDeclareCapabilityEnvelope>> ExecuteAsync(string capabilityId, string semantics, long expectedDefinitionPk)
         {
             var entities = new List<ModelDeclareCapabilityEnvelope>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -49,12 +50,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareCapabilityEnvelope(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityEnvelope>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -66,6 +74,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelDeclareCapabilityEnvelope> Execute(string capabilityId, string semantics, long expectedDefinitionPk)
         {
             var entities = new List<ModelDeclareCapabilityEnvelope>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -83,12 +92,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelDeclareCapabilityEnvelope(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelDeclareCapabilityEnvelope>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)

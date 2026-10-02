@@ -32,6 +32,7 @@ namespace SFX.DAL.Repositories
         public async Task<ProcedureCallResult<ModelBindProvider>> ExecuteAsync(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson)
         {
             var entities = new List<ModelBindProvider>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -51,12 +52,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelBindProvider(reader));
                         }
+                        while (await reader.NextResultAsync())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelBindProvider>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
@@ -68,6 +76,7 @@ namespace SFX.DAL.Repositories
         public ProcedureCallResult<ModelBindProvider> Execute(string capabilityId, string mechanicId, string providerId, string platformCapabilityId, string configurationJson)
         {
             var entities = new List<ModelBindProvider>();
+            var additionalResultSets = new List<DataTable>();
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -87,12 +96,19 @@ namespace SFX.DAL.Repositories
                         {
                             entities.Add(MapReaderToModelBindProvider(reader));
                         }
+                        while (reader.NextResult())
+                        {
+                            var additionalResultSet = new DataTable();
+                            additionalResultSet.Load(reader);
+                            additionalResultSets.Add(additionalResultSet);
+                        }
                     }
                     return new ProcedureCallResult<ModelBindProvider>
                     {
                         Rows = entities,
+                        AdditionalResultSets = additionalResultSets,
                         OutputParameters = GetOutputParameters(command)
-                    };
+                    };         
                 }
             }
             catch (SqlException ex)
