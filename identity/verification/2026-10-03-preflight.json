@@ -1,0 +1,31 @@
+{
+  "capturedAt": "2026-10-03T15:13:15.0176723+00:00",
+  "action": "preflight",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    1,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "database_name": "sfx-identity",
+        "table_count": 7,
+        "procedure_count": 8
+      }
+    ],
+    [
+      {
+        "revoked": true
+      }
+    ],
+    [
+      {
+        "check_name": "database-contract-preflight",
+        "passed": true,
+        "assertion_count": 10
+      }
+    ]
+  ]
+}

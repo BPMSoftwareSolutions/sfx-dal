@@ -1,8 +1,13 @@
 # SFX.DAL
 
+The separately generated [SFX.Identity.DAL](identity/README.md) lives in `identity/`
+and targets `sfx-identity` using `SFX_IDENTITY_CONNECTION_STRING`. It has its own
+schema migrations, CodeLightly config, assembly and verification receipts. The
+root project remains the estate DAL described below.
+
 This workspace is **auto-generated** by [CodeLightly](https://github.com/BPMSoftwareSolutions/Codelightly) from the `sidefx` database schema.
 
-Everything in this workspace (and the `SFX.DAL.csproj` project file) is produced from the live database. Generated files are overwritten on every regeneration - do not edit them directly.
+The estate models, repositories, helpers and `SFX.DAL.csproj` are produced from the live database. Generated files are overwritten on every regeneration - do not edit them directly. Configuration, documentation, verification tools and SQL are maintained source.
 
 ```
 Models/        Interfaces/        Repositories/        Helpers/     <- tables (and shared helpers)

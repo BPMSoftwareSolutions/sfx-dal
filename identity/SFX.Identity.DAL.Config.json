@@ -1,0 +1,52 @@
+{
+  "ProjectName": "SFX.Identity.DAL",
+  "ConnectionStringEnvVar": "SFX_IDENTITY_CONNECTION_STRING",
+  "OutputDirectory": ".",
+  "EnvironmentVariableTarget": "Process",
+  "VariableTarget": "Process",
+  "SchemaReaderConfig": {
+    "SchemaReaderType": "SqlServer",
+    "SchemaFilter": "TABLE_SCHEMA = 'identity'",
+    "ConnectionString": null,
+    "Owner": ""
+  },
+  "CustomQueries": [],
+  "Views": [],
+  "Functions": [],
+  "Catalog": [],
+  "Procedures": [
+    {
+      "Schema": "identity",
+      "Name": "begin_authentication_attempt"
+    },
+    {
+      "Schema": "identity",
+      "Name": "resolve_login_principal"
+    },
+    {
+      "Schema": "identity",
+      "Name": "read_password_verifier"
+    },
+    {
+      "Schema": "identity",
+      "Name": "complete_credential_verification"
+    },
+    {
+      "Schema": "identity",
+      "Name": "establish_session"
+    },
+    {
+      "Schema": "identity",
+      "Name": "validate_session"
+    },
+    {
+      "Schema": "identity",
+      "Name": "revoke_session"
+    },
+    {
+      "Schema": "identity",
+      "Name": "provision_principal_credential"
+    }
+  ]
+}
+

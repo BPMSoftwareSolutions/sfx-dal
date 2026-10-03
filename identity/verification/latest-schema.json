@@ -1,0 +1,1420 @@
+{
+  "capturedAt": "2026-10-03T15:36:01.4554231+00:00",
+  "action": "inspect",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    15,
+    46,
+    12,
+    6,
+    26,
+    8,
+    17,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "database_name": "sfx-identity",
+        "has_view_definition": 1,
+        "table_count": 7,
+        "procedure_count": 8,
+        "view_count": 0,
+        "function_count": 0
+      }
+    ],
+    [
+      {
+        "schema_name": "identity",
+        "object_name": "authentication_attempt",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "authentication_audit",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "authentication_throttle",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "begin_authentication_attempt",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "complete_credential_verification",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "establish_session",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "login_policy",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "password_credential",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "principal",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "provision_principal_credential",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "read_password_verifier",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "resolve_login_principal",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "revoke_session",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "session",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "identity",
+        "object_name": "validate_session",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      }
+    ],
+    [
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 1,
+        "column_name": "attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 2,
+        "column_name": "realm",
+        "data_type": "nvarchar",
+        "max_length": 256,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 3,
+        "column_name": "normalized_identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 4,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 5,
+        "column_name": "security_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 6,
+        "column_name": "credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 7,
+        "column_name": "state",
+        "data_type": "tinyint",
+        "max_length": 1,
+        "precision": 3,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 8,
+        "column_name": "created_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "column_id": 9,
+        "column_name": "expires_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "column_id": 1,
+        "column_name": "audit_id",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "column_id": 2,
+        "column_name": "attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "column_id": 3,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "column_id": 4,
+        "column_name": "event_kind",
+        "data_type": "varchar",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "column_id": 5,
+        "column_name": "occurred_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "column_id": 1,
+        "column_name": "scope",
+        "data_type": "tinyint",
+        "max_length": 1,
+        "precision": 3,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "column_id": 2,
+        "column_name": "key_hash",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "column_id": 3,
+        "column_name": "window_start",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "column_id": 4,
+        "column_name": "attempt_count",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 1,
+        "column_name": "policy_id",
+        "data_type": "tinyint",
+        "max_length": 1,
+        "precision": 3,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 2,
+        "column_name": "attempt_seconds",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 3,
+        "column_name": "session_seconds",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 4,
+        "column_name": "idle_seconds",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 5,
+        "column_name": "throttle_seconds",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 6,
+        "column_name": "account_limit",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "column_id": 7,
+        "column_name": "source_limit",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "password_credential",
+        "column_id": 1,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "password_credential",
+        "column_id": 2,
+        "column_name": "verifier",
+        "data_type": "nvarchar",
+        "max_length": 512,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "password_credential",
+        "column_id": 3,
+        "column_name": "credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "password_credential",
+        "column_id": 4,
+        "column_name": "updated_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 1,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 2,
+        "column_name": "realm",
+        "data_type": "nvarchar",
+        "max_length": 256,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 3,
+        "column_name": "identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 4,
+        "column_name": "normalized_identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": true,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 5,
+        "column_name": "active",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 6,
+        "column_name": "security_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "column_id": 7,
+        "column_name": "created_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 1,
+        "column_name": "session_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 2,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 3,
+        "column_name": "attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 4,
+        "column_name": "security_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 5,
+        "column_name": "credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 6,
+        "column_name": "verifier_hash",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 7,
+        "column_name": "created_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 8,
+        "column_name": "expires_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 9,
+        "column_name": "last_seen_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "column_id": 10,
+        "column_name": "revoked_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      }
+    ],
+    [
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_attempt",
+        "index_name": "PK_identity_authentication_attempt",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "attempt_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_audit",
+        "index_name": "PK_identity_authentication_audit",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "audit_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "index_name": "PK_identity_authentication_throttle",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "scope"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "authentication_throttle",
+        "index_name": "PK_identity_authentication_throttle",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "key_hash"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "login_policy",
+        "index_name": "PK_identity_login_policy",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "policy_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "password_credential",
+        "index_name": "PK_identity_password_credential",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "principal_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "index_name": "PK_identity_principal",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "principal_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "index_name": "UQ_identity_principal_identifier",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "realm"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "principal",
+        "index_name": "UQ_identity_principal_identifier",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "normalized_identifier"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "index_name": "PK_identity_session",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "session_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "index_name": "UQ_identity_session_attempt",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "attempt_id"
+      },
+      {
+        "schema_name": "identity",
+        "table_name": "session",
+        "index_name": "UQ_identity_session_verifier",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "verifier_hash"
+      }
+    ],
+    [
+      {
+        "fk_name": "FK_identity_attempt_principal",
+        "parent_schema": "identity",
+        "parent_table": "authentication_attempt",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_identity_audit_attempt",
+        "parent_schema": "identity",
+        "parent_table": "authentication_audit",
+        "parent_column": "attempt_id",
+        "reference_schema": "identity",
+        "reference_table": "authentication_attempt",
+        "reference_column": "attempt_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_identity_audit_principal",
+        "parent_schema": "identity",
+        "parent_table": "authentication_audit",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_identity_credential_principal",
+        "parent_schema": "identity",
+        "parent_table": "password_credential",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_identity_session_attempt",
+        "parent_schema": "identity",
+        "parent_table": "session",
+        "parent_column": "attempt_id",
+        "reference_schema": "identity",
+        "reference_table": "authentication_attempt",
+        "reference_column": "attempt_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_identity_session_principal",
+        "parent_schema": "identity",
+        "parent_table": "session",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      }
+    ],
+    [
+      {
+        "schema_name": "identity",
+        "procedure_name": "begin_authentication_attempt",
+        "parameter_id": 1,
+        "parameter_name": "@realm",
+        "data_type": "nvarchar",
+        "max_length": 256,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "begin_authentication_attempt",
+        "parameter_id": 2,
+        "parameter_name": "@identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "begin_authentication_attempt",
+        "parameter_id": 3,
+        "parameter_name": "@source_key",
+        "data_type": "nvarchar",
+        "max_length": 512,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "begin_authentication_attempt",
+        "parameter_id": 4,
+        "parameter_name": "@expires_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "parameter_id": 1,
+        "parameter_name": "@attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "parameter_id": 2,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "parameter_id": 3,
+        "parameter_name": "@security_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "parameter_id": 4,
+        "parameter_name": "@credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "parameter_id": 5,
+        "parameter_name": "@matched",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 1,
+        "parameter_name": "@attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 2,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 3,
+        "parameter_name": "@security_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 4,
+        "parameter_name": "@credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 5,
+        "parameter_name": "@verifier_hash",
+        "data_type": "varbinary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "parameter_id": 6,
+        "parameter_name": "@expires_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "provision_principal_credential",
+        "parameter_id": 1,
+        "parameter_name": "@realm",
+        "data_type": "nvarchar",
+        "max_length": 256,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "provision_principal_credential",
+        "parameter_id": 2,
+        "parameter_name": "@identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "provision_principal_credential",
+        "parameter_id": 3,
+        "parameter_name": "@verifier",
+        "data_type": "nvarchar",
+        "max_length": 512,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "read_password_verifier",
+        "parameter_id": 1,
+        "parameter_name": "@attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "read_password_verifier",
+        "parameter_id": 2,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "read_password_verifier",
+        "parameter_id": 3,
+        "parameter_name": "@credential_version",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "resolve_login_principal",
+        "parameter_id": 1,
+        "parameter_name": "@attempt_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "resolve_login_principal",
+        "parameter_id": 2,
+        "parameter_name": "@realm",
+        "data_type": "nvarchar",
+        "max_length": 256,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "resolve_login_principal",
+        "parameter_id": 3,
+        "parameter_name": "@identifier",
+        "data_type": "nvarchar",
+        "max_length": 508,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "revoke_session",
+        "parameter_id": 1,
+        "parameter_name": "@verifier_hash",
+        "data_type": "varbinary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "validate_session",
+        "parameter_id": 1,
+        "parameter_name": "@verifier_hash",
+        "data_type": "varbinary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      }
+    ],
+    [
+      {
+        "schema_name": "identity",
+        "procedure_name": "begin_authentication_attempt",
+        "definition_sha256": "6F189B3941BF03DBCDD6E99B4AFD53A7DB7382F1C8D3B117852074D7EC34DADD",
+        "create_date": "2026-10-03T15:02:20.033",
+        "modify_date": "2026-10-03T15:23:20.117"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "complete_credential_verification",
+        "definition_sha256": "D7820407422C47CF47B346DA81E405C00466BA4EF5AFD0E30033496A8C2B71DA",
+        "create_date": "2026-10-03T15:02:20.04",
+        "modify_date": "2026-10-03T15:23:20.123"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "establish_session",
+        "definition_sha256": "25CD1048C9D5490239046A2E4649783E0B00A903D9823DDE79409C59DC292A2A",
+        "create_date": "2026-10-03T15:02:20.04",
+        "modify_date": "2026-10-03T15:23:20.127"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "provision_principal_credential",
+        "definition_sha256": "4560C4E38881277DC15948B785C9DCCA9B7EA5B8C69017F63C7952AEC88C1593",
+        "create_date": "2026-10-03T15:02:20.047",
+        "modify_date": "2026-10-03T15:23:20.137"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "read_password_verifier",
+        "definition_sha256": "427067E8BC7094CB587317259F609030AD9DDE142857484D3EC8D9DEBCA8921A",
+        "create_date": "2026-10-03T15:02:20.037",
+        "modify_date": "2026-10-03T15:23:20.123"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "resolve_login_principal",
+        "definition_sha256": "A990396CC2191CE0C9FD9C48B5AB445367DD62A5AC658F27A84A28DF806703B6",
+        "create_date": "2026-10-03T15:02:20.037",
+        "modify_date": "2026-10-03T15:23:20.12"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "revoke_session",
+        "definition_sha256": "1F4091D37976C210E24CD0B26C06450631B49264CC7D28A188011CC01C80D323",
+        "create_date": "2026-10-03T15:02:20.047",
+        "modify_date": "2026-10-03T15:23:20.133"
+      },
+      {
+        "schema_name": "identity",
+        "procedure_name": "validate_session",
+        "definition_sha256": "FF2591776AF435299381BF71C2FB33BA43F199A7E14D39AA2122E65ED3BAFCE3",
+        "create_date": "2026-10-03T15:02:20.043",
+        "modify_date": "2026-10-03T15:23:20.13"
+      }
+    ],
+    [
+      {
+        "role_name": "sfx_identity_enrollment",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "provision_principal_credential"
+      },
+      {
+        "role_name": "sfx_identity_enrollment",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "DELETE",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_enrollment",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "INSERT",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_enrollment",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "SELECT",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_enrollment",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "UPDATE",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "begin_authentication_attempt"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "resolve_login_principal"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "read_password_verifier"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "complete_credential_verification"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "establish_session"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "validate_session"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "revoke_session"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "DENY",
+        "permission_name": "EXECUTE",
+        "schema_name": "identity",
+        "object_name": "provision_principal_credential"
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "DELETE",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "INSERT",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "SELECT",
+        "schema_name": "identity",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_identity_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "UPDATE",
+        "schema_name": "identity",
+        "object_name": null
+      }
+    ],
+    [
+      {
+        "principal_count": 0,
+        "credential_count": 0,
+        "session_count": 0
+      }
+    ]
+  ]
+}

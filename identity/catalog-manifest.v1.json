@@ -1,0 +1,709 @@
+{
+  "manifestVersion": "catalog-manifest.v1",
+  "catalogId": "SFX.Identity.DAL",
+  "catalogDigest": "sha256:6f6c494c87e0f8d13034d863b164d79c970f166ea2a98bb4fcfb5820fc83d358",
+  "generator": {
+    "name": "Codelightly",
+    "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
+    "sourceDigest": null
+  },
+  "encoding": "utf-8",
+  "lineEndings": "lf",
+  "artifacts": [
+    {
+      "path": "Helpers/DatabaseHelper.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a9ac7bcedc7ba00d65b88bf24b41c638003086672f65ac13a684ad83b140174c",
+      "bytes": 1203
+    },
+    {
+      "path": "Helpers/ProcedureCallResult.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fc5ab193eeb1dfe4d969f4df7f951113cfa824220fa54015feb0e461a15d1406",
+      "bytes": 1130
+    },
+    {
+      "path": "Helpers/QueryDetail.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "bb2a1a21264364bd81d7d9a15a9e4136c904e00adf37dc4de75908ebbd1a7ab8",
+      "bytes": 4673
+    },
+    {
+      "path": "Interfaces/IAuthenticationAttemptRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "02063e4bc9bc71496951902c80d9462ec7e85db71cd84a8bb6b67404ceb24dff",
+      "bytes": 324
+    },
+    {
+      "path": "Interfaces/IAuthenticationAttemptRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ad324f337353098057fdfd6fb6795022a7b2df2f09c9bd7a4d52f4ae1b3bbf7f",
+      "bytes": 812
+    },
+    {
+      "path": "Interfaces/IAuthenticationAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a5cd32ee7a9d030e6afde582b35e4a4fc2f2e4602c503629e1997fcc7368c69f",
+      "bytes": 320
+    },
+    {
+      "path": "Interfaces/IAuthenticationAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "88e0044af4a5201da3043500367cbfc078ecd3433024ef59e713e04c1c1d6ccd",
+      "bytes": 933
+    },
+    {
+      "path": "Interfaces/IAuthenticationThrottleRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c9ff51ada61d53a3b2416c5df0e77067a78b50ca8dfa46e8ff013b17dd1de9aa",
+      "bytes": 326
+    },
+    {
+      "path": "Interfaces/IAuthenticationThrottleRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6948a0188b6effbb0eff766fdc43ba3360e108e1e9b45ef605f0c7123a92c60f",
+      "bytes": 827
+    },
+    {
+      "path": "Interfaces/ILoginPolicyRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5c42ae302fae9f36f85ece5089597df243376a082be1e4bb9dee6d0847d18e48",
+      "bytes": 304
+    },
+    {
+      "path": "Interfaces/ILoginPolicyRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6844b03b327fd66fbc3a99aa33a47db0201356e22a739472258082e6da01e71f",
+      "bytes": 643
+    },
+    {
+      "path": "Interfaces/IPasswordCredentialRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a423fa1443967d559e555641119b3ae4e17841b13a907d85a00d39babfc7e7ec",
+      "bytes": 318
+    },
+    {
+      "path": "Interfaces/IPasswordCredentialRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1cbc036563338153d94ce3b01990e9f4c5ead9f9779ebf21c7790d8cfc53d229",
+      "bytes": 797
+    },
+    {
+      "path": "Interfaces/IPrincipalRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2d63021d12134c6efe867419674c29e3803093e43efe7e06a7f4e73a2c2f9ff3",
+      "bytes": 300
+    },
+    {
+      "path": "Interfaces/IPrincipalRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d4f18f52b43c90e4f06f50c95ac76a16d82961ad1ade76b4e75ac4e690555f32",
+      "bytes": 637
+    },
+    {
+      "path": "Interfaces/IReadOnlyRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "499f0ab9f15f42b2828e39846367be43d5497ea3574bf04646c237ae515d94ba",
+      "bytes": 919
+    },
+    {
+      "path": "Interfaces/IRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e4e46125e9300160072f5c65b431100aa20be1df52ffc0b8e31e73e509af2b89",
+      "bytes": 1114
+    },
+    {
+      "path": "Interfaces/ISessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "169f7575e7395387c8a5c6e94e1ecb67a5c39df4a648f54bf73e960861aab0f2",
+      "bytes": 296
+    },
+    {
+      "path": "Interfaces/ISessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "45d8f321a9fbc19ff27be1556b87858e4d8c39d6c33e6d32d40b8b115238c03a",
+      "bytes": 849
+    },
+    {
+      "path": "Models/AuthenticationAttempt.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2be1b24df21e2d767745e72709cc84c2404e8f0045b5ab95eb2a8e753da2ab3e",
+      "bytes": 197
+    },
+    {
+      "path": "Models/AuthenticationAttempt.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f792bd1e5dc6099b3ff2eccecd6f25faf40d10a7166d168088f7aa7bfbc7cd78",
+      "bytes": 1013
+    },
+    {
+      "path": "Models/AuthenticationAudit.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f1ef3e21dbdcba3c996516284f33bfee7e064a189ffcc5603ab0ceb5868157cb",
+      "bytes": 195
+    },
+    {
+      "path": "Models/AuthenticationAudit.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fc1730b5fbb153f5613ae3d15f3d73db1233ff984a1dde2758ea5ca094478d84",
+      "bytes": 786
+    },
+    {
+      "path": "Models/AuthenticationThrottle.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "eb33e3ca988e38cd7cfcac07698154f93fa4a0f2b91a56ec188469c14d96ed07",
+      "bytes": 198
+    },
+    {
+      "path": "Models/AuthenticationThrottle.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c92abe1c4aac6804e8e639a2e28e0c44b9d1a9381e5ab5193a29afb9225ea767",
+      "bytes": 742
+    },
+    {
+      "path": "Models/LoginPolicy.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "771e77e807d703c2ce41b0477503c49e3dbea5bca903c4bd1c081883c6172ca9",
+      "bytes": 187
+    },
+    {
+      "path": "Models/LoginPolicy.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6f9421a45433e0c213370befbe7a1cb898552610d7bf7f9f62f649de5c1fb0a9",
+      "bytes": 849
+    },
+    {
+      "path": "Models/PasswordCredential.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "425cfef8547e536b38ad517f68d3b5548b7e7305c0ac1da3ca207531eeaca0af",
+      "bytes": 194
+    },
+    {
+      "path": "Models/PasswordCredential.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4aaff23b97403890d0bc1926c603f6e54b1ef591d1ed732ca8283bf71e88555a",
+      "bytes": 745
+    },
+    {
+      "path": "Models/Principal.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "122d35a370f2a80043f4d65bf85ab2291b1e53007dff193d32d4ba259b18e581",
+      "bytes": 185
+    },
+    {
+      "path": "Models/Principal.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d9e11645fda18a6c3b8bc23c499eb1248d732a0cf5c6e1dac850864e5a093934",
+      "bytes": 883
+    },
+    {
+      "path": "Models/Session.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1d2dd777597b67337cb1c1a811aecd7d6d37631496c4e369aea2f94a46fc6946",
+      "bytes": 183
+    },
+    {
+      "path": "Models/Session.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7eadb2ee68c4f54d976faea8aa5b3d92a5a4a26cec1fa3b83031df26b11be3ab",
+      "bytes": 1035
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityBeginAuthenticationAttemptRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ca0515905b1799a24915a08297ef45510af0a913a9b561d062eeb8b091a63f1d",
+      "bytes": 266
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityBeginAuthenticationAttemptRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f3dbebf5f15f5209330b7d864de0827c90ab76d0cb8b442f9f94af411d889636",
+      "bytes": 965
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityCompleteCredentialVerificationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "44ce3c9df307eb962806e9081a3b97c4ffe93f1bfc6b763118052ceb72ada49d",
+      "bytes": 302
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityCompleteCredentialVerificationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1081810580b0d2cd23ae5119eb98269bee2efd951293bb07d7bb3f2bb941a7a4",
+      "bytes": 1079
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityEstablishSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a5303ba2943cd281cdee8c983f479f09f97b55fef414f0fb9d4f4bec05c68193",
+      "bytes": 288
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityEstablishSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4a471ad5e1af58a0b901828435b8ba5a3704c4c7fd0e7332253239e287874709",
+      "bytes": 1025
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityProvisionPrincipalCredentialRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7fd6472bbc5773a97a605aa798699bce6b669c6825e5af48c6709b826337e780",
+      "bytes": 300
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityProvisionPrincipalCredentialRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4e8fdf3219923605093e7a82e172fb8f88a225059def498f2f1b27acb94ec05b",
+      "bytes": 919
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityReadPasswordVerifierRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4ee48ca455c86de38ebf92e8c840e9211d508e0a11bdb348442591c13c968f30",
+      "bytes": 292
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityReadPasswordVerifierRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "12d0075eb586c12ab5fadf550674943427b4fd7e03046f1d04c2bc94ef7889c7",
+      "bytes": 903
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityResolveLoginPrincipalRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f1fc73f5c6324b6487a955b8d64735f9e49ad5c1d90789a90abdab8a7e6108d8",
+      "bytes": 293
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityResolveLoginPrincipalRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "20118c5ce5ab07a4293b59926432dfbe92f6d21b47400cafc80fc78109968431",
+      "bytes": 889
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityRevokeSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2c010cc84736309f8aad9afa841f087a5805751cec9a31afcfde4b4e5f99f995",
+      "bytes": 285
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityRevokeSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8bfc3c439ca022f218bb3a6eb909c5ea1c3fa54ab271cd98d6d85d2e1f8b182f",
+      "bytes": 801
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityValidateSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cc85c643ffd71d426c8537d19a1296520019e566d3783a5e2025a38601131f54",
+      "bytes": 287
+    },
+    {
+      "path": "Procedures/Interfaces/IIdentityValidateSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9aa33e5cbb3ac888e53358a5908cc345e01c5144e8a188557380ccc5e1037697",
+      "bytes": 809
+    },
+    {
+      "path": "Procedures/Models/IdentityBeginAuthenticationAttempt.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2ad0c9549cb885d661b5d2b49d351eb384a8080843552242c06dbf1e314debef",
+      "bytes": 210
+    },
+    {
+      "path": "Procedures/Models/IdentityBeginAuthenticationAttempt.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "616b9f7ac552754bb91cd2ca5ea10a144a8729495fb6b2a78d6190be5158b6e7",
+      "bytes": 710
+    },
+    {
+      "path": "Procedures/Models/IdentityCompleteCredentialVerification.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "729f9ff2c5bfbbbfdc61f3ee5c6150bb928772529205723e7ef25bd2ba742e65",
+      "bytes": 214
+    },
+    {
+      "path": "Procedures/Models/IdentityCompleteCredentialVerification.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "51369b76fae617a4ee1119644557f25cd4aa11b7182af387c9052d92f490a317",
+      "bytes": 617
+    },
+    {
+      "path": "Procedures/Models/IdentityEstablishSession.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f549919d8a5f6b7ffb5dd1d384800a69c6fcdbfe805227397694652f7da31705",
+      "bytes": 200
+    },
+    {
+      "path": "Procedures/Models/IdentityEstablishSession.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2ff7360f9ce215f828ad646b72a6e6d6eac17d8f75f8f865c4765018597c0141",
+      "bytes": 742
+    },
+    {
+      "path": "Procedures/Models/IdentityProvisionPrincipalCredential.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "56411ca35732c20ee6d9f4319c3bd939eafccd6e629b3b05900a98fa4065b29a",
+      "bytes": 212
+    },
+    {
+      "path": "Procedures/Models/IdentityProvisionPrincipalCredential.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b865faf70e8996043538ec65c98c5677168cb117c04c8033b3782562e5e80b91",
+      "bytes": 670
+    },
+    {
+      "path": "Procedures/Models/IdentityReadPasswordVerifier.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6e3406c87dc2cd40b2a13d48f286707a2e6c0bb939ade576fb8efe731aaba579",
+      "bytes": 204
+    },
+    {
+      "path": "Procedures/Models/IdentityReadPasswordVerifier.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "717b63d2f8c9dee481d7870faf506412d790d39b3d2a31d2d5d8447ee95a7878",
+      "bytes": 610
+    },
+    {
+      "path": "Procedures/Models/IdentityResolveLoginPrincipal.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6fe352b9db9ceca1fe547c581726dc37e3f71e39cd86db076a813552c0ee1cf7",
+      "bytes": 205
+    },
+    {
+      "path": "Procedures/Models/IdentityResolveLoginPrincipal.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2b4ab0e44077df1597e214d7c3addcfc3265c0c26d15e0f4606c0335ca32186e",
+      "bytes": 751
+    },
+    {
+      "path": "Procedures/Models/IdentityRevokeSession.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "84fae1216cc210258e9fdb8f8d42daec93a1c7ab4b9d554acfcde9ab2c0a39e1",
+      "bytes": 197
+    },
+    {
+      "path": "Procedures/Models/IdentityRevokeSession.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "87565d0c6da3afeffabb401896685bb53a52234616861a20e1382147a189a3f6",
+      "bytes": 582
+    },
+    {
+      "path": "Procedures/Models/IdentityValidateSession.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9affcb7a86fb54d5013ee3f5a410d4239a9e8d2e77a7bd161c8f46267746b335",
+      "bytes": 199
+    },
+    {
+      "path": "Procedures/Models/IdentityValidateSession.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "102d5a00e1c99b8140e2cbe429d003d40f3b1d3c0cfbbca9e93e2201dfe8fb07",
+      "bytes": 692
+    },
+    {
+      "path": "Procedures/Repositories/IdentityBeginAuthenticationAttemptRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6817385ef3d9d828208fc053da7f555fdc770136cbe1fa85b7d412d0da477a11",
+      "bytes": 450
+    },
+    {
+      "path": "Procedures/Repositories/IdentityBeginAuthenticationAttemptRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f0940de3b4804f020e67a8f7307dd9821bd9e71ce35d5da26e655956e3abdf96",
+      "bytes": 8512
+    },
+    {
+      "path": "Procedures/Repositories/IdentityCompleteCredentialVerificationRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7a9eb0b9dbb57551c6f14626490351b57bec62c7b5c5174c32659cc2f3d75e32",
+      "bytes": 490
+    },
+    {
+      "path": "Procedures/Repositories/IdentityCompleteCredentialVerificationRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d44664fe458e548ba8ade5bed0dca5efb9313ff25fd84d5c5bfacc2db4e4d721",
+      "bytes": 8757
+    },
+    {
+      "path": "Procedures/Repositories/IdentityEstablishSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b4bb0dc72914b2141849a91075a58cf41a2de90fee4eb16811a1c904862562d9",
+      "bytes": 462
+    },
+    {
+      "path": "Procedures/Repositories/IdentityEstablishSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "531fedb500ae3e4bb9bf6daf4f7507d35ac6ee807a2b1f8c1aee66f7f4e6a765",
+      "bytes": 8847
+    },
+    {
+      "path": "Procedures/Repositories/IdentityProvisionPrincipalCredentialRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f75cbb5815d8a9646a90a21b693739028b116c84907a00603b0d0e7a5c3c7083",
+      "bytes": 486
+    },
+    {
+      "path": "Procedures/Repositories/IdentityProvisionPrincipalCredentialRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "830c4f6d74d577874eacd653a919102eb0de5bceaee301cb5ec5556f9a131404",
+      "bytes": 8253
+    },
+    {
+      "path": "Procedures/Repositories/IdentityReadPasswordVerifierRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fa29fb7e683dc9077c95f5758456b44ccdfac8001fd7e080d20fa312be2c8895",
+      "bytes": 470
+    },
+    {
+      "path": "Procedures/Repositories/IdentityReadPasswordVerifierRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "bde340ea1eeb32480f5b931804ef8d77f8435444758c126f26fbb00331ea4f39",
+      "bytes": 7868
+    },
+    {
+      "path": "Procedures/Repositories/IdentityResolveLoginPrincipalRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b94ff8747918b5c31e7ecf7f3c292043961265b815ad2a6656a3dcc10b458416",
+      "bytes": 472
+    },
+    {
+      "path": "Procedures/Repositories/IdentityResolveLoginPrincipalRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "14dedf4d450d29d51bb5cfe7ca37f3312e4c119be288275f360e2c8b22d91ca1",
+      "bytes": 8273
+    },
+    {
+      "path": "Procedures/Repositories/IdentityRevokeSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5e84c1edc0d5897c3e7c669b97b6f462648994189654f202706666479757e2cd",
+      "bytes": 456
+    },
+    {
+      "path": "Procedures/Repositories/IdentityRevokeSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "341bafd104bfc87ce0dadd737ca27dc279ba80e71bc704f46823f709f0f863c6",
+      "bytes": 7391
+    },
+    {
+      "path": "Procedures/Repositories/IdentityValidateSessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "10fc7be357d84f16ffa29e67fc6cc20394db34e02f6d47fc37c683a87baf1dfb",
+      "bytes": 460
+    },
+    {
+      "path": "Procedures/Repositories/IdentityValidateSessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a8f67d4cde8e7b9862a4a7248a0f0ad3e05c5e55f1094047b1520184329f759b",
+      "bytes": 7653
+    },
+    {
+      "path": "Repositories/AuthenticationAttemptRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6c014659cdb03300bcd0ab07d5b87885e60b73733001a274e156780d1cd35a11",
+      "bytes": 456
+    },
+    {
+      "path": "Repositories/AuthenticationAttemptRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4749054e4e1df8cc1d6f2baf139b37c1e2088df32734cd39e4fc144bd064f033",
+      "bytes": 22017
+    },
+    {
+      "path": "Repositories/AuthenticationAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e57f2e02d4100031849a6c0994bf819e543d818d1a738d956fb7d506ab75c02c",
+      "bytes": 452
+    },
+    {
+      "path": "Repositories/AuthenticationAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "165a6f433e4e1e90fe080e9c65e489830349e7ba2a090416dbb4bc0785478068",
+      "bytes": 22040
+    },
+    {
+      "path": "Repositories/AuthenticationThrottleRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3ceaa89c013f234608c4547ad661856a8c8359e2ed88ec9fc6262fc233723f6c",
+      "bytes": 458
+    },
+    {
+      "path": "Repositories/AuthenticationThrottleRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "abf909e6fb3db6ae9146885d8a876bd6aed249889ad45cabf9fc4e12585de2b1",
+      "bytes": 17878
+    },
+    {
+      "path": "Repositories/LoginPolicyRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "45d27f64cfeea9fca194be5e3e62a321abe996e2b4f02bf27b380978606a0a43",
+      "bytes": 436
+    },
+    {
+      "path": "Repositories/LoginPolicyRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cedd0a9f488d330554ac68da7c036516cb2a0adff9a67405fe2b9bbfe9c8ff04",
+      "bytes": 17905
+    },
+    {
+      "path": "Repositories/PasswordCredentialRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "298929b2a1d680eb22cc2824950ffdc6210d751210785e329b06d59872170261",
+      "bytes": 450
+    },
+    {
+      "path": "Repositories/PasswordCredentialRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "aee7620c1dad086166825c279e55b400a3c50aec473b35f3dd8b4cadcbaa3dea",
+      "bytes": 19219
+    },
+    {
+      "path": "Repositories/PrincipalRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9d61fad258914708ac3746075061b1d069d3215db69a805a3d66be7113120ddc",
+      "bytes": 432
+    },
+    {
+      "path": "Repositories/PrincipalRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f374b9a81bdfd2d70b143f37ec9d06c715e3b00d4a799fdc3dbc5a48ac621add",
+      "bytes": 17681
+    },
+    {
+      "path": "Repositories/SessionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "896dbe0dc08a112ba2d5dc6c6242c6947b46f2cd6f2d07b16c26c6f219f4c02f",
+      "bytes": 428
+    },
+    {
+      "path": "Repositories/SessionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "afb47e12fc88691996287d807af5d721c6dc815d227dbfb9aa23e7a786ba88c8",
+      "bytes": 23325
+    },
+    {
+      "path": "sql/inspect-schema.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "78d16101e6dc0a3aa8eb4cf49f9bace7c1f0abe8cc6bc43cd8930fe783e5220c",
+      "bytes": 4010
+    },
+    {
+      "path": "sql/migrations/001-login-identity.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "62bf18bb0df644c9649567e41d690c102db8cab7b49c866f38ea4c010d581893",
+      "bytes": 20966
+    },
+    {
+      "path": "sql/migrations/001-login-identity.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "181f4a5a78a4f67c450a4cc0f49fdaf2e0e739522add579b5610d30bc6f93caa",
+      "bytes": 20968
+    },
+    {
+      "path": "sql/verify-login-contract.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "8ba2890bb0f28653b6d43ad6ce538da990351e08ad7ddba6ecc6688ece496c93",
+      "bytes": 3617
+    }
+  ],
+  "parity": [],
+  "excluded": []
+}

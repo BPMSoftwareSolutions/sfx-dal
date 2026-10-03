@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-10-03T15:23:18.6927437+00:00",
+  "action": "install",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "database_name": "sfx-identity",
+        "table_count": 7,
+        "procedure_count": 8
+      }
+    ]
+  ]
+}
