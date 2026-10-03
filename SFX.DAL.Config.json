@@ -119,6 +119,22 @@
                   {
                       "Schema":  "analysis",
                       "Name":  "v_tool_keyword_index"
+                  },
+                  {
+                      "Schema":  "media",
+                      "Name":  "v_requirement"
+                  },
+                  {
+                      "Schema":  "source",
+                      "Name":  "v_definition_witness"
+                  },
+                  {
+                      "Schema":  "source",
+                      "Name":  "v_identity_witness"
+                  },
+                  {
+                      "Schema":  "source",
+                      "Name":  "v_normalized_member"
                   }
               ],
     "Functions":  [
@@ -273,6 +289,34 @@
                       {
                           "Schema":  "analysis",
                           "Name":  "fv_capability_topology_conformance"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_capability_provider_conformance"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_definition_body_heavy_path"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_definition_body_members"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_over_cap_definition_bodies"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_provider_reference_evidence"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_provider_role_evidence"
+                      },
+                      {
+                          "Schema":  "analysis",
+                          "Name":  "fv_selected_definition"
                       }
                   ],
     "SchemaReaderConfig":  {
@@ -1370,6 +1414,34 @@
                        {
                            "Schema":  "model",
                            "Name":  "swap_port_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "bind_slot_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_port_implementation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "declare_provider_slot"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "link_slot_operation"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_capability"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "remove_provider"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "restore_capability"
                        }
                    ]
 }
