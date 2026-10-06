@@ -1,0 +1,28 @@
+{
+  "capturedAt": "2026-10-06T15:26:39.3550734+00:00",
+  "database": "sfx-identity",
+  "generatorCommit": "744d283cace5fa4189bd30a73e1a50ce58e6591b",
+  "generatorDirty": false,
+  "configSha256": "6950300ddcf024cb7ba69f5838e7443aeb769fd9e3e15b2bb71091f9c92e18b8",
+  "catalogDigest": "sha256:995a09dcdc00651ad6d47c84abf30fd909e0254b208660fd4da061206e317b16",
+  "manifestArtifacts": 168,
+  "manifestHashMismatches": 0,
+  "configuredProcedures": 14,
+  "liveTables": 12,
+  "liveProcedures": 14,
+  "installedProcedureBodyHashMatches": 14,
+  "sqlHeaderNormalization": "SQL Server persists CREATE OR ALTER PROCEDURE as CREATE   PROCEDURE; remaining UTF-16 bytes match exactly.",
+  "migrations": [
+    {
+      "path": "001-login-identity.commit.sql",
+      "sha256": "62bf18bb0df644c9649567e41d690c102db8cab7b49c866f38ea4c010d581893"
+    },
+    {
+      "path": "002-run-evidence.commit.sql",
+      "sha256": "eac29f28c117c80cc7c6c5555a5265bc24ca0820937dea6340ead289154271c5"
+    }
+  ],
+  "identityDalSha256": "6ffee5098d230d424737c09c223f2dec0bb150f7810253b97e5f5c4408ef46d5",
+  "build": "Release passed",
+  "scope": "Schema generation and artifact integrity; live provider acceptance is recorded separately."
+}

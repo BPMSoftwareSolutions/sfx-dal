@@ -1,0 +1,93 @@
+{
+  "capturedAt": "2026-10-06T15:25:33.6823398+00:00",
+  "action": "preflight",
+  "migration": "002-run-evidence",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "002-run-evidence",
+        "table_count": 5,
+        "procedure_count": 6
+      }
+    ],
+    [
+      {
+        "run_id": "C509C077-C19D-47F7-A833-F1D7CF5D3F37",
+        "admitted_at": "2026-10-06T15:25:35.0289291+00:00"
+      }
+    ],
+    [
+      {
+        "run_id": "C509C077-C19D-47F7-A833-F1D7CF5D3F37",
+        "admitted_at": "2026-10-06T15:25:35.0289291+00:00"
+      }
+    ],
+    [
+      {
+        "stored": true
+      }
+    ],
+    [
+      {
+        "stored": true
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "kEd5nvcWlyGnflHye2BtCV8z4VDp9pHp+YO9xGMzZmU="
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "kEd5nvcWlyGnflHye2BtCV8z4VDp9pHp+YO9xGMzZmU="
+      }
+    ],
+    [
+      {
+        "run_id": "C509C077-C19D-47F7-A833-F1D7CF5D3F37",
+        "capability_id": "fixture-capability",
+        "namespace_id": "fixture",
+        "admitted_at": "2026-10-06T15:25:35.0289291+00:00",
+        "session_id": "97637611-3784-4aa2-bf58-844f0e46ef0f",
+        "run_json": "{\u0022runId\u0022:\u0022C509C077-C19D-47F7-A833-F1D7CF5D3F37\u0022,\u0022state\u0022:\u0022completed\u0022,\u0022partial\u0022:false}",
+        "graph_json": null,
+        "output_json": "{\u0022fixture\u0022:true}",
+        "latest_cursor": 3,
+        "trace_complete": true,
+        "material_digest": "kEd5nvcWlyGnflHye2BtCV8z4VDp9pHp+YO9xGMzZmU=",
+        "capture_status": "complete"
+      }
+    ],
+    [
+      {
+        "first_cursor": 1,
+        "last_cursor": 3,
+        "record_count": 3,
+        "content_digest": "n2SnR+G5fxMfq7a0Rylsm28CAeefs8U1bmx36JtqgGo=",
+        "content": "AQIDBA=="
+      }
+    ],
+    [
+      {
+        "check_name": "run-evidence-contract-preflight",
+        "passed": true,
+        "assertion_count": 6
+      }
+    ]
+  ]
+}

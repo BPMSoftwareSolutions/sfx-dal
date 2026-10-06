@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-06T15:26:24.0258287+00:00",
+  "action": "install",
+  "migration": "002-run-evidence",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "002-run-evidence",
+        "table_count": 5,
+        "procedure_count": 6
+      }
+    ]
+  ]
+}

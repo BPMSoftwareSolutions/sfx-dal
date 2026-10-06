@@ -2,14 +2,16 @@ using Microsoft.Data.SqlClient;
 using System.Text.Json;
 
 if (args.Length < 2 || args[0] is not ("inspect" or "preflight" or "install"))
-    throw new ArgumentException("Usage: IdentityDatabase <inspect|preflight|install> <identity-directory> [receipt.json]");
+    throw new ArgumentException("Usage: IdentityDatabase <inspect|preflight|install> <identity-directory> [receipt.json] [001-login-identity|002-run-evidence]");
 try
 {
     string root = Path.GetFullPath(args[1]);
+    string migration = args.Length > 3 ? args[3] : "001-login-identity";
+    if (migration is not ("001-login-identity" or "002-run-evidence")) throw new ArgumentException();
     string relative = args[0] switch {
         "inspect" => "sql/inspect-schema.sql",
-        "preflight" => "sql/migrations/001-login-identity.rollback.sql",
-        _ => "sql/migrations/001-login-identity.commit.sql"
+        "preflight" => $"sql/migrations/{migration}.rollback.sql",
+        _ => $"sql/migrations/{migration}.commit.sql"
     };
     string sql = await File.ReadAllTextAsync(Path.Combine(root,relative));
     if (args[0] == "preflight")
@@ -17,7 +19,7 @@ try
         const string ending = "\nROLLBACK TRANSACTION;\nEND TRY";
         sql = sql.Replace("\r\n","\n");
         if (sql.Split(ending).Length != 2) throw new Exception();
-        string checks = await File.ReadAllTextAsync(Path.Combine(root,"sql/verify-login-contract.sql"));
+        string checks = await File.ReadAllTextAsync(Path.Combine(root,migration == "001-login-identity" ? "sql/verify-login-contract.sql" : "sql/verify-run-evidence-contract.sql"));
         sql = sql.Replace(ending,"\n"+checks+ending);
     }
     string value = Environment.GetEnvironmentVariable("SFX_IDENTITY_CONNECTION_STRING") ?? throw new Exception();
@@ -42,7 +44,7 @@ try
         sets.Add(rows);
     } while(await reader.NextResultAsync());
     if(sets.Count==0 || sets.All(s=>s.Count==0)) throw new Exception();
-    var receipt = new { capturedAt=DateTimeOffset.UtcNow, action=args[0], database="sfx-identity",
+    var receipt = new { capturedAt=DateTimeOffset.UtcNow, action=args[0], migration, database="sfx-identity",
         resultSetCounts=sets.Select(s=>s.Count),resultSets=sets };
     if(args.Length>2) await File.WriteAllTextAsync(args[2],JsonSerializer.Serialize(receipt,new JsonSerializerOptions { WriteIndented=true }));
     Console.WriteLine(JsonSerializer.Serialize(new { action=args[0],resultSetCounts=sets.Select(s=>s.Count),completed=true }));

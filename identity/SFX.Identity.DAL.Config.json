@@ -6,7 +6,7 @@
   "VariableTarget": "Process",
   "SchemaReaderConfig": {
     "SchemaReaderType": "SqlServer",
-    "SchemaFilter": "TABLE_SCHEMA = 'identity'",
+    "SchemaFilter": "TABLE_SCHEMA IN ('identity','evidence')",
     "ConnectionString": null,
     "Owner": ""
   },
@@ -15,6 +15,12 @@
   "Functions": [],
   "Catalog": [],
   "Procedures": [
+    { "Schema": "evidence", "Name": "register_run" },
+    { "Schema": "evidence", "Name": "append_trace_chunk" },
+    { "Schema": "evidence", "Name": "complete_run" },
+    { "Schema": "evidence", "Name": "list_runs" },
+    { "Schema": "evidence", "Name": "read_run" },
+    { "Schema": "evidence", "Name": "read_trace_chunks" },
     {
       "Schema": "identity",
       "Name": "begin_authentication_attempt"

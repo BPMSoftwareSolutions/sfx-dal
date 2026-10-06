@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.Identity.DAL",
-  "catalogDigest": "sha256:6f6c494c87e0f8d13034d863b164d79c970f166ea2a98bb4fcfb5820fc83d358",
+  "catalogDigest": "sha256:995a09dcdc00651ad6d47c84abf30fd909e0254b208660fd4da061206e317b16",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
@@ -30,6 +30,20 @@
       "operationId": null,
       "sha256": "bb2a1a21264364bd81d7d9a15a9e4136c904e00adf37dc4de75908ebbd1a7ab8",
       "bytes": 4673
+    },
+    {
+      "path": "Interfaces/IAccessAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8f61ce964b04f649f64e3b827680b594af9d3ef6d475e89fc9a635aa3b0f84ea",
+      "bytes": 304
+    },
+    {
+      "path": "Interfaces/IAccessAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "60281c4d1b0526960344cf3442ca64b936b98e41d2a2177b0a2c3f916d50e335",
+      "bytes": 873
     },
     {
       "path": "Interfaces/IAuthenticationAttemptRepository.Custom.cs",
@@ -130,6 +144,62 @@
       "bytes": 1114
     },
     {
+      "path": "Interfaces/IRunCaptureIssueRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "dde35593505441b3990eb1a12f5338c59e61b438425ebb8605367f949744f83e",
+      "bytes": 312
+    },
+    {
+      "path": "Interfaces/IRunCaptureIssueRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ee9281ecbdc06635264f8041a19275bb8047f78f5c2930ea7eef5914cf68c08c",
+      "bytes": 774
+    },
+    {
+      "path": "Interfaces/IRunCompletionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c3778000b249e3a027408dbcf125c59f885f6bf2fbddffc987b0c7ef3c7706c7",
+      "bytes": 308
+    },
+    {
+      "path": "Interfaces/IRunCompletionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "dbdd7c1c699f190cbf97b2bda193615e02c4b96733034182acbcc6367a89f2fc",
+      "bytes": 764
+    },
+    {
+      "path": "Interfaces/IRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1be21d62c8493f60956db2bb773a4eb5b9e0380efadec1b7da2627f18a008296",
+      "bytes": 288
+    },
+    {
+      "path": "Interfaces/IRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9067767ae33a8220afa5f08fc706ac56f9cf7b5f7b124129fc6b60b323203cce",
+      "bytes": 821
+    },
+    {
+      "path": "Interfaces/IRunTraceChunkRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "98f8d488c479dd9ae40b050b3ce8f3ec40eff60f456c54a63ee383064ff6366b",
+      "bytes": 308
+    },
+    {
+      "path": "Interfaces/IRunTraceChunkRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b018e3c5a7146686b9d4cbc50aa485c756768f801c45264b117d4dfa3d296e08",
+      "bytes": 905
+    },
+    {
       "path": "Interfaces/ISessionRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -142,6 +212,20 @@
       "operationId": null,
       "sha256": "45d8f321a9fbc19ff27be1556b87858e4d8c39d6c33e6d32d40b8b115238c03a",
       "bytes": 849
+    },
+    {
+      "path": "Models/AccessAudit.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "af878f1389606d36f1e55602baf998fe9d65724e30dada20d328ff89227471c7",
+      "bytes": 187
+    },
+    {
+      "path": "Models/AccessAudit.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "992f96709557efbb6a022f905e89af990ab64f16cc848bc035cd6f0019832db9",
+      "bytes": 715
     },
     {
       "path": "Models/AuthenticationAttempt.Custom.cs",
@@ -228,6 +312,62 @@
       "bytes": 883
     },
     {
+      "path": "Models/Run.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "320e578afed6379dc754326308730572142971bfc462ace4fc0cdb10df156d24",
+      "bytes": 179
+    },
+    {
+      "path": "Models/Run.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "26333ae5aa2a257fa05c8b51afcbed640aad6ed49c262910786804790782966e",
+      "bytes": 886
+    },
+    {
+      "path": "Models/RunCaptureIssue.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3dd5aa68aaf2b881c878a462e9039373d26d6575190257165aebc897ba5e39b6",
+      "bytes": 191
+    },
+    {
+      "path": "Models/RunCaptureIssue.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "46dd506c038ba5cfc4ffca253382c5cda38ebdaa3471ec3d26098626d611f519",
+      "bytes": 829
+    },
+    {
+      "path": "Models/RunCompletion.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "11e3048ffc7c0577cf50c36d0a21ed4d7dcfd893cc2c7b21fb1beac2431ce6b6",
+      "bytes": 189
+    },
+    {
+      "path": "Models/RunCompletion.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2aed52fbc9546a0ecaa2ad573cde129a304ada6954cbabd3a6f53730c48d2216",
+      "bytes": 949
+    },
+    {
+      "path": "Models/RunTraceChunk.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "463c5d0890662438f87fefa111f7e80ca0c591b77df2b47d113f38813ed523f7",
+      "bytes": 189
+    },
+    {
+      "path": "Models/RunTraceChunk.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "04b51816771659b16afbf8a3d7c1905837cf532adb6406ad37d2902284e32dee",
+      "bytes": 892
+    },
+    {
       "path": "Models/Session.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -240,6 +380,90 @@
       "operationId": null,
       "sha256": "7eadb2ee68c4f54d976faea8aa5b3d92a5a4a26cec1fa3b83031df26b11be3ab",
       "bytes": 1035
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceAppendTraceChunkRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "810394db5e6c08bfc82c4c846a1d104b26f878661b52fc5c797194ad575227ac",
+      "bytes": 288
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceAppendTraceChunkRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f7860a0196c6864ba1afb1e364cfe09218f9bb72e7f3ae28d86c1a4fe2fcd2d9",
+      "bytes": 1013
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceCompleteRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "0ea18eb53b93805a32afdb242b8b18d8c4fc5f8d9ec08cad8385636512b4bb64",
+      "bytes": 283
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceCompleteRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ae2bbc4f3ea22417f13573f94883751b4ccc7fbedd07b7b8771e8439c8bb5877",
+      "bytes": 957
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceListRunsRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6703eee622c157ae61f1791d9d4df2a231c3024a9e143252ae78d60b00c5ebe2",
+      "bytes": 280
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceListRunsRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "09b2a16cff717be00b66151b63f6e76ff74d00ddd921c96ad81c8c6281e93ab3",
+      "bytes": 775
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1da0af2cf97a9d8147cb6f5cd1a284dcf85928cb5a5855d968fad06a458be978",
+      "bytes": 279
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6345ad7751788b7e21cc855ed9c492a926119d69fb1532a70768b9f4cd0c59f6",
+      "bytes": 799
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadTraceChunksRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "693141a2da84e9b906c919e359d487a8e3899cadef28485cdf5c9628e26982a7",
+      "bytes": 287
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadTraceChunksRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4d24e6820a39bb2718427640db22e1a1af81c3679d57a0b4c28d0150402ad593",
+      "bytes": 867
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceRegisterRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "416427d0555591425c851210a296a2704b14c57aa6c1052968709087baec6605",
+      "bytes": 283
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceRegisterRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "86f1abe8b33187e5dcf57a4ff2db90875843d8897cdbae8f35b4646fafb872d2",
+      "bytes": 963
     },
     {
       "path": "Procedures/Interfaces/IIdentityBeginAuthenticationAttemptRepository.Custom.cs",
@@ -354,6 +578,90 @@
       "bytes": 809
     },
     {
+      "path": "Procedures/Models/EvidenceAppendTraceChunk.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c23fa27d6d716b4f56960cc4dc24fd88e81f94b72f990eec3b2da44d14c85a77",
+      "bytes": 200
+    },
+    {
+      "path": "Procedures/Models/EvidenceAppendTraceChunk.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2bb615ec2e9be66039e0fe61965cc17f60514ead6427b4cfd872ba2af9dad8da",
+      "bytes": 587
+    },
+    {
+      "path": "Procedures/Models/EvidenceCompleteRun.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ededfc16ce5ad087505fc71124bd7d5dfb617ffc85fc074292a345aef79317c8",
+      "bytes": 195
+    },
+    {
+      "path": "Procedures/Models/EvidenceCompleteRun.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "719a6e88be8b4fb9eb8a5b8eefc3efce8348dc56494a3284559c4408524c0329",
+      "bytes": 647
+    },
+    {
+      "path": "Procedures/Models/EvidenceListRuns.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cb12a3bffd384ae504b3023fb6792e8e46a770ce86f5d274c949c1ba31f9e47b",
+      "bytes": 192
+    },
+    {
+      "path": "Procedures/Models/EvidenceListRuns.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3b9f57475a3fa5b6573fa581145ee9b3d744c382700afc284380de657562bc7e",
+      "bytes": 870
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadRun.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cdd9f61b74a507ceedfc9f3bf49e474a8a8f3ed75bdac6864918bc9293fbf798",
+      "bytes": 191
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadRun.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6ed8b4457ba62464fff29a5af55575d757981afb58dc8c5841ca5494c14986a5",
+      "bytes": 1163
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadTraceChunks.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6dd88b0c01a48ab5433f4102d442be08039d92dfa4d42ead8d903f2fcf3c9c4b",
+      "bytes": 199
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadTraceChunks.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "87ae9d1be7de401e85ffeb7184cdcaee87d1623cee736e885911689f398260c9",
+      "bytes": 801
+    },
+    {
+      "path": "Procedures/Models/EvidenceRegisterRun.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9f0de49ed107d2e8055edfbc654ba27a2b6c5de96bfd303939ac2d75b00b94bb",
+      "bytes": 195
+    },
+    {
+      "path": "Procedures/Models/EvidenceRegisterRun.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4e07fc41d59a3bde42f9c3f31a2405bb7dfcd3259854bd4cf8014ff638e94dd0",
+      "bytes": 645
+    },
+    {
       "path": "Procedures/Models/IdentityBeginAuthenticationAttempt.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -464,6 +772,90 @@
       "operationId": null,
       "sha256": "102d5a00e1c99b8140e2cbe429d003d40f3b1d3c0cfbbca9e93e2201dfe8fb07",
       "bytes": 692
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceAppendTraceChunkRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e2f1bd4081cae96a47ddd521de2222d7bc3855da98e2fd747c85b634277e1406",
+      "bytes": 462
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceAppendTraceChunkRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7401f5f81b5fdd6bd8e43010734d2fa5bbf69ab3080d538bc29eb6526d754ba3",
+      "bytes": 8747
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceCompleteRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "986b8bfe5bea405eeb59b65ca1194dff6ce70bea75936f7ce2723f2532bddc86",
+      "bytes": 452
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceCompleteRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "976ab4ee1aabae24b81e5fdd359444d20929e196bd27e29f7b1ddddd982fcaff",
+      "bytes": 8526
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceListRunsRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5376267d894b6b9b1e2f4e5c071b0ba084b1f0df7a8e8f0f18f9a2906d7477e9",
+      "bytes": 446
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceListRunsRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ceb2e6303f1ecdfb9a66f2cc7502a22699690978a899c6a8dae9623b99a71e7a",
+      "bytes": 7505
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4dbdb879900e4634e2d70ac09e8b819742acd658f7aa9ff7901f22fda7f2ba45",
+      "bytes": 444
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "34b0345e75dd8cc72b43e609456b116b073bd1497d66671708b369984680bd1a",
+      "bytes": 8325
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadTraceChunksRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f490cca51b452ff7c40a936df073a0dd371fd66dd5161eb7676028986243be29",
+      "bytes": 460
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadTraceChunksRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ca57ff175b2980c147e27924ce9de982e808b135990d37d1207a8a2d3dd5b6c0",
+      "bytes": 7998
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceRegisterRunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fb37f88bdc3debefe02063ea56990274365e7b216e15aea347da2f6479dd2bff",
+      "bytes": 452
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceRegisterRunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9efe8d49c471aa9ba30bc3b356de8f7d36fcd76437aaea7470f3e2ce63b47d7b",
+      "bytes": 8490
     },
     {
       "path": "Procedures/Repositories/IdentityBeginAuthenticationAttemptRepository.Custom.cs",
@@ -578,6 +970,20 @@
       "bytes": 7653
     },
     {
+      "path": "Repositories/AccessAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a802c7202e64b37763b0642895e5a1b5700821f6f3d613f3d4a7c5232aa9dc25",
+      "bytes": 436
+    },
+    {
+      "path": "Repositories/AccessAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "dfe2f1e7bc454d9556508f42000f89d8286039bceb46a112765412916c2de5a0",
+      "bytes": 20574
+    },
+    {
       "path": "Repositories/AuthenticationAttemptRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -662,6 +1068,62 @@
       "bytes": 17681
     },
     {
+      "path": "Repositories/RunCaptureIssueRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "573531cfc44ac2c16ad2718ed662992f4dff303b0b8f95d3191c1f184494abc9",
+      "bytes": 444
+    },
+    {
+      "path": "Repositories/RunCaptureIssueRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c77379f6ab5661ca470ffa34b476e8eba552351e1850e17c8a6832844e1f14d6",
+      "bytes": 19790
+    },
+    {
+      "path": "Repositories/RunCompletionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "60447d2297d0ec11210f5790de06c2d472f04e1d15acdc7b45e17699bf29fad9",
+      "bytes": 440
+    },
+    {
+      "path": "Repositories/RunCompletionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "67775750e756e7e33bd1c770539cf6f9dcafd2d352c1fedaac755d1673bf3ff4",
+      "bytes": 20710
+    },
+    {
+      "path": "Repositories/RunRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b3c8565b4798ec2dbcab62855e72fe436ec60790566d57669bc048d5be9b4783",
+      "bytes": 420
+    },
+    {
+      "path": "Repositories/RunRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1f12e6b193278471ee53cac6c151f109c0c7b40aedcd9c4e5c9af47931443784",
+      "bytes": 21287
+    },
+    {
+      "path": "Repositories/RunTraceChunkRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "34c636f6447ed35593ac0ae2d9d46d28f84fbf153a21f7bd858842c863d74bf7",
+      "bytes": 440
+    },
+    {
+      "path": "Repositories/RunTraceChunkRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "de7d2426779cbcf82ef2f5bf71d5c3f1f6789f4b3db2fd1e1ca79c62a2228b62",
+      "bytes": 20854
+    },
+    {
       "path": "Repositories/SessionRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -679,8 +1141,8 @@
       "path": "sql/inspect-schema.sql",
       "kind": "sql",
       "operationId": null,
-      "sha256": "78d16101e6dc0a3aa8eb4cf49f9bace7c1f0abe8cc6bc43cd8930fe783e5220c",
-      "bytes": 4010
+      "sha256": "4152aafd27708352abbce7741a9445565048d490fabf412da3f7ef135b53a1ad",
+      "bytes": 4089
     },
     {
       "path": "sql/migrations/001-login-identity.commit.sql",
@@ -697,11 +1159,32 @@
       "bytes": 20968
     },
     {
+      "path": "sql/migrations/002-run-evidence.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "eac29f28c117c80cc7c6c5555a5265bc24ca0820937dea6340ead289154271c5",
+      "bytes": 12566
+    },
+    {
+      "path": "sql/migrations/002-run-evidence.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "c211e28be493bd1a1460c6f5111bbeb553b81af23b7c57e1c7e3308618c2c5f6",
+      "bytes": 12568
+    },
+    {
       "path": "sql/verify-login-contract.sql",
       "kind": "sql",
       "operationId": null,
       "sha256": "8ba2890bb0f28653b6d43ad6ce538da990351e08ad7ddba6ecc6688ece496c93",
       "bytes": 3617
+    },
+    {
+      "path": "sql/verify-run-evidence-contract.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "b50f367a9b48a806400e4984d2130ff6cf44a6ecf54029cf1e171bf3d4d78e86",
+      "bytes": 2477
     }
   ],
   "parity": [],

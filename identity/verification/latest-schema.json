@@ -1,16 +1,17 @@
 {
-  "capturedAt": "2026-10-03T15:36:01.4554231+00:00",
+  "capturedAt": "2026-10-06T15:26:28.8292295+00:00",
   "action": "inspect",
+  "migration": "001-login-identity",
   "database": "sfx-identity",
   "resultSetCounts": [
     1,
-    15,
-    46,
-    12,
-    6,
     26,
-    8,
-    17,
+    78,
+    18,
+    13,
+    51,
+    14,
+    27,
     1
   ],
   "resultSets": [
@@ -18,13 +19,68 @@
       {
         "database_name": "sfx-identity",
         "has_view_definition": 1,
-        "table_count": 7,
-        "procedure_count": 8,
+        "table_count": 12,
+        "procedure_count": 14,
         "view_count": 0,
         "function_count": 0
       }
     ],
     [
+      {
+        "schema_name": "evidence",
+        "object_name": "access_audit",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "append_trace_chunk",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "complete_run",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "list_runs",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "read_run",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "read_trace_chunks",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "register_run",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "run",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "run_capture_issue",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "run_completion",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "run_trace_chunk",
+        "type_desc": "USER_TABLE"
+      },
       {
         "schema_name": "identity",
         "object_name": "authentication_attempt",
@@ -102,6 +158,454 @@
       }
     ],
     [
+      {
+        "schema_name": "evidence",
+        "table_name": "access_audit",
+        "column_id": 1,
+        "column_name": "audit_id",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "access_audit",
+        "column_id": 2,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "access_audit",
+        "column_id": 3,
+        "column_name": "run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "access_audit",
+        "column_id": 4,
+        "column_name": "read_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 1,
+        "column_name": "run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 2,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 3,
+        "column_name": "session_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 4,
+        "column_name": "capability_id",
+        "data_type": "nvarchar",
+        "max_length": 1024,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 5,
+        "column_name": "namespace_id",
+        "data_type": "nvarchar",
+        "max_length": 512,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 6,
+        "column_name": "writer_id",
+        "data_type": "varchar",
+        "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 7,
+        "column_name": "admitted_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 1,
+        "column_name": "issue_id",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": true,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 2,
+        "column_name": "run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 3,
+        "column_name": "code",
+        "data_type": "varchar",
+        "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 4,
+        "column_name": "first_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 5,
+        "column_name": "last_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "column_id": 6,
+        "column_name": "recorded_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 1,
+        "column_name": "run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 2,
+        "column_name": "run_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 3,
+        "column_name": "graph_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 4,
+        "column_name": "output_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 5,
+        "column_name": "latest_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 6,
+        "column_name": "trace_complete",
+        "data_type": "bit",
+        "max_length": 1,
+        "precision": 1,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 7,
+        "column_name": "material_digest",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 8,
+        "column_name": "completed_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 1,
+        "column_name": "run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 2,
+        "column_name": "first_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 3,
+        "column_name": "last_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 4,
+        "column_name": "record_count",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 5,
+        "column_name": "content_digest",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 6,
+        "column_name": "content",
+        "data_type": "varbinary",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "column_id": 7,
+        "column_name": "received_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
       {
         "schema_name": "identity",
         "table_name": "authentication_attempt",
@@ -749,6 +1253,60 @@
     ],
     [
       {
+        "schema_name": "evidence",
+        "table_name": "access_audit",
+        "index_name": "PK_evidence_audit",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "audit_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "index_name": "PK_evidence_run",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "run_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_capture_issue",
+        "index_name": "PK_evidence_issue",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "issue_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "index_name": "PK_evidence_completion",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "run_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "index_name": "PK_evidence_trace",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "run_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_trace_chunk",
+        "index_name": "PK_evidence_trace",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "first_cursor"
+      },
+      {
         "schema_name": "identity",
         "table_name": "authentication_attempt",
         "index_name": "PK_identity_authentication_attempt",
@@ -859,6 +1417,83 @@
     ],
     [
       {
+        "fk_name": "FK__access_au__princ__4B422AD5",
+        "parent_schema": "evidence",
+        "parent_table": "access_audit",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__access_au__run_i__4C364F0E",
+        "parent_schema": "evidence",
+        "parent_table": "access_audit",
+        "parent_column": "run_id",
+        "reference_schema": "evidence",
+        "reference_table": "run",
+        "reference_column": "run_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__run__principal_i__382F5661",
+        "parent_schema": "evidence",
+        "parent_table": "run",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__run__session_id__39237A9A",
+        "parent_schema": "evidence",
+        "parent_table": "run",
+        "parent_column": "session_id",
+        "reference_schema": "identity",
+        "reference_table": "session",
+        "reference_column": "session_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__run_captu__run_i__4865BE2A",
+        "parent_schema": "evidence",
+        "parent_table": "run_capture_issue",
+        "parent_column": "run_id",
+        "reference_schema": "evidence",
+        "reference_table": "run",
+        "reference_column": "run_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__run_compl__run_i__41B8C09B",
+        "parent_schema": "evidence",
+        "parent_table": "run_completion",
+        "parent_column": "run_id",
+        "reference_schema": "evidence",
+        "reference_table": "run",
+        "reference_column": "run_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK__run_trace__run_i__3CF40B7E",
+        "parent_schema": "evidence",
+        "parent_table": "run_trace_chunk",
+        "parent_column": "run_id",
+        "reference_schema": "evidence",
+        "reference_table": "run",
+        "reference_column": "run_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
         "fk_name": "FK_identity_attempt_principal",
         "parent_schema": "identity",
         "parent_table": "authentication_attempt",
@@ -926,6 +1561,281 @@
       }
     ],
     [
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 1,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 2,
+        "parameter_name": "@writer_id",
+        "data_type": "varchar",
+        "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 3,
+        "parameter_name": "@first_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 4,
+        "parameter_name": "@last_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 5,
+        "parameter_name": "@record_count",
+        "data_type": "int",
+        "max_length": 4,
+        "precision": 10,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 6,
+        "parameter_name": "@content_digest",
+        "data_type": "varbinary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "parameter_id": 7,
+        "parameter_name": "@content",
+        "data_type": "varbinary",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 1,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 2,
+        "parameter_name": "@writer_id",
+        "data_type": "varchar",
+        "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 3,
+        "parameter_name": "@run_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 4,
+        "parameter_name": "@graph_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 5,
+        "parameter_name": "@output_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 6,
+        "parameter_name": "@latest_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "list_runs",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_run",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_run",
+        "parameter_id": 2,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_trace_chunks",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_trace_chunks",
+        "parameter_id": 2,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_trace_chunks",
+        "parameter_id": 3,
+        "parameter_name": "@after_cursor",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 1,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 2,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 3,
+        "parameter_name": "@session_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 4,
+        "parameter_name": "@capability_id",
+        "data_type": "nvarchar",
+        "max_length": 1024,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 5,
+        "parameter_name": "@namespace_id",
+        "data_type": "nvarchar",
+        "max_length": 512,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "parameter_id": 6,
+        "parameter_name": "@writer_id",
+        "data_type": "varchar",
+        "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
       {
         "schema_name": "identity",
         "procedure_name": "begin_authentication_attempt",
@@ -1215,6 +2125,48 @@
     ],
     [
       {
+        "schema_name": "evidence",
+        "procedure_name": "append_trace_chunk",
+        "definition_sha256": "9A474EB246EFCCBD580743EB78F2EAAB8495E5E081EDE5C29CE759629F54FB00",
+        "create_date": "2026-10-06T15:26:22.71",
+        "modify_date": "2026-10-06T15:26:25.453"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "definition_sha256": "C166B5F228726A944B651FD48702E6A5F144A6D2D0BDF3FEE2E61C373C950E80",
+        "create_date": "2026-10-06T15:26:22.713",
+        "modify_date": "2026-10-06T15:26:25.457"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "list_runs",
+        "definition_sha256": "18E34992FBE9242E49614ADFEB90BE4CA48F188C6AB3A806260C1EBCE270FA81",
+        "create_date": "2026-10-06T15:26:22.713",
+        "modify_date": "2026-10-06T15:26:25.463"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_run",
+        "definition_sha256": "CD1DDEB42444F72A5C493F151A0FB424C00C3D8E58C976AEFDD01BF6F14E7EEE",
+        "create_date": "2026-10-06T15:26:22.717",
+        "modify_date": "2026-10-06T15:26:25.467"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_trace_chunks",
+        "definition_sha256": "DF8F969AD6F381169ED6E9D2064888CA8F967471E56D4B417E276DE9DCA6CF96",
+        "create_date": "2026-10-06T15:26:22.717",
+        "modify_date": "2026-10-06T15:26:25.467"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "register_run",
+        "definition_sha256": "90CDBF80330345CEC255DEAD7A5AB6443FBEEB0CB653A4AE1A100A0B9A8F6F6C",
+        "create_date": "2026-10-06T15:26:22.707",
+        "modify_date": "2026-10-06T15:26:25.45"
+      },
+      {
         "schema_name": "identity",
         "procedure_name": "begin_authentication_attempt",
         "definition_sha256": "6F189B3941BF03DBCDD6E99B4AFD53A7DB7382F1C8D3B117852074D7EC34DADD",
@@ -1272,6 +2224,86 @@
       }
     ],
     [
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "register_run"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "append_trace_chunk"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "complete_run"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "list_runs"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "read_run"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "read_trace_chunks"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "DELETE",
+        "schema_name": "evidence",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "INSERT",
+        "schema_name": "evidence",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "SELECT",
+        "schema_name": "evidence",
+        "object_name": null
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "SCHEMA",
+        "state_desc": "DENY",
+        "permission_name": "UPDATE",
+        "schema_name": "evidence",
+        "object_name": null
+      },
       {
         "role_name": "sfx_identity_enrollment",
         "securable_class": "OBJECT_OR_COLUMN",
@@ -1411,9 +2443,9 @@
     ],
     [
       {
-        "principal_count": 0,
-        "credential_count": 0,
-        "session_count": 0
+        "principal_count": 2,
+        "credential_count": 2,
+        "session_count": 56
       }
     ]
   ]

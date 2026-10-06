@@ -32,12 +32,12 @@ SELECT s.name AS schema_name,p.name AS procedure_name,
  CONVERT(varchar(64),HASHBYTES('SHA2_256',m.definition),2) AS definition_sha256,
  p.create_date,p.modify_date
 FROM sys.procedures p JOIN sys.schemas s ON s.schema_id=p.schema_id JOIN sys.sql_modules m ON m.object_id=p.object_id
-WHERE s.name=N'identity' ORDER BY p.name;
+WHERE s.name IN(N'identity',N'evidence',N'ledger') ORDER BY s.name,p.name;
 SELECT p.name AS role_name,dp.class_desc AS securable_class,dp.state_desc,dp.permission_name,
  CASE WHEN dp.class=3 THEN SCHEMA_NAME(dp.major_id) WHEN dp.class=1 THEN OBJECT_SCHEMA_NAME(dp.major_id) END AS schema_name,
  CASE WHEN dp.class=1 THEN OBJECT_NAME(dp.major_id) END AS object_name
 FROM sys.database_permissions dp JOIN sys.database_principals p ON p.principal_id=dp.grantee_principal_id
-WHERE p.name IN (N'sfx_identity_runtime',N'sfx_identity_enrollment') ORDER BY p.name,dp.class,dp.major_id,dp.permission_name;
+WHERE p.name IN (N'sfx_identity_runtime',N'sfx_identity_enrollment',N'sfx_evidence_runtime',N'sfx_ledger_runtime') ORDER BY p.name,dp.class,dp.major_id,dp.permission_name;
 SELECT (SELECT COUNT(*) FROM [identity].principal) AS principal_count,
  (SELECT COUNT(*) FROM [identity].password_credential) AS credential_count,
  (SELECT COUNT(*) FROM [identity].session) AS session_count;

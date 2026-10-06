@@ -26,18 +26,27 @@ if ($summary.database_name -ne 'sfx-identity' -or $summary.has_view_definition -
 # Gate regeneration on the database/source lineage, not merely a successful build.
 # SQL Server stores CREATE OR ALTER using the observed CREATE header below;
 # every subsequent UTF-16 byte must match the authored procedure definition.
-$migrationPath = Join-Path $identityRoot 'sql/migrations/001-login-identity.commit.sql'
-$migration = Get-Content -LiteralPath $migrationPath -Raw
-$definitions = [regex]::Matches($migration, "EXEC\(N'(CREATE OR ALTER PROCEDURE (?:''|[^'])*)'\);")
+$migrationFiles = @(Get-ChildItem -LiteralPath (Join-Path $identityRoot 'sql/migrations') -Filter '*.commit.sql' | Sort-Object Name)
+$definitionsByName = @{}
+foreach ($migrationFile in $migrationFiles) {
+    $migration = Get-Content -LiteralPath $migrationFile.FullName -Raw
+    foreach ($definition in [regex]::Matches($migration, "EXEC\(N'(CREATE OR ALTER PROCEDURE (?:''|[^'])*)'\);")) {
+        $body = $definition.Groups[1].Value.Replace("''", "'")
+        $identityMatch = [regex]::Match($body, 'CREATE OR ALTER PROCEDURE \[([^\]]+)\]\.\[([^\]]+)\]')
+        if (-not $identityMatch.Success) { throw 'Procedure declaration must include schema and name.' }
+        $definitionsByName[$identityMatch.Groups[1].Value + '.' + $identityMatch.Groups[2].Value] = $body
+    }
+}
 $matchedProcedureBodies = 0
-foreach ($definition in $definitions) {
-    $body = $definition.Groups[1].Value.Replace("''", "'")
-    $name = [regex]::Match($body, 'CREATE OR ALTER PROCEDURE \[identity\]\.\[([^\]]+)\]').Groups[1].Value
+foreach ($procedure in $config.Procedures) {
+    $name = $procedure.Name; $schemaName = $procedure.Schema
+    $body = $definitionsByName[$schemaName + '.' + $name]
+    if (-not $body) { throw "No migration accounts for $schemaName.$name." }
     $storedForm = [regex]::Replace($body, '^CREATE OR ALTER PROCEDURE', 'CREATE   PROCEDURE')
     $sha = [Security.Cryptography.SHA256]::Create()
     try { $hash = [BitConverter]::ToString($sha.ComputeHash([Text.Encoding]::Unicode.GetBytes($storedForm))).Replace('-', '').ToLowerInvariant() }
     finally { $sha.Dispose() }
-    $row = @($catalog.resultSets[6] | Where-Object { $_.procedure_name -eq $name })
+    $row = @($catalog.resultSets[6] | Where-Object { $_.procedure_name -eq $name -and $_.schema_name -eq $schemaName })
     if ($row.Count -ne 1 -or $row[0].definition_sha256 -ne $hash) {
         throw "Installed procedure differs from migration: $name. Reconcile the database declaration before regenerating."
     }
@@ -49,7 +58,8 @@ if ($matchedProcedureBodies -ne $config.Procedures.Count) {
 dotnet run --project $generator -c Release -- $configPath $identityRoot
 if ($LASTEXITCODE -ne 0) { throw 'Identity generation failed.' }
 foreach ($procedure in $config.Procedures) {
-    $class = 'Identity' + (($procedure.Name -split '_' | ForEach-Object {
+    $schemaClass = (($procedure.Schema -split '_' | ForEach-Object { $_.Substring(0,1).ToUpperInvariant() + $_.Substring(1) }) -join '')
+    $class = $schemaClass + (($procedure.Name -split '_' | ForEach-Object {
         $_.Substring(0,1).ToUpperInvariant() + $_.Substring(1)
     }) -join '')
     if (-not (Test-Path -LiteralPath (Join-Path $identityRoot "Procedures/Models/$class.cs"))) {
@@ -81,7 +91,7 @@ if ($ReceiptPath) {
         liveProcedures = $summary.procedure_count
         installedProcedureBodyHashMatches = $matchedProcedureBodies
         sqlHeaderNormalization = 'SQL Server persists CREATE OR ALTER PROCEDURE as CREATE   PROCEDURE; remaining UTF-16 bytes match exactly.'
-        migrationSha256 = (Get-FileHash (Join-Path $identityRoot 'sql/migrations/001-login-identity.commit.sql') -Algorithm SHA256).Hash.ToLowerInvariant()
+        migrations = @($migrationFiles | ForEach-Object { [ordered]@{ path = $_.Name; sha256 = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() } })
         identityDalSha256 = (Get-FileHash (Join-Path $identityRoot 'bin/Release/net8.0/SFX.Identity.DAL.dll') -Algorithm SHA256).Hash.ToLowerInvariant()
         build = 'Release passed'
         scope = 'Schema generation and artifact integrity; live provider acceptance is recorded separately.'
