@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-10-06T16:39:40.0476944+00:00",
+  "action": "install",
+  "migration": "003-trust-authority",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "check_name": "trust-authority-reference",
+        "policy_digest": "98b97712ba40153553186212b6094970433b9b4fee810fb67e2c9921368f4454",
+        "evaluator_digest": "0d8869aafd2ae49894f26b76b1d8bf2ea347289b355fd8d0009f13cb106e25a1",
+        "states": 9,
+        "evidence_classes": 8,
+        "claim_kinds": 2,
+        "rules": 2
+      }
+    ]
+  ]
+}

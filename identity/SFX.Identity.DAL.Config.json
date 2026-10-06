@@ -6,7 +6,7 @@
   "VariableTarget": "Process",
   "SchemaReaderConfig": {
     "SchemaReaderType": "SqlServer",
-    "SchemaFilter": "TABLE_SCHEMA IN ('identity','evidence')",
+    "SchemaFilter": "TABLE_SCHEMA IN ('identity','evidence','ledger')",
     "ConnectionString": null,
     "Owner": ""
   },
@@ -15,6 +15,8 @@
   "Functions": [],
   "Catalog": [],
   "Procedures": [
+    { "Schema": "ledger", "Name": "read_evaluation_authority" },
+    { "Schema": "ledger", "Name": "read_evaluation_rules" },
     { "Schema": "evidence", "Name": "register_run" },
     { "Schema": "evidence", "Name": "append_trace_chunk" },
     { "Schema": "evidence", "Name": "complete_run" },

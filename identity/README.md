@@ -1,5 +1,31 @@
 # SFX.Identity.DAL
 
+## Trust authority reference, 2026-10-06
+
+Migration [003](sql/migrations/003-trust-authority.commit.sql) is installed. Five
+`ledger` tables retain the exact estate policy/evaluator bytes, nine vocabulary
+states, eight evidence classes, C1/C2 and two rules. This is the reference copy;
+it does not yet persist subjects, claims, verifications or dispositions.
+
+Both content hashes are checked before installation. Vocabulary rows are
+compared with the retained policy; rule columns and digest must match their
+retained JSON. No application table writes are granted. Two named procedures
+read exact policy/evaluator pins and rules; an unknown pin never selects latest.
+The private identity host reads these through generated repositories.
+
+- Estate policy: `98b97712ba40153553186212b6094970433b9b4fee810fb67e2c9921368f4454`.
+- Evaluator document: `0d8869aafd2ae49894f26b76b1d8bf2ea347289b355fd8d0009f13cb106e25a1`.
+- [Rollback preflight](verification/trust-authority-preflight.json),
+  [install](verification/trust-authority-install.json),
+  [idempotence](verification/trust-authority-idempotence.json) and
+  [CodeLightly generation](verification/trust-authority-generation.json) passed.
+- Generation now covers 17 tables, 16 named procedures and 213 checked files.
+
+The source is the installed estate reader and base-table evaluator-document
+reading, not a second authored policy. Preserve these exact UTF-8 bytes.
+Changing the estate policy requires a new versioned reference and drift check.
+Pass `003-trust-authority` as the operator tool's fourth argument.
+
 ## Run material, 2026-10-06
 
 Migration [002](sql/migrations/002-run-evidence.commit.sql) is installed and

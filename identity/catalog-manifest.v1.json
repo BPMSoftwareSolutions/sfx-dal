@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.Identity.DAL",
-  "catalogDigest": "sha256:995a09dcdc00651ad6d47c84abf30fd909e0254b208660fd4da061206e317b16",
+  "catalogDigest": "sha256:ba372a6483a3c37180240e3e10fd957975a8bee7b7ff2508e975c86dfe1abe7b",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
@@ -86,6 +86,62 @@
       "operationId": null,
       "sha256": "6948a0188b6effbb0eff766fdc43ba3360e108e1e9b45ef605f0c7123a92c60f",
       "bytes": 827
+    },
+    {
+      "path": "Interfaces/IAuthorityRefRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9c15a399f7eef13ecaa5c347e1e6c20714dfb6bb548a6b4ba915bb598a04726f",
+      "bytes": 306
+    },
+    {
+      "path": "Interfaces/IAuthorityRefRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "52a164145ef34bc48ef12c060be6377c80f43cf733bc8817ec12d862b324d422",
+      "bytes": 646
+    },
+    {
+      "path": "Interfaces/IClaimKindRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f6dede2c3fa4687e5045d25148a0866e2a7a694e5122b467edd3ba656ec0ea59",
+      "bytes": 300
+    },
+    {
+      "path": "Interfaces/IClaimKindRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "54c5c980ab65ea81262e9359f5bbaaee91bfaa29a7ee580a9ad581a74d346e7a",
+      "bytes": 899
+    },
+    {
+      "path": "Interfaces/IEvaluationRuleRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e780e50acb8d6493374988e023e31aef4391ffb3ca7a2d64f0615dd03da38b06",
+      "bytes": 310
+    },
+    {
+      "path": "Interfaces/IEvaluationRuleRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "81d4bb141d1f39f101220fa07accdce2db51a21535bff17e67dae40cee51b54c",
+      "bytes": 1188
+    },
+    {
+      "path": "Interfaces/IEvidenceClassRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "bf2e27a478db3bc7094ac7ffbad375be7b335d6ef47a21003adf3f0c94bc7ea3",
+      "bytes": 308
+    },
+    {
+      "path": "Interfaces/IEvidenceClassRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "26a45f4669fcf75e9f71b6b67dda1237a9bc244c1c629288b3badc1ed2c31dd9",
+      "bytes": 933
     },
     {
       "path": "Interfaces/ILoginPolicyRepository.Custom.cs",
@@ -214,6 +270,20 @@
       "bytes": 849
     },
     {
+      "path": "Interfaces/ITrustStateRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "360faf8993ee2198bf5ef5ef54cf95fd56a29630efa09c01f04e98fbff955db9",
+      "bytes": 302
+    },
+    {
+      "path": "Interfaces/ITrustStateRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8469fdbb42e27ee14b9a12ddb53d1110c3b74b8a98b0b768e6f77b32eeacaf82",
+      "bytes": 902
+    },
+    {
       "path": "Models/AccessAudit.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -268,6 +338,62 @@
       "operationId": null,
       "sha256": "c92abe1c4aac6804e8e639a2e28e0c44b9d1a9381e5ab5193a29afb9225ea767",
       "bytes": 742
+    },
+    {
+      "path": "Models/AuthorityRef.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8b27017c0a437d7e0a407d8d877e8c39ecc32150e41f042f6f4022cf8b821903",
+      "bytes": 188
+    },
+    {
+      "path": "Models/AuthorityRef.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c0fc6ae217999bf3312704dfe445950ed952b23b6600ba24062a0bdb805da5be",
+      "bytes": 827
+    },
+    {
+      "path": "Models/ClaimKind.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "740ca84138918422e339b6bab6804e902ace7e78249c5199d4574d3722185dbc",
+      "bytes": 185
+    },
+    {
+      "path": "Models/ClaimKind.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8c1e5d5b58f83c13579221f1119dc64df58b95525da2e325a95612c6a06b82cd",
+      "bytes": 690
+    },
+    {
+      "path": "Models/EvaluationRule.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "98f778c20899b6d427fe920372cdad00f7a57dc1e264f8a32f01b5c22a4295b2",
+      "bytes": 190
+    },
+    {
+      "path": "Models/EvaluationRule.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cf60ad85a5b5a09133fb8d514b2d304151936e1f44ef0ed14812a5a7a025e083",
+      "bytes": 980
+    },
+    {
+      "path": "Models/EvidenceClass.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fc8e273343ee337548f4edc3e0a8e4e04e2390affdc53d52d692d9f1ac573b58",
+      "bytes": 189
+    },
+    {
+      "path": "Models/EvidenceClass.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "65f462fd3530bdbf08aac0df2cc250b28057c885e83133f7362fddb4a9222c88",
+      "bytes": 643
     },
     {
       "path": "Models/LoginPolicy.Custom.cs",
@@ -380,6 +506,20 @@
       "operationId": null,
       "sha256": "7eadb2ee68c4f54d976faea8aa5b3d92a5a4a26cec1fa3b83031df26b11be3ab",
       "bytes": 1035
+    },
+    {
+      "path": "Models/TrustState.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9619d1447d521e649d66d9509b7e7831597ba29fb0b0e45da90f0cca1ffd6044",
+      "bytes": 186
+    },
+    {
+      "path": "Models/TrustState.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "882d2bff3cfd028c84948fe6a1d9879a7ef2626ca663b644371121ec47e5e6ce",
+      "bytes": 679
     },
     {
       "path": "Procedures/Interfaces/IEvidenceAppendTraceChunkRepository.Custom.cs",
@@ -578,6 +718,34 @@
       "bytes": 809
     },
     {
+      "path": "Procedures/Interfaces/ILedgerReadEvaluationAuthorityRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c1eec0c6a88a60789c7d9611278ae142c40fc913769fd8c5d5bc759bdea05f37",
+      "bytes": 293
+    },
+    {
+      "path": "Procedures/Interfaces/ILedgerReadEvaluationAuthorityRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "696f8b86f5e681422db263758d9b6578c77b2c1e5627d0b23734b9a34e8b343d",
+      "bytes": 881
+    },
+    {
+      "path": "Procedures/Interfaces/ILedgerReadEvaluationRulesRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ca197c50b66a36389ec92ef3ff462a320e4a83b1a0ebae9835e52aa9e1c02f66",
+      "bytes": 289
+    },
+    {
+      "path": "Procedures/Interfaces/ILedgerReadEvaluationRulesRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8384b99d3bb592cf9d8969b8df5661332d77e6d59254ab8bd6bca009ad47302e",
+      "bytes": 817
+    },
+    {
       "path": "Procedures/Models/EvidenceAppendTraceChunk.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -772,6 +940,34 @@
       "operationId": null,
       "sha256": "102d5a00e1c99b8140e2cbe429d003d40f3b1d3c0cfbbca9e93e2201dfe8fb07",
       "bytes": 692
+    },
+    {
+      "path": "Procedures/Models/LedgerReadEvaluationAuthority.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f86b03855bdf1908aa56d97467f9ac1e7a4c657ff78181ecb72496cadd5fb353",
+      "bytes": 205
+    },
+    {
+      "path": "Procedures/Models/LedgerReadEvaluationAuthority.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c0df721046547a1f85b77465cf8f78ec2b254806afef73116109f157171e84dd",
+      "bytes": 810
+    },
+    {
+      "path": "Procedures/Models/LedgerReadEvaluationRules.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "80ecb264fc0d83acc81da47d0b52875a5ad6f4228594e18139cef4accd7ede20",
+      "bytes": 201
+    },
+    {
+      "path": "Procedures/Models/LedgerReadEvaluationRules.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d27cc0c769174a88e601420b4fee7a8ea46f1bbcd2553e1692088689842b4960",
+      "bytes": 940
     },
     {
       "path": "Procedures/Repositories/EvidenceAppendTraceChunkRepository.Custom.cs",
@@ -970,6 +1166,34 @@
       "bytes": 7653
     },
     {
+      "path": "Procedures/Repositories/LedgerReadEvaluationAuthorityRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "20bafc77b5d25b82a6a6d86daecf9db55657f9608a989c01969b078bcf5f39aa",
+      "bytes": 472
+    },
+    {
+      "path": "Procedures/Repositories/LedgerReadEvaluationAuthorityRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3304e9744a1c1ae44a2a14b22777278cc9131a9fbc22334cc6782d9fc7fb281a",
+      "bytes": 8004
+    },
+    {
+      "path": "Procedures/Repositories/LedgerReadEvaluationRulesRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a00ee3b16f218952fad18ed795ebb5af1a300e54bbf6968ff0816be0b6cf9692",
+      "bytes": 464
+    },
+    {
+      "path": "Procedures/Repositories/LedgerReadEvaluationRulesRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "eaf197c9651e03b244ca38fefefa52cd718b97de215193ef92ec9482e2d07916",
+      "bytes": 7762
+    },
+    {
       "path": "Repositories/AccessAuditRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -1024,6 +1248,62 @@
       "operationId": null,
       "sha256": "abf909e6fb3db6ae9146885d8a876bd6aed249889ad45cabf9fc4e12585de2b1",
       "bytes": 17878
+    },
+    {
+      "path": "Repositories/AuthorityRefRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3abd94ec309950ecfad89f0bb4a641d05cc35fbb09335eed9ece6492e1d4b8dc",
+      "bytes": 438
+    },
+    {
+      "path": "Repositories/AuthorityRefRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "009b7d508c467b6fc3e8f66374400216f3e74dba2eab6acff05de57d40aa8916",
+      "bytes": 17224
+    },
+    {
+      "path": "Repositories/ClaimKindRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "87580afc9191cf093448ebd0985df565eaebb1e0e8a951ba9f86150300c8dcc3",
+      "bytes": 432
+    },
+    {
+      "path": "Repositories/ClaimKindRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4f255eab3f321d9e570534b1acb3c027ea8c3ec3ee8e5b246905d54e9a48ca70",
+      "bytes": 18973
+    },
+    {
+      "path": "Repositories/EvaluationRuleRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "27deeaa283d445cd1fdeff54c0d02c7d68191322897954a1d2f4986c3646ee3b",
+      "bytes": 442
+    },
+    {
+      "path": "Repositories/EvaluationRuleRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "f0459382e72e23fe0727174f547289e9efa02fb411265449c82b578c12df0260",
+      "bytes": 25633
+    },
+    {
+      "path": "Repositories/EvidenceClassRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cd3993d68e5c0c39fc4ba60080a3a01cc331eb7ad78e95d9c8573d767314c8ff",
+      "bytes": 440
+    },
+    {
+      "path": "Repositories/EvidenceClassRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "a1057717aa386a7b87d22c0ac823c2734bf90e26b88cac2492d8d4e20144675f",
+      "bytes": 17818
     },
     {
       "path": "Repositories/LoginPolicyRepository.Custom.cs",
@@ -1138,6 +1418,20 @@
       "bytes": 23325
     },
     {
+      "path": "Repositories/TrustStateRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7b3ac3c2296bcdbfadb50993d111ae222509d7d26562778131a53c9d0f1cf54c",
+      "bytes": 434
+    },
+    {
+      "path": "Repositories/TrustStateRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2411a90e41fc1538b41814c4a1ac7f3e0ade93ebeba095d9f0c82392b3ef5658",
+      "bytes": 19079
+    },
+    {
       "path": "sql/inspect-schema.sql",
       "kind": "sql",
       "operationId": null,
@@ -1173,6 +1467,20 @@
       "bytes": 12568
     },
     {
+      "path": "sql/migrations/003-trust-authority.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "71930b59ab739bf6a11ffc89f7ba47ea83425ad2de5fde77ae8141af2809cddd",
+      "bytes": 36887
+    },
+    {
+      "path": "sql/migrations/003-trust-authority.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "ceb6dacf3081163c1993536fd6dcace45ad318f64d69411972d04316074a0b39",
+      "bytes": 36889
+    },
+    {
       "path": "sql/verify-login-contract.sql",
       "kind": "sql",
       "operationId": null,
@@ -1185,6 +1493,13 @@
       "operationId": null,
       "sha256": "b50f367a9b48a806400e4984d2130ff6cf44a6ecf54029cf1e171bf3d4d78e86",
       "bytes": 2477
+    },
+    {
+      "path": "sql/verify-trust-authority-contract.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "3aad53b84cd44f7ff1d68de0d4b5913df002abf0a57901a8be579270aec21a70",
+      "bytes": 1678
     }
   ],
   "parity": [],
