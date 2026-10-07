@@ -189,6 +189,10 @@ namespace SFX.DAL.Repositories
             { "SlotsWithoutSelectedOperation", "slots_without_selected_operation" },
             { "UnboundSelectedAuthorities", "unbound_selected_authorities" },
             { "ReachTruncatedEdges", "reach_truncated_edges" },
+            { "CanonicalOperations", "canonical_operations" },
+            { "BoundOperations", "bound_operations" },
+            { "CanonicalUnboundDetail", "canonical_unbound_detail" },
+            { "RequestNamedDispatch", "request_named_dispatch" },
         };
 
         private static string GetColumnName(string propertyName)
@@ -268,7 +272,11 @@ namespace SFX.DAL.Repositories
                 SlotsWithoutBinding = reader.GetInt32(reader.GetOrdinal("slots_without_binding")),
                 SlotsWithoutSelectedOperation = reader.GetInt32(reader.GetOrdinal("slots_without_selected_operation")),
                 UnboundSelectedAuthorities = reader.GetInt32(reader.GetOrdinal("unbound_selected_authorities")),
-                ReachTruncatedEdges = reader.IsDBNull(reader.GetOrdinal("reach_truncated_edges")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("reach_truncated_edges"))
+                ReachTruncatedEdges = reader.IsDBNull(reader.GetOrdinal("reach_truncated_edges")) ? (int?)null : reader.GetInt32(reader.GetOrdinal("reach_truncated_edges")),
+                CanonicalOperations = reader.GetInt32(reader.GetOrdinal("canonical_operations")),
+                BoundOperations = reader.GetInt32(reader.GetOrdinal("bound_operations")),
+                CanonicalUnboundDetail = reader.IsDBNull(reader.GetOrdinal("canonical_unbound_detail")) ? (string?)null : reader.GetString(reader.GetOrdinal("canonical_unbound_detail")),
+                RequestNamedDispatch = reader.IsDBNull(reader.GetOrdinal("request_named_dispatch")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("request_named_dispatch"))
             };
         }
     }

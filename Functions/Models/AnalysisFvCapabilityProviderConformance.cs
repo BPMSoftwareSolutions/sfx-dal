@@ -13,8 +13,8 @@ namespace SFX.DAL.Models
 {
     public partial class AnalysisFvCapabilityProviderConformance
     {
-        public string DimKey { get; set; } = default!;
+        public string? DimKey { get; set; }
         public string? Subject { get; set; }
-        public string Detail { get; set; } = default!;
+        public string? Detail { get; set; }
     }
 }

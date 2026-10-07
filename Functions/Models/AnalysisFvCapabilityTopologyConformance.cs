@@ -55,5 +55,9 @@ namespace SFX.DAL.Models
         public int SlotsWithoutSelectedOperation { get; set; }
         public int UnboundSelectedAuthorities { get; set; }
         public int? ReachTruncatedEdges { get; set; }
+        public int CanonicalOperations { get; set; }
+        public int BoundOperations { get; set; }
+        public string? CanonicalUnboundDetail { get; set; }
+        public bool? RequestNamedDispatch { get; set; }
     }
 }

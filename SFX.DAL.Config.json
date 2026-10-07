@@ -1057,6 +1057,26 @@
     "Procedures":  [
                        {
                            "Schema":  "analysis",
+                           "Name":  "fv_extract_execution_authority"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_details"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_kernel_canonical_graph"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_altitude_topology"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_altitude_topology"
+                       },
+                       {
+                           "Schema":  "analysis",
                            "Name":  "read_capability_inspection"
                        },
                        {
@@ -1346,6 +1366,10 @@
                        {
                            "Schema":  "analysis",
                            "Name":  "read_capability_providers"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_shape_graph"
                        },
                        {
                            "Schema":  "analysis",

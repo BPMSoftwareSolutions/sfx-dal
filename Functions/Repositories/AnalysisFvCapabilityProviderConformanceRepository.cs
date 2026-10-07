@@ -188,9 +188,9 @@ namespace SFX.DAL.Repositories
         {
             return new AnalysisFvCapabilityProviderConformance
             {
-                DimKey = reader.GetString(reader.GetOrdinal("dim_key")),
+                DimKey = reader.IsDBNull(reader.GetOrdinal("dim_key")) ? (string?)null : reader.GetString(reader.GetOrdinal("dim_key")),
                 Subject = reader.IsDBNull(reader.GetOrdinal("subject")) ? (string?)null : reader.GetString(reader.GetOrdinal("subject")),
-                Detail = reader.GetString(reader.GetOrdinal("detail"))
+                Detail = reader.IsDBNull(reader.GetOrdinal("detail")) ? (string?)null : reader.GetString(reader.GetOrdinal("detail"))
             };
         }
     }
