@@ -16,7 +16,6 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using SFX.DAL.Interfaces;
 using SFX.DAL.Helpers;
-using SFX.DAL.Models;
 
 namespace SFX.DAL.Repositories
 {
@@ -29,9 +28,9 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<AnalysisReadProviderDetails>> ExecuteAsync(string providerId, long? estateModelPk = null)
+        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, long? estateModelPk = null)
         {
-            var entities = new List<AnalysisReadProviderDetails>();
+            var entities = new List<object?>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -67,14 +66,8 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    if (resultSets.Count > 0)
-                    {
-                        foreach (DataRow row in resultSets[0].Rows)
-                        {
-                            entities.Add(MapRowToAnalysisReadProviderDetails(row));
-                        }
-                    }
-                    return new ProcedureCallResult<AnalysisReadProviderDetails>
+                    // This procedure does not return a result set.
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -88,9 +81,9 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<AnalysisReadProviderDetails> Execute(string providerId, long? estateModelPk = null)
+        public ProcedureCallResult<object?> Execute(string providerId, long? estateModelPk = null)
         {
-            var entities = new List<AnalysisReadProviderDetails>();
+            var entities = new List<object?>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -126,14 +119,8 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    if (resultSets.Count > 0)
-                    {
-                        foreach (DataRow row in resultSets[0].Rows)
-                        {
-                            entities.Add(MapRowToAnalysisReadProviderDetails(row));
-                        }
-                    }
-                    return new ProcedureCallResult<AnalysisReadProviderDetails>
+                    // This procedure does not return a result set.
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -147,42 +134,6 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public AnalysisReadProviderDetails MapRowToAnalysisReadProviderDetails(DataRow row)
-        {
-            return new AnalysisReadProviderDetails
-            {
-                ResultSet = (string)row["result_set"],
-                ProviderId = (string)row["provider_id"],
-                NamespaceId = (string)row["namespace_id"],
-                ProviderPk = (long)row["provider_pk"],
-                SemanticObjectPk = (long)row["semantic_object_pk"],
-                ProviderDefinitionPk = (long)row["provider_definition_pk"],
-                DeclaredName = row.IsNull("declared_name") ? (string?)null : (string)row["declared_name"],
-                DeclarationProfile = (string)row["declaration_profile"],
-                DefinitionDigest = row.IsNull("definition_digest") ? (string?)null : (string)row["definition_digest"],
-                Label = row.IsNull("label") ? (string?)null : (string)row["label"],
-                DeclaredId = (string)row["declared_id"],
-                ByteLength = row.IsNull("byte_length") ? (long?)null : (long)row["byte_length"],
-                ProviderRole = row.IsNull("provider_role") ? (string?)null : (string)row["provider_role"],
-                ProviderClass = (string)row["provider_class"],
-                HasModuleOrExport = row.IsNull("has_module_or_export") ? (bool?)null : (bool)row["has_module_or_export"],
-                PciCount = row.IsNull("pci_count") ? (int?)null : (int)row["pci_count"],
-                OperationsCount = row.IsNull("operations_count") ? (int?)null : (int)row["operations_count"],
-                SourcePropertyCount = row.IsNull("source_property_count") ? (int?)null : (int)row["source_property_count"],
-                CandidateCapabilitiesCount = row.IsNull("candidate_capabilities_count") ? (int?)null : (int)row["candidate_capabilities_count"],
-                CapabilitiesCount = row.IsNull("capabilities_count") ? (int?)null : (int)row["capabilities_count"],
-                OverlayReferenceCount = row.IsNull("overlay_reference_count") ? (int?)null : (int)row["overlay_reference_count"],
-                OverlayTopLevelReferenceCount = row.IsNull("overlay_top_level_reference_count") ? (int?)null : (int)row["overlay_top_level_reference_count"],
-                OverlayAuthorityReferenceCount = row.IsNull("overlay_authority_reference_count") ? (int?)null : (int)row["overlay_authority_reference_count"],
-                ResolvedProviderAuthorityCount = row.IsNull("resolved_provider_authority_count") ? (int?)null : (int)row["resolved_provider_authority_count"],
-                ResolvedBindingReferenceCount = row.IsNull("resolved_binding_reference_count") ? (int?)null : (int)row["resolved_binding_reference_count"],
-                ResolvedEndpointAuthorityCount = row.IsNull("resolved_endpoint_authority_count") ? (int?)null : (int)row["resolved_endpoint_authority_count"],
-                ResolvedApplicationRefCount = row.IsNull("resolved_application_ref_count") ? (int?)null : (int)row["resolved_application_ref_count"],
-                RoleEvidenceStatus = row.IsNull("role_evidence_status") ? (string?)null : (string)row["role_evidence_status"],
-                DefinitionGenerations = row.IsNull("definition_generations") ? (int?)null : (int)row["definition_generations"],
-                SelectedGenerations = row.IsNull("selected_generations") ? (int?)null : (int)row["selected_generations"]
-            };
-        }
         
         private static IReadOnlyDictionary<string, object?> GetOutputParameters(SqlCommand command)
         {

@@ -1367,10 +1367,14 @@
                            "Schema":  "analysis",
                            "Name":  "read_capability_providers"
                        },
-                       {
-                           "Schema":  "analysis",
-                           "Name":  "read_capability_shape_graph"
-                       },
+                        {
+                            "Schema":  "analysis",
+                            "Name":  "read_capability_shape_graph"
+                        },
+                        {
+                            "Schema":  "analysis",
+                            "Name":  "read_provider_details"
+                        },
                        {
                            "Schema":  "analysis",
                            "Name":  "read_provider_canonical_body"

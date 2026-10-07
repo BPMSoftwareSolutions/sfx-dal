@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:9ab3270cfca1e91f2fbdb577aeca060162c968d52da6770d004fc35352b8bbcf",
+  "catalogDigest": "sha256:a633da2f336ca6c04bfd8876638f4b08432e92255825fa9be96b8360a25a701f",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
@@ -6594,8 +6594,8 @@
       "path": "Procedures/Interfaces/IAnalysisReadProviderDetailsRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "481c8daeda0f5a71a3d9248307d00409e816d455c120abb8eab20b9b3f6f7687",
-      "bytes": 850
+      "sha256": "8130448dfa3f0d5145c0148fe0e0d3f4c510e6fd4c79a42b80d7692c03437622",
+      "bytes": 787
     },
     {
       "path": "Procedures/Interfaces/IAnalysisReadProviderPortsRepository.Custom.cs",
@@ -8596,8 +8596,8 @@
       "path": "Procedures/Repositories/AnalysisReadProviderDetailsRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "218a2db54d6665482ba3ad047ec3cf3a53ae36fb12a8233fe5cfaf12fab49695",
-      "bytes": 10917
+      "sha256": "858c6f262c2489a738f5e9b056cc32ff8138b43f3b45d61e6c67b0f745a45069",
+      "bytes": 6852
     },
     {
       "path": "Procedures/Repositories/AnalysisReadProviderPortsRepository.Custom.cs",

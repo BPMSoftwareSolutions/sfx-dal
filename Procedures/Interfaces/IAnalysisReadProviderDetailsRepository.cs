@@ -10,13 +10,12 @@
 #nullable enable
 
 using SFX.DAL.Helpers;
-using SFX.DAL.Models;
 
 namespace SFX.DAL.Interfaces
 {
     public partial interface IAnalysisReadProviderDetailsRepository
     {
-        ProcedureCallResult<AnalysisReadProviderDetails> Execute(string providerId, long? estateModelPk = null);
-        Task<ProcedureCallResult<AnalysisReadProviderDetails>> ExecuteAsync(string providerId, long? estateModelPk = null);
+        ProcedureCallResult<object?> Execute(string providerId, long? estateModelPk = null);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string providerId, long? estateModelPk = null);
     }
 }
