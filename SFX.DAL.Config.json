@@ -1247,14 +1247,18 @@
                            "Schema":  "model",
                            "Name":  "install_model_placement_change"
                        },
-                       {
-                           "Schema":  "model",
-                           "Name":  "install_provider_binding_change"
-                       },
-                       {
-                           "Schema":  "model",
-                           "Name":  "install_scenario_authoring_change"
-                       },
+                        {
+                            "Schema":  "model",
+                            "Name":  "install_provider_binding_change"
+                        },
+                        {
+                            "Schema":  "model",
+                            "Name":  "install_provider_details_change"
+                        },
+                        {
+                            "Schema":  "model",
+                            "Name":  "install_scenario_authoring_change"
+                        },
                        {
                            "Schema":  "model",
                            "Name":  "install_scenario_change"

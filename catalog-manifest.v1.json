@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:a633da2f336ca6c04bfd8876638f4b08432e92255825fa9be96b8360a25a701f",
+  "catalogDigest": "sha256:2a7bf9842b23e849edfb640580a47bb42589bece27919fd21ed6de131a451e88",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
@@ -7242,6 +7242,20 @@
       "bytes": 739
     },
     {
+      "path": "Procedures/Interfaces/IModelInstallProviderDetailsChangeRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "0488b86af7ec2cf4c7bd26db6ab43069acaa04893cf46a41d41eb0ccf7695d98",
+      "bytes": 247
+    },
+    {
+      "path": "Procedures/Interfaces/IModelInstallProviderDetailsChangeRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5c4950a2b03d732c10c3a4f3ae8385e1e7900494348d3e2b9e5f1738c3d3f9f1",
+      "bytes": 739
+    },
+    {
       "path": "Procedures/Interfaces/IModelInstallScenarioAuthoringChangeRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -9241,6 +9255,20 @@
       "kind": "csharp",
       "operationId": null,
       "sha256": "4da092318d9f135a0199670d2927e05f91c5036be4ba1f2803b9aa8c26f9b05b",
+      "bytes": 6608
+    },
+    {
+      "path": "Procedures/Repositories/ModelInstallProviderDetailsChangeRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b3d4d2ee683d4fb802cae23db6f695b41ba33ec482a0904b900fa8654b7e3fef",
+      "bytes": 421
+    },
+    {
+      "path": "Procedures/Repositories/ModelInstallProviderDetailsChangeRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "69bb39d9522aff9c5c07b12e52db0ef75bdbb9856b37b344240017001e84f42f",
       "bytes": 6608
     },
     {
