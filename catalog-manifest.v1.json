@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:2a7bf9842b23e849edfb640580a47bb42589bece27919fd21ed6de131a451e88",
+  "catalogDigest": "sha256:e52274a69f88f867b70e9d6e6db1078c6717d0debdaaff5ba40d8925c948f776",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
@@ -4190,6 +4190,118 @@
       "bytes": 1558
     },
     {
+      "path": "Interfaces/IUiClaimDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7c5cc794ca0c2a72e501d85ca4e43ff2a4772837ba1ddddef1993d7d5a5dd502",
+      "bytes": 289
+    },
+    {
+      "path": "Interfaces/IUiClaimDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "bf988b2ae71eb35c45f1c118c23030d8ae00294fd7358d5d42db904409490cd2",
+      "bytes": 779
+    },
+    {
+      "path": "Interfaces/IUiComponentDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b0ecb113deeaa2bca21cfc0e97dcb75fd7a3ee7492c64e1ccef033005013f2dc",
+      "bytes": 297
+    },
+    {
+      "path": "Interfaces/IUiComponentDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "16a01f962b8c187d5c26d23bab80894ac96a04939e1cda6760b8cab3304f1a1a",
+      "bytes": 791
+    },
+    {
+      "path": "Interfaces/IUiCrosswalkDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "9be650c5236955e54e1f3c963a92000e8d5480218a6947497db71a2d64a26689",
+      "bytes": 297
+    },
+    {
+      "path": "Interfaces/IUiCrosswalkDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "66e1cdea3faffb49c11d065792ace6cc459d19ae87873ce0e36ee67ecf1a7173",
+      "bytes": 646
+    },
+    {
+      "path": "Interfaces/IUiCurrentClaimRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e53b837ca5de9e44f2c98668e36433215e6483d90546a1e7f58f753e75eb6c71",
+      "bytes": 283
+    },
+    {
+      "path": "Interfaces/IUiCurrentClaimRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ace148c29e6ded8909da519af4398c386de3d4aea321deca1db7db2528dcfc24",
+      "bytes": 863
+    },
+    {
+      "path": "Interfaces/IUiCurrentPageRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "00e3c1ac03a4f6b882c15f6c0bcf6603c945993c9e215736e229b20a70bf6bf9",
+      "bytes": 281
+    },
+    {
+      "path": "Interfaces/IUiCurrentPageRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "11e051644305dd53a7b02949258702981610f750929dbf44220022cfa28c636f",
+      "bytes": 854
+    },
+    {
+      "path": "Interfaces/IUiLayoutDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c0f6ea66b187f7b93b9e9aaa81caff65d061c9cfc87fb84a82ddc7e1fdb1f5d6",
+      "bytes": 291
+    },
+    {
+      "path": "Interfaces/IUiLayoutDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c1c1f930e7397ac16b7323be00f190744c9afe74088078c8e55bf8866543f532",
+      "bytes": 637
+    },
+    {
+      "path": "Interfaces/IUiPageDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3c40b162d36482b888f62fe9c5f2f0dbce2e494406213ebe9d1d0bd5cf1dd0b8",
+      "bytes": 287
+    },
+    {
+      "path": "Interfaces/IUiPageDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "55c6d7efe98cf9fbe9a2f8b614eb4efde24b9ef1262d2964b3732c906a5be577",
+      "bytes": 772
+    },
+    {
+      "path": "Interfaces/IUiPublicationAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5df6d29bf5816541939598cb95c23d58057908cc4d9242a8aa3059d0ceb36113",
+      "bytes": 291
+    },
+    {
+      "path": "Interfaces/IUiPublicationAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "aa37fb2f17a6d382c7f18e66375b4b5d42fd6005d4cf4a6f7f81b0105b451088",
+      "bytes": 637
+    },
+    {
       "path": "Interfaces/IUnresolvedReferenceRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -6262,6 +6374,118 @@
       "bytes": 1124
     },
     {
+      "path": "Models/UiClaimDefinition.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7a3541a9d268a2f9c723fe88f4ee9fb13dc38ac236803088726300759c35bba2",
+      "bytes": 184
+    },
+    {
+      "path": "Models/UiClaimDefinition.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "dc63d2aa485b3499a61dcc18a1ae9292761527d45309f72d9e222a68c2abe611",
+      "bytes": 884
+    },
+    {
+      "path": "Models/UiComponentDefinition.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "37ad4fd4b5d8a4fd7277b04aa1952011ba4f5e5868ba72027a1a7a1ac8bb2fdb",
+      "bytes": 188
+    },
+    {
+      "path": "Models/UiComponentDefinition.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3803b9013c5d05d01fbb23daf25a450ccb8e03c15629ed6ed2fe1c9efa048418",
+      "bytes": 743
+    },
+    {
+      "path": "Models/UiCrosswalkDefinition.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ae26d10fd0a1ca0ee72e06f791f64f8d730161c749f684b4b8da5813a97f9027",
+      "bytes": 188
+    },
+    {
+      "path": "Models/UiCrosswalkDefinition.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b416af17310034d25e308da9efbcff53a76dc5af5db3dd0b0461cd5c261d5731",
+      "bytes": 737
+    },
+    {
+      "path": "Models/UiCurrentClaim.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1cdd596c7863f0ad296ef655cc11749df4a3c78e67125cad559e0d9b2a7d4ae9",
+      "bytes": 181
+    },
+    {
+      "path": "Models/UiCurrentClaim.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4b34b81af6ffd2dd2514fe93bce4f869415457bd91267243c82d9113900512e1",
+      "bytes": 664
+    },
+    {
+      "path": "Models/UiCurrentPage.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "776b83e0e8b149c822d5036818a3210b436ce74952ea263d547e80f7574e97e9",
+      "bytes": 180
+    },
+    {
+      "path": "Models/UiCurrentPage.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "b8c431986dd4bb52b1ff20c9a8525ff0ce55b51aabfb955a0d083fe88355ce95",
+      "bytes": 661
+    },
+    {
+      "path": "Models/UiLayoutDefinition.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fcecca709b1f10d28b0c17a00a5fbb7cfa50421c94ec6985aa89cb332e530d84",
+      "bytes": 185
+    },
+    {
+      "path": "Models/UiLayoutDefinition.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7e8f08208c7215743a0e629e1e82f6f2159aad10653a48e7b9d64f6ec32754ec",
+      "bytes": 699
+    },
+    {
+      "path": "Models/UiPageDefinition.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8fa0fa2dbe3468cb1baa164acb25c2cb1b383b7796502c2f3c05703d7f820fa5",
+      "bytes": 183
+    },
+    {
+      "path": "Models/UiPageDefinition.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2fc8490b57f0815b9779ff459768c0eeb34e632de7d6b7208acfaa3c101196b8",
+      "bytes": 952
+    },
+    {
+      "path": "Models/UiPublicationAudit.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "97c9a49649cd95a686e005188479dd0015466bb67652be3317508b0e1d7c5908",
+      "bytes": 185
+    },
+    {
+      "path": "Models/UiPublicationAudit.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5130a2a80e6545a74a5fdd5e9422c16f48cf44c7d3021ab6ed89e0bdfbf971e8",
+      "bytes": 852
+    },
+    {
       "path": "Models/UnresolvedReference.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -6610,6 +6834,20 @@
       "operationId": null,
       "sha256": "58e8612413217113bcdf4404f230529c128b257a6c7a91248ce54e590419c5ba",
       "bytes": 783
+    },
+    {
+      "path": "Procedures/Interfaces/IAnalysisReadUiPageDocumentRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c517740779dc1f7dab107335fe85afed8d899b03b2c7a50ca9f6652bcda31668",
+      "bytes": 263
+    },
+    {
+      "path": "Procedures/Interfaces/IAnalysisReadUiPageDocumentRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5a387af2fbcded5277514f7a3f82f4bcff32ee2cf099cf7f8279fa897f54782d",
+      "bytes": 858
     },
     {
       "path": "Procedures/Interfaces/IAnalysisRenderIntegratedScenarioCircuitRepository.Custom.cs",
@@ -7970,6 +8208,20 @@
       "bytes": 1133
     },
     {
+      "path": "Procedures/Models/AnalysisReadUiPageDocument.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d1922bdb2fb1f0a4de9cff1c27a5de6aff21f9b5f3e3c0a17d28626fe1e59ad3",
+      "bytes": 193
+    },
+    {
+      "path": "Procedures/Models/AnalysisReadUiPageDocument.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d76a9daf206ab6eeb775d0d950ccef71efa950689cbad86dc282d860255ffe07",
+      "bytes": 583
+    },
+    {
       "path": "Procedures/Models/ModelAddExample.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -8442,8 +8694,8 @@
       "path": "Procedures/Repositories/AnalysisReadCapabilityDetailsRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "7fefd6111e3872ee8b276e534c2630097d8989e5b0989c74c3d97afbaf900d25",
-      "bytes": 7718
+      "sha256": "1f60592c1b8acd0844e93ae8ef180f152d3379b57ab326f2315f23fff15ec527",
+      "bytes": 7916
     },
     {
       "path": "Procedures/Repositories/AnalysisReadCapabilityInspectionRepository.Custom.cs",
@@ -8554,8 +8806,8 @@
       "path": "Procedures/Repositories/AnalysisReadLiveScenarioCircuitRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "239ebc3a882af8abe1f2565657900f33e026cd8a4aeb43fcce8ad94b4d8eec36",
-      "bytes": 8245
+      "sha256": "f1b1e24122d8e7bf8c611defc8a73867dd5ddecf10332368b5059383dc1130a9",
+      "bytes": 8443
     },
     {
       "path": "Procedures/Repositories/AnalysisReadProviderBindingsRepository.Custom.cs",
@@ -8628,6 +8880,20 @@
       "bytes": 6836
     },
     {
+      "path": "Procedures/Repositories/AnalysisReadUiPageDocumentRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "273651d777d164ef66e67113bd92e4984323b76f11a16f355840c10a90fa4261",
+      "bytes": 430
+    },
+    {
+      "path": "Procedures/Repositories/AnalysisReadUiPageDocumentRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "488b058b8dac9428869d5b81f4c43fa3c02509ebc1413ca3c30575543485c13e",
+      "bytes": 8348
+    },
+    {
       "path": "Procedures/Repositories/AnalysisRenderIntegratedScenarioCircuitRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -8638,8 +8904,8 @@
       "path": "Procedures/Repositories/AnalysisRenderIntegratedScenarioCircuitRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "7c8f5065be3ae2d31067c779d6c4fbd49a0a93e0f1abecabf681d7f3ecc48918",
-      "bytes": 8780
+      "sha256": "9f29ee5bdc07779e50a0aa8b47a9efe55c0836e91d0be7fcdf45f9110c3acd98",
+      "bytes": 8978
     },
     {
       "path": "Procedures/Repositories/ModelAddExampleRepository.Custom.cs",
@@ -11867,6 +12133,118 @@
       "operationId": null,
       "sha256": "ed819abf3db8560556261f165da3c32c4ee8d13474e586942cdf5f2f9b02280f",
       "bytes": 34472
+    },
+    {
+      "path": "Repositories/UiClaimDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "605bf5cf514bd9d5a421e74eb9348f4e171bad30357798fe2cdb09de9acfcbbc",
+      "bytes": 412
+    },
+    {
+      "path": "Repositories/UiClaimDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d1f7ccf2bd8633d091de7e0174312720571f7965c0905a0878e3561bf8ad9e21",
+      "bytes": 19053
+    },
+    {
+      "path": "Repositories/UiComponentDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "73c7bffb753cd8ce469401480619d4a85d9f03107903a2f672a376694d1f9055",
+      "bytes": 420
+    },
+    {
+      "path": "Repositories/UiComponentDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "5f8e1b75e281476e58ec54a5e0acf6d6c33e8bc45c6910fc944af717dd4d1bbf",
+      "bytes": 17643
+    },
+    {
+      "path": "Repositories/UiCrosswalkDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ba78b5950fa80f2e5c1cbb0a774e8d301e4f72c27ff0438ab33253773cd21c4d",
+      "bytes": 420
+    },
+    {
+      "path": "Repositories/UiCrosswalkDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "55138975bbc1e4982b888d1b4f75f5d8e549571956d925981d5e4561fa35dc25",
+      "bytes": 17387
+    },
+    {
+      "path": "Repositories/UiCurrentClaimRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4ea123e0b5d555729b285fa82778d5ddf9ef32f068eb99e5505d7ae1ae232c9e",
+      "bytes": 406
+    },
+    {
+      "path": "Repositories/UiCurrentClaimRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "318ab7a465e7a3624d488b3c187b2656661b19ba707f91b4d8849c8b7684cfd7",
+      "bytes": 20477
+    },
+    {
+      "path": "Repositories/UiCurrentPageRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "58cb9713e0f4df02ca027848c4634ca1da1b2da48cb4dbed3af1ba92dae5ada9",
+      "bytes": 404
+    },
+    {
+      "path": "Repositories/UiCurrentPageRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "381aa30d8272c9b36a9e95fe99a7e1a9cb833260d5b518c4675b28829f5b6932",
+      "bytes": 20368
+    },
+    {
+      "path": "Repositories/UiLayoutDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "11aeb691bb4d8264c8ce7386e776550556b4ca00a6b45ce36c30c38c8fe2e768",
+      "bytes": 414
+    },
+    {
+      "path": "Repositories/UiLayoutDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7b8cebabfec7a82eac02b0046fed52785f7a465f239b8e2dd1155bce4980acfd",
+      "bytes": 16372
+    },
+    {
+      "path": "Repositories/UiPageDefinitionRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "d3b536b4cf625e6fc41bfd58da661d3cb410b480f18f9aca30bedaa1926e20e6",
+      "bytes": 410
+    },
+    {
+      "path": "Repositories/UiPageDefinitionRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "354f891c5afe28cc7a9bf5be1ab221a57bed07186b7786981e5cb1ae56df61dd",
+      "bytes": 19201
+    },
+    {
+      "path": "Repositories/UiPublicationAuditRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4f32ab8be68b9cd24bec90167da49da5fb86de85760e65aac2973cd418c58f08",
+      "bytes": 414
+    },
+    {
+      "path": "Repositories/UiPublicationAuditRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "0e6e52edece5616ee61dfcbb69cec12b7853f1697b29884e10733dcf68035456",
+      "bytes": 17823
     },
     {
       "path": "Repositories/UnresolvedReferenceRepository.Custom.cs",

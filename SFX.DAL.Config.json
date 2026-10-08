@@ -1247,18 +1247,18 @@
                            "Schema":  "model",
                            "Name":  "install_model_placement_change"
                        },
-                        {
-                            "Schema":  "model",
-                            "Name":  "install_provider_binding_change"
-                        },
-                        {
-                            "Schema":  "model",
-                            "Name":  "install_provider_details_change"
-                        },
-                        {
-                            "Schema":  "model",
-                            "Name":  "install_scenario_authoring_change"
-                        },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_provider_binding_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_provider_details_change"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "install_scenario_authoring_change"
+                       },
                        {
                            "Schema":  "model",
                            "Name":  "install_scenario_change"
@@ -1371,14 +1371,14 @@
                            "Schema":  "analysis",
                            "Name":  "read_capability_providers"
                        },
-                        {
-                            "Schema":  "analysis",
-                            "Name":  "read_capability_shape_graph"
-                        },
-                        {
-                            "Schema":  "analysis",
-                            "Name":  "read_provider_details"
-                        },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_capability_shape_graph"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_provider_details"
+                       },
                        {
                            "Schema":  "analysis",
                            "Name":  "read_provider_canonical_body"
@@ -1474,6 +1474,10 @@
                        {
                            "Schema":  "model",
                            "Name":  "restore_capability"
+                       },
+                       {
+                           "Schema":  "analysis",
+                           "Name":  "read_ui_page_document"
                        }
                    ]
 }

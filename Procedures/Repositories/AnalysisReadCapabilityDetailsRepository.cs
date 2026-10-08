@@ -43,6 +43,7 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_version_pk", capabilityVersionPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@emit", emit ?? (object)DBNull.Value);
                     var parameterOut0 = command.Parameters.Add("@result", SqlDbType.NVarChar);
+                    parameterOut0.Size = -1;  // MAX; a size-less string/binary output is invalid
                     parameterOut0.Direction = ParameterDirection.Output;
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
@@ -99,6 +100,7 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@capability_version_pk", capabilityVersionPk ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@emit", emit ?? (object)DBNull.Value);
                     var parameterOut0 = command.Parameters.Add("@result", SqlDbType.NVarChar);
+                    parameterOut0.Size = -1;  // MAX; a size-less string/binary output is invalid
                     parameterOut0.Direction = ParameterDirection.Output;
                     connection.Open();
                     using (var reader = command.ExecuteReader())

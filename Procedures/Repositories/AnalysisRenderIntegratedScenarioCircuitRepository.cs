@@ -48,6 +48,7 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@estate", estate);
                     command.Parameters.AddWithValue("@background", background ?? (object)DBNull.Value);
                     var parameterOut0 = command.Parameters.Add("@result", SqlDbType.NVarChar);
+                    parameterOut0.Size = -1;  // MAX; a size-less string/binary output is invalid
                     parameterOut0.Direction = ParameterDirection.Output;
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
@@ -109,6 +110,7 @@ namespace SFX.DAL.Repositories
                     command.Parameters.AddWithValue("@estate", estate);
                     command.Parameters.AddWithValue("@background", background ?? (object)DBNull.Value);
                     var parameterOut0 = command.Parameters.Add("@result", SqlDbType.NVarChar);
+                    parameterOut0.Size = -1;  // MAX; a size-less string/binary output is invalid
                     parameterOut0.Direction = ParameterDirection.Output;
                     connection.Open();
                     using (var reader = command.ExecuteReader())
