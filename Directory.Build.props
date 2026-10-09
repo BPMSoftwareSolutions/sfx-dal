@@ -1,7 +1,7 @@
 <Project>
-  <!-- Keep the separately generated identity assembly out of the estate project. -->
+  <!-- Keep the separately generated identity assembly and the semantic projection projects out of the estate project. -->
   <PropertyGroup Condition="'$(MSBuildProjectName)' == 'SFX.DAL'">
-    <DefaultItemExcludes>$(DefaultItemExcludes);identity/**;tools/**;.tmp/**</DefaultItemExcludes>
+    <DefaultItemExcludes>$(DefaultItemExcludes);identity/**;tools/**;semantic/**;.tmp/**</DefaultItemExcludes>
   </PropertyGroup>
   <PropertyGroup Condition="'$(MSBuildProjectName)' == 'SFX.Identity.DAL'">
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>

@@ -1,0 +1,4 @@
+# Generated output and its inputs are hashed byte-for-byte by the manifest; keep LF on every checkout.
+SFX.Semantics/Generated/** text eol=lf
+contracts/** text eol=lf
+semantic-projection.config.json text eol=lf

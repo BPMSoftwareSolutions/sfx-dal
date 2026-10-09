@@ -1,0 +1,245 @@
+{
+  "contractVersion": "semantic-projection.v1",
+  "id": "sfx.capability-details",
+  "revision": "0.1.0-draft",
+  "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+  "description": "Projects analysis.read_capability_details document mode (emit=0) into an immutable capability snapshot. Seven sections are typed; the other 38 expected sections are retained verbatim.",
+  "source": {
+    "kind": "sql-procedure-document",
+    "schema": "analysis",
+    "name": "read_capability_details",
+    "shapeBasis": "Field types and nullability come from the row-mode column metadata in verification/2026-10-09-semantic-readers.json. A field is required only when that metadata is NOT NULL or the installed reader's ROW discriminator depends on it (reader body UTF-8 SHA-256 d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f).",
+    "arguments": [
+      { "parameter": "capability_id", "sqlType": "nvarchar", "size": 400, "bind": "argument", "role": "identity" },
+      { "parameter": "estate_model_pk", "sqlType": "bigint", "bind": "argument", "role": "basis" },
+      { "parameter": "capability_version_pk", "sqlType": "bigint", "bind": "omit" },
+      { "parameter": "emit", "sqlType": "bit", "bind": "constant", "value": false }
+    ],
+    "document": {
+      "parameter": "result",
+      "shape": "named-sections",
+      "nulls": "explicit",
+      "rowResultSets": "forbid"
+    },
+    "refusals": [
+      { "errorNumber": 51000, "code": "CAPABILITY_NOT_FOUND", "availability": "Absent" },
+      { "errorNumber": 51000, "code": "CAPABILITY_NOT_SELECTED", "availability": "Absent" }
+    ]
+  },
+  "rows": {
+    "labelField": "result_set",
+    "scopeField": "capability_id",
+    "discriminatorField": "row_state",
+    "entityValue": "ROW",
+    "markerValues": [ "EMPTY", "SUMMARY" ]
+  },
+  "root": {
+    "name": "Capability",
+    "section": "capability_summary",
+    "kind": "capability",
+    "namespaceField": "namespace_id",
+    "declaredIdField": "capability_id",
+    "revisionField": "selected_definition_pk"
+  },
+  "expectedSections": [
+    "capability_summary", "capability_intent", "contracts", "scenarios", "scenario_events", "scenario_inputs",
+    "scenario_outputs", "execution_operations", "ports", "bindings", "providers", "provider_overlays",
+    "semantic_definitions", "provider_conformance", "capability_evaluation", "provider_boundary_conformance",
+    "translation_conformance", "routing_conformance", "reachability_conformance", "operation_architecture",
+    "operation_operator_census", "provider_boundaries", "capability_routing", "declared_reachability",
+    "provider_authority_evidence", "translation_evidence", "routing_evidence", "declaration_reference_evidence",
+    "capability_conformance_profile", "capability_findings", "canonical_findings", "canonical_facts",
+    "findings_shape_census", "legacy_digest_inputs", "capability_evaluation_identity", "legacy_digest_fact_coverage",
+    "token_consumers", "capability_affordance", "capability_semantic_levels", "capability_execution_narrative",
+    "execution_graph_coverage", "unbound_operations", "request_named_dispatch", "incomplete_invoked_targets",
+    "capability_navigation"
+  ],
+  "sections": [
+    {
+      "name": "capability_summary",
+      "type": "Capability",
+      "property": "Capability",
+      "cardinality": "one",
+      "description": "The requested capability, its namespace and the selected version and definition for the bound estate.",
+      "key": [ "capability_id" ],
+      "fields": [
+        { "name": "capability_id", "type": "string", "nullable": false },
+        { "name": "namespace_id", "type": "string", "nullable": false },
+        { "name": "capability_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "semantic_object_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "declared_label", "type": "string", "nullable": true },
+        { "name": "selected_version_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "selected_definition_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "selected_name", "type": "string", "nullable": false },
+        { "name": "declared_id", "type": "string", "nullable": false },
+        { "name": "definition_generations", "type": "int32", "nullable": true, "description": "Source-reported count of definition generations." },
+        { "name": "selected_generations", "type": "int32", "nullable": true, "description": "Source-reported count of generations selected by the estate." },
+        { "name": "estate_model_pk", "type": "int64", "nullable": true, "role": "locator", "description": "The estate the reader resolved; should equal the bound basis." },
+        { "name": "feature_id", "type": "string", "nullable": true },
+        { "name": "selected_feature_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "feature_label", "type": "string", "nullable": true },
+        { "name": "scenarios", "type": "int32", "nullable": true, "description": "Source-reported scenario count, not the entity collection." },
+        { "name": "scenario_versions", "type": "int32", "nullable": true },
+        { "name": "authority_versions", "type": "int32", "nullable": true },
+        { "name": "operations", "type": "int32", "nullable": true, "description": "Source-reported execution operation count." },
+        { "name": "ports", "type": "int32", "nullable": true, "description": "Source-reported distinct port count." },
+        { "name": "providers", "type": "int32", "nullable": true, "description": "Source-reported distinct provider count." },
+        { "name": "contracts", "type": "int32", "nullable": true, "description": "Source-reported distinct contract version count." },
+        { "name": "conformance_status", "type": "string", "nullable": true, "description": "Source conformance vocabulary, preserved verbatim; not an admission decision." },
+        { "name": "violations_total", "type": "int32", "nullable": true },
+        { "name": "violations_refuse", "type": "int64", "nullable": true },
+        { "name": "violations_warn", "type": "int64", "nullable": true },
+        { "name": "topology_conformance_rows", "type": "int32", "nullable": true }
+      ]
+    },
+    {
+      "name": "contracts",
+      "type": "ScenarioContract",
+      "property": "Contracts",
+      "cardinality": "many",
+      "description": "A contract a scenario consumes or produces, with its resolution state and digests.",
+      "key": [ "scenario_version_pk", "contract_role", "contract_version_pk" ],
+      "fields": [
+        { "name": "contract_role", "type": "string", "nullable": false },
+        { "name": "contract_id", "type": "string", "nullable": true },
+        { "name": "contract_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "contract_kind", "type": "string", "nullable": true },
+        { "name": "schema_reference_state", "type": "string", "nullable": true },
+        { "name": "reference_state", "type": "string", "nullable": true },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "schema_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "scenario_id", "type": "string", "nullable": true },
+        { "name": "scenario_version_pk", "type": "int64", "nullable": true, "role": "locator" }
+      ]
+    },
+    {
+      "name": "scenarios",
+      "type": "Scenario",
+      "property": "Scenarios",
+      "cardinality": "many",
+      "description": "A scenario version of the capability with its retained given/when/then narrative.",
+      "key": [ "scenario_version_pk" ],
+      "fields": [
+        { "name": "scenario_id", "type": "string", "nullable": false },
+        { "name": "scenario_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "scenario_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "is_root", "type": "boolean", "nullable": true },
+        { "name": "scenario_name", "type": "string", "nullable": true },
+        { "name": "given", "type": "string", "nullable": true },
+        { "name": "when", "type": "string", "nullable": true },
+        { "name": "then", "type": "string", "nullable": true },
+        { "name": "variants", "type": "string", "nullable": true, "description": "Comma-separated variant names as the source spells them." },
+        { "name": "terminals", "type": "int32", "nullable": true },
+        { "name": "event_ids", "type": "string", "nullable": true },
+        { "name": "input_ids", "type": "string", "nullable": true },
+        { "name": "input_contract_ids", "type": "string", "nullable": true },
+        { "name": "outcome_ids", "type": "string", "nullable": true },
+        { "name": "outcome_contract_ids", "type": "string", "nullable": true }
+      ]
+    },
+    {
+      "name": "execution_operations",
+      "type": "ExecutionOperation",
+      "property": "ExecutionOperations",
+      "cardinality": "many",
+      "description": "One ordered operation of a scenario's execution authority.",
+      "key": [ "execution_operation_pk" ],
+      "fields": [
+        { "name": "scenario_id", "type": "string", "nullable": true },
+        { "name": "scenario_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "execution_authority_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "execution_operation_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "ordinal", "type": "int32", "nullable": true },
+        { "name": "operation_kind", "type": "string", "nullable": false },
+        { "name": "operation_id", "type": "string", "nullable": true },
+        { "name": "port_id", "type": "string", "nullable": true },
+        { "name": "port_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_sod", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "platform_capability_id", "type": "string", "nullable": true },
+        { "name": "provider_overlay_id", "type": "string", "nullable": true },
+        { "name": "opi_present", "type": "boolean", "nullable": true },
+        { "name": "target_scenario_id", "type": "string", "nullable": true, "description": "An invoked scenario, possibly of another capability; not resolved inside this snapshot." }
+      ]
+    },
+    {
+      "name": "ports",
+      "type": "Port",
+      "property": "Ports",
+      "cardinality": "many",
+      "description": "A port version the capability's operations invoke.",
+      "key": [ "port_id", "port_version_pk" ],
+      "fields": [
+        { "name": "port_id", "type": "string", "nullable": false },
+        { "name": "port_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_sod", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "platform_capability_id", "type": "string", "nullable": true },
+        { "name": "provider_overlay_id", "type": "string", "nullable": true },
+        { "name": "linked_is_newest", "type": "boolean", "nullable": true },
+        { "name": "linked_selected", "type": "boolean", "nullable": true },
+        { "name": "invocation_count", "type": "int32", "nullable": true },
+        { "name": "operation_ordinals", "type": "string", "nullable": true },
+        { "name": "operation_ids", "type": "string", "nullable": true }
+      ]
+    },
+    {
+      "name": "bindings",
+      "type": "ProviderBinding",
+      "property": "Bindings",
+      "cardinality": "many",
+      "description": "A provider slot of the capability's blueprint and, when bound, its binding. A slot with no binding has a null binding key.",
+      "key": [ "provider_slot_pk", "provider_binding_pk" ],
+      "fields": [
+        { "name": "slot_id", "type": "string", "nullable": false },
+        { "name": "provider_slot_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "blueprint_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "blueprint_id", "type": "string", "nullable": true },
+        { "name": "provider_binding_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "provider_id", "type": "string", "nullable": true },
+        { "name": "provider_definition_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "binding_ordinal", "type": "int32", "nullable": true },
+        { "name": "selection_policy", "type": "string", "nullable": true },
+        { "name": "binding_role", "type": "string", "nullable": true },
+        { "name": "binding_context_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "binding_port_ids", "type": "string", "nullable": true },
+        { "name": "slot_port_requirements", "type": "int32", "nullable": true },
+        { "name": "operation_ids", "type": "string", "nullable": true }
+      ]
+    },
+    {
+      "name": "providers",
+      "type": "Provider",
+      "property": "Providers",
+      "cardinality": "many",
+      "description": "A provider the capability references, with role evidence. A declared provider is not evidence of runtime use.",
+      "key": [ "provider_id" ],
+      "fields": [
+        { "name": "provider_id", "type": "string", "nullable": false },
+        { "name": "reference_kinds", "type": "string", "nullable": true },
+        { "name": "provider_label", "type": "string", "nullable": true },
+        { "name": "referenced_operations", "type": "int32", "nullable": true },
+        { "name": "operation_ordinals", "type": "string", "nullable": true },
+        { "name": "platform_capabilities", "type": "string", "nullable": true },
+        { "name": "binding_slots", "type": "string", "nullable": true },
+        { "name": "provider_role", "type": "string", "nullable": true },
+        { "name": "pci_count", "type": "int32", "nullable": true },
+        { "name": "role_evidence_status", "type": "string", "nullable": true },
+        { "name": "overlay_reference_count", "type": "int32", "nullable": true },
+        { "name": "overlay_authority_reference_count", "type": "int32", "nullable": true },
+        { "name": "authority_closure_satisfied", "type": "boolean", "nullable": true },
+        { "name": "operation_references", "type": "json", "nullable": true },
+        { "name": "distinct_operations", "type": "int32", "nullable": true },
+        { "name": "operation_ordinals_scope", "type": "string", "nullable": false }
+      ]
+    }
+  ],
+  "references": [
+    { "name": "Scenario", "from": "execution_operations", "keys": [ "scenario_version_pk" ], "to": "scenarios" },
+    { "name": "Port", "from": "execution_operations", "keys": [ "port_id", "port_version_pk" ], "to": "ports" },
+    { "name": "Scenario", "from": "contracts", "keys": [ "scenario_version_pk" ], "to": "scenarios" },
+    { "name": "Provider", "from": "bindings", "keys": [ "provider_id" ], "to": "providers" }
+  ]
+}

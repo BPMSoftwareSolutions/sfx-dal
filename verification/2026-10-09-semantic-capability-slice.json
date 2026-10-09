@@ -1,0 +1,430 @@
+{
+  "schemaVersion": "sfx-semantic-capability-slice.v1",
+  "capturedAtUtc": "2026-10-09T23:49:45.0478756+00:00",
+  "claim": "An existing SideFX capability can be read through its current database procedure, projected by CodeLightly into a faithful immutable C# semantic object, inspected without losing source identity or unknown information, and reproduced deterministically, without changing the underlying estate.",
+  "scope": "One capability, four reads (two of the capability on the same basis, an unknown identity and a case-changed identity), each in its own SNAPSHOT transaction that was rolled back. Metadata, counts and digests only; no row payloads or credentials. Seven of 45 sections are typed; the rest are retained verbatim. Read fidelity only: no admission, conformance, mutation, HTTP or cross-language claim.",
+  "database": "sidefx",
+  "capability": "ui-page-landing",
+  "identity": {
+    "namespace": "sidefx:capabilities",
+    "kind": "capability",
+    "declaredId": "ui-page-landing",
+    "revisionLocator": "226439"
+  },
+  "contract": {
+    "id": "sfx.capability-details",
+    "revision": "0.1.0-draft",
+    "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+    "digest": "sha256:b7793a97f6b4057f4c058213925eba2148376f710367bd6c5191b74434ab5b87",
+    "generator": "Codelightly csharp-semantic-projection.v1"
+  },
+  "reader": {
+    "procedure": "[analysis].[read_capability_details]",
+    "definitionUtf16LeSha256": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+    "definitionUtf8Sha256": "d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f"
+  },
+  "payloadAlgorithm": "sha256:rfc8785-ordering;numbers-as-declared-strings;opaque-as-source-sha256",
+  "reads": [
+    {
+      "label": "capability",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:dcfedfd3801a0956d1f1c4658f652262e58a69af4c964f330be94f8431ef9438",
+      "isolation": "SNAPSHOT",
+      "transactionOutcome": "ROLLED_BACK",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1839
+    },
+    {
+      "label": "capability-repeat",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:dcfedfd3801a0956d1f1c4658f652262e58a69af4c964f330be94f8431ef9438",
+      "isolation": "SNAPSHOT",
+      "transactionOutcome": "ROLLED_BACK",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1771
+    },
+    {
+      "label": "unknown-identity",
+      "identity": "sfx-semantic-slice-absent-probe",
+      "basis": "34",
+      "availability": "Absent",
+      "refusal": "CAPABILITY_NOT_FOUND",
+      "rowResultSets": 0,
+      "documentSha256": null,
+      "documentUtf8Bytes": null,
+      "projectionDigest": "sha256:930e163b9970ec1da375d149ddc1e8cf5112b293cc75ce5fd309bccff103797c",
+      "isolation": "SNAPSHOT",
+      "transactionOutcome": "ROLLED_BACK",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 298
+    },
+    {
+      "label": "case-changed-identity",
+      "identity": "UI-PAGE-LANDING",
+      "basis": "34",
+      "availability": "Absent",
+      "refusal": "CAPABILITY_NOT_FOUND",
+      "rowResultSets": 0,
+      "documentSha256": null,
+      "documentUtf8Bytes": null,
+      "projectionDigest": "sha256:5abdacf1c417420094e5718a3d855bb5097705fff3fba6f5dd4907628e06ca9d",
+      "isolation": "SNAPSHOT",
+      "transactionOutcome": "ROLLED_BACK",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 301
+    }
+  ],
+  "sections": [
+    {
+      "section": "capability_summary",
+      "disposition": "Typed",
+      "rows": 1,
+      "entities": 1,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "capability_intent",
+      "disposition": "Retained",
+      "rows": 20
+    },
+    {
+      "section": "contracts",
+      "disposition": "Typed",
+      "rows": 2,
+      "entities": 2,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "scenarios",
+      "disposition": "Typed",
+      "rows": 1,
+      "entities": 1,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "scenario_events",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "scenario_inputs",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "scenario_outputs",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "execution_operations",
+      "disposition": "Typed",
+      "rows": 6,
+      "entities": 6,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "ports",
+      "disposition": "Typed",
+      "rows": 2,
+      "entities": 2,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "bindings",
+      "disposition": "Typed",
+      "rows": 1,
+      "entities": 0,
+      "markers": 1,
+      "unprojected": 0
+    },
+    {
+      "section": "providers",
+      "disposition": "Typed",
+      "rows": 15,
+      "entities": 15,
+      "markers": 0,
+      "unprojected": 0
+    },
+    {
+      "section": "provider_overlays",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "semantic_definitions",
+      "disposition": "Retained",
+      "rows": 9
+    },
+    {
+      "section": "provider_conformance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "capability_evaluation",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "provider_boundary_conformance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "translation_conformance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "routing_conformance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "reachability_conformance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "operation_architecture",
+      "disposition": "Retained",
+      "rows": 6
+    },
+    {
+      "section": "operation_operator_census",
+      "disposition": "Retained",
+      "rows": 6
+    },
+    {
+      "section": "provider_boundaries",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "capability_routing",
+      "disposition": "Retained",
+      "rows": 4
+    },
+    {
+      "section": "declared_reachability",
+      "disposition": "Retained",
+      "rows": 21
+    },
+    {
+      "section": "provider_authority_evidence",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "translation_evidence",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "routing_evidence",
+      "disposition": "Retained",
+      "rows": 6
+    },
+    {
+      "section": "declaration_reference_evidence",
+      "disposition": "Retained",
+      "rows": 21
+    },
+    {
+      "section": "capability_conformance_profile",
+      "disposition": "Retained",
+      "rows": 32
+    },
+    {
+      "section": "capability_findings",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "canonical_findings",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "canonical_facts",
+      "disposition": "Retained",
+      "rows": 12
+    },
+    {
+      "section": "findings_shape_census",
+      "disposition": "Retained",
+      "rows": 32
+    },
+    {
+      "section": "legacy_digest_inputs",
+      "disposition": "Retained",
+      "rows": 41
+    },
+    {
+      "section": "capability_evaluation_identity",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "legacy_digest_fact_coverage",
+      "disposition": "Retained",
+      "rows": 5
+    },
+    {
+      "section": "token_consumers",
+      "disposition": "Retained",
+      "rows": 3
+    },
+    {
+      "section": "capability_affordance",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "capability_semantic_levels",
+      "disposition": "Retained",
+      "rows": 5
+    },
+    {
+      "section": "capability_execution_narrative",
+      "disposition": "Retained",
+      "rows": 6
+    },
+    {
+      "section": "execution_graph_coverage",
+      "disposition": "Retained",
+      "rows": 7
+    },
+    {
+      "section": "unbound_operations",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "request_named_dispatch",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "incomplete_invoked_targets",
+      "disposition": "Retained",
+      "rows": 1
+    },
+    {
+      "section": "capability_navigation",
+      "disposition": "Retained",
+      "rows": 80
+    }
+  ],
+  "unmappedFields": [],
+  "diagnostics": {},
+  "references": {
+    "NotApplicable": 4,
+    "Resolved": 10
+  },
+  "checks": [
+    {
+      "id": "reader-identity",
+      "claim": "The read goes through the installed reader whose body the research receipt recorded.",
+      "passed": true,
+      "evidence": "installed UTF-8 SHA-256 d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f; research receipt d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f"
+    },
+    {
+      "id": "read-through-procedure",
+      "claim": "The capability is read through its current procedure in document mode.",
+      "passed": true,
+      "evidence": "[analysis].[read_capability_details] availability Present, row result sets 0, emit bound as Constant false, capability_version_pk Omitted"
+    },
+    {
+      "id": "faithful-projection",
+      "claim": "The document conforms to the contract: no projection errors.",
+      "passed": true,
+      "evidence": "0 error(s); no diagnostics"
+    },
+    {
+      "id": "source-identity",
+      "claim": "The snapshot carries the requested identity (ordinal) and the basis the reader resolved.",
+      "passed": true,
+      "evidence": "sidefx:capabilities/capability/ui-page-landing revision locator 226439; bound basis 34, reader-reported basis 34"
+    },
+    {
+      "id": "lossless",
+      "claim": "The source document is rebuilt from the snapshot alone: typed values plus retained sections, markers and unmapped fields.",
+      "passed": true,
+      "evidence": "semantically equal to the source document"
+    },
+    {
+      "id": "unknown-retained",
+      "claim": "Every expected section is present; untyped sections are retained verbatim; every typed row is an entity, a declared marker or retained.",
+      "passed": true,
+      "evidence": "7 typed and 38 retained of 45 expected sections; 1 marker row(s) kept out of entity collections"
+    },
+    {
+      "id": "source-census",
+      "claim": "Entity collections agree with the counts the reader's own summary reports.",
+      "passed": true,
+      "evidence": "summary scenarios/operations/providers/contracts/ports 1/6/15/2/2; entities 1/6/15/2/2"
+    },
+    {
+      "id": "references",
+      "claim": "Declared exact-key references resolve inside the snapshot; nothing is fetched implicitly.",
+      "passed": true,
+      "evidence": "NotApplicable 4, Resolved 10"
+    },
+    {
+      "id": "immutable",
+      "claim": "Generated public types expose no mutable state: snapshot properties are get-only, entity properties are init-only, collections are immutable.",
+      "passed": true,
+      "evidence": "checked 20 semantic object types (Capability, ScenarioContract, Scenario, ExecutionOperation, Port, ProviderBinding, Provider, CapabilitySnapshot and the Semantic* runtime records)"
+    },
+    {
+      "id": "deterministic-projection",
+      "claim": "Projecting the same source again yields the same digest and view; capture time and duration are not part of the digest.",
+      "passed": true,
+      "evidence": "projection digest sha256:dcfedfd3801a0956d1f1c4658f652262e58a69af4c964f330be94f8431ef9438"
+    },
+    {
+      "id": "reproduced-read",
+      "claim": "An independent second read of the same basis reproduces the source document and the projection digest.",
+      "passed": true,
+      "evidence": "document SHA-256 e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3 / e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3; projection sha256:dcfedfd3801a0956d1f1c4658f652262e58a69af4c964f330be94f8431ef9438"
+    },
+    {
+      "id": "absence-is-typed",
+      "claim": "An unknown capability and a case-changed identity project as Absent with the reader's declared refusal.",
+      "passed": true,
+      "evidence": "sfx-semantic-slice-absent-probe: Absent/CAPABILITY_NOT_FOUND; UI-PAGE-LANDING: Absent/CAPABILITY_NOT_FOUND"
+    },
+    {
+      "id": "estate-unchanged",
+      "claim": "Every read generated zero log records in the estate database and was rolled back; the reader body is unchanged.",
+      "passed": true,
+      "evidence": "log records 0/0/0/0; outcomes ROLLED_BACK/ROLLED_BACK/ROLLED_BACK/ROLLED_BACK; reader digest unchanged"
+    },
+    {
+      "id": "generated-by-codelightly",
+      "claim": "The compiled projection is the CodeLightly output recorded in the manifest for this contract.",
+      "passed": true,
+      "evidence": "3 artifact hash(es) match; compiled contract digest sha256:b7793a97f6b4057f4c058213925eba2148376f710367bd6c5191b74434ab5b87 in manifest; generator csharp-semantic-projection.v1 8363c09a50891b5c9bc5baeb15351508e8fcaf7e"
+    }
+  ],
+  "passed": true
+}

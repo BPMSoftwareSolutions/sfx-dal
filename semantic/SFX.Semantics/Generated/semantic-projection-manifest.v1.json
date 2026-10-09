@@ -1,0 +1,45 @@
+{
+  "manifestVersion": "semantic-projection-manifest.v1",
+  "generator": {
+    "name": "Codelightly",
+    "emitter": "csharp-semantic-projection.v1",
+    "version": "1.0.0+8363c09a50891b5c9bc5baeb15351508e8fcaf7e",
+    "sourceDigest": "8363c09a50891b5c9bc5baeb15351508e8fcaf7e"
+  },
+  "configuration": {
+    "path": "semantic-projection.config.json",
+    "digest": "sha256:9dc655669aeeda98b8055e73eb75338bb52ab6feea9ade33da308d2ca184946f",
+    "namespace": "SFX.Semantics"
+  },
+  "contracts": [
+    {
+      "path": "contracts/capability-details.semantic-projection.v1.json",
+      "id": "sfx.capability-details",
+      "revision": "0.1.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+      "digest": "sha256:b7793a97f6b4057f4c058213925eba2148376f710367bd6c5191b74434ab5b87"
+    }
+  ],
+  "encoding": "utf-8",
+  "lineEndings": "lf",
+  "artifacts": [
+    {
+      "path": "CapabilityProjection.g.cs",
+      "kind": "csharp",
+      "sha256": "48fe23cfca2b6acde5c44f1c11121d7ef2cbc0cc5a999e6da921cfdbb62b1867",
+      "bytes": 138102
+    },
+    {
+      "path": "CapabilitySource.g.cs",
+      "kind": "csharp",
+      "sha256": "b537e33f18afdffe54a3f42cf94f6b24d9b170eef435c896698b29aab2c6f73a",
+      "bytes": 5475
+    },
+    {
+      "path": "SemanticRuntime.g.cs",
+      "kind": "csharp",
+      "sha256": "660647f824390ca6e41c03768d9df030f45f637ec965c9d1357928d33e7c09a2",
+      "bytes": 54450
+    }
+  ]
+}

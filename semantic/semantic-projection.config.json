@@ -1,0 +1,10 @@
+{
+  "configurationVersion": "semantic-projection-generation.v1",
+  "contracts": [
+    "contracts/capability-details.semantic-projection.v1.json"
+  ],
+  "csharp": {
+    "namespace": "SFX.Semantics",
+    "outputDirectory": "SFX.Semantics/Generated"
+  }
+}
