@@ -16,6 +16,7 @@ namespace SFX.DAL.Models
         public string CapabilityId { get; set; } = default!;
         public long CapabilityPk { get; set; }
         public long FeaturePk { get; set; }
+        public bool IsMcpTooling { get; set; }
         public long NamespacePk { get; set; }
         public string ObjectKind { get; set; } = default!;
         public long SemanticObjectPk { get; set; }

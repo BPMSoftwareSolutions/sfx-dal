@@ -1478,6 +1478,10 @@
                        {
                            "Schema":  "analysis",
                            "Name":  "read_ui_page_document"
+                       },
+                       {
+                           "Schema":  "model",
+                           "Name":  "set_capability_mcp_tooling"
                        }
                    ]
 }

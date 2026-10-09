@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "sfx-dal-regeneration-review.v1",
+  "capturedAt": "2026-10-09T00:46:05.444Z",
+  "estateModelPk": 34,
+  "reviewedEmbodyThrough": "6e021d11b5903e7db3c1043375002130c8761dff",
+  "upstreamMigration": "sql/migrations/declare-capability-mcp-tooling.commit.sql",
+  "generatorCommit": "c1344cfb9739518d96f76fdca9a21002b6ac6257",
+  "previousDalCommit": "cd24ad407dad9a3bb935e64412ce6a6980facb55",
+  "configSha256": "6e43927b8013a7ddca53c91eaf1591d6a97bf812c0346c6d363582dfee833000",
+  "catalogDigest": "sha256:5efe68172a82d646f7a2ed6b6ce098bc82d642edbce374b082a395f2333139d9",
+  "manifestSha256": "b111aa2e8ee2ac4130fd32ea3414e241b4b8bea7f131e235c1cd2d5df85491a8",
+  "changedGeneratedArtifacts": [
+    {
+      "path": "Models/Capability.cs",
+      "sha256": "4b87023303290cb116fa49e2e794441b49a86cfaea93323eb690a4d4b0c5d4d2"
+    },
+    {
+      "path": "Repositories/CapabilityRepository.cs",
+      "sha256": "24218ec670e05685a70956539de24c6a8594bbf6ac59246f41f58992fa2c26d7"
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSetCapabilityMcpToolingRepository.cs",
+      "sha256": "82374e3dc2289629c0679e128b5a137c53fdf12231b5e39b86a92df66e40a68e"
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSetCapabilityMcpToolingRepository.Custom.cs",
+      "sha256": "7472b0e15483d291363e75c530d7c535c29b0f10aab0804268de6722cd122fe3"
+    },
+    {
+      "path": "Procedures/Repositories/ModelSetCapabilityMcpToolingRepository.cs",
+      "sha256": "7e73edd6fe13571cb998f9b2daa86148b557fd5c6f7c89c9a7773fe96385c2dd"
+    },
+    {
+      "path": "Procedures/Repositories/ModelSetCapabilityMcpToolingRepository.Custom.cs",
+      "sha256": "3de9c2966414c775796b0d1f975d2c719c37a9b7b94c4768239471b9902090d8"
+    }
+  ],
+  "changedGeneratedArtifactHashMismatches": 0,
+  "dalReleaseSha256": "b5e9149ccb90a6fa468d803d354b8f39fb7e2e951f47dd38e1a22052f2af94b0",
+  "newProcedures": [
+    "model.set_capability_mcp_tooling"
+  ],
+  "newColumns": [
+    {
+      "table": "model.capability",
+      "column": "is_mcp_tooling",
+      "sqlType": "bit",
+      "csharpProperty": "Capability.IsMcpTooling",
+      "csharpType": "bool"
+    }
+  ],
+  "builds": [
+    {
+      "project": "SFX.DAL.csproj",
+      "configuration": "Release",
+      "command": "dotnet build SFX.DAL.csproj -c Release --no-restore",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "verification": {
+    "writerParameters": [
+      "@namespace_id nvarchar(400)",
+      "@capability_id nvarchar(400)",
+      "@is_mcp_tooling bit"
+    ],
+    "wrapperSignature": "ExecuteAsync(string namespaceId, string capabilityId, bool isMcpTooling)",
+    "writerExecution": "SQL migration verification in sfx-embody; generated wrapper execution not separately tested. Writer requires a caller-owned transaction.",
+    "generationLog": ".tmp/mcp-generation.log",
+    "buildLog": ".tmp/mcp-build.log",
+    "diffWhitespaceCheck": {
+      "status": "WARNINGS",
+      "file": "Procedures/Repositories/ModelSetCapabilityMcpToolingRepository.cs",
+      "trailingWhitespaceLines": 8,
+      "newBlankLineAtEof": true,
+      "note": "Preserved canonical generator output and matching manifest hash; generated source was not hand-edited."
+    }
+  },
+  "scope": "Regenerated through canonical CodeLightly. Generated C# was not hand-edited. The unrelated identity/packages.lock.json change is excluded."
+}

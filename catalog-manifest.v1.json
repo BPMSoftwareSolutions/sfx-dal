@@ -1,10 +1,10 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.DAL",
-  "catalogDigest": "sha256:e52274a69f88f867b70e9d6e6db1078c6717d0debdaaff5ba40d8925c948f776",
+  "catalogDigest": "sha256:5efe68172a82d646f7a2ed6b6ce098bc82d642edbce374b082a395f2333139d9",
   "generator": {
     "name": "Codelightly",
-    "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
+    "version": "1.0.0+c1344cfb9739518d96f76fdca9a21002b6ac6257",
     "sourceDigest": null
   },
   "encoding": "utf-8",
@@ -4858,8 +4858,8 @@
       "path": "Models/Capability.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "2ac4e0d96e3c27e3877ec3a8ec1f3dcd01f0ca05f061cd1a7aff5c0a76318192",
-      "bytes": 821
+      "sha256": "4b87023303290cb116fa49e2e794441b49a86cfaea93323eb690a4d4b0c5d4d2",
+      "bytes": 869
     },
     {
       "path": "Models/CapabilityFeature.Custom.cs",
@@ -7956,6 +7956,20 @@
       "bytes": 843
     },
     {
+      "path": "Procedures/Interfaces/IModelSetCapabilityMcpToolingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7472b0e15483d291363e75c530d7c535c29b0f10aab0804268de6722cd122fe3",
+      "bytes": 242
+    },
+    {
+      "path": "Procedures/Interfaces/IModelSetCapabilityMcpToolingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "82374e3dc2289629c0679e128b5a137c53fdf12231b5e39b86a92df66e40a68e",
+      "bytes": 815
+    },
+    {
       "path": "Procedures/Interfaces/IModelSetDefinitionLabelRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -10000,6 +10014,20 @@
       "bytes": 7150
     },
     {
+      "path": "Procedures/Repositories/ModelSetCapabilityMcpToolingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3de9c2966414c775796b0d1f975d2c719c37a9b7b94c4768239471b9902090d8",
+      "bytes": 411
+    },
+    {
+      "path": "Procedures/Repositories/ModelSetCapabilityMcpToolingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7e73edd6fe13571cb998f9b2daa86148b557fd5c6f7c89c9a7773fe96385c2dd",
+      "bytes": 7062
+    },
+    {
       "path": "Procedures/Repositories/ModelSetDefinitionLabelRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -10675,8 +10703,8 @@
       "path": "Repositories/CapabilityRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "e7287d79751e6f9c9c1e1332fc996bbada85e5f3359b9f0c85ee9f63a2ca73f7",
-      "bytes": 28056
+      "sha256": "24218ec670e05685a70956539de24c6a8594bbf6ac59246f41f58992fa2c26d7",
+      "bytes": 28501
     },
     {
       "path": "Repositories/CapabilityRootScenarioRepository.Custom.cs",

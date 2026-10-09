@@ -38,7 +38,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [namespace_pk], [object_kind], [semantic_object_pk]) VALUES (@CapabilityId, @FeaturePk, @NamespacePk, @ObjectKind, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [is_mcp_tooling], [namespace_pk], [object_kind], [semantic_object_pk]) VALUES (@CapabilityId, @FeaturePk, @IsMcpTooling, @NamespacePk, @ObjectKind, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[capability] SET
- [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [semantic_object_pk] = @SemanticObjectPk WHERE [capability_pk] = @CapabilityPk", connection))
+ [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [is_mcp_tooling] = @IsMcpTooling, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [semantic_object_pk] = @SemanticObjectPk WHERE [capability_pk] = @CapabilityPk", connection))
                 {
                     connection.Open();
 
@@ -306,6 +306,7 @@ namespace SFX.DAL.Repositories
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
                 CapabilityPk = reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 FeaturePk = reader.GetInt64(reader.GetOrdinal("feature_pk")),
+                IsMcpTooling = reader.GetBoolean(reader.GetOrdinal("is_mcp_tooling")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk"))
@@ -321,7 +322,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [namespace_pk], [object_kind], [semantic_object_pk]) VALUES (@CapabilityId, @FeaturePk, @NamespacePk, @ObjectKind, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [is_mcp_tooling], [namespace_pk], [object_kind], [semantic_object_pk]) VALUES (@CapabilityId, @FeaturePk, @IsMcpTooling, @NamespacePk, @ObjectKind, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -344,7 +345,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[capability] SET
- [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [semantic_object_pk] = @SemanticObjectPk WHERE [capability_pk] = @CapabilityPk", connection))
+ [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [is_mcp_tooling] = @IsMcpTooling, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [semantic_object_pk] = @SemanticObjectPk WHERE [capability_pk] = @CapabilityPk", connection))
                 {
                     connection.Open();
 
@@ -589,6 +590,7 @@ namespace SFX.DAL.Repositories
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
                 CapabilityPk = reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 FeaturePk = reader.GetInt64(reader.GetOrdinal("feature_pk")),
+                IsMcpTooling = reader.GetBoolean(reader.GetOrdinal("is_mcp_tooling")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk"))
@@ -600,6 +602,7 @@ namespace SFX.DAL.Repositories
             { "CapabilityId", "capability_id" },
             { "CapabilityPk", "capability_pk" },
             { "FeaturePk", "feature_pk" },
+            { "IsMcpTooling", "is_mcp_tooling" },
             { "NamespacePk", "namespace_pk" },
             { "ObjectKind", "object_kind" },
             { "SemanticObjectPk", "semantic_object_pk" },
@@ -642,6 +645,7 @@ namespace SFX.DAL.Repositories
             command.Parameters.AddWithValue("@CapabilityId", entity.CapabilityId);
             command.Parameters.AddWithValue("@CapabilityPk", entity.CapabilityPk);
             command.Parameters.AddWithValue("@FeaturePk", entity.FeaturePk);
+            command.Parameters.AddWithValue("@IsMcpTooling", entity.IsMcpTooling);
             command.Parameters.AddWithValue("@NamespacePk", entity.NamespacePk);
             command.Parameters.AddWithValue("@ObjectKind", entity.ObjectKind);
             command.Parameters.AddWithValue("@SemanticObjectPk", entity.SemanticObjectPk);
