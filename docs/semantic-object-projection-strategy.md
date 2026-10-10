@@ -4,6 +4,22 @@ Prepared October 9, 2026. Status: researched proposal, ready for a bounded read 
 
 **Implementation status, October 9, 2026:** the first read slice (the S1 argument semantics plus the minimal S2/S3 capability slice and the S4 reproducibility check) is implemented. It covers capabilities only. It consists of CodeLightly's `SemanticProjection/` generator and the `SFX.Semantics` package under [semantic/](../semantic/README.md). The [slice receipt](../verification/2026-10-09-semantic-capability-slice.json) passes 14 live checks for `ui-page-landing`; the [generation receipt](../verification/2026-10-09-semantic-generation.json) records byte-identical regeneration. The contract remains a non-authoritative draft. Provider and graph roots, S5–S9 and all mutation work are not started.
 
+**Implementation status, October 10, 2026:** the first slice's review findings are closed:
+- Refusals are validated against the contract.
+- The reported basis must equal the bound basis, and a pinned estate must be registered.
+- Partially-null references resolve as `Incomplete`.
+- The repeated-read failure is fixed. Its cause was reader sections emitted without a total `ORDER BY`; the contracts now declare them order-free and readings carry a revision vector.
+
+A bounded capability-to-model inspection slice is also implemented. The provider reader is projected through declared multi-result-set transport. An estate-owned declaration and reader connect each invocation step to its instruction constructor and model configuration; they were installed by `sfx-embody` `declare-capability-model-invocations`. `sfx-semantics inspect-models` returns the three `request-capability-from-objective-v3` model calls with full provenance. See the [model inspection receipt](../verification/2026-10-10-semantic-model-inspection.json) and the [semantic README](../semantic/README.md).
+
+**Operational use, October 10, 2026:** use this inspection as the first path for
+supported provider, model, and instruction questions. The
+[operational runbook](model-inspection-operations.md) covers live capture,
+follow-up inspection, and fallback. Further changes receive priority from actual
+task failures, misleading results, repeated manual work, or measured cost.
+Synthetic robustness findings remain observations until operational impact is
+established; they do not delay use of the working flow.
+
 Build a **versioned semantic projection layer above SFX.DAL**, with CodeLightly generating language types and transport bindings from an explicit contract. Keep canonical definitions, selection and execution authority in the estate. Deliver immutable C# reads first, then prove the same model in Python and Java. Introduce candidate authoring only after read fidelity and the existing writer boundaries have passed separate acceptance gates.
 
 The immediate opportunity is concrete: the estate already exposes rich semantic readings, but its generated DAL returns them as untyped tables. The first implementation should turn those readings into understandable objects while preserving provenance, missing information and conformance findings. Reading a definition does not establish that it is admitted or executable.

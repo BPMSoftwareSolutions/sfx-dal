@@ -109,8 +109,10 @@ namespace SFX.Semantics
     /// <summary>
     /// One source section in source order. A typed section lists every source row; any other
     /// section, or a typed section whose value was not an array, keeps its exact source text in <see cref="Raw"/>.
+    /// <see cref="Unordered"/> marks a section the contract declares order-free: its rows are kept in
+    /// source order but the projection digest treats them as a multiset.
     /// </summary>
-    public sealed record SemanticSection(string Name, int Ordinal, SemanticSectionDisposition Disposition, int RowCount, ImmutableArray<SemanticSectionRow> Rows, SemanticJson? Raw)
+    public sealed record SemanticSection(string Name, int Ordinal, SemanticSectionDisposition Disposition, int RowCount, ImmutableArray<SemanticSectionRow> Rows, SemanticJson? Raw, bool Unordered = false)
     {
         /// <summary>Rows that became typed entities.</summary>
         public int EntityCount => Rows.Count(row => row.Disposition == SemanticRowDisposition.Entity);
@@ -133,6 +135,9 @@ namespace SFX.Semantics
 
         /// <summary>The source row carries no key value, so it references nothing.</summary>
         NotApplicable,
+
+        /// <summary>The source row carries some but not all key values; the reference cannot be followed.</summary>
+        Incomplete,
     }
 
     /// <summary>A reference resolution. <see cref="Target"/> is set only when resolved.</summary>
@@ -163,9 +168,56 @@ namespace SFX.Semantics
     /// <summary>A declared refusal raised by the source instead of a document.</summary>
     public sealed record SemanticSourceRefusal(int ErrorNumber, string Code, string Message, SemanticAvailability Availability);
 
+    /// <summary>One observed result-set column: its name, SQL type, declared nullability and whether the contract withholds its values.</summary>
+    public sealed record SemanticColumn(string Name, string SqlType, bool? AllowsNull, bool Withheld = false);
+
+    /// <summary>
+    /// One observed result set of a multi-result-set reader: its ordinal, the section it was assembled
+    /// into, its columns and its row count. Kept so a shape change is visible even when a set has no rows.
+    /// </summary>
+    public sealed record SemanticResultSetShape(int Ordinal, string Section, ImmutableArray<SemanticColumn> Columns, int RowCount, int WithheldValues = 0);
+
+    /// <summary>
+    /// One dependency the read relied on: where it was observed, its kind and identity, its
+    /// database-scoped locator and its content digest. A null digest is an unpinned dependency.
+    /// </summary>
+    public sealed record SemanticDependency(string Source, string Kind, string Id, string? Locator, string? Digest);
+
+    /// <summary>
+    /// The revision vector a snapshot was read at: the bound basis (a mutable pointer, not a revision),
+    /// the reader definition digest, and every dependency with its digest. <see cref="RevisionDigest"/>
+    /// identifies the vector; two reads with the same revision digest must project identically.
+    /// </summary>
+    public sealed record SemanticRevision(string? Basis, string? ReaderDefinitionDigest, ImmutableArray<SemanticDependency> Dependencies, string RevisionDigest)
+    {
+        /// <summary>Dependencies without a digest.</summary>
+        public int Unpinned => Dependencies.Count(dependency => dependency.Digest == null);
+
+        /// <summary>True when the reader body and every dependency carry a digest.</summary>
+        public bool IsPinned => ReaderDefinitionDigest != null && Unpinned == 0;
+
+        internal static SemanticRevision Build(string? basis, string? reader, IEnumerable<SemanticDependency> dependencies)
+        {
+            ImmutableArray<SemanticDependency> ordered = dependencies
+                .Distinct()
+                .OrderBy(dependency => dependency.Source, StringComparer.Ordinal).ThenBy(dependency => dependency.Kind, StringComparer.Ordinal)
+                .ThenBy(dependency => dependency.Id, StringComparer.Ordinal).ThenBy(dependency => dependency.Locator ?? string.Empty, StringComparer.Ordinal)
+                .ThenBy(dependency => dependency.Digest ?? string.Empty, StringComparer.Ordinal)
+                .ToImmutableArray();
+            object payload = new SemanticCanonicalObject()
+                .Add("basis", basis)
+                .Add("readerDefinitionDigest", reader)
+                .Add("dependencies", SemanticPayload.Dependencies(ordered));
+            return new SemanticRevision(basis, reader, ordered, "sha256:" + SemanticCanonicalJson.Sha256Hex(SemanticCanonicalJson.Serialize(payload)));
+        }
+    }
+
     /// <summary>What a source read returned: the bound arguments and either a document or a declared refusal.</summary>
     public sealed record SemanticSource(string Procedure, ImmutableArray<SemanticBoundArgument> Arguments, string? DocumentText, int RowResultSets, SemanticSourceRefusal? Refusal)
     {
+        /// <summary>For a multi-result-set reader, the observed shape of every result set; empty in document mode.</summary>
+        public ImmutableArray<SemanticResultSetShape> ResultSets { get; init; } = ImmutableArray<SemanticResultSetShape>.Empty;
+
         /// <summary>The value bound to the argument whose declared role is <c>identity</c>.</summary>
         public string? Identity => Arguments.FirstOrDefault(argument => argument.Role == "identity")?.Value;
 
@@ -199,6 +251,12 @@ namespace SFX.Semantics
 
         /// <summary>How long the read took. Excluded from the projection digest.</summary>
         public long? ElapsedMilliseconds { get; init; }
+
+        /// <summary>
+        /// Dependency digests the read client observed in the same transaction, for dependencies the
+        /// document identifies only by locator (for example the root's own selected definition).
+        /// </summary>
+        public ImmutableArray<SemanticDependency> PinnedRevisions { get; init; } = ImmutableArray<SemanticDependency>.Empty;
     }
 
     /// <summary>Where a snapshot came from: contract, generator, bound source arguments, source document digest and capture.</summary>
@@ -213,10 +271,26 @@ namespace SFX.Semantics
         int RowResultSets,
         string? DocumentSha256,
         long? DocumentUtf8Bytes,
-        SemanticCapture Capture);
+        SemanticCapture Capture)
+    {
+        /// <summary>For a multi-result-set reader, the observed shape of every result set.</summary>
+        public ImmutableArray<SemanticResultSetShape> ResultSets { get; init; } = ImmutableArray<SemanticResultSetShape>.Empty;
+    }
 
-    /// <summary>The contract's row convention: which properties label, scope and classify every row.</summary>
-    internal sealed record SemanticRowConvention(string LabelField, string ScopeField, string DiscriminatorField, string EntityValue, ImmutableArray<string> MarkerValues);
+    /// <summary>
+    /// The contract's row convention: which properties label, scope and classify every row. A null
+    /// scope field means rows carry no scope identity; a null discriminator means every row is an entity.
+    /// </summary>
+    internal sealed record SemanticRowConvention(string LabelField, string? ScopeField, string? DiscriminatorField, string? EntityValue, ImmutableArray<string> MarkerValues);
+
+    /// <summary>A refusal the contract declares, with the availability it means.</summary>
+    internal sealed record SemanticDeclaredRefusal(int ErrorNumber, string Code, SemanticAvailability Availability);
+
+    /// <summary>A result set a multi-result-set contract declares: its ordinal, section and column names in order.</summary>
+    internal sealed record SemanticDeclaredResultSet(int Ordinal, string Section, ImmutableArray<string> Columns);
+
+    /// <summary>A section whose rows name dependencies: kind (literal or field), identity, locator and digest fields.</summary>
+    internal sealed record SemanticRevisionSource(string Section, string? Kind, string? KindField, string IdField, string? LocatorField, string DigestField, string? ExcludeField, ImmutableArray<string> ExcludeValues);
 
     /// <summary>One top-level section of a parsed source document.</summary>
     internal readonly record struct SemanticDocumentSection(string Name, int Ordinal, JsonElement Value, bool Expected, bool Duplicate);
@@ -229,11 +303,13 @@ namespace SFX.Semantics
     {
         private readonly List<SemanticDiagnostic> _diagnostics = new List<SemanticDiagnostic>();
         private readonly HashSet<string> _reportedUnmapped = new HashSet<string>(StringComparer.Ordinal);
+        private readonly HashSet<string> _unordered;
 
-        public SemanticProjectionContext(SemanticRowConvention convention, string? identity)
+        public SemanticProjectionContext(SemanticRowConvention convention, string? identity, IEnumerable<string> unorderedSections)
         {
             Convention = convention;
             Identity = identity;
+            _unordered = new HashSet<string>(unorderedSections, StringComparer.Ordinal);
         }
 
         public SemanticRowConvention Convention { get; }
@@ -250,13 +326,142 @@ namespace SFX.Semantics
         }
 
         /// <summary>
-        /// Parses the source document and lists its top-level sections in source order. Returns
-        /// null (with a diagnostic) when the source produced no usable document.
+        /// Validates a refusal against the contract. Returns the declared availability for a declared
+        /// refusal, or null. An undeclared refusal, or a refusal that arrives with a document, is a
+        /// contract mismatch: a refusal record never chooses its own availability.
         /// </summary>
-        public JsonDocument? OpenDocument(SemanticSource source, ImmutableArray<string> expectedSections, out ImmutableArray<SemanticDocumentSection> sections)
+        public SemanticAvailability? ValidateRefusal(SemanticSource source, ImmutableArray<SemanticDeclaredRefusal> declared)
+        {
+            if (source.Refusal is not { } refusal)
+            {
+                return null;
+            }
+
+            if (source.DocumentText != null)
+            {
+                Report("RefusalWithDocument", SemanticSeverity.Error, null, null, null, "The source reported a refusal and also returned a document.");
+            }
+
+            SemanticDeclaredRefusal? match = declared.FirstOrDefault(candidate => candidate.ErrorNumber == refusal.ErrorNumber && string.Equals(candidate.Code, refusal.Code, StringComparison.Ordinal));
+            if (match == null)
+            {
+                Report("RefusalUndeclared", SemanticSeverity.Error, null, null, null,
+                    "The refusal " + refusal.ErrorNumber.ToString(CultureInfo.InvariantCulture) + " '" + refusal.Code + "' is not declared by the contract.");
+                return null;
+            }
+
+            return match.Availability;
+        }
+
+        /// <summary>Compares observed result-set shapes with the declared ones, by ordinal.</summary>
+        public void CheckResultSets(SemanticSource source, ImmutableArray<SemanticDeclaredResultSet> declared)
+        {
+            if (source.Refusal != null)
+            {
+                return;
+            }
+
+            foreach (SemanticDeclaredResultSet expected in declared)
+            {
+                SemanticResultSetShape? observed = source.ResultSets.FirstOrDefault(shape => shape.Ordinal == expected.Ordinal);
+                if (observed == null)
+                {
+                    Report("ResultSetMissing", SemanticSeverity.Error, expected.Section, null, null,
+                        "The reader returned no result set " + expected.Ordinal.ToString(CultureInfo.InvariantCulture) + ".");
+                }
+                else if (observed.Columns.Select(column => column.Name).SequenceEqual(expected.Columns, StringComparer.Ordinal) == false)
+                {
+                    Report("ResultSetShapeMismatch", SemanticSeverity.Error, expected.Section, null, null,
+                        "Result set " + expected.Ordinal.ToString(CultureInfo.InvariantCulture) + " has columns [" + string.Join(",", observed.Columns.Select(column => column.Name))
+                        + "]; the contract declares [" + string.Join(",", expected.Columns) + "].");
+                }
+            }
+
+            foreach (SemanticResultSetShape observed in source.ResultSets.Where(shape => shape.WithheldValues > 0))
+            {
+                Report("ValueWithheld", SemanticSeverity.Warning, observed.Section, null, string.Join(",", observed.Columns.Where(column => column.Withheld).Select(column => column.Name)),
+                    observed.WithheldValues.ToString(CultureInfo.InvariantCulture) + " non-null value(s) of withheld column(s) were never read; a marker stands in their place.");
+            }
+
+            foreach (SemanticResultSetShape observed in source.ResultSets.Where(shape => declared.All(expected => expected.Ordinal != shape.Ordinal)))
+            {
+                Report("ResultSetUnexpected", SemanticSeverity.Warning, observed.Section, null, null,
+                    "The reader returned undeclared result set " + observed.Ordinal.ToString(CultureInfo.InvariantCulture) + "; it is retained verbatim.");
+            }
+        }
+
+        /// <summary>Reads the dependencies named by the contract's revision sources, from typed or retained sections.</summary>
+        public ImmutableArray<SemanticDependency> CollectRevisions(ImmutableArray<SemanticDocumentSection> sections, ImmutableArray<SemanticRevisionSource> sources)
+        {
+            ImmutableArray<SemanticDependency>.Builder dependencies = ImmutableArray.CreateBuilder<SemanticDependency>();
+            foreach (SemanticRevisionSource source in sources)
+            {
+                foreach (SemanticDocumentSection section in sections.Where(candidate => candidate.Expected && candidate.Name == source.Section && candidate.Value.ValueKind == JsonValueKind.Array))
+                {
+                    foreach (JsonElement row in section.Value.EnumerateArray())
+                    {
+                        if (row.ValueKind != JsonValueKind.Object)
+                        {
+                            continue;
+                        }
+
+                        if (source.ExcludeField != null && Scalar(row, source.ExcludeField) is { } excluded && source.ExcludeValues.Contains(excluded, StringComparer.Ordinal))
+                        {
+                            continue;
+                        }
+
+                        string? kind = source.Kind ?? (source.KindField == null ? null : Scalar(row, source.KindField));
+                        string? id = Scalar(row, source.IdField);
+                        if (kind == null || id == null)
+                        {
+                            continue;
+                        }
+
+                        dependencies.Add(new SemanticDependency(source.Section, kind, id, source.LocatorField == null ? null : Scalar(row, source.LocatorField), Scalar(row, source.DigestField)));
+                    }
+                }
+            }
+
+            return dependencies.ToImmutable();
+        }
+
+        private static string? Scalar(JsonElement row, string field)
+        {
+            if (row.TryGetProperty(field, out JsonElement value) == false)
+            {
+                return null;
+            }
+
+            switch (value.ValueKind)
+            {
+                case JsonValueKind.String:
+                    try
+                    {
+                        return value.GetString();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        return null;
+                    }
+
+                case JsonValueKind.Number:
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    return value.GetRawText();
+                default:
+                    return null;
+            }
+        }
+
+        /// <summary>
+        /// Parses the source document and lists its top-level sections in source order. Returns
+        /// null (with a diagnostic) when the source produced no usable document. In document mode a row
+        /// result set is a contract mismatch; a multi-result-set source arrives as an assembled document.
+        /// </summary>
+        public JsonDocument? OpenDocument(SemanticSource source, ImmutableArray<string> expectedSections, bool documentMode, out ImmutableArray<SemanticDocumentSection> sections)
         {
             sections = ImmutableArray<SemanticDocumentSection>.Empty;
-            if (source.RowResultSets > 0)
+            if (documentMode && source.RowResultSets > 0)
             {
                 Report("RowResultSetsInDocumentMode", SemanticSeverity.Error, null, null, null,
                     "The source emitted " + source.RowResultSets.ToString(CultureInfo.InvariantCulture) + " row result set(s) although the contract selects document mode.");
@@ -338,7 +543,7 @@ namespace SFX.Semantics
             if (section.Value.ValueKind != JsonValueKind.Array)
             {
                 Report("SectionNotArray", SemanticSeverity.Error, section.Name, null, null, "A section must be a JSON array of rows; it is retained verbatim.");
-                return new SemanticSection(section.Name, section.Ordinal, disposition, 0, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value));
+                return new SemanticSection(section.Name, section.Ordinal, disposition, 0, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value), _unordered.Contains(section.Name));
             }
 
             int index = 0;
@@ -352,7 +557,7 @@ namespace SFX.Semantics
                 index++;
             }
 
-            return new SemanticSection(section.Name, section.Ordinal, disposition, index, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value));
+            return new SemanticSection(section.Name, section.Ordinal, disposition, index, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value), _unordered.Contains(section.Name));
         }
 
         /// <summary>
@@ -364,7 +569,7 @@ namespace SFX.Semantics
             if (section.Value.ValueKind != JsonValueKind.Array)
             {
                 Report("SectionNotArray", SemanticSeverity.Error, section.Name, null, null, "A section must be a JSON array of rows; it is retained verbatim.");
-                return new SemanticSection(section.Name, section.Ordinal, SemanticSectionDisposition.Typed, 0, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value));
+                return new SemanticSection(section.Name, section.Ordinal, SemanticSectionDisposition.Typed, 0, ImmutableArray<SemanticSectionRow>.Empty, SemanticJson.From(section.Value), _unordered.Contains(section.Name));
             }
 
             ImmutableArray<SemanticSectionRow>.Builder rows = ImmutableArray.CreateBuilder<SemanticSectionRow>();
@@ -386,7 +591,7 @@ namespace SFX.Semantics
                 index++;
             }
 
-            return new SemanticSection(section.Name, section.Ordinal, SemanticSectionDisposition.Typed, index, rows.ToImmutable(), null);
+            return new SemanticSection(section.Name, section.Ordinal, SemanticSectionDisposition.Typed, index, rows.ToImmutable(), null, _unordered.Contains(section.Name));
         }
 
         /// <summary>
@@ -402,7 +607,12 @@ namespace SFX.Semantics
                 return SemanticRowDisposition.Unprojected;
             }
 
-            string discriminator = row.GetProperty(Convention.DiscriminatorField).GetString()!;
+            if (Convention.DiscriminatorField is not { } discriminatorField)
+            {
+                return SemanticRowDisposition.Entity;
+            }
+
+            string discriminator = row.GetProperty(discriminatorField).GetString()!;
             if (string.Equals(discriminator, Convention.EntityValue, StringComparison.Ordinal))
             {
                 return SemanticRowDisposition.Entity;
@@ -414,7 +624,7 @@ namespace SFX.Semantics
                 return SemanticRowDisposition.Marker;
             }
 
-            Report("UnknownRowState", SemanticSeverity.Error, section, index, Convention.DiscriminatorField,
+            Report("UnknownRowState", SemanticSeverity.Error, section, index, discriminatorField,
                 "The row's discriminator value is neither the declared entity value nor a declared marker; the row is retained verbatim.");
             return SemanticRowDisposition.Unprojected;
         }
@@ -449,27 +659,30 @@ namespace SFX.Semantics
                 conforms = false;
             }
 
-            if (row.TryGetProperty(Convention.ScopeField, out JsonElement scope) == false)
+            if (Convention.ScopeField is { } scopeField)
             {
-                Report("FieldAbsent", SemanticSeverity.Error, section, index, Convention.ScopeField, "The row has no scope identity.");
-                conforms = false;
-            }
-            else if (scope.ValueKind != JsonValueKind.String || string.Equals(scope.GetString(), Identity, StringComparison.Ordinal) == false)
-            {
-                Report("ScopeMismatch", SemanticSeverity.Error, section, index, Convention.ScopeField, "The row's scope identity is not the requested identity (ordinal comparison).");
-                conforms = false;
+                if (row.TryGetProperty(scopeField, out JsonElement scope) == false)
+                {
+                    Report("FieldAbsent", SemanticSeverity.Error, section, index, scopeField, "The row has no scope identity.");
+                    conforms = false;
+                }
+                else if (scope.ValueKind != JsonValueKind.String || string.Equals(scope.GetString(), Identity, StringComparison.Ordinal) == false)
+                {
+                    Report("ScopeMismatch", SemanticSeverity.Error, section, index, scopeField, "The row's scope identity is not the requested identity (ordinal comparison).");
+                    conforms = false;
+                }
             }
 
-            if (requireDiscriminator)
+            if (requireDiscriminator && Convention.DiscriminatorField is { } discriminatorField)
             {
-                if (row.TryGetProperty(Convention.DiscriminatorField, out JsonElement discriminator) == false)
+                if (row.TryGetProperty(discriminatorField, out JsonElement discriminator) == false)
                 {
-                    Report("FieldAbsent", SemanticSeverity.Error, section, index, Convention.DiscriminatorField, "The row has no discriminator.");
+                    Report("FieldAbsent", SemanticSeverity.Error, section, index, discriminatorField, "The row has no discriminator.");
                     conforms = false;
                 }
                 else if (discriminator.ValueKind != JsonValueKind.String)
                 {
-                    Report("FieldType", SemanticSeverity.Error, section, index, Convention.DiscriminatorField, "The row's discriminator must be a string.");
+                    Report("FieldType", SemanticSeverity.Error, section, index, discriminatorField, "The row's discriminator must be a string.");
                     conforms = false;
                 }
             }
@@ -863,6 +1076,53 @@ namespace SFX.Semantics
                 .Add("availability", refusal.Availability.ToString());
         }
 
+        public static object ResultSets(ImmutableArray<SemanticResultSetShape> resultSets)
+        {
+            var list = new List<object?>();
+            foreach (SemanticResultSetShape shape in resultSets)
+            {
+                var columns = new List<object?>();
+                foreach (SemanticColumn column in shape.Columns)
+                {
+                    columns.Add(new SemanticCanonicalObject()
+                        .Add("name", column.Name)
+                        .Add("sqlType", column.SqlType)
+                        .Add("allowsNull", column.AllowsNull)
+                    .Add("withheld", column.Withheld));
+                }
+
+                list.Add(new SemanticCanonicalObject()
+                    .Add("ordinal", shape.Ordinal.ToString(CultureInfo.InvariantCulture))
+                    .Add("section", shape.Section)
+                    .Add("rowCount", shape.RowCount.ToString(CultureInfo.InvariantCulture))
+                    .Add("withheldValues", shape.WithheldValues.ToString(CultureInfo.InvariantCulture))
+                    .Add("columns", columns));
+            }
+
+            return list;
+        }
+
+        public static object Dependencies(IEnumerable<SemanticDependency> dependencies)
+        {
+            var list = new List<object?>();
+            foreach (SemanticDependency dependency in dependencies)
+            {
+                list.Add(new SemanticCanonicalObject()
+                    .Add("source", dependency.Source)
+                    .Add("kind", dependency.Kind)
+                    .Add("id", dependency.Id)
+                    .Add("locator", dependency.Locator)
+                    .Add("digest", dependency.Digest));
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// A section's payload. An order-free section is a sorted multiset: row indexes are omitted and
+        /// rows (or, for a retained section, row source-text digests) are sorted, so source row order
+        /// cannot change the digest while row content still does.
+        /// </summary>
         public static object Section(SemanticSection section, Func<SemanticSectionRow, object?> entity)
         {
             var result = new SemanticCanonicalObject()
@@ -870,18 +1130,24 @@ namespace SFX.Semantics
                 .Add("ordinal", section.Ordinal.ToString(CultureInfo.InvariantCulture))
                 .Add("disposition", section.Disposition.ToString())
                 .Add("rowCount", section.RowCount.ToString(CultureInfo.InvariantCulture))
-                .Add("raw", SemanticCanonicalJson.Opaque(section.Raw));
-            if (section.Raw != null)
+                .Add("unordered", section.Unordered);
+            if (section.Raw is { } raw)
             {
+                result.Add("raw", section.Unordered && raw.Kind == JsonValueKind.Array ? RowMultiset(raw) : SemanticCanonicalJson.Opaque(raw));
                 return result.Add("rows", null);
             }
 
+            result.Add("raw", null);
             var rows = new List<object?>();
             foreach (SemanticSectionRow row in section.Rows)
             {
                 var item = new SemanticCanonicalObject()
-                    .Add("index", row.Index.ToString(CultureInfo.InvariantCulture))
                     .Add("disposition", row.Disposition.ToString());
+                if (section.Unordered == false)
+                {
+                    item.Add("index", row.Index.ToString(CultureInfo.InvariantCulture));
+                }
+
                 switch (row.Disposition)
                 {
                     case SemanticRowDisposition.Entity:
@@ -898,23 +1164,43 @@ namespace SFX.Semantics
                 rows.Add(item);
             }
 
-            return result.Add("rows", rows);
+            return result.Add("rows", section.Unordered ? Sorted(rows) : rows);
         }
 
-        public static object Diagnostics(ImmutableArray<SemanticDiagnostic> diagnostics)
+        /// <summary>
+        /// Diagnostics without messages, sorted. A diagnostic located in an order-free section loses its
+        /// row index, which is an artifact of source row order there.
+        /// </summary>
+        public static object Diagnostics(ImmutableArray<SemanticDiagnostic> diagnostics, ImmutableArray<SemanticSection> sections)
         {
+            var unordered = new HashSet<string>(sections.Where(section => section.Unordered).Select(section => section.Name), StringComparer.Ordinal);
             var list = new List<object?>();
             foreach (SemanticDiagnostic diagnostic in diagnostics)
             {
+                bool located = diagnostic.Section == null || unordered.Contains(diagnostic.Section) == false;
                 list.Add(new SemanticCanonicalObject()
                     .Add("code", diagnostic.Code)
                     .Add("severity", diagnostic.Severity.ToString())
                     .Add("section", diagnostic.Section)
-                    .Add("row", diagnostic.Row?.ToString(CultureInfo.InvariantCulture))
+                    .Add("row", located ? diagnostic.Row?.ToString(CultureInfo.InvariantCulture) : null)
                     .Add("field", diagnostic.Field));
             }
 
-            return list;
+            return Sorted(list);
+        }
+
+        private static List<object?> Sorted(List<object?> items) =>
+            items.Select(item => (Item: item, Text: SemanticCanonicalJson.Serialize(item))).OrderBy(pair => pair.Text, StringComparer.Ordinal).Select(pair => pair.Item).ToList();
+
+        private static object RowMultiset(SemanticJson raw)
+        {
+            using JsonDocument document = JsonDocument.Parse(raw.RawText, new JsonDocumentOptions { MaxDepth = 256 });
+            List<object?> rows = document.RootElement.EnumerateArray()
+                .Select(row => SemanticCanonicalJson.Sha256Hex(row.GetRawText()))
+                .OrderBy(digest => digest, StringComparer.Ordinal)
+                .Cast<object?>()
+                .ToList();
+            return new SemanticCanonicalObject().Add("kind", "ArrayMultiset").Add("rowSha256", rows);
         }
     }
 
@@ -1034,7 +1320,82 @@ namespace SFX.Semantics
                 writer.WriteNull("elapsedMilliseconds");
             }
 
+            writer.WriteStartArray("pinnedRevisions");
+            foreach (SemanticDependency dependency in capture.PinnedRevisions)
+            {
+                Dependency(writer, dependency);
+            }
+
+            writer.WriteEndArray();
             writer.WriteEndObject();
+            writer.WriteEndObject();
+        }
+
+        public static void ResultSets(Utf8JsonWriter writer, ImmutableArray<SemanticResultSetShape> resultSets)
+        {
+            writer.WriteStartArray("resultSets");
+            foreach (SemanticResultSetShape shape in resultSets)
+            {
+                writer.WriteStartObject();
+                writer.WriteNumber("ordinal", shape.Ordinal);
+                writer.WriteString("section", shape.Section);
+                writer.WriteNumber("rows", shape.RowCount);
+                writer.WriteNumber("withheldValues", shape.WithheldValues);
+                writer.WriteStartArray("columns");
+                foreach (SemanticColumn column in shape.Columns)
+                {
+                    writer.WriteStartObject();
+                    writer.WriteString("name", column.Name);
+                    writer.WriteString("sqlType", column.SqlType);
+                    writer.WriteBoolean("withheld", column.Withheld);
+                    if (column.AllowsNull is { } allowsNull)
+                    {
+                        writer.WriteBoolean("allowsNull", allowsNull);
+                    }
+                    else
+                    {
+                        writer.WriteNull("allowsNull");
+                    }
+
+                    writer.WriteEndObject();
+                }
+
+                writer.WriteEndArray();
+                writer.WriteEndObject();
+            }
+
+            writer.WriteEndArray();
+        }
+
+        public static void Revision(Utf8JsonWriter writer, SemanticRevision revision, int maxItems)
+        {
+            writer.WriteStartObject("revision");
+            writer.WriteString("revisionDigest", revision.RevisionDigest);
+            writer.WriteString("basis", revision.Basis);
+            writer.WriteString("basisScope", "a mutable basis pointer; the dependency digests below establish the revision");
+            writer.WriteString("readerDefinitionDigest", revision.ReaderDefinitionDigest);
+            writer.WriteBoolean("pinned", revision.IsPinned);
+            writer.WriteNumber("dependencies", revision.Dependencies.Length);
+            writer.WriteNumber("unpinned", revision.Unpinned);
+            writer.WriteNumber("omitted", Math.Max(0, revision.Dependencies.Length - maxItems));
+            writer.WriteStartArray("items");
+            foreach (SemanticDependency dependency in revision.Dependencies.Take(maxItems))
+            {
+                Dependency(writer, dependency);
+            }
+
+            writer.WriteEndArray();
+            writer.WriteEndObject();
+        }
+
+        private static void Dependency(Utf8JsonWriter writer, SemanticDependency dependency)
+        {
+            writer.WriteStartObject();
+            writer.WriteString("source", dependency.Source);
+            writer.WriteString("kind", dependency.Kind);
+            writer.WriteString("id", dependency.Id);
+            writer.WriteString("locator", dependency.Locator);
+            writer.WriteString("digest", dependency.Digest);
             writer.WriteEndObject();
         }
 
@@ -1054,6 +1415,7 @@ namespace SFX.Semantics
                 writer.WriteNumber("ordinal", section.Ordinal);
                 writer.WriteString("disposition", section.Disposition.ToString());
                 writer.WriteNumber("rows", section.RowCount);
+                writer.WriteBoolean("unordered", section.Unordered);
                 if (section.Disposition == SemanticSectionDisposition.Typed && section.Raw == null)
                 {
                     writer.WriteNumber("entities", section.EntityCount);
@@ -1259,6 +1621,85 @@ namespace SFX.Semantics
             }
 
             return members;
+        }
+    }
+
+    /// <summary>
+    /// The <c>sql-json.v1</c> value encoding used to assemble multi-result-set readers into a
+    /// named-section document. Lossless for the types it accepts: integers and SQL decimals keep their
+    /// exact digits, strings are verbatim, date/times keep full precision, GUIDs use the "D" spelling and
+    /// binary is base64. Nulls are written explicitly.
+    /// </summary>
+    public static class SemanticSqlValues
+    {
+        /// <summary>Identifies this encoding in receipts and contracts.</summary>
+        public const string Encoding = "sql-json.v1";
+
+        /// <summary>Writes one column value.</summary>
+        public static void Write(Utf8JsonWriter writer, object? value)
+        {
+            switch (value)
+            {
+                case null:
+                case DBNull:
+                    writer.WriteNullValue();
+                    break;
+                case string text:
+                    writer.WriteStringValue(text);
+                    break;
+                case bool flag:
+                    writer.WriteBooleanValue(flag);
+                    break;
+                case byte number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case short number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case int number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case long number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case System.Data.SqlTypes.SqlDecimal number:
+                    if (number.IsNull)
+                    {
+                        writer.WriteNullValue();
+                    }
+                    else
+                    {
+                        writer.WriteRawValue(number.ToString(), skipInputValidation: false);
+                    }
+
+                    break;
+                case decimal number:
+                    writer.WriteRawValue(number.ToString(CultureInfo.InvariantCulture), skipInputValidation: false);
+                    break;
+                case double number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case float number:
+                    writer.WriteNumberValue(number);
+                    break;
+                case DateTime instant:
+                    writer.WriteStringValue(instant.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffff", CultureInfo.InvariantCulture));
+                    break;
+                case DateTimeOffset instant:
+                    writer.WriteStringValue(instant.ToString("yyyy-MM-dd'T'HH:mm:ss.fffffffzzz", CultureInfo.InvariantCulture));
+                    break;
+                case TimeSpan span:
+                    writer.WriteStringValue(span.ToString("c", CultureInfo.InvariantCulture));
+                    break;
+                case Guid guid:
+                    writer.WriteStringValue(guid.ToString("D"));
+                    break;
+                case byte[] bytes:
+                    writer.WriteBase64StringValue(bytes);
+                    break;
+                default:
+                    throw new NotSupportedException("The sql-json.v1 encoding has no rule for " + value.GetType().FullName + ".");
+            }
         }
     }
 }

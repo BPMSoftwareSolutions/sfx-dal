@@ -1,9 +1,9 @@
 {
   "contractVersion": "semantic-projection.v1",
   "id": "sfx.capability-details",
-  "revision": "0.1.0-draft",
+  "revision": "0.2.0-draft",
   "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
-  "description": "Projects analysis.read_capability_details document mode (emit=0) into an immutable capability snapshot. Seven sections are typed; the other 38 expected sections are retained verbatim.",
+  "description": "Projects analysis.read_capability_details document mode (emit=0) into an immutable capability snapshot. Seven sections are typed; the other 38 expected sections are retained verbatim. Sections the reader emits without an outer ORDER BY are declared order-free. Referenced declarations, contracts, ports and bindings form the revision vector; the estate pin is a mutable pointer and must equal the basis the reader reports.",
   "source": {
     "kind": "sql-procedure-document",
     "schema": "analysis",
@@ -39,7 +39,8 @@
     "kind": "capability",
     "namespaceField": "namespace_id",
     "declaredIdField": "capability_id",
-    "revisionField": "selected_definition_pk"
+    "revisionField": "selected_definition_pk",
+    "basisField": "estate_model_pk"
   },
   "expectedSections": [
     "capability_summary", "capability_intent", "contracts", "scenarios", "scenario_events", "scenario_inputs",
@@ -53,6 +54,16 @@
     "token_consumers", "capability_affordance", "capability_semantic_levels", "capability_execution_narrative",
     "execution_graph_coverage", "unbound_operations", "request_named_dispatch", "incomplete_invoked_targets",
     "capability_navigation"
+  ],
+  "unorderedSections": [
+    "capability_summary", "provider_conformance", "capability_conformance_profile", "legacy_digest_inputs", "capability_evaluation_identity",
+    "capability_affordance", "execution_graph_coverage", "unbound_operations", "request_named_dispatch", "incomplete_invoked_targets"
+  ],
+  "revisionSources": [
+    { "section": "declaration_reference_evidence", "kindField": "object_kind", "idField": "declared_id", "locatorField": "selected_definition_pk", "digestField": "definition_digest", "exclude": { "field": "reference_count", "values": [ "0" ] } },
+    { "section": "contracts", "kind": "CONTRACT", "idField": "contract_id", "locatorField": "contract_version_pk", "digestField": "definition_digest" },
+    { "section": "ports", "kind": "PORT", "idField": "port_id", "locatorField": "port_version_pk", "digestField": "definition_digest" },
+    { "section": "bindings", "kind": "PROVIDER_DEFINITION", "idField": "provider_id", "locatorField": "provider_definition_pk", "digestField": "definition_digest" }
   ],
   "sections": [
     {
@@ -98,7 +109,7 @@
       "property": "Contracts",
       "cardinality": "many",
       "description": "A contract a scenario consumes or produces, with its resolution state and digests.",
-      "key": [ "scenario_version_pk", "contract_role", "contract_version_pk" ],
+      "key": [ "scenario_version_pk", "contract_role", "contract_id" ],
       "fields": [
         { "name": "contract_role", "type": "string", "nullable": false },
         { "name": "contract_id", "type": "string", "nullable": true },
@@ -191,6 +202,7 @@
       "cardinality": "many",
       "description": "A provider slot of the capability's blueprint and, when bound, its binding. A slot with no binding has a null binding key.",
       "key": [ "provider_slot_pk", "provider_binding_pk" ],
+      "nullableKeyFields": [ "provider_binding_pk" ],
       "fields": [
         { "name": "slot_id", "type": "string", "nullable": false },
         { "name": "provider_slot_pk", "type": "int64", "nullable": true, "role": "locator" },

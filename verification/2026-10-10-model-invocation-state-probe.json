@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "sfx-model-invocation-state-probe.v1",
+  "capturedAtUtc": "2026-10-10T12:32:47.109Z",
+  "probe": "semantic/estate-probes/model-invocation-states.preflight.sql",
+  "runner": "scenario-driven-architecture run-migration.mjs (run from sfx-embody)",
+  "scope": "One transaction, rolled back: a deliberately broken generation of request-capability-from-objective-v3/model-invocations.v1 is put and read through analysis.read_capability_model_invocations. Proves the estate reader reports explicit states for planted defects. IDENTITY increments are not rolled back by SQL Server.",
+  "expected": [
+    "select: operation MISSING, sequence UNRESOLVED",
+    "construct-request: SYSTEM_CONSTRUCTOR body STALE, composition MISMATCH, sequence OUT_OF_ORDER",
+    "summarize: configuredModel PATH_MISSING, static segment NOT_FOUND_IN_BODY, SEGMENT_INPUT_UNDECLARED",
+    "compose-governed-model-invocation.v1 listed inactive: CONFLICTS_WITH_ACTIVE"
+  ],
+  "outcome": "MIGRATION ROLLBACK COMPLETE (../sfx-dal/semantic/estate-probes/model-invocation-states.preflight.sql)",
+  "resultSets": [
+    {
+      "resultSet": "probe_declaration",
+      "rows": [
+        {
+          "probe_definition_pk": "226445",
+          "read_definition_pk": "226445",
+          "declaration_state": "DECLARED",
+          "resolved_invocations": "2",
+          "findings": "11",
+          "refusing_findings": "6"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_invocations",
+      "rows": [
+        {
+          "invocation_id": "select",
+          "operation_state": "MISSING",
+          "composition_link_state": "CONSISTENT",
+          "sequence_state": "UNRESOLVED"
+        },
+        {
+          "invocation_id": "construct-request",
+          "operation_state": "RESOLVED",
+          "composition_link_state": "MISMATCH",
+          "sequence_state": "OUT_OF_ORDER"
+        },
+        {
+          "invocation_id": "summarize",
+          "operation_state": "RESOLVED",
+          "composition_link_state": "CONSISTENT",
+          "sequence_state": "ORDERED"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_constructors",
+      "rows": [
+        {
+          "invocation_id": "construct-request",
+          "role": "SYSTEM_CONSTRUCTOR",
+          "body_state": "STALE"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_segments",
+      "rows": [
+        {
+          "invocation_id": "summarize",
+          "segment_ordinal": "1",
+          "segment_kind": "static",
+          "input_name": null,
+          "corroboration": "NOT_FOUND_IN_BODY"
+        },
+        {
+          "invocation_id": "summarize",
+          "segment_ordinal": "2",
+          "segment_kind": "input",
+          "input_name": "dispatchEvidence",
+          "corroboration": "NOT_APPLICABLE"
+        },
+        {
+          "invocation_id": "summarize",
+          "segment_ordinal": "3",
+          "segment_kind": "input",
+          "input_name": "undeclaredInput",
+          "corroboration": "NOT_APPLICABLE"
+        },
+        {
+          "invocation_id": "summarize",
+          "segment_ordinal": "1",
+          "segment_kind": "static",
+          "input_name": null,
+          "corroboration": "PRESENT_IN_BODY"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_configuration",
+      "rows": [
+        {
+          "invocation_id": "summarize",
+          "value_name": "configuredModel",
+          "value_state": "PATH_MISSING"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_templates",
+      "rows": [
+        {
+          "declared_id": "build-agent-model-request",
+          "template_state": "SELECTED_INACTIVE",
+          "active_reference_state": "NOT_ACTIVE"
+        },
+        {
+          "declared_id": "build-agent-summary-request",
+          "template_state": "SELECTED_INACTIVE",
+          "active_reference_state": "NOT_ACTIVE"
+        },
+        {
+          "declared_id": "compose-governed-model-invocation.v1",
+          "template_state": "SELECTED_INACTIVE",
+          "active_reference_state": "CONFLICTS_WITH_ACTIVE"
+        }
+      ]
+    },
+    {
+      "resultSet": "probe_findings",
+      "rows": [
+        {
+          "code": "OPERATION_MISSING",
+          "severity": "REFUSE",
+          "subject": "request-capability-from-objective-v3.no-such-step"
+        },
+        {
+          "code": "PROVIDER_UNRESOLVED",
+          "severity": "REFUSE",
+          "subject": "request-capability-from-objective-v3.no-such-step"
+        },
+        {
+          "code": "PROVIDER_AUTHORITY_NOT_UNIQUE",
+          "severity": "WARN",
+          "subject": "request-capability-from-objective-v3.no-such-step"
+        },
+        {
+          "code": "SEQUENCE_UNRESOLVED",
+          "severity": "WARN",
+          "subject": "request-capability-from-objective-v3.no-such-step"
+        },
+        {
+          "code": "COMPOSITION_MISMATCH",
+          "severity": "REFUSE",
+          "subject": "request-capability-from-objective-v3.select"
+        },
+        {
+          "code": "SEQUENCE_OUT_OF_ORDER",
+          "severity": "WARN",
+          "subject": "request-capability-from-objective-v3.construct-request"
+        },
+        {
+          "code": "SYSTEM_CONSTRUCTOR_BODY_STALE",
+          "severity": "WARN",
+          "subject": "analysis.prepare_objective_capability_request"
+        },
+        {
+          "code": "STATIC_TEXT_NOT_FOUND_IN_BODY",
+          "severity": "WARN",
+          "subject": "summarize"
+        },
+        {
+          "code": "SEGMENT_INPUT_UNDECLARED",
+          "severity": "REFUSE",
+          "subject": "summarize"
+        },
+        {
+          "code": "MODEL_VALUE_PATH_MISSING",
+          "severity": "REFUSE",
+          "subject": "summarize"
+        },
+        {
+          "code": "TEMPLATE_CONFLICTS_WITH_ACTIVE",
+          "severity": "REFUSE",
+          "subject": "compose-governed-model-invocation.v1"
+        }
+      ]
+    }
+  ]
+}

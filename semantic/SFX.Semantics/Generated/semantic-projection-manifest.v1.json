@@ -3,21 +3,35 @@
   "generator": {
     "name": "Codelightly",
     "emitter": "csharp-semantic-projection.v1",
-    "version": "1.0.0+8363c09a50891b5c9bc5baeb15351508e8fcaf7e",
-    "sourceDigest": "8363c09a50891b5c9bc5baeb15351508e8fcaf7e"
+    "version": "1.0.0+687e2890424583d4b9d98d382da19623c4ce5154",
+    "sourceDigest": "687e2890424583d4b9d98d382da19623c4ce5154"
   },
   "configuration": {
     "path": "semantic-projection.config.json",
-    "digest": "sha256:9dc655669aeeda98b8055e73eb75338bb52ab6feea9ade33da308d2ca184946f",
+    "digest": "sha256:7c1518fff53edd52ef28f6fa9f7df004f7dfa8802e2e09cfe716dea2559e530c",
     "namespace": "SFX.Semantics"
   },
   "contracts": [
     {
       "path": "contracts/capability-details.semantic-projection.v1.json",
       "id": "sfx.capability-details",
+      "revision": "0.2.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+      "digest": "sha256:a91a17afa2d894144f5edc4d80d2ae194d2bd7efe1b48a4b162b643d7e5406a3"
+    },
+    {
+      "path": "contracts/provider-details.semantic-projection.v1.json",
+      "id": "sfx.provider-details",
       "revision": "0.1.0-draft",
       "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
-      "digest": "sha256:b7793a97f6b4057f4c058213925eba2148376f710367bd6c5191b74434ab5b87"
+      "digest": "sha256:2e260cc0ee5ba2149c43aa1b1d01da75ef474dc266d7ac02684427d976e070c7"
+    },
+    {
+      "path": "contracts/capability-model-invocations.semantic-projection.v1.json",
+      "id": "sfx.capability-model-invocations",
+      "revision": "0.1.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; the reader and its declaration are estate-owned (sfx-embody declare-capability-model-invocations)",
+      "digest": "sha256:e136e31b95b53e27f556fa79c61ccaa3e0c65921658a812f42beac9aeeebc2e5"
     }
   ],
   "encoding": "utf-8",
@@ -26,20 +40,44 @@
     {
       "path": "CapabilityProjection.g.cs",
       "kind": "csharp",
-      "sha256": "48fe23cfca2b6acde5c44f1c11121d7ef2cbc0cc5a999e6da921cfdbb62b1867",
-      "bytes": 138102
+      "sha256": "4116a99e59fe27315afb5760959dac4729420e0e54c00cd3b2a5e1eb2d211f6a",
+      "bytes": 145731
     },
     {
       "path": "CapabilitySource.g.cs",
       "kind": "csharp",
-      "sha256": "b537e33f18afdffe54a3f42cf94f6b24d9b170eef435c896698b29aab2c6f73a",
+      "sha256": "ebf33bd7f84cc5f8b4a5b857cbe521320db4be81eeddd35d76824a7a1fac2c38",
       "bytes": 5475
+    },
+    {
+      "path": "ModelInvocationsProjection.g.cs",
+      "kind": "csharp",
+      "sha256": "3a04393681c0fb0e4ce4434730b7d3657d1b8cd2f07a8ce3cc214bea0fb3351c",
+      "bytes": 155187
+    },
+    {
+      "path": "ModelInvocationsSource.g.cs",
+      "kind": "csharp",
+      "sha256": "dfe76c8506ae6020d83270790c1822a8860a62a524cae4123a3841ccfc363e05",
+      "bytes": 5156
+    },
+    {
+      "path": "ProviderProjection.g.cs",
+      "kind": "csharp",
+      "sha256": "7503a2fb857f217c1b7a43b143256cb5d3d3ab3b25b161ee5889e118da455bc4",
+      "bytes": 76135
+    },
+    {
+      "path": "ProviderSource.g.cs",
+      "kind": "csharp",
+      "sha256": "c698159e39ec4694e2cee110fd766f4f6af0c9f0429076b7eec674418433c9ca",
+      "bytes": 9524
     },
     {
       "path": "SemanticRuntime.g.cs",
       "kind": "csharp",
-      "sha256": "660647f824390ca6e41c03768d9df030f45f637ec965c9d1357928d33e7c09a2",
-      "bytes": 54450
+      "sha256": "684ccbb42814f5df85c691884c576e6a7f1ffb57c4c871b60478fb3866816782",
+      "bytes": 77147
     }
   ]
 }

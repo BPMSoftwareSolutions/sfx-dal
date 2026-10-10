@@ -1,0 +1,296 @@
+{
+  "schemaVersion": "sfx-semantic-model-inspection.v1",
+  "capturedAtUtc": "2026-10-10T12:59:12.3764601+00:00",
+  "claim": "Show me this capability's model calls, providers, models and instructions, as a supported semantic read.",
+  "scope": "Read-only C# inspection and provenance. Three SNAPSHOT sessions (the capability twice and an undeclared capability), each rolled back, plus offline probes of explicit states. Instruction texts are summarized by length and digest; no row payloads or credentials.",
+  "database": "sidefx",
+  "capability": "request-capability-from-objective-v3",
+  "basis": 34,
+  "state": "Resolved",
+  "inspectionDigest": "sha256:e2fef7c589ff2db1d963253ef8fcf936a645163f334f339348e6a4e67e7c6a94",
+  "assembler": "sfx-model-inspection.v1",
+  "declaration": {
+    "namespace": "sidefx:capability:request-capability-from-objective-v3",
+    "id": "model-invocations.v1",
+    "state": "DECLARED",
+    "definitionPk": 226444,
+    "digest": "139c9a70bf30db133f3a31e4af750c591d62b387f08c3bfb2d9a3acc77ac0fa2",
+    "installedBy": "sfx-embody sql/migrations/declare-capability-model-invocations.commit.sql"
+  },
+  "contracts": [
+    {
+      "id": "sfx.capability-model-invocations",
+      "revision": "0.1.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; the reader and its declaration are estate-owned (sfx-embody declare-capability-model-invocations)",
+      "digest": "sha256:e136e31b95b53e27f556fa79c61ccaa3e0c65921658a812f42beac9aeeebc2e5",
+      "generator": "Codelightly csharp-semantic-projection.v1"
+    },
+    {
+      "id": "sfx.capability-details",
+      "revision": "0.2.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+      "digest": "sha256:a91a17afa2d894144f5edc4d80d2ae194d2bd7efe1b48a4b162b643d7e5406a3",
+      "generator": "Codelightly csharp-semantic-projection.v1"
+    },
+    {
+      "id": "sfx.provider-details",
+      "revision": "0.1.0-draft",
+      "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+      "digest": "sha256:2e260cc0ee5ba2149c43aa1b1d01da75ef474dc266d7ac02684427d976e070c7",
+      "generator": "Codelightly csharp-semantic-projection.v1"
+    }
+  ],
+  "readings": [
+    {
+      "label": "model-invocations",
+      "procedure": "[analysis].[read_capability_model_invocations]",
+      "identity": "request-capability-from-objective-v3",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "347954f17ed98eadb2ec659305d8a2e4298e31dc322063c432e2634e270e2449",
+      "documentUtf8Bytes": 33359,
+      "projectionDigest": "sha256:50ab52d1b2e72ff0d4cddbe72412cf1328b36f8235c2bf45311088edf02f1437",
+      "revisionDigest": "sha256:1e4f8fd00cfd6d70230325487040b9d4b86a4f516fdebc5e515fbdfbbd90e7f8",
+      "readerDefinitionDigest": "sha256-utf16le:3d7cb2488bc58f8404c646fd1d5ab57ead603265c782d78d86971859908db3a0",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 266
+    },
+    {
+      "label": "capability-details",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "request-capability-from-objective-v3",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "60779b05ab57cc67f07a30aa9ece0713883c7b7817b0d3337fbaf73a87668a1f",
+      "documentUtf8Bytes": 502655,
+      "projectionDigest": "sha256:1e8b083937ccdf9f5b67bcde306c1f87fc06f04cd228442bf793c718ecad853f",
+      "revisionDigest": "sha256:17b44f36e7cecffd730fd74e2b0fa64671ae22611cbf02ebbd45b5899a5963e2",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 2099
+    },
+    {
+      "label": "provider:google/gemini-select",
+      "procedure": "[analysis].[read_provider_details]",
+      "identity": "google/gemini-select",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 11,
+      "documentSha256": "c38dc8d6bdcc83dc600b4f2aa7a50378a3d3fe813e7abdbfee1e61b2af1b5c24",
+      "documentUtf8Bytes": 1668117,
+      "projectionDigest": "sha256:748ebbeba9be8fb21ece26fee97fd19b149140dfd03ede58fc93fe51bdc8fac8",
+      "revisionDigest": "sha256:3721e636a998ecfbac80e39b3fb34338a7e8623f214add62923c8f012661a943",
+      "readerDefinitionDigest": "sha256-utf16le:ce0b68b5cd5c79a3c964ce516467911732f5d4e1be82ebf47baae5e4e32b9f1e",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 40392
+    },
+    {
+      "label": "provider:google/gemini-summary",
+      "procedure": "[analysis].[read_provider_details]",
+      "identity": "google/gemini-summary",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 11,
+      "documentSha256": "6f90730d8a9e56571df69fc644a5ae3ba8475ad0ca75c4edb42aec6c466e42e8",
+      "documentUtf8Bytes": 1666570,
+      "projectionDigest": "sha256:f25ddefff6a72375eea981eb7bed07ccc6994583a5e8a5be4bafb86f71c19744",
+      "revisionDigest": "sha256:56f925b3e632f8dd97b249481ca853f53a6dca758dcf8e5d0f9701c9c65f5c7d",
+      "readerDefinitionDigest": "sha256-utf16le:ce0b68b5cd5c79a3c964ce516467911732f5d4e1be82ebf47baae5e4e32b9f1e",
+      "databaseLogRecords": 1,
+      "elapsedMilliseconds": 56577
+    }
+  ],
+  "invocations": [
+    {
+      "label": "Select",
+      "operationId": "request-capability-from-objective-v3.select",
+      "ordinal": 2,
+      "providerId": "google/gemini-select",
+      "bindingId": "gemini-generate-content.v1",
+      "configuredModel": "gemini-3.8-flash",
+      "endpointTemplate": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+      "modelSource": "sidefx:capability:request-capability-from-objective-v3/compose-governed-model-invocation.v1 definition 217358 digest e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518 at $.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value",
+      "instructionSource": "analysis.prepare_objective_selection",
+      "constructorBodySha256Utf16Le": "85f7efa710df108f6e0f49a7ea43c4b7d06d571eb5099ae237c9d9271d494295",
+      "assembly": "analysis.compose_objective_model_request",
+      "systemSegments": [
+        "static 695 chars sha256-utf16le bff0347b8c8ac68be40392f6ec1d975a7274072937e566620fb2a270c7fef499 PRESENT_IN_BODY",
+        "{catalogCount}",
+        "static 41 chars sha256-utf16le 9d0c5db576507afa1db922202198203d518b612dd2d438ff6dfd1cbcf45a1c3b PRESENT_IN_BODY",
+        "{catalog}"
+      ],
+      "userSegments": [
+        "{objective}"
+      ],
+      "dynamicInputs": [
+        "catalog (catalog, system)",
+        "catalogCount (catalog, system)",
+        "objective (objective, user)"
+      ],
+      "expandedPrompt": "UNAVAILABLE_WITHOUT_INVOCATION_EVIDENCE",
+      "state": "Resolved",
+      "gaps": 0
+    },
+    {
+      "label": "Construct request",
+      "operationId": "request-capability-from-objective-v3.construct-request",
+      "ordinal": 5,
+      "providerId": "google/gemini-select",
+      "bindingId": "gemini-generate-content.v1",
+      "configuredModel": "gemini-3.8-flash",
+      "endpointTemplate": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+      "modelSource": "sidefx:capability:request-capability-from-objective-v3/compose-governed-model-invocation.v1 definition 217358 digest e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518 at $.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value",
+      "instructionSource": "analysis.prepare_objective_capability_request",
+      "constructorBodySha256Utf16Le": "a15e533cb08d5fba9f1f4851180f197d51d798af77a632f8da98114fe6f88164",
+      "assembly": "analysis.compose_objective_model_request",
+      "systemSegments": [
+        "static 705 chars sha256-utf16le 5484aaa4b080a73eeb0e3f6ec189e9c804529dd7eb60da5f70335beca8f53df4 PRESENT_IN_BODY",
+        "{selection}"
+      ],
+      "userSegments": [
+        "{objective}"
+      ],
+      "dynamicInputs": [
+        "objective (objective, user)",
+        "selection (schema, system)"
+      ],
+      "expandedPrompt": "UNAVAILABLE_WITHOUT_INVOCATION_EVIDENCE",
+      "state": "Resolved",
+      "gaps": 0
+    },
+    {
+      "label": "Summarize",
+      "operationId": "request-capability-from-objective-v3.summarize",
+      "ordinal": 10,
+      "providerId": "google/gemini-summary",
+      "bindingId": "gemini-generate-content.v1",
+      "configuredModel": "gemini-3.8-flash",
+      "endpointTemplate": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+      "modelSource": "sidefx:capability:request-capability-from-objective-v3/compose-governed-model-invocation.v1 definition 217358 digest e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518 at $.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value",
+      "instructionSource": "analysis.prepare_objective_summary",
+      "constructorBodySha256Utf16Le": "25f577577b413a4d4d5962314db9c8778ccdbff18551d28e4bfa72f25a59daa0",
+      "assembly": "analysis.compose_objective_model_request",
+      "systemSegments": [
+        "static 449 chars sha256-utf16le 40492924c2efa194f0c204b9d4758c11e3a3aa6f65e85469c134ad7d0a6fb284 PRESENT_IN_BODY",
+        "{dispatchEvidence}"
+      ],
+      "userSegments": [
+        "static 56 chars sha256-utf16le 9977ad730c593a9ad4525551a989db6e065a434382daa9bcb67ca0e4c881bada PRESENT_IN_BODY"
+      ],
+      "dynamicInputs": [
+        "dispatchEvidence (result, system)"
+      ],
+      "expandedPrompt": "UNAVAILABLE_WITHOUT_INVOCATION_EVIDENCE",
+      "state": "Resolved",
+      "gaps": 0
+    }
+  ],
+  "providers": [
+    {
+      "providerId": "google/gemini-select",
+      "availability": "Present",
+      "role": "overlay",
+      "definitionDigest": "6cc29f2dbc6ae7880c801ddb92d1261f3f1cd1001370e7cb300acf256734e7cc",
+      "engagements": 1,
+      "instructionRows": 2028,
+      "projectionDigest": "sha256:748ebbeba9be8fb21ece26fee97fd19b149140dfd03ede58fc93fe51bdc8fac8"
+    },
+    {
+      "providerId": "google/gemini-summary",
+      "availability": "Present",
+      "role": "overlay",
+      "definitionDigest": "bde3ffa5e47367615ab0979b9a0cc29d9e2931005363641e7d6706bc8c648e75",
+      "engagements": 1,
+      "instructionRows": 2028,
+      "projectionDigest": "sha256:f25ddefff6a72375eea981eb7bed07ccc6994583a5e8a5be4bafb86f71c19744"
+    }
+  ],
+  "inactiveTemplates": [
+    {
+      "declaredId": "build-agent-model-request",
+      "state": "SELECTED_INACTIVE",
+      "definitionPk": 216494,
+      "digest": "46ff5075521a64a5905f47d434e1a06c1dc22a256b17300d13ddd263d8a4a6b2",
+      "providerInstructionRows": [
+        "google/gemini-select 76",
+        "google/gemini-summary 76"
+      ]
+    },
+    {
+      "declaredId": "build-agent-summary-request",
+      "state": "SELECTED_INACTIVE",
+      "definitionPk": 216495,
+      "digest": "fa62c8d8320049e9d2cb764172d3492496489831ca183b80549363741787e0f6",
+      "providerInstructionRows": [
+        "google/gemini-select 35",
+        "google/gemini-summary 35"
+      ]
+    }
+  ],
+  "gaps": [
+    "INFO UNPINNED_DEPENDENCIES capability-details"
+  ],
+  "checks": [
+    {
+      "id": "model-calls",
+      "claim": "The inspection returns the three v3 model calls and two distinct providers; the two calls through one provider carry different instructions.",
+      "passed": true,
+      "evidence": "Select@2 -> google/gemini-select, Construct request@5 -> google/gemini-select, Summarize@10 -> google/gemini-summary; configured models gemini-3.8-flash/gemini-3.8-flash/gemini-3.8-flash; instruction sources analysis.prepare_objective_selection/analysis.prepare_objective_capability_request/analysis.prepare_objective_summary"
+    },
+    {
+      "id": "traceable-values",
+      "claim": "Every model value names its transformation definition, digest and JSON path; every static segment is corroborated in its pinned constructor body; every dynamic input names its source.",
+      "passed": true,
+      "evidence": "15 model values, 5 static and 6 dynamic segments, 6 procedures CURRENT, 2 providers with definition digests"
+    },
+    {
+      "id": "inactive-templates",
+      "claim": "Older templates are listed with their definitions and provider instruction rows, and none is an active instruction or model source.",
+      "passed": true,
+      "evidence": "build-agent-model-request SELECTED_INACTIVE definition 216494, provider instruction rows 76/76; build-agent-summary-request SELECTED_INACTIVE definition 216495, provider instruction rows 35/35; provider instruction rows in total 4056"
+    },
+    {
+      "id": "dynamic-inputs",
+      "claim": "Dynamic catalog, schema and result inputs are identified explicitly, and an expanded runtime prompt is reported unavailable without invocation evidence.",
+      "passed": true,
+      "evidence": "Select: catalog(catalog),catalogCount(catalog),objective(objective); Construct request: objective(objective),selection(schema); Summarize: dispatchEvidence(result); expanded prompts UNAVAILABLE_WITHOUT_INVOCATION_EVIDENCE"
+    },
+    {
+      "id": "explicit-states",
+      "claim": "Missing, ambiguous, stale and partially resolved dependencies produce explicit states and gaps; an undeclared capability says so instead of inferring.",
+      "passed": true,
+      "evidence": "missing operation: Unresolved [OPERATION_MISSING]; ambiguous operation: Unresolved [OPERATION_AMBIGUOUS]; stale constructor: Partial [SYSTEM_CONSTRUCTOR_BODY_STALE]; unresolved model path: Partial [MODEL_VALUE_PATH_MISSING]; absent provider: Partial [PROVIDER_ABSENT]; provider not read: Partial [PROVIDER_NOT_READ]; live ui-page-landing (no declaration): NOT_DECLARED, 0 invocations, Unresolved"
+    },
+    {
+      "id": "replay-deterministic",
+      "claim": "A saved bundle replays offline to byte-identical output and the same inspection digest; a second session at the same revision reproduces it.",
+      "passed": false,
+      "evidence": "inspection digest sha256:e2fef7c589ff2db1d963253ef8fcf936a645163f334f339348e6a4e67e7c6a94; replay sha256:e2fef7c589ff2db1d963253ef8fcf936a645163f334f339348e6a4e67e7c6a94; second session sha256:982489ba3b7de78d966c250bceb2e6fa026546ac6a08b76c54360bb72432e46c at the same revision"
+    },
+    {
+      "id": "one-session-agreement",
+      "claim": "All readings come from one SNAPSHOT session at one basis, and the capability details reading places every invocation identically.",
+      "passed": true,
+      "evidence": "basis 34 for 4 readings; agreement AGREES/AGREES/AGREES"
+    },
+    {
+      "id": "estate-unchanged",
+      "claim": "The inspection sessions generated zero estate log records and were rolled back.",
+      "passed": false,
+      "evidence": "log records 1/0/0"
+    },
+    {
+      "id": "generated-by-codelightly",
+      "claim": "The compiled projections are the CodeLightly output recorded in the manifest for these contracts.",
+      "passed": true,
+      "evidence": "7 artifact hash(es) match; contract digest sha256:e136e31b95b53e27f556fa79c61ccaa3e0c65921658a812f42beac9aeeebc2e5 in manifest; generator csharp-semantic-projection.v1 687e2890424583d4b9d98d382da19623c4ce5154"
+    }
+  ],
+  "passed": false
+}

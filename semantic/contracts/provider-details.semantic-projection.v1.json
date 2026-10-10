@@ -1,0 +1,155 @@
+{
+  "contractVersion": "semantic-projection.v1",
+  "id": "sfx.provider-details",
+  "revision": "0.1.0-draft",
+  "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+  "description": "Projects the 11 result sets of analysis.read_provider_details into an immutable provider snapshot. Identity, configuration and engagements are typed; the other eight sets, including instruction-bearing material from every definition the provider touches, are retained verbatim. Instruction rows here do not say which instructions an execution path uses.",
+  "source": {
+    "kind": "sql-procedure-result-sets",
+    "schema": "analysis",
+    "name": "read_provider_details",
+    "shapeBasis": "Result-set order, column names and nullability come from the row-mode metadata for four providers in verification/2026-10-09-semantic-readers.json (reader body UTF-8 SHA-256 1599f467fb53be30ba4d2297491aa47cae9a6621abd648e4f52a400726ff7b7c). Set 7 can be empty, so sets are bound by ordinal. The reader reports credential values as REDACTED_NOT_READ; the transport additionally never reads credential_value.",
+    "arguments": [
+      { "parameter": "provider_id", "sqlType": "nvarchar", "size": 400, "bind": "argument", "role": "identity" },
+      { "parameter": "estate_model_pk", "sqlType": "bigint", "bind": "argument", "role": "basis" }
+    ],
+    "resultSets": [
+      { "ordinal": 1, "section": "provider_identity", "columns": [ "result_set", "provider_id", "provider_state", "provider_pk", "object_kind", "namespace_id", "declared_name", "provider_role", "definition_digest", "engagement_kinds", "engagements", "reference_joins", "shared_authority_references" ] },
+      { "ordinal": 2, "section": "provider_configuration", "columns": [ "result_set", "provider_id", "declared_name", "provider_role", "runtime", "package", "implementation_type", "method", "execution_location", "operations_json", "candidate_capabilities_json", "conformance_claims_json", "configuration_json", "definition_digest", "provider_note", "declaration_profile", "configuration_state", "runtime_state", "package_state", "implementation_type_state", "method_state", "execution_location_state" ] },
+      { "ordinal": 3, "section": "provider_mechanics", "columns": [ "result_set", "mechanic_kind", "role", "reference", "execution_location", "execution_location_state" ] },
+      { "ordinal": 4, "section": "provider_bindings", "columns": [ "result_set", "slot_id", "target_id", "environment_id", "binding_role", "scope_policy", "binding_policy", "ordinal", "binding_state" ] },
+      { "ordinal": 5, "section": "provider_engagements", "columns": [ "result_set", "engagement_kind", "capability_id", "port_id", "port_version_pk", "namespace_id", "platform_capability_id", "generation_digest", "binding_id", "provider_authority_id", "provider_kind", "endpoint_authority_digest", "credential_reference", "credential_injection", "url_prefixes", "application_ref", "application_digest", "request_path", "result_mode", "result_path", "lineage_mode", "binding_digest", "capability_authority_digest", "reference_kinds", "reference_closure_satisfied", "endpoint_declared_id", "endpoint_definition_digest", "endpoint_template", "endpoint_state", "credential_state", "credential_value", "credential_value_state" ], "withheld": [ "credential_value" ] },
+      { "ordinal": 6, "section": "provider_instructions", "columns": [ "result_set", "owner_kind", "owner_id", "namespace_id", "instruction_direction", "instruction_kind", "last_key", "invocation_ref", "json_path", "instruction_value", "definition_digest" ] },
+      { "ordinal": 7, "section": "provider_invocations", "columns": [ "result_set", "owner_kind", "owner_id", "namespace_id", "invocation_ref", "invocation_source", "fixture_id", "system_texts", "user_texts", "system_template_values", "instruction_rows" ] },
+      { "ordinal": 8, "section": "provider_summary", "columns": [ "result_set", "measure", "value" ] },
+      { "ordinal": 9, "section": "provider_credentials", "columns": [ "result_set", "capability_id", "port_id", "namespace_id", "reference_name", "endpoint_authority_digests", "injection_rule_id", "header_name", "value_state", "disclosure" ] },
+      { "ordinal": 10, "section": "provider_reference_joins", "columns": [ "result_set", "join_kind", "participation", "capability_id", "capability_namespace", "port_id", "port_version_pk", "provider_id", "provider_authority_id", "binding_id", "endpoint_authority_digest", "application_ref", "provider_reference_resolved", "binding_reference_resolved", "endpoint_authority_resolved", "application_reference_resolved", "reference_closure_satisfied" ] },
+      { "ordinal": 11, "section": "provider_update_targets", "columns": [ "result_set", "owner_kind", "owner_id", "namespace_id", "definition_digest", "path_suffix", "value_type", "current_value", "update_call" ] }
+    ],
+    "refusals": []
+  },
+  "rows": {
+    "labelField": "result_set"
+  },
+  "root": {
+    "name": "Provider",
+    "section": "provider_identity",
+    "kind": "provider",
+    "namespaceField": "namespace_id",
+    "declaredIdField": "provider_id",
+    "revisionField": "definition_digest",
+    "absentWhen": { "field": "provider_state", "values": [ "ABSENT" ] }
+  },
+  "expectedSections": [
+    "provider_identity", "provider_configuration", "provider_mechanics", "provider_bindings", "provider_engagements", "provider_instructions",
+    "provider_invocations", "provider_summary", "provider_credentials", "provider_reference_joins", "provider_update_targets"
+  ],
+  "unorderedSections": [
+    "provider_identity", "provider_configuration", "provider_mechanics", "provider_bindings", "provider_engagements", "provider_instructions",
+    "provider_invocations", "provider_summary", "provider_credentials", "provider_reference_joins", "provider_update_targets"
+  ],
+  "revisionSources": [
+    { "section": "provider_identity", "kind": "PROVIDER", "idField": "provider_id", "locatorField": "provider_pk", "digestField": "definition_digest", "exclude": { "field": "provider_state", "values": [ "ABSENT" ] } },
+    { "section": "provider_engagements", "kind": "PORT_GENERATION", "idField": "port_id", "locatorField": "port_version_pk", "digestField": "generation_digest" },
+    { "section": "provider_instructions", "kindField": "owner_kind", "idField": "owner_id", "digestField": "definition_digest" }
+  ],
+  "sections": [
+    {
+      "name": "provider_identity",
+      "type": "ProviderIdentity",
+      "property": "Provider",
+      "cardinality": "one",
+      "description": "The provider's identity, state and selected definition digest. provider_state ABSENT means the reader found no declaration for the id.",
+      "key": [ "provider_id" ],
+      "fields": [
+        { "name": "provider_id", "type": "string", "nullable": false },
+        { "name": "provider_state", "type": "string", "nullable": false },
+        { "name": "provider_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "object_kind", "type": "string", "nullable": true },
+        { "name": "namespace_id", "type": "string", "nullable": true },
+        { "name": "declared_name", "type": "string", "nullable": true },
+        { "name": "provider_role", "type": "string", "nullable": true },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "engagement_kinds", "type": "string", "nullable": true },
+        { "name": "engagements", "type": "int32", "nullable": true },
+        { "name": "reference_joins", "type": "int32", "nullable": true },
+        { "name": "shared_authority_references", "type": "int32", "nullable": true }
+      ]
+    },
+    {
+      "name": "provider_configuration",
+      "type": "ProviderConfiguration",
+      "property": "Configurations",
+      "cardinality": "many",
+      "description": "The provider definition's declared runtime, package, method and configuration, each with the reader's own state vocabulary.",
+      "key": [ "provider_id" ],
+      "nullableKeyFields": [ "provider_id" ],
+      "fields": [
+        { "name": "provider_id", "type": "string", "nullable": true },
+        { "name": "declared_name", "type": "string", "nullable": true },
+        { "name": "provider_role", "type": "string", "nullable": true },
+        { "name": "runtime", "type": "string", "nullable": true },
+        { "name": "package", "type": "string", "nullable": true },
+        { "name": "implementation_type", "type": "string", "nullable": true },
+        { "name": "method", "type": "string", "nullable": true },
+        { "name": "execution_location", "type": "string", "nullable": true },
+        { "name": "operations_json", "type": "string", "nullable": true, "description": "JSON text as the reader returns it." },
+        { "name": "candidate_capabilities_json", "type": "string", "nullable": true },
+        { "name": "conformance_claims_json", "type": "string", "nullable": true },
+        { "name": "configuration_json", "type": "string", "nullable": true },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "provider_note", "type": "string", "nullable": false },
+        { "name": "declaration_profile", "type": "string", "nullable": true },
+        { "name": "configuration_state", "type": "string", "nullable": false },
+        { "name": "runtime_state", "type": "string", "nullable": false },
+        { "name": "package_state", "type": "string", "nullable": false },
+        { "name": "implementation_type_state", "type": "string", "nullable": false },
+        { "name": "method_state", "type": "string", "nullable": false },
+        { "name": "execution_location_state", "type": "string", "nullable": false }
+      ]
+    },
+    {
+      "name": "provider_engagements",
+      "type": "ProviderEngagement",
+      "property": "Engagements",
+      "cardinality": "many",
+      "description": "One place a capability port engages the provider: binding, provider authority, endpoint and credential reference. Credential values are never read.",
+      "key": [ "engagement_kind", "capability_id", "port_id", "port_version_pk" ],
+      "nullableKeyFields": [ "engagement_kind", "capability_id", "port_id", "port_version_pk" ],
+      "fields": [
+        { "name": "engagement_kind", "type": "string", "nullable": true },
+        { "name": "capability_id", "type": "string", "nullable": true },
+        { "name": "port_id", "type": "string", "nullable": true },
+        { "name": "port_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "namespace_id", "type": "string", "nullable": true },
+        { "name": "platform_capability_id", "type": "string", "nullable": true },
+        { "name": "generation_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "binding_id", "type": "string", "nullable": true },
+        { "name": "provider_authority_id", "type": "string", "nullable": true },
+        { "name": "provider_kind", "type": "string", "nullable": true },
+        { "name": "endpoint_authority_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "credential_reference", "type": "string", "nullable": true },
+        { "name": "credential_injection", "type": "string", "nullable": true },
+        { "name": "url_prefixes", "type": "string", "nullable": true },
+        { "name": "application_ref", "type": "string", "nullable": true },
+        { "name": "application_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "request_path", "type": "string", "nullable": true },
+        { "name": "result_mode", "type": "string", "nullable": true },
+        { "name": "result_path", "type": "string", "nullable": true },
+        { "name": "lineage_mode", "type": "string", "nullable": true },
+        { "name": "binding_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "capability_authority_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "reference_kinds", "type": "string", "nullable": true },
+        { "name": "reference_closure_satisfied", "type": "boolean", "nullable": true },
+        { "name": "endpoint_declared_id", "type": "string", "nullable": true },
+        { "name": "endpoint_definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "endpoint_template", "type": "string", "nullable": true },
+        { "name": "endpoint_state", "type": "string", "nullable": true },
+        { "name": "credential_state", "type": "string", "nullable": true },
+        { "name": "credential_value", "type": "string", "nullable": true, "description": "Withheld by contract: null, or the marker [withheld]; the value is never read." },
+        { "name": "credential_value_state", "type": "string", "nullable": true }
+      ]
+    }
+  ],
+  "references": []
+}

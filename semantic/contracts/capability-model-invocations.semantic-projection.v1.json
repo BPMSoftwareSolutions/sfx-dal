@@ -1,0 +1,267 @@
+{
+  "contractVersion": "semantic-projection.v1",
+  "id": "sfx.capability-model-invocations",
+  "revision": "0.1.0-draft",
+  "authority": "non-authoritative-draft: reviewed in sfx-dal; the reader and its declaration are estate-owned (sfx-embody declare-capability-model-invocations)",
+  "description": "Projects analysis.read_capability_model_invocations: a capability's declared model invocations resolved by the estate against its selected execution authority, ports, instruction constructors and model transformation, with an explicit state for every relationship.",
+  "source": {
+    "kind": "sql-procedure-document",
+    "schema": "analysis",
+    "name": "read_capability_model_invocations",
+    "shapeBasis": "Section shapes are the estate reader's own, installed by sfx-embody sql/migrations/declare-capability-model-invocations.commit.sql on 2026-10-10. Every section is emitted with a total ORDER BY on its key and an EMPTY marker when it has no rows.",
+    "arguments": [
+      { "parameter": "capability_id", "sqlType": "nvarchar", "size": 400, "bind": "argument", "role": "identity" },
+      { "parameter": "estate_model_pk", "sqlType": "bigint", "bind": "argument", "role": "basis" }
+    ],
+    "document": { "parameter": "result", "shape": "named-sections", "nulls": "explicit", "rowResultSets": "forbid" },
+    "refusals": [
+      { "errorNumber": 51000, "code": "CAPABILITY_NOT_FOUND", "availability": "Absent" },
+      { "errorNumber": 51000, "code": "CAPABILITY_NOT_SELECTED", "availability": "Absent" }
+    ]
+  },
+  "rows": { "labelField": "result_set", "scopeField": "capability_id", "discriminatorField": "row_state", "entityValue": "ROW", "markerValues": [ "EMPTY" ] },
+  "root": {
+    "name": "ModelInvocations",
+    "section": "model_invocation_summary",
+    "kind": "capability-model-invocations",
+    "namespaceField": "namespace_id",
+    "declaredIdField": "capability_id",
+    "revisionField": "selected_definition_pk",
+    "basisField": "estate_model_pk"
+  },
+  "expectedSections": [
+    "model_invocation_summary", "model_invocations", "instruction_constructors", "instruction_segments", "instruction_inputs",
+    "response_policies", "model_configuration", "inactive_templates", "model_invocation_findings"
+  ],
+  "revisionSources": [
+    { "section": "model_invocation_summary", "kind": "CAPABILITY_DEFINITION", "idField": "capability_id", "locatorField": "selected_definition_pk", "digestField": "capability_definition_digest" },
+    { "section": "model_invocation_summary", "kind": "EXECUTION_AUTHORITY_VERSION", "idField": "capability_id", "locatorField": "execution_authority_version_pk", "digestField": "execution_authority_digest" },
+    { "section": "model_invocation_summary", "kind": "MODEL_INVOCATION_DECLARATION", "idField": "declaration_namespace", "locatorField": "declaration_definition_pk", "digestField": "declaration_digest" },
+    { "section": "model_invocations", "kind": "PORT", "idField": "port_id", "locatorField": "port_version_pk", "digestField": "port_digest" },
+    { "section": "instruction_constructors", "kind": "PROCEDURE", "idField": "procedure_name", "digestField": "installed_body_sha256" },
+    { "section": "instruction_constructors", "kind": "CONSTRUCTOR_PORT", "idField": "constructor_port_id", "locatorField": "port_definition_pk", "digestField": "port_digest" },
+    { "section": "model_configuration", "kind": "TRANSFORMATION", "idField": "transformation_id", "locatorField": "transformation_definition_pk", "digestField": "transformation_digest" },
+    { "section": "inactive_templates", "kind": "INACTIVE_TEMPLATE", "idField": "declared_id", "locatorField": "semantic_object_definition_pk", "digestField": "definition_digest" }
+  ],
+  "sections": [
+    {
+      "name": "model_invocation_summary",
+      "type": "ModelInvocationSummary",
+      "property": "Summary",
+      "cardinality": "one",
+      "description": "The capability, its selected definition and execution authority, the read basis, and the declaration's state.",
+      "key": [ "capability_id" ],
+      "fields": [
+        { "name": "capability_id", "type": "string", "nullable": false },
+        { "name": "namespace_id", "type": "string", "nullable": false },
+        { "name": "capability_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "selected_version_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "selected_definition_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "capability_definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "estate_model_pk", "type": "int64", "nullable": false, "role": "locator" },
+        { "name": "execution_authority_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "execution_authority_versions", "type": "int32", "nullable": false },
+        { "name": "execution_authority_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "declaration_namespace", "type": "string", "nullable": false },
+        { "name": "declaration_state", "type": "string", "nullable": false, "description": "DECLARED, NOT_DECLARED, INVALID, UNSUPPORTED_TYPE or SCOPE_MISMATCH." },
+        { "name": "declaration_definition_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "declaration_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "declaration_generations", "type": "int32", "nullable": false },
+        { "name": "declared_invocations", "type": "int32", "nullable": false },
+        { "name": "resolved_invocations", "type": "int32", "nullable": false },
+        { "name": "distinct_providers", "type": "int32", "nullable": false },
+        { "name": "refusing_findings", "type": "int32", "nullable": false },
+        { "name": "findings", "type": "int32", "nullable": false }
+      ]
+    },
+    {
+      "name": "model_invocations",
+      "type": "ModelInvocation",
+      "property": "Invocations",
+      "cardinality": "many",
+      "description": "One declared model invocation: its execution operation and position, model port, provider and provider authority, and the operations that construct and compose its request.",
+      "key": [ "invocation_ordinal" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "label", "type": "string", "nullable": true },
+        { "name": "operation_id", "type": "string", "nullable": true },
+        { "name": "request_id", "type": "string", "nullable": true },
+        { "name": "operation_state", "type": "string", "nullable": false },
+        { "name": "execution_operation_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "scenario_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "execution_authority_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "ordinal", "type": "int32", "nullable": true },
+        { "name": "operation_kind", "type": "string", "nullable": true },
+        { "name": "port_id", "type": "string", "nullable": true },
+        { "name": "port_version_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "platform_capability_id", "type": "string", "nullable": true },
+        { "name": "provider_id", "type": "string", "nullable": true },
+        { "name": "provider_state", "type": "string", "nullable": false },
+        { "name": "provider_authorities", "type": "int32", "nullable": true },
+        { "name": "binding_id", "type": "string", "nullable": true },
+        { "name": "provider_authority_id", "type": "string", "nullable": true },
+        { "name": "provider_kind", "type": "string", "nullable": true },
+        { "name": "endpoint_authority_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "credential_reference", "type": "string", "nullable": true, "description": "A credential reference name; values are never read." },
+        { "name": "constructor_operation_id", "type": "string", "nullable": true },
+        { "name": "constructor_state", "type": "string", "nullable": false },
+        { "name": "constructor_ordinal", "type": "int32", "nullable": true },
+        { "name": "constructor_link_state", "type": "string", "nullable": false },
+        { "name": "composition_operation_id", "type": "string", "nullable": true },
+        { "name": "composition_state", "type": "string", "nullable": false },
+        { "name": "composition_ordinal", "type": "int32", "nullable": true },
+        { "name": "composition_transformation_id", "type": "string", "nullable": true },
+        { "name": "composition_link_state", "type": "string", "nullable": false },
+        { "name": "sequence_state", "type": "string", "nullable": false }
+      ]
+    },
+    {
+      "name": "instruction_constructors",
+      "type": "InstructionConstructor",
+      "property": "Constructors",
+      "cardinality": "many",
+      "description": "The procedure that constructs an invocation's system instruction, or that assembles its messages, with declared and installed body digests and the constructor port that runs it.",
+      "key": [ "invocation_ordinal", "role" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "role", "type": "string", "nullable": false, "description": "SYSTEM_CONSTRUCTOR or MESSAGE_ASSEMBLY." },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "procedure_name", "type": "string", "nullable": true },
+        { "name": "declared_body_sha256", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "installed_body_sha256", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "body_state", "type": "string", "nullable": false, "description": "CURRENT, STALE, MISSING or NOT_DECLARED." },
+        { "name": "constructor_port_namespace", "type": "string", "nullable": true },
+        { "name": "constructor_port_id", "type": "string", "nullable": true },
+        { "name": "port_definition_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "port_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "port_state", "type": "string", "nullable": false },
+        { "name": "port_statement", "type": "string", "nullable": true, "description": "The constructor port's declared statement, verbatim." },
+        { "name": "statement_corroboration", "type": "string", "nullable": false }
+      ]
+    },
+    {
+      "name": "instruction_segments",
+      "type": "InstructionSegment",
+      "property": "Segments",
+      "cardinality": "many",
+      "description": "One ordered segment of a system or user message: declared static text, or a placeholder for a dynamic input.",
+      "key": [ "invocation_ordinal", "message_role", "segment_ordinal" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "message_role", "type": "string", "nullable": false },
+        { "name": "segment_ordinal", "type": "int32", "nullable": false },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "segment_kind", "type": "string", "nullable": true, "description": "static or input." },
+        { "name": "static_text", "type": "string", "nullable": true },
+        { "name": "static_text_sha256_utf16le", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "input_name", "type": "string", "nullable": true },
+        { "name": "corroboration", "type": "string", "nullable": false, "description": "PRESENT_IN_BODY, NOT_FOUND_IN_BODY, CONSTRUCTOR_MISSING or NOT_APPLICABLE." }
+      ]
+    },
+    {
+      "name": "instruction_inputs",
+      "type": "InstructionInput",
+      "property": "Inputs",
+      "cardinality": "many",
+      "description": "A dynamic instruction input: its kind (catalog, schema, result, objective), the message it feeds and where its value comes from. Never expanded without invocation evidence.",
+      "key": [ "invocation_ordinal", "input_name" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "input_name", "type": "string", "nullable": false },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "input_kind", "type": "string", "nullable": true },
+        { "name": "message_role", "type": "string", "nullable": true },
+        { "name": "source", "type": "string", "nullable": true },
+        { "name": "description", "type": "string", "nullable": true },
+        { "name": "segment_references", "type": "int32", "nullable": false },
+        { "name": "expansion_state", "type": "string", "nullable": false }
+      ]
+    },
+    {
+      "name": "response_policies",
+      "type": "ResponsePolicy",
+      "property": "ResponsePolicies",
+      "cardinality": "many",
+      "description": "The declared response schema and request policy of an invocation.",
+      "key": [ "invocation_ordinal" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "response_format", "type": "string", "nullable": true },
+        { "name": "response_schema", "type": "string", "nullable": true, "description": "JSON schema text as declared." },
+        { "name": "response_schema_sha256_utf16le", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "schema_corroboration", "type": "string", "nullable": false },
+        { "name": "maximum_output_tokens", "type": "int32", "nullable": true },
+        { "name": "temperature", "type": "string", "nullable": true },
+        { "name": "timeout_milliseconds", "type": "int32", "nullable": true },
+        { "name": "maximum_authorized_attempts", "type": "int32", "nullable": true },
+        { "name": "provider_substitution_allowed", "type": "boolean", "nullable": true }
+      ]
+    },
+    {
+      "name": "model_configuration",
+      "type": "ModelConfigurationValue",
+      "property": "ConfigurationValues",
+      "cardinality": "many",
+      "description": "One model configuration value read at a declared JSON path of the selected transformation definition.",
+      "key": [ "invocation_ordinal", "value_name" ],
+      "fields": [
+        { "name": "invocation_ordinal", "type": "int32", "nullable": false },
+        { "name": "value_name", "type": "string", "nullable": false },
+        { "name": "invocation_id", "type": "string", "nullable": true },
+        { "name": "transformation_namespace", "type": "string", "nullable": true },
+        { "name": "transformation_id", "type": "string", "nullable": true },
+        { "name": "transformation_definition_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "transformation_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "transformation_generations", "type": "int32", "nullable": true },
+        { "name": "json_path", "type": "string", "nullable": true },
+        { "name": "value", "type": "string", "nullable": true },
+        { "name": "value_state", "type": "string", "nullable": false, "description": "RESOLVED, PATH_MISSING, NOT_SCALAR, PATH_INVALID, TRANSFORMATION_UNREADABLE or TRANSFORMATION_NOT_SELECTED." }
+      ]
+    },
+    {
+      "name": "inactive_templates",
+      "type": "InactiveTemplate",
+      "property": "InactiveTemplates",
+      "cardinality": "many",
+      "description": "An earlier instruction template the declaration names as inactive: inspectable, never part of the active instruction view.",
+      "key": [ "template_ordinal" ],
+      "fields": [
+        { "name": "template_ordinal", "type": "int32", "nullable": false },
+        { "name": "namespace_id", "type": "string", "nullable": true },
+        { "name": "object_kind", "type": "string", "nullable": true },
+        { "name": "declared_id", "type": "string", "nullable": true },
+        { "name": "reason", "type": "string", "nullable": true },
+        { "name": "semantic_object_definition_pk", "type": "int64", "nullable": true, "role": "locator" },
+        { "name": "definition_digest", "type": "string", "nullable": true, "role": "digest" },
+        { "name": "generations", "type": "int32", "nullable": true },
+        { "name": "template_state", "type": "string", "nullable": false },
+        { "name": "active_reference_state", "type": "string", "nullable": false }
+      ]
+    },
+    {
+      "name": "model_invocation_findings",
+      "type": "ModelInvocationFinding",
+      "property": "Findings",
+      "cardinality": "many",
+      "description": "A state that is not resolved, current and consistent.",
+      "key": [ "finding_ordinal" ],
+      "fields": [
+        { "name": "finding_ordinal", "type": "int32", "nullable": false },
+        { "name": "code", "type": "string", "nullable": false },
+        { "name": "severity", "type": "string", "nullable": false },
+        { "name": "subject", "type": "string", "nullable": true },
+        { "name": "detail", "type": "string", "nullable": true }
+      ]
+    }
+  ],
+  "references": [
+    { "name": "Invocation", "from": "instruction_constructors", "keys": [ "invocation_ordinal" ], "to": "model_invocations" },
+    { "name": "Invocation", "from": "instruction_segments", "keys": [ "invocation_ordinal" ], "to": "model_invocations" },
+    { "name": "Invocation", "from": "instruction_inputs", "keys": [ "invocation_ordinal" ], "to": "model_invocations" },
+    { "name": "Invocation", "from": "response_policies", "keys": [ "invocation_ordinal" ], "to": "model_invocations" },
+    { "name": "Invocation", "from": "model_configuration", "keys": [ "invocation_ordinal" ], "to": "model_invocations" }
+  ]
+}

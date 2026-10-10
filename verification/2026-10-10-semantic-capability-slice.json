@@ -1,0 +1,540 @@
+{
+  "schemaVersion": "sfx-semantic-capability-slice.v2",
+  "capturedAtUtc": "2026-10-10T12:58:56.9740620+00:00",
+  "claim": "An existing SideFX capability can be read through its current database procedure, projected by CodeLightly into a faithful immutable C# semantic object, inspected without losing source identity or unknown information, and reproduced deterministically, without changing the underlying estate.",
+  "scope": "6 reads of the capability on one basis, an unknown identity and a case-changed identity, each in its own rolled-back SNAPSHOT transaction, plus offline probes of the review findings. Metadata, counts and digests only; no row payloads or credentials.",
+  "database": "sidefx",
+  "capability": "ui-page-landing",
+  "basis": 34,
+  "identity": {
+    "namespace": "sidefx:capabilities",
+    "kind": "capability",
+    "declaredId": "ui-page-landing",
+    "revisionLocator": "226439"
+  },
+  "contract": {
+    "id": "sfx.capability-details",
+    "revision": "0.2.0-draft",
+    "authority": "non-authoritative-draft: reviewed in sfx-dal; estate-owned declaration and export pending",
+    "digest": "sha256:a91a17afa2d894144f5edc4d80d2ae194d2bd7efe1b48a4b162b643d7e5406a3",
+    "generator": "Codelightly csharp-semantic-projection.v1"
+  },
+  "reader": {
+    "procedure": "[analysis].[read_capability_details]",
+    "definitionUtf16LeSha256": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+    "definitionUtf8Sha256": "d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f"
+  },
+  "payloadAlgorithm": "sha256:rfc8785-ordering;numbers-as-declared-strings;opaque-as-source-sha256",
+  "revision": {
+    "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+    "basis": "34",
+    "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+    "dependencies": 25,
+    "unpinned": 0,
+    "pinnedByReadSession": [
+      "CAPABILITY_VERSION ui-page-landing 3781914 74f2b1251c9cab4dc41431b5ec3b413466d890a69745c66770f00fc863559906"
+    ]
+  },
+  "reads": [
+    {
+      "label": "capability-1",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1688
+    },
+    {
+      "label": "capability-2",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1882
+    },
+    {
+      "label": "capability-3",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1636
+    },
+    {
+      "label": "capability-4",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1613
+    },
+    {
+      "label": "capability-5",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1969
+    },
+    {
+      "label": "capability-6",
+      "procedure": "[analysis].[read_capability_details]",
+      "identity": "ui-page-landing",
+      "basis": "34",
+      "availability": "Present",
+      "refusal": null,
+      "rowResultSets": 0,
+      "documentSha256": "e1795d8e5604230e6bd566edb7e8bbcf02058db3dcf11357392f9307b2ce31d3",
+      "documentUtf8Bytes": 230907,
+      "projectionDigest": "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "revisionDigest": "sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24",
+      "readerDefinitionDigest": "sha256-utf16le:0decec6451db3a562453f5dcf38fa4b5c9c85d2fabb25dcdcff05b25fe7db6bf",
+      "databaseLogRecords": 0,
+      "elapsedMilliseconds": 1640
+    }
+  ],
+  "repeatedReadVariation": {
+    "reads": 6,
+    "revisions": 1,
+    "projectionDigests": [
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79",
+      "sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79"
+    ],
+    "documentDigests": 1,
+    "orderVariedSections": [],
+    "contentVariedSections": [],
+    "declaredUnorderedSections": 10
+  },
+  "sections": [
+    {
+      "section": "capability_summary",
+      "disposition": "Typed",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "capability_intent",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 20
+    },
+    {
+      "section": "contracts",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 2
+    },
+    {
+      "section": "scenarios",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "scenario_events",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "scenario_inputs",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "scenario_outputs",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "execution_operations",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 6
+    },
+    {
+      "section": "ports",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 2
+    },
+    {
+      "section": "bindings",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "providers",
+      "disposition": "Typed",
+      "unordered": false,
+      "rows": 15
+    },
+    {
+      "section": "provider_overlays",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "semantic_definitions",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 9
+    },
+    {
+      "section": "provider_conformance",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "capability_evaluation",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "provider_boundary_conformance",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "translation_conformance",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "routing_conformance",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "reachability_conformance",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "operation_architecture",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 6
+    },
+    {
+      "section": "operation_operator_census",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 6
+    },
+    {
+      "section": "provider_boundaries",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "capability_routing",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 4
+    },
+    {
+      "section": "declared_reachability",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 21
+    },
+    {
+      "section": "provider_authority_evidence",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "translation_evidence",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "routing_evidence",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 6
+    },
+    {
+      "section": "declaration_reference_evidence",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 21
+    },
+    {
+      "section": "capability_conformance_profile",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 32
+    },
+    {
+      "section": "capability_findings",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "canonical_findings",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 1
+    },
+    {
+      "section": "canonical_facts",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 12
+    },
+    {
+      "section": "findings_shape_census",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 32
+    },
+    {
+      "section": "legacy_digest_inputs",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 41
+    },
+    {
+      "section": "capability_evaluation_identity",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "legacy_digest_fact_coverage",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 5
+    },
+    {
+      "section": "token_consumers",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 3
+    },
+    {
+      "section": "capability_affordance",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "capability_semantic_levels",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 5
+    },
+    {
+      "section": "capability_execution_narrative",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 6
+    },
+    {
+      "section": "execution_graph_coverage",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 7
+    },
+    {
+      "section": "unbound_operations",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "request_named_dispatch",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "incomplete_invoked_targets",
+      "disposition": "Retained",
+      "unordered": true,
+      "rows": 1
+    },
+    {
+      "section": "capability_navigation",
+      "disposition": "Retained",
+      "unordered": false,
+      "rows": 80
+    }
+  ],
+  "diagnostics": {},
+  "references": {
+    "NotApplicable": 4,
+    "Resolved": 10
+  },
+  "checks": [
+    {
+      "id": "reader-identity",
+      "claim": "The read goes through the installed reader whose body the research receipt recorded.",
+      "passed": true,
+      "evidence": "installed UTF-8 SHA-256 d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f; research receipt d1b0018a89c237eb8a3f1b5ca1249ae289463f4c167100797b9b639c48a3929f"
+    },
+    {
+      "id": "read-through-procedure",
+      "claim": "The capability is read through its current procedure in document mode.",
+      "passed": true,
+      "evidence": "[analysis].[read_capability_details] availability Present, row result sets 0, emit bound as Constant false, capability_version_pk Omitted"
+    },
+    {
+      "id": "faithful-projection",
+      "claim": "The document conforms to the contract: no projection errors.",
+      "passed": true,
+      "evidence": "0 error(s); no diagnostics"
+    },
+    {
+      "id": "source-identity",
+      "claim": "The snapshot carries the requested identity (ordinal) and the reader-reported basis equals the bound basis.",
+      "passed": true,
+      "evidence": "sidefx:capabilities/capability/ui-page-landing revision locator 226439; bound basis 34, reader-reported basis 34"
+    },
+    {
+      "id": "lossless",
+      "claim": "The source document is rebuilt from the snapshot alone: typed values plus retained sections, markers and unmapped fields.",
+      "passed": true,
+      "evidence": "semantically equal to the source document"
+    },
+    {
+      "id": "unknown-retained",
+      "claim": "Every expected section is present; untyped sections are retained verbatim; every typed row is an entity, a declared marker or retained.",
+      "passed": true,
+      "evidence": "7 typed and 38 retained of 45 expected sections; 1 marker row(s) kept out of entity collections; 10 declared order-free"
+    },
+    {
+      "id": "source-census",
+      "claim": "Entity collections agree with the counts the reader's own summary reports.",
+      "passed": true,
+      "evidence": "summary scenarios/operations/providers/contracts/ports 1/6/15/2/2; entities 1/6/15/2/2"
+    },
+    {
+      "id": "references",
+      "claim": "Declared exact-key references resolve inside the snapshot; nothing is fetched implicitly.",
+      "passed": true,
+      "evidence": "NotApplicable 4, Resolved 10"
+    },
+    {
+      "id": "immutable",
+      "claim": "Generated public types expose no mutable state: snapshot properties are get-only, entity properties are init-only, collections are immutable.",
+      "passed": true,
+      "evidence": "checked 59 semantic object types"
+    },
+    {
+      "id": "deterministic-projection",
+      "claim": "Projecting the same source again yields the same digest and view; capture time and duration are not part of the digest.",
+      "passed": true,
+      "evidence": "projection digest sha256:e07fa1afcda71cb3839d88eebd27f5491ad51c20691a1faf52985866abedfd79"
+    },
+    {
+      "id": "revision-vector",
+      "claim": "The read records what it depended on: reader body digest, the capability's selected version digest and each referenced declaration's digest.",
+      "passed": true,
+      "evidence": "25 dependencies, 0 without a digest; revision sha256:500fea3fb807a7e969855bb80eea1c3782e7f6dcaba6c35c71bcc2dfcf4b3a24"
+    },
+    {
+      "id": "reproduced-read",
+      "claim": "Independent reads of one basis that share a revision digest share a projection digest; row-order variation occurs only in declared order-free sections.",
+      "passed": true,
+      "evidence": "6 reads, 1 revision(s), 1 projection digest(s), 1 distinct document(s); row order varied in no section"
+    },
+    {
+      "id": "basis-validated",
+      "claim": "A bound basis that differs from the reader-reported basis is a contract mismatch, and an unregistered estate pin is refused before any read.",
+      "passed": true,
+      "evidence": "bound 999999 vs reported 34: ContractMismatch/BasisMismatch; pin 999999999: Estate 999999999 is not registered in source.estate_model; no read basis exists."
+    },
+    {
+      "id": "refusal-validated",
+      "claim": "A refusal never chooses its own availability: an undeclared refusal, or a refusal read through another procedure, is a contract mismatch.",
+      "passed": true,
+      "evidence": "undeclared ContractMismatch, wrong procedure ContractMismatch, declared refusal claiming Present Absent"
+    },
+    {
+      "id": "incomplete-references",
+      "claim": "A partially-null reference key is Incomplete (with a warning), not NotApplicable; an entity with a null identifying key value is a contract mismatch.",
+      "passed": true,
+      "evidence": "port_version_pk nulled: Incomplete; execution_operation_pk nulled: ContractMismatch/KeyIncomplete"
+    },
+    {
+      "id": "absence-is-typed",
+      "claim": "An unknown capability and a case-changed identity project as Absent with the reader's declared refusal.",
+      "passed": true,
+      "evidence": "sfx-semantic-slice-absent-probe: Absent/CAPABILITY_NOT_FOUND; UI-PAGE-LANDING: Absent/CAPABILITY_NOT_FOUND"
+    },
+    {
+      "id": "estate-unchanged",
+      "claim": "Every read generated zero log records in the estate database and was rolled back; the reader body is unchanged.",
+      "passed": true,
+      "evidence": "8 reads; log records 0/0/0/0/0/0/0/0; reader digest unchanged"
+    },
+    {
+      "id": "generated-by-codelightly",
+      "claim": "The compiled projection is the CodeLightly output recorded in the manifest for this contract.",
+      "passed": true,
+      "evidence": "7 artifact hash(es) match; contract digest sha256:a91a17afa2d894144f5edc4d80d2ae194d2bd7efe1b48a4b162b643d7e5406a3 in manifest; generator csharp-semantic-projection.v1 687e2890424583d4b9d98d382da19623c4ce5154"
+    }
+  ],
+  "passed": true
+}
