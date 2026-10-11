@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "kind": "operational-observation",
+  "startedAtUtc": "2026-10-10T09:06:26.2532154-04:00",
+  "finishedLiveReadAtUtc": "2026-10-10T09:07:16.031822-04:00",
+  "operationalQuestion": "Which providers and configured model serve request-capability-from-objective-v3, how do the steps differ in their instructions, and is provider substitution allowed?",
+  "capabilityId": "request-capability-from-objective-v3",
+  "sampledTasks": 1,
+  "outcome": {
+    "answered": true,
+    "state": "Resolved",
+    "manualFallbackUsed": false,
+    "effect": "The CLI supplied all three providers, configured models, distinct instruction constructors and roles, response policies, and source references. Follow-up questions were answered from the same saved capture.",
+    "scope": "Stored configuration and instruction construction; expanded prompts and vendor-reported runtime model versions require invocation evidence."
+  },
+  "liveRead": {
+    "command": "dotnet run --project semantic/SFX.Semantics.Cli -c Release -- inspect-models request-capability-from-objective-v3 --save-source <ignored-capture>/bundle.json",
+    "exitCode": 0,
+    "elapsedMilliseconds": 49772,
+    "timingScope": "CLI wall time including build/startup, read, and rendering; one observation, not a benchmark.",
+    "sessionElapsedMilliseconds": 47032,
+    "estateModelPk": 34,
+    "estatePinned": false,
+    "isolation": "SNAPSHOT",
+    "transactionOutcome": "ROLLED_BACK",
+    "databaseLogRecords": 0
+  },
+  "offlineFollowups": {
+    "commandPattern": "dotnet run --project semantic/SFX.Semantics.Cli -c Release --no-build -- inspect-models --source <ignored-capture>/bundle.json --operation <operation>",
+    "measurements": [
+      {
+        "operation": "select",
+        "elapsedMilliseconds": 1527,
+        "exitCode": 0
+      },
+      {
+        "operation": "construct-request",
+        "elapsedMilliseconds": 1311,
+        "exitCode": 0
+      },
+      {
+        "operation": "summarize",
+        "elapsedMilliseconds": 1251,
+        "exitCode": 0
+      }
+    ],
+    "structuredExportExitCode": 0
+  },
+  "answers": [
+    {
+      "operationId": "request-capability-from-objective-v3.select",
+      "operationOrdinal": 2,
+      "providerId": "google/gemini-select",
+      "configuredModel": "gemini-3.8-flash",
+      "instructionRole": "Select one enabled catalog capability by exact identity; return NO_MATCH or NEEDS_INPUT when selection is unsupported.",
+      "instructionConstructor": "analysis.prepare_objective_selection",
+      "constructorBodySha256": "85f7efa710df108f6e0f49a7ea43c4b7d06d571eb5099ae237c9d9271d494295",
+      "messageAssembly": "analysis.compose_objective_model_request",
+      "assemblyBodySha256": "54ed883f4042ccb960218e600dfd8b6fce3d965bdbec84595b96cc766c4addc1",
+      "providerSubstitutionAllowed": false,
+      "modelSource": {
+        "transformationId": "compose-governed-model-invocation.v1",
+        "definitionPk": 217358,
+        "digest": "e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518",
+        "jsonPath": "$.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value"
+      },
+      "state": "Resolved"
+    },
+    {
+      "operationId": "request-capability-from-objective-v3.construct-request",
+      "operationOrdinal": 5,
+      "providerId": "google/gemini-select",
+      "configuredModel": "gemini-3.8-flash",
+      "instructionRole": "Construct the full input against the selected capability schema; return NEEDS_INPUT or REFUSED instead of inventing missing inputs.",
+      "instructionConstructor": "analysis.prepare_objective_capability_request",
+      "constructorBodySha256": "a15e533cb08d5fba9f1f4851180f197d51d798af77a632f8da98114fe6f88164",
+      "messageAssembly": "analysis.compose_objective_model_request",
+      "assemblyBodySha256": "54ed883f4042ccb960218e600dfd8b6fce3d965bdbec84595b96cc766c4addc1",
+      "providerSubstitutionAllowed": false,
+      "modelSource": {
+        "transformationId": "compose-governed-model-invocation.v1",
+        "definitionPk": 217358,
+        "digest": "e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518",
+        "jsonPath": "$.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value"
+      },
+      "state": "Resolved"
+    },
+    {
+      "operationId": "request-capability-from-objective-v3.summarize",
+      "operationOrdinal": 10,
+      "providerId": "google/gemini-summary",
+      "configuredModel": "gemini-3.8-flash",
+      "instructionRole": "Explain the actual result, including failure or refusal; do not equate a returned value with fulfillment.",
+      "instructionConstructor": "analysis.prepare_objective_summary",
+      "constructorBodySha256": "25f577577b413a4d4d5962314db9c8778ccdbff18551d28e4bfa72f25a59daa0",
+      "messageAssembly": "analysis.compose_objective_model_request",
+      "assemblyBodySha256": "54ed883f4042ccb960218e600dfd8b6fce3d965bdbec84595b96cc766c4addc1",
+      "providerSubstitutionAllowed": false,
+      "modelSource": {
+        "transformationId": "compose-governed-model-invocation.v1",
+        "definitionPk": 217358,
+        "digest": "e5073fe05083c57c3c5048c285bd29bc1400d7c5b226b1375cd0fb1aeda95518",
+        "jsonPath": "$.semantics.expression.fields.payload.fields.attemptPlan.fields.payload.value.fields.resolvedModel.value"
+      },
+      "state": "Resolved"
+    }
+  ],
+  "source": {
+    "inspectionDigest": "sha256:ebc0ea4999b33b25170b9bc485eeae2bb49f0bd53dcf8b73f5cb37912570bff4",
+    "capabilityDefinitionDigest": "47a626ebdaf882d0b37970d8c0f5acedebecaced1ab9ce90c715d04afc7b657b",
+    "declarationDigest": "139c9a70bf30db133f3a31e4af750c591d62b387f08c3bfb2d9a3acc77ac0fa2",
+    "modelInvocationsRevisionDigest": "sha256:1e4f8fd00cfd6d70230325487040b9d4b86a4f516fdebc5e515fbdfbbd90e7f8",
+    "rawCaptureStorage": "Ignored .tmp/ scratch storage; not included in this record."
+  },
+  "observations": [
+    {
+      "observation": "The live capture took 49.772 seconds; saved-source operation details took 1.251 to 1.527 seconds each.",
+      "frequency": "One live capture and three offline details within one operational task.",
+      "taskImpact": "The question was answered without manual source reconstruction; the live-read wait was observed, with no task failure.",
+      "availableWorkaround": "Reuse the saved bundle for related questions until current estate state is required.",
+      "priority": null,
+      "disposition": "Continue normal use. Determine whether live-read latency recurs and materially affects tasks before prioritizing a change."
+    }
+  ]
+}

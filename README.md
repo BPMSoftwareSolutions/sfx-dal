@@ -3,8 +3,10 @@
 The [Semantic Object Projection implementation strategy](docs/semantic-object-projection-strategy.md)
 describes a proposed typed semantic layer above this generated DAL, grounded in
 the [October 9 live reader research](verification/2026-10-09-semantic-readers.json).
-Its first read slice, a CodeLightly-generated immutable capability snapshot, lives in
-[semantic/](semantic/README.md) and is excluded from the root project.
+Its capability and model-inspection reads live in [semantic/](semantic/README.md)
+and are excluded from the root project. For provider, model, and instruction
+questions about `request-capability-from-objective-v3`, start with the
+[model inspection operational runbook](docs/model-inspection-operations.md).
 
 The separately generated [SFX.Identity.DAL](identity/README.md) lives in `identity/`
 and targets `sfx-identity` using `SFX_IDENTITY_CONNECTION_STRING`. It has its own
