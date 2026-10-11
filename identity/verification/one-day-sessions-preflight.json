@@ -1,0 +1,37 @@
+{
+  "capturedAt": "2026-10-11T21:34:36.2101183+00:00",
+  "action": "preflight",
+  "migration": "004-one-day-sessions",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    1,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "check_name": "one-day-session-policy",
+        "changed_rows": 1,
+        "session_seconds": 86400,
+        "idle_seconds": 86400,
+        "attempt_seconds": 120,
+        "throttle_seconds": 300,
+        "account_limit": 5,
+        "source_limit": 25
+      }
+    ],
+    [
+      {
+        "revoked": true
+      }
+    ],
+    [
+      {
+        "check_name": "one-day-session-contract",
+        "passed": true,
+        "assertions": "86400-second cap; valid after 23h idle; reject after 24h idle; reject absolute expiry; reject revocation"
+      }
+    ]
+  ]
+}

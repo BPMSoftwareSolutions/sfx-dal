@@ -1,5 +1,21 @@
 # SFX.Identity.DAL
 
+## One-day sessions, 2026-10-11
+
+Migration [004](sql/migrations/004-one-day-sessions.commit.sql) sets both the
+absolute session cap and idle limit to 86,400 seconds. The previous 1,800-second
+cap truncated the provider's one-day request; the 900-second idle limit could
+end it earlier. Existing sessions keep their issued absolute expiry. Attempt
+expiry, throttles, credential/version checks and revocation are unchanged.
+
+This changes policy data only, so it requires no generated DAL update.
+[Rollback preflight](verification/one-day-sessions-preflight.json) proves the
+one-day cap, validity after 23 hours idle, and rejection after idle/absolute
+expiry or revocation. The rollback left the old policy and zero fixture principals.
+[Installation](verification/one-day-sessions-install.json) changed one row;
+[idempotent reapplication](verification/one-day-sessions-idempotence.json) changed zero.
+Pass `004-one-day-sessions` as the operator tool's fourth argument.
+
 ## Trust authority reference, 2026-10-06
 
 Migration [003](sql/migrations/003-trust-authority.commit.sql) is installed. Five

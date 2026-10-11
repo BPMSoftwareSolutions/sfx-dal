@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-10-11T21:38:36.5015037+00:00",
+  "action": "install",
+  "migration": "004-one-day-sessions",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "check_name": "one-day-session-policy",
+        "changed_rows": 0,
+        "session_seconds": 86400,
+        "idle_seconds": 86400,
+        "attempt_seconds": 120,
+        "throttle_seconds": 300,
+        "account_limit": 5,
+        "source_limit": 25
+      }
+    ]
+  ]
+}
