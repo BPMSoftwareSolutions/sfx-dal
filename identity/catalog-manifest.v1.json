@@ -4,7 +4,7 @@
   "catalogDigest": "sha256:ba372a6483a3c37180240e3e10fd957975a8bee7b7ff2508e975c86dfe1abe7b",
   "generator": {
     "name": "Codelightly",
-    "version": "1.0.0+744d283cace5fa4189bd30a73e1a50ce58e6591b",
+    "version": "1.0.0+687e2890424583d4b9d98d382da19623c4ce5154",
     "sourceDigest": null
   },
   "encoding": "utf-8",
@@ -476,8 +476,8 @@
       "path": "Models/RunCompletion.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "2aed52fbc9546a0ecaa2ad573cde129a304ada6954cbabd3a6f53730c48d2216",
-      "bytes": 949
+      "sha256": "8f5325675a2d710fe402339a7f467515f5b37eb5d8d1bd95818be5605f125689",
+      "bytes": 998
     },
     {
       "path": "Models/RunTraceChunk.Custom.cs",
@@ -546,8 +546,8 @@
       "path": "Procedures/Interfaces/IEvidenceCompleteRunRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "ae2bbc4f3ea22417f13573f94883751b4ccc7fbedd07b7b8771e8439c8bb5877",
-      "bytes": 957
+      "sha256": "55491102e2afd2c046d5a5e42d381ed90275f68abf085ecf11eaaa1e29cff9eb",
+      "bytes": 1011
     },
     {
       "path": "Procedures/Interfaces/IEvidenceListRunsRepository.Custom.cs",
@@ -798,8 +798,8 @@
       "path": "Procedures/Models/EvidenceReadRun.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "6ed8b4457ba62464fff29a5af55575d757981afb58dc8c5841ca5494c14986a5",
-      "bytes": 1163
+      "sha256": "8e4adeb2f21013f8fee3f5072ae2ae9bbd5606ca38dcfd54cfe68536ca412e0e",
+      "bytes": 1212
     },
     {
       "path": "Procedures/Models/EvidenceReadTraceChunks.Custom.cs",
@@ -994,8 +994,8 @@
       "path": "Procedures/Repositories/EvidenceCompleteRunRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "976ab4ee1aabae24b81e5fdd359444d20929e196bd27e29f7b1ddddd982fcaff",
-      "bytes": 8526
+      "sha256": "1490de3e46b2d20d61cc2cb22d7f7dd3fa5c04239e28a79efb2ef469c087d8d4",
+      "bytes": 8792
     },
     {
       "path": "Procedures/Repositories/EvidenceListRunsRepository.Custom.cs",
@@ -1022,8 +1022,8 @@
       "path": "Procedures/Repositories/EvidenceReadRunRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "34b0345e75dd8cc72b43e609456b116b073bd1497d66671708b369984680bd1a",
-      "bytes": 8325
+      "sha256": "2203f6bcb73a9e6fa2a28e47a8c44dd959df9e55c324956b7a2aee0c008fe510",
+      "bytes": 8427
     },
     {
       "path": "Procedures/Repositories/EvidenceReadTraceChunksRepository.Custom.cs",
@@ -1372,8 +1372,8 @@
       "path": "Repositories/RunCompletionRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "67775750e756e7e33bd1c770539cf6f9dcafd2d352c1fedaac755d1673bf3ff4",
-      "bytes": 20710
+      "sha256": "c5e2b74f6f37d1bf59a5d0945afe2a9b01e5dba2588d550afeef12b896f2ae08",
+      "bytes": 21285
     },
     {
       "path": "Repositories/RunRepository.Custom.cs",
@@ -1481,11 +1481,53 @@
       "bytes": 36889
     },
     {
+      "path": "sql/migrations/004-one-day-sessions.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "322d157575d9eefe585b836a32f075cecb63a50a5c1b9ae84bae265839e39f56",
+      "bytes": 1082
+    },
+    {
+      "path": "sql/migrations/004-one-day-sessions.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "bba507534290fa6a76b7314240680e50f414a47e28a06ad8b74fc673a67fb874",
+      "bytes": 1084
+    },
+    {
+      "path": "sql/migrations/005-per-root-run-graphs.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "bbc413ad87468379528736df1b3bd6d5afe716eef6ea6203a91e366e5366d02d",
+      "bytes": 4723
+    },
+    {
+      "path": "sql/migrations/005-per-root-run-graphs.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "c3f2e6bc3c0ec59842e830fbbc4e4a79301bb02c8457ae867a40d461af051156",
+      "bytes": 4725
+    },
+    {
       "path": "sql/verify-login-contract.sql",
       "kind": "sql",
       "operationId": null,
       "sha256": "8ba2890bb0f28653b6d43ad6ce538da990351e08ad7ddba6ecc6688ece496c93",
       "bytes": 3617
+    },
+    {
+      "path": "sql/verify-one-day-sessions.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "69782c67332fe5d4b7abe56d2fc9d2743bac6385ebc40228f91a17754e1ae9b5",
+      "bytes": 3631
+    },
+    {
+      "path": "sql/verify-per-root-run-graphs.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "a1c8d6b831a55e0dd81952854ffc948e5d7009b52ae2feccc729427d3aa9a390",
+      "bytes": 4768
     },
     {
       "path": "sql/verify-run-evidence-contract.sql",

@@ -1,15 +1,15 @@
 {
-  "capturedAt": "2026-10-06T16:39:45.3979141+00:00",
+  "capturedAt": "2026-10-12T15:30:35.4236506+00:00",
   "action": "inspect",
   "migration": "001-login-identity",
   "database": "sfx-identity",
   "resultSetCounts": [
     1,
     33,
-    99,
+    100,
     29,
     20,
-    54,
+    55,
     16,
     33,
     1
@@ -539,6 +539,20 @@
         "precision": 34,
         "scale": 7,
         "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run_completion",
+        "column_id": 9,
+        "column_name": "graphs_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
         "is_identity": false,
         "is_computed": false,
         "default_definition": null
@@ -2211,6 +2225,17 @@
       },
       {
         "schema_name": "evidence",
+        "procedure_name": "complete_run",
+        "parameter_id": 7,
+        "parameter_name": "@graphs_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
         "procedure_name": "list_runs",
         "parameter_id": 1,
         "parameter_name": "@principal_id",
@@ -2672,9 +2697,9 @@
       {
         "schema_name": "evidence",
         "procedure_name": "complete_run",
-        "definition_sha256": "C166B5F228726A944B651FD48702E6A5F144A6D2D0BDF3FEE2E61C373C950E80",
+        "definition_sha256": "730B0D5167A192067A68DA4E7F2E03E7DDB8ABBF1AD2E9D467709CB8EA0119FE",
         "create_date": "2026-10-06T15:26:22.713",
-        "modify_date": "2026-10-06T15:26:25.457"
+        "modify_date": "2026-10-12T15:30:33.12"
       },
       {
         "schema_name": "evidence",
@@ -2686,9 +2711,9 @@
       {
         "schema_name": "evidence",
         "procedure_name": "read_run",
-        "definition_sha256": "CD1DDEB42444F72A5C493F151A0FB424C00C3D8E58C976AEFDD01BF6F14E7EEE",
+        "definition_sha256": "26E25CC281980195EBC7F1187FF975337BFCC207030249A524706540FE8EE317",
         "create_date": "2026-10-06T15:26:22.717",
-        "modify_date": "2026-10-06T15:26:25.467"
+        "modify_date": "2026-10-12T15:30:33.123"
       },
       {
         "schema_name": "evidence",
@@ -3045,7 +3070,7 @@
       {
         "principal_count": 2,
         "credential_count": 2,
-        "session_count": 56
+        "session_count": 255
       }
     ]
   ]

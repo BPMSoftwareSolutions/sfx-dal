@@ -2,12 +2,12 @@ using Microsoft.Data.SqlClient;
 using System.Text.Json;
 
 if (args.Length < 2 || args[0] is not ("inspect" or "preflight" or "install"))
-    throw new ArgumentException("Usage: IdentityDatabase <inspect|preflight|install> <identity-directory> [receipt.json] [001-login-identity|002-run-evidence|003-trust-authority|004-one-day-sessions]");
+    throw new ArgumentException("Usage: IdentityDatabase <inspect|preflight|install> <identity-directory> [receipt.json] [001-login-identity|002-run-evidence|003-trust-authority|004-one-day-sessions|005-per-root-run-graphs]");
 try
 {
     string root = Path.GetFullPath(args[1]);
     string migration = args.Length > 3 ? args[3] : "001-login-identity";
-    if (migration is not ("001-login-identity" or "002-run-evidence" or "003-trust-authority" or "004-one-day-sessions")) throw new ArgumentException();
+    if (migration is not ("001-login-identity" or "002-run-evidence" or "003-trust-authority" or "004-one-day-sessions" or "005-per-root-run-graphs")) throw new ArgumentException();
     string relative = args[0] switch {
         "inspect" => "sql/inspect-schema.sql",
         "preflight" => $"sql/migrations/{migration}.rollback.sql",
@@ -23,6 +23,7 @@ try
             "001-login-identity" => "sql/verify-login-contract.sql",
             "002-run-evidence" => "sql/verify-run-evidence-contract.sql",
             "004-one-day-sessions" => "sql/verify-one-day-sessions.sql",
+            "005-per-root-run-graphs" => "sql/verify-per-root-run-graphs.sql",
             _ => "sql/verify-trust-authority-contract.sql"
         };
         string checks = await File.ReadAllTextAsync(Path.Combine(root,checksFile));

@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-12T15:30:31.7628431+00:00",
+  "action": "install",
+  "migration": "005-per-root-run-graphs",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "005-per-root-run-graphs",
+        "added_column": 1,
+        "procedure_count": 2
+      }
+    ]
+  ]
+}

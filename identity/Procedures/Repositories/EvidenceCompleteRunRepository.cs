@@ -29,7 +29,7 @@ namespace SFX.Identity.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<EvidenceCompleteRun>> ExecuteAsync(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor)
+        public async Task<ProcedureCallResult<EvidenceCompleteRun>> ExecuteAsync(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor, string? graphsJson = null)
         {
             var entities = new List<EvidenceCompleteRun>();
             var resultSets = new List<DataTable>();
@@ -45,6 +45,7 @@ namespace SFX.Identity.DAL.Repositories
                     command.Parameters.AddWithValue("@graph_json", graphJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@output_json", outputJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@latest_cursor", latestCursor);
+                    command.Parameters.AddWithValue("@graphs_json", graphsJson ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = await command.ExecuteReaderAsync())
@@ -92,7 +93,7 @@ namespace SFX.Identity.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<EvidenceCompleteRun> Execute(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor)
+        public ProcedureCallResult<EvidenceCompleteRun> Execute(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor, string? graphsJson = null)
         {
             var entities = new List<EvidenceCompleteRun>();
             var resultSets = new List<DataTable>();
@@ -108,6 +109,7 @@ namespace SFX.Identity.DAL.Repositories
                     command.Parameters.AddWithValue("@graph_json", graphJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@output_json", outputJson ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@latest_cursor", latestCursor);
+                    command.Parameters.AddWithValue("@graphs_json", graphsJson ?? (object)DBNull.Value);
                     
                     connection.Open();
                     using (var reader = command.ExecuteReader())

@@ -24,6 +24,7 @@ namespace SFX.Identity.DAL.Models
         public long? LatestCursor { get; set; }
         public bool? TraceComplete { get; set; }
         public byte[]? MaterialDigest { get; set; }
+        public string? GraphsJson { get; set; }
         public string CaptureStatus { get; set; } = default!;
     }
 }

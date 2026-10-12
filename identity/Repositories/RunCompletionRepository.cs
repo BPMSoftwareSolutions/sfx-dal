@@ -38,7 +38,7 @@ namespace SFX.Identity.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [evidence].[run_completion] ([completed_at], [graph_json], [latest_cursor], [material_digest], [output_json], [run_id], [run_json], [trace_complete]) VALUES (@CompletedAt, @GraphJson, @LatestCursor, @MaterialDigest, @OutputJson, @RunId, @RunJson, @TraceComplete); SELECT @RunId;", connection))
+                using (var command = new SqlCommand("INSERT INTO [evidence].[run_completion] ([completed_at], [graph_json], [graphs_json], [latest_cursor], [material_digest], [output_json], [run_id], [run_json], [trace_complete]) VALUES (@CompletedAt, @GraphJson, @GraphsJson, @LatestCursor, @MaterialDigest, @OutputJson, @RunId, @RunJson, @TraceComplete); SELECT @RunId;", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [evidence].[run_completion] SET
- [completed_at] = @CompletedAt, [graph_json] = @GraphJson, [latest_cursor] = @LatestCursor, [material_digest] = @MaterialDigest, [output_json] = @OutputJson, [run_json] = @RunJson, [trace_complete] = @TraceComplete WHERE [run_id] = @RunId", connection))
+ [completed_at] = @CompletedAt, [graph_json] = @GraphJson, [graphs_json] = @GraphsJson, [latest_cursor] = @LatestCursor, [material_digest] = @MaterialDigest, [output_json] = @OutputJson, [run_json] = @RunJson, [trace_complete] = @TraceComplete WHERE [run_id] = @RunId", connection))
                 {
                     connection.Open();
 
@@ -205,6 +205,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 CompletedAt = reader.GetDateTimeOffset(reader.GetOrdinal("completed_at")),
                 GraphJson = await reader.IsDBNullAsync(reader.GetOrdinal("graph_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("graph_json")),
+                GraphsJson = await reader.IsDBNullAsync(reader.GetOrdinal("graphs_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("graphs_json")),
                 LatestCursor = reader.GetInt64(reader.GetOrdinal("latest_cursor")),
                 MaterialDigest = (byte[])reader.GetValue(reader.GetOrdinal("material_digest")),
                 OutputJson = await reader.IsDBNullAsync(reader.GetOrdinal("output_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("output_json")),
@@ -223,7 +224,7 @@ namespace SFX.Identity.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [evidence].[run_completion] ([completed_at], [graph_json], [latest_cursor], [material_digest], [output_json], [run_id], [run_json], [trace_complete]) VALUES (@CompletedAt, @GraphJson, @LatestCursor, @MaterialDigest, @OutputJson, @RunId, @RunJson, @TraceComplete); SELECT @RunId;", connection))
+                using (var command = new SqlCommand("INSERT INTO [evidence].[run_completion] ([completed_at], [graph_json], [graphs_json], [latest_cursor], [material_digest], [output_json], [run_id], [run_json], [trace_complete]) VALUES (@CompletedAt, @GraphJson, @GraphsJson, @LatestCursor, @MaterialDigest, @OutputJson, @RunId, @RunJson, @TraceComplete); SELECT @RunId;", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -246,7 +247,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [evidence].[run_completion] SET
- [completed_at] = @CompletedAt, [graph_json] = @GraphJson, [latest_cursor] = @LatestCursor, [material_digest] = @MaterialDigest, [output_json] = @OutputJson, [run_json] = @RunJson, [trace_complete] = @TraceComplete WHERE [run_id] = @RunId", connection))
+ [completed_at] = @CompletedAt, [graph_json] = @GraphJson, [graphs_json] = @GraphsJson, [latest_cursor] = @LatestCursor, [material_digest] = @MaterialDigest, [output_json] = @OutputJson, [run_json] = @RunJson, [trace_complete] = @TraceComplete WHERE [run_id] = @RunId", connection))
                 {
                     connection.Open();
 
@@ -390,6 +391,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 CompletedAt = reader.GetDateTimeOffset(reader.GetOrdinal("completed_at")),
                 GraphJson = reader.IsDBNull(reader.GetOrdinal("graph_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("graph_json")),
+                GraphsJson = reader.IsDBNull(reader.GetOrdinal("graphs_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("graphs_json")),
                 LatestCursor = reader.GetInt64(reader.GetOrdinal("latest_cursor")),
                 MaterialDigest = (byte[])reader.GetValue(reader.GetOrdinal("material_digest")),
                 OutputJson = reader.IsDBNull(reader.GetOrdinal("output_json")) ? (string?)null : reader.GetString(reader.GetOrdinal("output_json")),
@@ -403,6 +405,7 @@ namespace SFX.Identity.DAL.Repositories
         {
             { "CompletedAt", "completed_at" },
             { "GraphJson", "graph_json" },
+            { "GraphsJson", "graphs_json" },
             { "LatestCursor", "latest_cursor" },
             { "MaterialDigest", "material_digest" },
             { "OutputJson", "output_json" },
@@ -447,6 +450,7 @@ namespace SFX.Identity.DAL.Repositories
         {
             command.Parameters.AddWithValue("@CompletedAt", entity.CompletedAt);
             command.Parameters.AddWithValue("@GraphJson", entity.GraphJson ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@GraphsJson", entity.GraphsJson ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@LatestCursor", entity.LatestCursor);
             command.Parameters.AddWithValue("@MaterialDigest", entity.MaterialDigest);
             command.Parameters.AddWithValue("@OutputJson", entity.OutputJson ?? (object)DBNull.Value);

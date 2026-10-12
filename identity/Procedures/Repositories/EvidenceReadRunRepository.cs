@@ -162,6 +162,7 @@ namespace SFX.Identity.DAL.Repositories
                 LatestCursor = row.IsNull("latest_cursor") ? (long?)null : (long)row["latest_cursor"],
                 TraceComplete = row.IsNull("trace_complete") ? (bool?)null : (bool)row["trace_complete"],
                 MaterialDigest = row.IsNull("material_digest") ? (byte[]?)null : (byte[])row["material_digest"],
+                GraphsJson = row.IsNull("graphs_json") ? (string?)null : (string)row["graphs_json"],
                 CaptureStatus = (string)row["capture_status"]
             };
         }

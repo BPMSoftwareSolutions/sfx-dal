@@ -16,7 +16,7 @@ namespace SFX.Identity.DAL.Interfaces
 {
     public partial interface IEvidenceCompleteRunRepository
     {
-        ProcedureCallResult<EvidenceCompleteRun> Execute(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor);
-        Task<ProcedureCallResult<EvidenceCompleteRun>> ExecuteAsync(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor);
+        ProcedureCallResult<EvidenceCompleteRun> Execute(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor, string? graphsJson = null);
+        Task<ProcedureCallResult<EvidenceCompleteRun>> ExecuteAsync(string runId, string writerId, string runJson, string graphJson, string outputJson, long latestCursor, string? graphsJson = null);
     }
 }

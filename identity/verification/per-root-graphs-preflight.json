@@ -1,0 +1,147 @@
+{
+  "capturedAt": "2026-10-12T15:27:10.5918359+00:00",
+  "action": "preflight",
+  "migration": "005-per-root-run-graphs",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "005-per-root-run-graphs",
+        "added_column": 1,
+        "procedure_count": 2
+      }
+    ],
+    [
+      {
+        "run_id": "DC7B1FCD-BCB1-4231-9368-C40825017F64",
+        "admitted_at": "2026-10-12T15:27:11.901147+00:00"
+      }
+    ],
+    [
+      {
+        "run_id": "DC7B1FCD-BCB1-4231-9368-C40825017F64",
+        "admitted_at": "2026-10-12T15:27:11.901147+00:00"
+      }
+    ],
+    [
+      {
+        "stored": true
+      }
+    ],
+    [
+      {
+        "stored": true
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "TmS0QrpSl44FPKSjgVV5l/ATWb5Lg3crSdE0GaUYLcc="
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "TmS0QrpSl44FPKSjgVV5l/ATWb5Lg3crSdE0GaUYLcc="
+      }
+    ],
+    [
+      {
+        "run_id": "DC7B1FCD-BCB1-4231-9368-C40825017F64",
+        "capability_id": "fixture-capability",
+        "namespace_id": "fixture",
+        "admitted_at": "2026-10-12T15:27:11.901147+00:00",
+        "session_id": "46ee330e-ee75-47d0-ba2f-421a050ff322",
+        "run_json": "{\u0022runId\u0022:\u0022DC7B1FCD-BCB1-4231-9368-C40825017F64\u0022,\u0022state\u0022:\u0022completed\u0022,\u0022partial\u0022:false}",
+        "graph_json": null,
+        "output_json": "{\u0022fixture\u0022:true}",
+        "latest_cursor": 3,
+        "trace_complete": true,
+        "material_digest": "TmS0QrpSl44FPKSjgVV5l/ATWb5Lg3crSdE0GaUYLcc=",
+        "graphs_json": null,
+        "capture_status": "complete"
+      }
+    ],
+    [
+      {
+        "first_cursor": 1,
+        "last_cursor": 3,
+        "record_count": 3,
+        "content_digest": "n2SnR+G5fxMfq7a0Rylsm28CAeefs8U1bmx36JtqgGo=",
+        "content": "AQIDBA=="
+      }
+    ],
+    [
+      {
+        "check_name": "run-evidence-contract-preflight",
+        "passed": true,
+        "assertion_count": 6
+      }
+    ],
+    [
+      {
+        "run_id": "E7AB019D-56C2-4E23-AC88-C8E392129C07",
+        "admitted_at": "2026-10-12T15:27:11.9349249+00:00"
+      }
+    ],
+    [
+      {
+        "stored": true
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "xbogk0NYbDU2G7t7MGEgL8OySQMIms+is4HMMe7aKA8="
+      }
+    ],
+    [
+      {
+        "trace_complete": true,
+        "material_digest": "xbogk0NYbDU2G7t7MGEgL8OySQMIms+is4HMMe7aKA8="
+      }
+    ],
+    [
+      {
+        "run_id": "E7AB019D-56C2-4E23-AC88-C8E392129C07",
+        "capability_id": "fixture-capability",
+        "namespace_id": "fixture",
+        "admitted_at": "2026-10-12T15:27:11.9349249+00:00",
+        "session_id": "46ee330e-ee75-47d0-ba2f-421a050ff322",
+        "run_json": "{\u0022runId\u0022:\u0022E7AB019D-56C2-4E23-AC88-C8E392129C07\u0022,\u0022state\u0022:\u0022completed\u0022,\u0022partial\u0022:false}",
+        "graph_json": "{\u0022rootExecutionId\u0022:\u0022parent\u0022,\u0022graphId\u0022:\u0022graph:parent\u0022}",
+        "output_json": null,
+        "latest_cursor": 3,
+        "trace_complete": true,
+        "material_digest": "xbogk0NYbDU2G7t7MGEgL8OySQMIms+is4HMMe7aKA8=",
+        "graphs_json": "[{\u0022rootExecutionId\u0022:\u0022root-a\u0022,\u0022graphId\u0022:\u0022graph:shared\u0022,\u0022canonicalGraphDigest\u0022:\u0022digest-a\u0022,\u0022projection\u0022:{\u0022rootExecutionId\u0022:\u0022root-a\u0022,\u0022graphId\u0022:\u0022graph:shared\u0022,\u0022cells\u0022:[{\u0022cellId\u0022:\u0022a\u0022}]}},{\u0022rootExecutionId\u0022:\u0022root-b\u0022,\u0022graphId\u0022:\u0022graph:shared\u0022,\u0022canonicalGraphDigest\u0022:\u0022digest-b\u0022,\u0022projection\u0022:{\u0022rootExecutionId\u0022:\u0022root-b\u0022,\u0022graphId\u0022:\u0022graph:shared\u0022,\u0022cells\u0022:[{\u0022cellId\u0022:\u0022b\u0022}]}}]",
+        "capture_status": "complete"
+      }
+    ],
+    [
+      {
+        "check_name": "per-root-run-graphs-preflight",
+        "passed": true,
+        "assertion_count": 4
+      }
+    ]
+  ]
+}

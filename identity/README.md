@@ -1,5 +1,31 @@
 # SFX.Identity.DAL
 
+## Per-root run graphs, 2026-10-12
+
+Migration [005](sql/migrations/005-per-root-run-graphs.commit.sql) retains the
+verbatim graph collection in `evidence.run_completion.graphs_json` and exposes
+it through `evidence.complete_run` and `evidence.read_run`. Distinct execution
+roots may share a graph ID; the collection retains every entry. The parent
+`graph_json` remains available. The optional final procedure parameter keeps
+old callers and their completion digests unchanged; supplied graphs participate
+in the existing immutable completion digest.
+
+[Rollback preflight](verification/per-root-graphs-preflight.json),
+[installation](verification/per-root-graphs-install.json),
+[idempotent reapplication](verification/per-root-graphs-idempotence.json) and
+[CodeLightly generation](verification/per-root-graphs-generation.json) passed.
+The generated DAL builds with locked dependencies; all 16 installed procedure
+bodies match their migration definitions and all 219 manifest artifacts match.
+The [live transport check](verification/per-root-graphs-transport.json) proves
+two roots with one graph ID retain their exact projections after an identity
+host restart, while contradictory completions and cross-owner reads remain
+refused. These transport fixtures do not establish capability execution.
+
+Pass `005-per-root-run-graphs` as the operator tool's fourth argument. Existing
+completions without the collection remain readable; the migration cannot
+reconstruct projections that were never stored.
+
+
 ## One-day sessions, 2026-10-11
 
 Migration [004](sql/migrations/004-one-day-sessions.commit.sql) sets both the

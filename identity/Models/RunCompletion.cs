@@ -15,6 +15,7 @@ namespace SFX.Identity.DAL.Models
     {
         public DateTimeOffset CompletedAt { get; set; }
         public string? GraphJson { get; set; }
+        public string? GraphsJson { get; set; }
         public long LatestCursor { get; set; }
         public byte[] MaterialDigest { get; set; } = default!;
         public string? OutputJson { get; set; }
