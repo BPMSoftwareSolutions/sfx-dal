@@ -66,7 +66,7 @@ foreach ($procedure in $config.Procedures) {
         throw "Missing generated typed result model for $($procedure.Name)."
     }
 }
-dotnet build (Join-Path $identityRoot 'SFX.Identity.DAL.csproj') -c Release
+dotnet build (Join-Path $identityRoot 'SFX.Identity.DAL.csproj') -c Release -p:RuntimeIdentifiers=linux-x64
 if ($LASTEXITCODE -ne 0) { throw 'Generated identity DAL build failed.' }
 $manifest = Get-Content (Join-Path $identityRoot 'catalog-manifest.v1.json') -Raw | ConvertFrom-Json
 foreach ($artifact in $manifest.artifacts) {

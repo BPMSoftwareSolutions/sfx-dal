@@ -14,7 +14,7 @@ in the existing immutable completion digest.
 [installation](verification/per-root-graphs-install.json),
 [idempotent reapplication](verification/per-root-graphs-idempotence.json) and
 [CodeLightly generation](verification/per-root-graphs-generation.json) passed.
-The generated DAL builds with locked dependencies; all 16 installed procedure
+The generated DAL and identity host publish with locked Linux dependencies; all 16 installed procedure
 bodies match their migration definitions and all 219 manifest artifacts match.
 The [live transport check](verification/per-root-graphs-transport.json) proves
 two roots with one graph ID retain their exact projections after an identity
@@ -165,7 +165,7 @@ machine setting. Set the environment before first repository use; the generated
 connection helper caches it for that process.
 
 ~~~powershell
-dotnet restore identity/SFX.Identity.DAL.csproj --locked-mode
+dotnet restore identity/SFX.Identity.DAL.csproj -r linux-x64 --locked-mode
 dotnet build identity/SFX.Identity.DAL.csproj -c Release --no-restore
 ~~~
 
