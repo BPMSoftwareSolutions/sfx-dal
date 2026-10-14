@@ -19,6 +19,12 @@ namespace SFX.DAL.Models
         public bool IsMcpTooling { get; set; }
         public long NamespacePk { get; set; }
         public string ObjectKind { get; set; } = default!;
+        public string? RelevantInquery1 { get; set; }
+        public string? RelevantInquery2 { get; set; }
+        public string? RelevantInquery3 { get; set; }
         public long SemanticObjectPk { get; set; }
+        public string? SilentFailuresReportMd { get; set; }
+        public DateTime? SilentFailuresResolvedDate { get; set; }
+        public string? SkillMd { get; set; }
     }
 }

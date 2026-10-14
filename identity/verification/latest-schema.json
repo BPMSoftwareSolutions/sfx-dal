@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-12T15:30:35.4236506+00:00",
+  "capturedAt": "2026-10-14T19:36:54.3623081+00:00",
   "action": "inspect",
   "migration": "001-login-identity",
   "database": "sfx-identity",
@@ -2699,7 +2699,7 @@
         "procedure_name": "complete_run",
         "definition_sha256": "730B0D5167A192067A68DA4E7F2E03E7DDB8ABBF1AD2E9D467709CB8EA0119FE",
         "create_date": "2026-10-06T15:26:22.713",
-        "modify_date": "2026-10-12T15:30:33.12"
+        "modify_date": "2026-10-12T15:35:37.59"
       },
       {
         "schema_name": "evidence",
@@ -2713,7 +2713,7 @@
         "procedure_name": "read_run",
         "definition_sha256": "26E25CC281980195EBC7F1187FF975337BFCC207030249A524706540FE8EE317",
         "create_date": "2026-10-06T15:26:22.717",
-        "modify_date": "2026-10-12T15:30:33.123"
+        "modify_date": "2026-10-12T15:35:37.597"
       },
       {
         "schema_name": "evidence",
@@ -3070,7 +3070,7 @@
       {
         "principal_count": 2,
         "credential_count": 2,
-        "session_count": 255
+        "session_count": 315
       }
     ]
   ]

@@ -10,12 +10,13 @@
 #nullable enable
 
 using SFX.DAL.Helpers;
+using SFX.DAL.Models;
 
 namespace SFX.DAL.Interfaces
 {
     public partial interface IModelSetCapabilityMcpToolingRepository
     {
-        ProcedureCallResult<object?> Execute(string namespaceId, string capabilityId, bool isMcpTooling);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(string namespaceId, string capabilityId, bool isMcpTooling);
+        ProcedureCallResult<ModelSetCapabilityMcpTooling> Execute(string namespaceId, string capabilityId, bool isMcpTooling);
+        Task<ProcedureCallResult<ModelSetCapabilityMcpTooling>> ExecuteAsync(string namespaceId, string capabilityId, bool isMcpTooling);
     }
 }

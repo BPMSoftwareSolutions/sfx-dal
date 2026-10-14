@@ -10,12 +10,13 @@
 #nullable enable
 
 using SFX.DAL.Helpers;
+using SFX.DAL.Models;
 
 namespace SFX.DAL.Interfaces
 {
     public partial interface IModelPatchPortConfigurationRepository
     {
-        ProcedureCallResult<object?> Execute(long portVersionPk, string jsonPath, string valueJson, string expectedDigest);
-        Task<ProcedureCallResult<object?>> ExecuteAsync(long portVersionPk, string jsonPath, string valueJson, string expectedDigest);
+        ProcedureCallResult<ModelPatchPortConfiguration> Execute(long portVersionPk, string jsonPath, string valueJson, string expectedDigest);
+        Task<ProcedureCallResult<ModelPatchPortConfiguration>> ExecuteAsync(long portVersionPk, string jsonPath, string valueJson, string expectedDigest);
     }
 }

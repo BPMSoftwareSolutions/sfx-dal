@@ -16,6 +16,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using SFX.DAL.Interfaces;
 using SFX.DAL.Helpers;
+using SFX.DAL.Models;
 
 namespace SFX.DAL.Repositories
 {
@@ -28,9 +29,9 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string namespaceId, string capabilityId, bool isMcpTooling)
+        public async Task<ProcedureCallResult<ModelSetCapabilityMcpTooling>> ExecuteAsync(string namespaceId, string capabilityId, bool isMcpTooling)
         {
-            var entities = new List<object?>();
+            var entities = new List<ModelSetCapabilityMcpTooling>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -67,8 +68,14 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    // This procedure does not return a result set.
-                    return new ProcedureCallResult<object?>
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
+                        {
+                            entities.Add(MapRowToModelSetCapabilityMcpTooling(row));
+                        }
+                    }
+                    return new ProcedureCallResult<ModelSetCapabilityMcpTooling>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -82,9 +89,9 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<object?> Execute(string namespaceId, string capabilityId, bool isMcpTooling)
+        public ProcedureCallResult<ModelSetCapabilityMcpTooling> Execute(string namespaceId, string capabilityId, bool isMcpTooling)
         {
-            var entities = new List<object?>();
+            var entities = new List<ModelSetCapabilityMcpTooling>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -121,8 +128,14 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    // This procedure does not return a result set.
-                    return new ProcedureCallResult<object?>
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
+                        {
+                            entities.Add(MapRowToModelSetCapabilityMcpTooling(row));
+                        }
+                    }
+                    return new ProcedureCallResult<ModelSetCapabilityMcpTooling>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -136,6 +149,17 @@ namespace SFX.DAL.Repositories
             }
         }
         
+        public ModelSetCapabilityMcpTooling MapRowToModelSetCapabilityMcpTooling(DataRow row)
+        {
+            return new ModelSetCapabilityMcpTooling
+            {
+                Action = (string)row["action"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
+                IsMcpTooling = row.IsNull("is_mcp_tooling") ? (bool?)null : (bool)row["is_mcp_tooling"],
+                Disposition = (string)row["disposition"]
+            };
+        }
         
         private static IReadOnlyDictionary<string, object?> GetOutputParameters(SqlCommand command)
         {

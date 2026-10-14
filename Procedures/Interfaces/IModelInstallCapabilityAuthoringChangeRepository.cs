@@ -10,13 +10,12 @@
 #nullable enable
 
 using SFX.DAL.Helpers;
-using SFX.DAL.Models;
 
 namespace SFX.DAL.Interfaces
 {
     public partial interface IModelInstallCapabilityAuthoringChangeRepository
     {
-        ProcedureCallResult<ModelInstallCapabilityAuthoringChange> Execute(string document);
-        Task<ProcedureCallResult<ModelInstallCapabilityAuthoringChange>> ExecuteAsync(string document);
+        ProcedureCallResult<object?> Execute(string document);
+        Task<ProcedureCallResult<object?>> ExecuteAsync(string document);
     }
 }

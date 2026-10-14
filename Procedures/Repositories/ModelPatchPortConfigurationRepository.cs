@@ -16,6 +16,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using SFX.DAL.Interfaces;
 using SFX.DAL.Helpers;
+using SFX.DAL.Models;
 
 namespace SFX.DAL.Repositories
 {
@@ -28,9 +29,9 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<object?>> ExecuteAsync(long portVersionPk, string jsonPath, string valueJson, string expectedDigest)
+        public async Task<ProcedureCallResult<ModelPatchPortConfiguration>> ExecuteAsync(long portVersionPk, string jsonPath, string valueJson, string expectedDigest)
         {
-            var entities = new List<object?>();
+            var entities = new List<ModelPatchPortConfiguration>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -68,8 +69,14 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    // This procedure does not return a result set.
-                    return new ProcedureCallResult<object?>
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
+                        {
+                            entities.Add(MapRowToModelPatchPortConfiguration(row));
+                        }
+                    }
+                    return new ProcedureCallResult<ModelPatchPortConfiguration>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -83,9 +90,9 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<object?> Execute(long portVersionPk, string jsonPath, string valueJson, string expectedDigest)
+        public ProcedureCallResult<ModelPatchPortConfiguration> Execute(long portVersionPk, string jsonPath, string valueJson, string expectedDigest)
         {
-            var entities = new List<object?>();
+            var entities = new List<ModelPatchPortConfiguration>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -123,8 +130,14 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    // This procedure does not return a result set.
-                    return new ProcedureCallResult<object?>
+                    if (resultSets.Count > 0)
+                    {
+                        foreach (DataRow row in resultSets[0].Rows)
+                        {
+                            entities.Add(MapRowToModelPatchPortConfiguration(row));
+                        }
+                    }
+                    return new ProcedureCallResult<ModelPatchPortConfiguration>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -138,6 +151,24 @@ namespace SFX.DAL.Repositories
             }
         }
         
+        public ModelPatchPortConfiguration MapRowToModelPatchPortConfiguration(DataRow row)
+        {
+            return new ModelPatchPortConfiguration
+            {
+                ResultSet = (string)row["result_set"],
+                Action = (string)row["action"],
+                NamespaceId = row.IsNull("namespace_id") ? (string?)null : (string)row["namespace_id"],
+                PortId = row.IsNull("port_id") ? (string?)null : (string)row["port_id"],
+                JsonPath = row.IsNull("json_path") ? (string?)null : (string)row["json_path"],
+                BeforeValue = row.IsNull("before_value") ? (string?)null : (string)row["before_value"],
+                AfterValue = row.IsNull("after_value") ? (string?)null : (string)row["after_value"],
+                BeforeDigest = row.IsNull("before_digest") ? (string?)null : (string)row["before_digest"],
+                AfterDigest = row.IsNull("after_digest") ? (string?)null : (string)row["after_digest"],
+                BeforePortVersionPk = row.IsNull("before_port_version_pk") ? (long?)null : (long)row["before_port_version_pk"],
+                AfterPortVersionPk = row.IsNull("after_port_version_pk") ? (long?)null : (long)row["after_port_version_pk"],
+                InvocationsRelinked = row.IsNull("invocations_relinked") ? (int?)null : (int)row["invocations_relinked"]
+            };
+        }
         
         private static IReadOnlyDictionary<string, object?> GetOutputParameters(SqlCommand command)
         {

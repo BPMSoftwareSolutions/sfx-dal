@@ -16,7 +16,6 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using SFX.DAL.Interfaces;
 using SFX.DAL.Helpers;
-using SFX.DAL.Models;
 
 namespace SFX.DAL.Repositories
 {
@@ -29,9 +28,9 @@ namespace SFX.DAL.Repositories
             _connectionString = DatabaseHelper.GetConnectionString();
         }
         
-        public async Task<ProcedureCallResult<ModelInstallCapabilityAuthoringChange>> ExecuteAsync(string document)
+        public async Task<ProcedureCallResult<object?>> ExecuteAsync(string document)
         {
-            var entities = new List<ModelInstallCapabilityAuthoringChange>();
+            var entities = new List<object?>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -66,14 +65,8 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    if (resultSets.Count > 0)
-                    {
-                        foreach (DataRow row in resultSets[0].Rows)
-                        {
-                            entities.Add(MapRowToModelInstallCapabilityAuthoringChange(row));
-                        }
-                    }
-                    return new ProcedureCallResult<ModelInstallCapabilityAuthoringChange>
+                    // This procedure does not return a result set.
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -87,9 +80,9 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ProcedureCallResult<ModelInstallCapabilityAuthoringChange> Execute(string document)
+        public ProcedureCallResult<object?> Execute(string document)
         {
-            var entities = new List<ModelInstallCapabilityAuthoringChange>();
+            var entities = new List<object?>();
             var resultSets = new List<DataTable>();
             try
             {
@@ -124,14 +117,8 @@ namespace SFX.DAL.Repositories
                             }
                         }
                     }
-                    if (resultSets.Count > 0)
-                    {
-                        foreach (DataRow row in resultSets[0].Rows)
-                        {
-                            entities.Add(MapRowToModelInstallCapabilityAuthoringChange(row));
-                        }
-                    }
-                    return new ProcedureCallResult<ModelInstallCapabilityAuthoringChange>
+                    // This procedure does not return a result set.
+                    return new ProcedureCallResult<object?>
                     {
                         Rows = entities,
                         ResultSets = resultSets,
@@ -145,15 +132,6 @@ namespace SFX.DAL.Repositories
             }
         }
         
-        public ModelInstallCapabilityAuthoringChange MapRowToModelInstallCapabilityAuthoringChange(DataRow row)
-        {
-            return new ModelInstallCapabilityAuthoringChange
-            {
-                ResultSet = (string)row["result_set"],
-                CapabilityId = row.IsNull("capability_id") ? (string?)null : (string)row["capability_id"],
-                ReceiptId = row.IsNull("receipt_id") ? (string?)null : (string)row["receipt_id"]
-            };
-        }
         
         private static IReadOnlyDictionary<string, object?> GetOutputParameters(SqlCommand command)
         {
