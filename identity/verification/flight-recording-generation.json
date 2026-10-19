@@ -1,0 +1,44 @@
+﻿{
+    "capturedAt":  "2026-10-19T02:43:25.4334049+00:00",
+    "database":  "sfx-identity",
+    "generatorCommit":  "687e2890424583d4b9d98d382da19623c4ce5154",
+    "generatorDirty":  false,
+    "configSha256":  "08c34673717bde06aac56e76acb56c292172312f1517e5f49b0ea862e2906688",
+    "catalogDigest":  "sha256:03f49f3d8b2fee7f1532428999d90bbe77be2c41e1447ba121cf8aef1f8ac405",
+    "manifestArtifacts":  264,
+    "manifestHashMismatches":  0,
+    "configuredProcedures":  21,
+    "liveTables":  19,
+    "liveProcedures":  21,
+    "installedProcedureBodyHashMatches":  21,
+    "sqlHeaderNormalization":  "SQL Server persists CREATE OR ALTER PROCEDURE as CREATE   PROCEDURE; remaining UTF-16 bytes match exactly.",
+    "migrations":  [
+                       {
+                           "path":  "001-login-identity.commit.sql",
+                           "sha256":  "62bf18bb0df644c9649567e41d690c102db8cab7b49c866f38ea4c010d581893"
+                       },
+                       {
+                           "path":  "002-run-evidence.commit.sql",
+                           "sha256":  "eac29f28c117c80cc7c6c5555a5265bc24ca0820937dea6340ead289154271c5"
+                       },
+                       {
+                           "path":  "003-trust-authority.commit.sql",
+                           "sha256":  "71930b59ab739bf6a11ffc89f7ba47ea83425ad2de5fde77ae8141af2809cddd"
+                       },
+                       {
+                           "path":  "004-one-day-sessions.commit.sql",
+                           "sha256":  "322d157575d9eefe585b836a32f075cecb63a50a5c1b9ae84bae265839e39f56"
+                       },
+                       {
+                           "path":  "005-per-root-run-graphs.commit.sql",
+                           "sha256":  "bbc413ad87468379528736df1b3bd6d5afe716eef6ea6203a91e366e5366d02d"
+                       },
+                       {
+                           "path":  "006-flight-recording.commit.sql",
+                           "sha256":  "70f8531088a3065e7f692fe981475f79f4d4cf3ed3ee889cfa5f51d9864551c8"
+                       }
+                   ],
+    "identityDalSha256":  "f1af2304c2368d379f49532ab68663b11018d17e028f4163edf0a77b14daf9c8",
+    "build":  "Release passed",
+    "scope":  "Schema generation and artifact integrity; live provider acceptance is recorded separately."
+}

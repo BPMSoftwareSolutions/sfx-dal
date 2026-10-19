@@ -18,9 +18,11 @@ namespace SFX.Identity.DAL.Interfaces
     public partial interface IRunRepository : IRepository<Run>
     {
 
+        Task<List<Run>> GetByFlightRecordingIdAsync(Guid id);
         Task<List<Run>> GetByPrincipalIdAsync(Guid id);
         Task<List<Run>> GetBySessionIdAsync(Guid id);
 
+        List<Run> GetByFlightRecordingId(Guid id);
         List<Run> GetByPrincipalId(Guid id);
         List<Run> GetBySessionId(Guid id);
 

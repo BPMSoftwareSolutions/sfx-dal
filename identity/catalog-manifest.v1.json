@@ -1,7 +1,7 @@
 {
   "manifestVersion": "catalog-manifest.v1",
   "catalogId": "SFX.Identity.DAL",
-  "catalogDigest": "sha256:ba372a6483a3c37180240e3e10fd957975a8bee7b7ff2508e975c86dfe1abe7b",
+  "catalogDigest": "sha256:03f49f3d8b2fee7f1532428999d90bbe77be2c41e1447ba121cf8aef1f8ac405",
   "generator": {
     "name": "Codelightly",
     "version": "1.0.0+687e2890424583d4b9d98d382da19623c4ce5154",
@@ -144,6 +144,34 @@
       "bytes": 933
     },
     {
+      "path": "Interfaces/IFlightPlanRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3d8606664a2e962a39d8c79dbdcc16fa33c9abafee24422805dfb12624ebfca1",
+      "bytes": 302
+    },
+    {
+      "path": "Interfaces/IFlightPlanRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6a7247822219a0bae6555e8b1f2581024304549abe8d56ed52134fcb7da4de96",
+      "bytes": 896
+    },
+    {
+      "path": "Interfaces/IFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "53df7349e22c9d67991a63d162dbc6baae28fa61ffcc82facb46a81bbc54c47b",
+      "bytes": 312
+    },
+    {
+      "path": "Interfaces/IFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "540c0bdd7427f0402f48ea79a0749363d5d91e9b890f9bc6c4dbe9180e20c9d8",
+      "bytes": 905
+    },
+    {
       "path": "Interfaces/ILoginPolicyRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -238,8 +266,8 @@
       "path": "Interfaces/IRunRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "9067767ae33a8220afa5f08fc706ac56f9cf7b5f7b124129fc6b60b323203cce",
-      "bytes": 821
+      "sha256": "555d58faafdf331fdd22f44575e3c57d8bf6db6960eb038019ed3ef57bb1e076",
+      "bytes": 936
     },
     {
       "path": "Interfaces/IRunTraceChunkRepository.Custom.cs",
@@ -396,6 +424,34 @@
       "bytes": 643
     },
     {
+      "path": "Models/FlightPlan.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "293a92700ff3377736b7ca66f71c3adc3448d2a0cfb64b2b48d39f817ad613bf",
+      "bytes": 186
+    },
+    {
+      "path": "Models/FlightPlan.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ef674cca3288d8dcffa401c5e5dd597bb9114f6d41ab7e77f27749a2d700a8da",
+      "bytes": 901
+    },
+    {
+      "path": "Models/FlightRecording.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "248e7508b68a31807cead97d3ed3283a9c79f16410a8562e990a1ba824727f91",
+      "bytes": 191
+    },
+    {
+      "path": "Models/FlightRecording.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "571b728b13d9a772d4c7d2c375979099bbefaccf357a6c1696cce51427c0d926",
+      "bytes": 1154
+    },
+    {
       "path": "Models/LoginPolicy.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -448,8 +504,8 @@
       "path": "Models/Run.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "26333ae5aa2a257fa05c8b51afcbed640aad6ed49c262910786804790782966e",
-      "bytes": 886
+      "sha256": "6d55c9992c07a734297090e4016d4cc49af0596b214007c2e3b43664a4042ea2",
+      "bytes": 940
     },
     {
       "path": "Models/RunCaptureIssue.Custom.cs",
@@ -536,6 +592,48 @@
       "bytes": 1013
     },
     {
+      "path": "Procedures/Interfaces/IEvidenceAttachRunToRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4303329f267b2554a9e45f7617633b61530c75ad308676b02dfbd63156d1e593",
+      "bytes": 292
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceAttachRunToRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "694717d7e0984122977b5544571ada850d6ddaf2d217e9b3c56a7bfebcfe7aaa",
+      "bytes": 899
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceBeginFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3941f8f2ce3580cca908d8a657ff941504501047c9f5c5257aac4ab51189c4fb",
+      "bytes": 292
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceBeginFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c6c48906225e9300d692bceea9ff7adfe4affd65997f84ebeb298d3d371dfba7",
+      "bytes": 919
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceCompleteFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "49cbb3a7be90b4f4b2adba5c836aefaee936eed1424fad8a05245364c51e7dc7",
+      "bytes": 295
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceCompleteFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ccd5d7d019994101d1ec4de6e5d524ed2f700f36269265e9e74d6132f6ae5fb9",
+      "bytes": 933
+    },
+    {
       "path": "Procedures/Interfaces/IEvidenceCompleteRunRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -562,6 +660,20 @@
       "operationId": null,
       "sha256": "09b2a16cff717be00b66151b63f6e76ff74d00ddd921c96ad81c8c6281e93ab3",
       "bytes": 775
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fc279b60c8653c7d5d2c2817cd530873a4f9d8b12ad734ebe23ca637fa2280d6",
+      "bytes": 291
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceReadFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "c8d6b5ec7aa0f4e33925eec56ba11e09a76bb7a464429b0b654a8ff7df58e637",
+      "bytes": 867
     },
     {
       "path": "Procedures/Interfaces/IEvidenceReadRunRepository.Custom.cs",
@@ -604,6 +716,20 @@
       "operationId": null,
       "sha256": "86f1abe8b33187e5dcf57a4ff2db90875843d8897cdbae8f35b4646fafb872d2",
       "bytes": 963
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceUpsertFlightPlanRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "fa72ba4f2f4b1168b4dcc659834563f61d8f607dce818032df538f9de955aa38",
+      "bytes": 288
+    },
+    {
+      "path": "Procedures/Interfaces/IEvidenceUpsertFlightPlanRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cc50bbec58a74049499f4d0c48c2f766b9602c6879a444e236a7bf6737a1d3d4",
+      "bytes": 911
     },
     {
       "path": "Procedures/Interfaces/IIdentityBeginAuthenticationAttemptRepository.Custom.cs",
@@ -760,6 +886,48 @@
       "bytes": 587
     },
     {
+      "path": "Procedures/Models/EvidenceAttachRunToRecording.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "3533899a7b41b538237494d132f04e9eb19e282f872b2ead0d087ce9245f0d57",
+      "bytes": 204
+    },
+    {
+      "path": "Procedures/Models/EvidenceAttachRunToRecording.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "1694a42937f96d0c7af5e882a7000f90b5b944040ac43a45be9f149dd250897d",
+      "bytes": 661
+    },
+    {
+      "path": "Procedures/Models/EvidenceBeginFlightRecording.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "2ba3121d4492c7b8446b7b184ca97a7514493e463165380eceaef25b1dc8d2ef",
+      "bytes": 204
+    },
+    {
+      "path": "Procedures/Models/EvidenceBeginFlightRecording.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "81667f6fc35f662997ac0134943409f64e01729e7eab9872ec45a71ee577eeea",
+      "bytes": 881
+    },
+    {
+      "path": "Procedures/Models/EvidenceCompleteFlightRecording.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "63be0f083b605ac5623693195bd7022e9827dac5517f2940b3b62ece253403dd",
+      "bytes": 207
+    },
+    {
+      "path": "Procedures/Models/EvidenceCompleteFlightRecording.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7282fda17d9039dbba08111a5616d2016aac059e30c0d81608e29ba9725c4926",
+      "bytes": 789
+    },
+    {
       "path": "Procedures/Models/EvidenceCompleteRun.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -786,6 +954,20 @@
       "operationId": null,
       "sha256": "3b9f57475a3fa5b6573fa581145ee9b3d744c382700afc284380de657562bc7e",
       "bytes": 870
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadFlightRecording.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "254f4e5cadceee61bc13e1a556f8130866f2fd5517e62378517c27f05828bd69",
+      "bytes": 203
+    },
+    {
+      "path": "Procedures/Models/EvidenceReadFlightRecording.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "580cf3e7d757916df33653a28cedef1675ffb83528668ea9ea703b08c83ccff2",
+      "bytes": 594
     },
     {
       "path": "Procedures/Models/EvidenceReadRun.Custom.cs",
@@ -828,6 +1010,20 @@
       "operationId": null,
       "sha256": "4e07fc41d59a3bde42f9c3f31a2405bb7dfcd3259854bd4cf8014ff638e94dd0",
       "bytes": 645
+    },
+    {
+      "path": "Procedures/Models/EvidenceUpsertFlightPlan.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "4b6a7744ba7e4b58ad522eec26b70ab3a28e482583dd62184ef7a5b963f368d7",
+      "bytes": 200
+    },
+    {
+      "path": "Procedures/Models/EvidenceUpsertFlightPlan.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "251ee1d365454f6837244c1a1442a28eb14ca53d1c21c42900904d02cddf379f",
+      "bytes": 707
     },
     {
       "path": "Procedures/Models/IdentityBeginAuthenticationAttempt.Custom.cs",
@@ -984,6 +1180,48 @@
       "bytes": 8747
     },
     {
+      "path": "Procedures/Repositories/EvidenceAttachRunToRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "754b81c4e6286083e24a7a6bbc9ff0f1fdd607d88068605944e8518bc3d6c769",
+      "bytes": 470
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceAttachRunToRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "e0738ff929dd05a509ec062c9db2309bbb0e3972c679e4b108d629f82376a06b",
+      "bytes": 8018
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceBeginFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "315171f2c3c3c4c47ee20c8e6d83434372e4427e19664bf62e4c54b8ac8776ce",
+      "bytes": 470
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceBeginFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "8717feefe097980fe3f549ccaedf65a1bacd37dd07119388f88d477d940900c5",
+      "bytes": 8415
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceCompleteFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6b084873c7d1c498c81b6d89ec1aa393ad2977607159f474a189271eae71764b",
+      "bytes": 476
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceCompleteFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "221c513ce045b43c2b424af64cfe909941a99af63548acdd4934ea886c265a81",
+      "bytes": 8424
+    },
+    {
       "path": "Procedures/Repositories/EvidenceCompleteRunRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -1010,6 +1248,20 @@
       "operationId": null,
       "sha256": "ceb2e6303f1ecdfb9a66f2cc7502a22699690978a899c6a8dae9623b99a71e7a",
       "bytes": 7505
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadFlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "ccae6573e85a192db5a35496fe6fdf0f6da5d69f5e781b497b4f3cb0863cd47a",
+      "bytes": 468
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceReadFlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "6eebdb1b0d3f456018f647c701209f3d321c897ee96264aa87eb3ed722c62c01",
+      "bytes": 7691
     },
     {
       "path": "Procedures/Repositories/EvidenceReadRunRepository.Custom.cs",
@@ -1052,6 +1304,20 @@
       "operationId": null,
       "sha256": "9efe8d49c471aa9ba30bc3b356de8f7d36fcd76437aaea7470f3e2ce63b47d7b",
       "bytes": 8490
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceUpsertFlightPlanRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "78bdf24463d28959bfb0888f261bbc461ddce650b6cee4b2815f43c40997621a",
+      "bytes": 462
+    },
+    {
+      "path": "Procedures/Repositories/EvidenceUpsertFlightPlanRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "7a2badc1d1b8dcafaa74ade2206e7c306b0865d7c927302a27df1d05beef281d",
+      "bytes": 8207
     },
     {
       "path": "Procedures/Repositories/IdentityBeginAuthenticationAttemptRepository.Custom.cs",
@@ -1306,6 +1572,34 @@
       "bytes": 17818
     },
     {
+      "path": "Repositories/FlightPlanRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "cca621faab487faafb86605c1de673ec57e47e3d0c26ef37703592fdaf8d5931",
+      "bytes": 434
+    },
+    {
+      "path": "Repositories/FlightPlanRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "af416428e6492cc87c734e4d4d78cc0ade2ad99ad5bb58d48b86535049951ee0",
+      "bytes": 20689
+    },
+    {
+      "path": "Repositories/FlightRecordingRepository.Custom.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "0c18ad2a5b3e641a925d15d2f7e9b8808114139e2015024810ef1457e562fc66",
+      "bytes": 444
+    },
+    {
+      "path": "Repositories/FlightRecordingRepository.cs",
+      "kind": "csharp",
+      "operationId": null,
+      "sha256": "763dceff3032612230c3ecdffde94efaadc72344822634272795bad8505b95f2",
+      "bytes": 25182
+    },
+    {
       "path": "Repositories/LoginPolicyRepository.Custom.cs",
       "kind": "csharp",
       "operationId": null,
@@ -1386,8 +1680,8 @@
       "path": "Repositories/RunRepository.cs",
       "kind": "csharp",
       "operationId": null,
-      "sha256": "1f12e6b193278471ee53cac6c151f109c0c7b40aedcd9c4e5c9af47931443784",
-      "bytes": 21287
+      "sha256": "0293687c03833747a042a7b9696d0430a02c033817f1a13487b05f5eeb3815c7",
+      "bytes": 24099
     },
     {
       "path": "Repositories/RunTraceChunkRepository.Custom.cs",
@@ -1507,6 +1801,27 @@
       "operationId": null,
       "sha256": "c3f2e6bc3c0ec59842e830fbbc4e4a79301bb02c8457ae867a40d461af051156",
       "bytes": 4725
+    },
+    {
+      "path": "sql/migrations/006-flight-recording.commit.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "70f8531088a3065e7f692fe981475f79f4d4cf3ed3ee889cfa5f51d9864551c8",
+      "bytes": 14662
+    },
+    {
+      "path": "sql/migrations/006-flight-recording.rollback.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "15674f7a4903131f9c936ace7fac37bd724c8c0117d7a0abb28a3b54b51f278d",
+      "bytes": 14664
+    },
+    {
+      "path": "sql/verify-flight-recording.sql",
+      "kind": "sql",
+      "operationId": null,
+      "sha256": "a59529f993e4bd06324b97819993911ecc325a9c3311a591d1414c087670eee9",
+      "bytes": 4841
     },
     {
       "path": "sql/verify-login-contract.sql",

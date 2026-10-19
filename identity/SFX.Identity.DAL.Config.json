@@ -1,60 +1,111 @@
-{
-  "ProjectName": "SFX.Identity.DAL",
-  "ConnectionStringEnvVar": "SFX_IDENTITY_CONNECTION_STRING",
-  "OutputDirectory": ".",
-  "EnvironmentVariableTarget": "Process",
-  "VariableTarget": "Process",
-  "SchemaReaderConfig": {
-    "SchemaReaderType": "SqlServer",
-    "SchemaFilter": "TABLE_SCHEMA IN ('identity','evidence','ledger')",
-    "ConnectionString": null,
-    "Owner": ""
-  },
-  "CustomQueries": [],
-  "Views": [],
-  "Functions": [],
-  "Catalog": [],
-  "Procedures": [
-    { "Schema": "ledger", "Name": "read_evaluation_authority" },
-    { "Schema": "ledger", "Name": "read_evaluation_rules" },
-    { "Schema": "evidence", "Name": "register_run" },
-    { "Schema": "evidence", "Name": "append_trace_chunk" },
-    { "Schema": "evidence", "Name": "complete_run" },
-    { "Schema": "evidence", "Name": "list_runs" },
-    { "Schema": "evidence", "Name": "read_run" },
-    { "Schema": "evidence", "Name": "read_trace_chunks" },
-    {
-      "Schema": "identity",
-      "Name": "begin_authentication_attempt"
-    },
-    {
-      "Schema": "identity",
-      "Name": "resolve_login_principal"
-    },
-    {
-      "Schema": "identity",
-      "Name": "read_password_verifier"
-    },
-    {
-      "Schema": "identity",
-      "Name": "complete_credential_verification"
-    },
-    {
-      "Schema": "identity",
-      "Name": "establish_session"
-    },
-    {
-      "Schema": "identity",
-      "Name": "validate_session"
-    },
-    {
-      "Schema": "identity",
-      "Name": "revoke_session"
-    },
-    {
-      "Schema": "identity",
-      "Name": "provision_principal_credential"
-    }
-  ]
-}
+﻿{
+    "ProjectName":  "SFX.Identity.DAL",
+    "ConnectionStringEnvVar":  "SFX_IDENTITY_CONNECTION_STRING",
+    "OutputDirectory":  ".",
+    "EnvironmentVariableTarget":  "Process",
+    "VariableTarget":  "Process",
+    "SchemaReaderConfig":  {
+                               "SchemaReaderType":  "SqlServer",
+                               "SchemaFilter":  "TABLE_SCHEMA IN (\u0027identity\u0027,\u0027evidence\u0027,\u0027ledger\u0027)",
+                               "ConnectionString":  null,
+                               "Owner":  ""
+                           },
+    "CustomQueries":  [
 
+                      ],
+    "Views":  [
+
+              ],
+    "Functions":  [
+
+                  ],
+    "Catalog":  [
+
+                ],
+    "Procedures":  [
+                       {
+                           "Schema":  "ledger",
+                           "Name":  "read_evaluation_authority"
+                       },
+                       {
+                           "Schema":  "ledger",
+                           "Name":  "read_evaluation_rules"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "register_run"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "append_trace_chunk"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "complete_run"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "list_runs"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "read_run"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "read_trace_chunks"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "begin_authentication_attempt"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "resolve_login_principal"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "read_password_verifier"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "complete_credential_verification"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "establish_session"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "validate_session"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "revoke_session"
+                       },
+                       {
+                           "Schema":  "identity",
+                           "Name":  "provision_principal_credential"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "upsert_flight_plan"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "begin_flight_recording"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "attach_run_to_recording"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "complete_flight_recording"
+                       },
+                       {
+                           "Schema":  "evidence",
+                           "Name":  "read_flight_recording"
+                       }
+                   ]
+}

@@ -15,6 +15,7 @@ namespace SFX.Identity.DAL.Models
     {
         public DateTimeOffset AdmittedAt { get; set; }
         public string CapabilityId { get; set; } = default!;
+        public Guid? FlightRecordingId { get; set; }
         public string NamespaceId { get; set; } = default!;
         public Guid PrincipalId { get; set; }
         public string RunId { get; set; } = default!;

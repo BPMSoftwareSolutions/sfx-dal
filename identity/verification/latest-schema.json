@@ -1,17 +1,17 @@
 {
-  "capturedAt": "2026-10-14T19:36:54.3623081+00:00",
+  "capturedAt": "2026-10-19T02:43:08.0493968+00:00",
   "action": "inspect",
   "migration": "001-login-identity",
   "database": "sfx-identity",
   "resultSetCounts": [
     1,
-    33,
-    100,
-    29,
-    20,
-    55,
-    16,
-    33,
+    40,
+    119,
+    36,
+    26,
+    70,
+    21,
+    38,
     1
   ],
   "resultSets": [
@@ -19,8 +19,8 @@
       {
         "database_name": "sfx-identity",
         "has_view_definition": 1,
-        "table_count": 17,
-        "procedure_count": 16,
+        "table_count": 19,
+        "procedure_count": 21,
         "view_count": 0,
         "function_count": 0
       }
@@ -38,12 +38,42 @@
       },
       {
         "schema_name": "evidence",
+        "object_name": "attach_run_to_recording",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "begin_flight_recording",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "complete_flight_recording",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
         "object_name": "complete_run",
         "type_desc": "SQL_STORED_PROCEDURE"
       },
       {
         "schema_name": "evidence",
+        "object_name": "flight_plan",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "flight_recording",
+        "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
         "object_name": "list_runs",
+        "type_desc": "SQL_STORED_PROCEDURE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "read_flight_recording",
         "type_desc": "SQL_STORED_PROCEDURE"
       },
       {
@@ -80,6 +110,11 @@
         "schema_name": "evidence",
         "object_name": "run_trace_chunk",
         "type_desc": "USER_TABLE"
+      },
+      {
+        "schema_name": "evidence",
+        "object_name": "upsert_flight_plan",
+        "type_desc": "SQL_STORED_PROCEDURE"
       },
       {
         "schema_name": "identity",
@@ -251,6 +286,258 @@
       },
       {
         "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 1,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 2,
+        "column_name": "agent_id",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 3,
+        "column_name": "plan_revision",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": "((1))"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 4,
+        "column_name": "objective",
+        "data_type": "nvarchar",
+        "max_length": 4000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 5,
+        "column_name": "steps_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 6,
+        "column_name": "plan_digest",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "column_id": 7,
+        "column_name": "updated_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": "(sysutcdatetime())"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 1,
+        "column_name": "flight_recording_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 2,
+        "column_name": "principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 3,
+        "column_name": "agent_id",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 4,
+        "column_name": "plan_revision",
+        "data_type": "bigint",
+        "max_length": 8,
+        "precision": 19,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 5,
+        "column_name": "objective_snapshot",
+        "data_type": "nvarchar",
+        "max_length": 4000,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 6,
+        "column_name": "steps_snapshot",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 7,
+        "column_name": "plan_digest",
+        "data_type": "binary",
+        "max_length": 32,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 8,
+        "column_name": "started_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 9,
+        "column_name": "completed_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 10,
+        "column_name": "frontier_response",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "column_id": 11,
+        "column_name": "response_recorded_at",
+        "data_type": "datetimeoffset",
+        "max_length": 10,
+        "precision": 34,
+        "scale": 7,
+        "is_nullable": true,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
         "table_name": "run",
         "column_id": 1,
         "column_name": "run_id",
@@ -343,6 +630,20 @@
         "precision": 34,
         "scale": 7,
         "is_nullable": false,
+        "is_identity": false,
+        "is_computed": false,
+        "default_definition": null
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "column_id": 8,
+        "column_name": "flight_recording_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_nullable": true,
         "is_identity": false,
         "is_computed": false,
         "default_definition": null
@@ -1606,12 +1907,75 @@
       },
       {
         "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "index_name": "PK_evidence_flight_plan",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "principal_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_plan",
+        "index_name": "PK_evidence_flight_plan",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "agent_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "index_name": "PK_evidence_flight_recording",
+        "is_primary_key": true,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "flight_recording_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "index_name": "UQ_evidence_flight_recording_principal",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "flight_recording_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "flight_recording",
+        "index_name": "UQ_evidence_flight_recording_principal",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "principal_id"
+      },
+      {
+        "schema_name": "evidence",
         "table_name": "run",
         "index_name": "PK_evidence_run",
         "is_primary_key": true,
         "is_unique": true,
         "key_ordinal": 1,
         "column_name": "run_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "index_name": "UX_evidence_run_principal",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 1,
+        "column_name": "run_id"
+      },
+      {
+        "schema_name": "evidence",
+        "table_name": "run",
+        "index_name": "UX_evidence_run_principal",
+        "is_primary_key": false,
+        "is_unique": true,
+        "key_ordinal": 2,
+        "column_name": "principal_id"
       },
       {
         "schema_name": "evidence",
@@ -1881,6 +2245,50 @@
         "is_not_trusted": false
       },
       {
+        "fk_name": "FK_evidence_flight_plan_principal",
+        "parent_schema": "evidence",
+        "parent_table": "flight_plan",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_evidence_flight_recording_plan",
+        "parent_schema": "evidence",
+        "parent_table": "flight_recording",
+        "parent_column": "principal_id",
+        "reference_schema": "evidence",
+        "reference_table": "flight_plan",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_evidence_flight_recording_plan",
+        "parent_schema": "evidence",
+        "parent_table": "flight_recording",
+        "parent_column": "agent_id",
+        "reference_schema": "evidence",
+        "reference_table": "flight_plan",
+        "reference_column": "agent_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_evidence_flight_recording_principal",
+        "parent_schema": "evidence",
+        "parent_table": "flight_recording",
+        "parent_column": "principal_id",
+        "reference_schema": "identity",
+        "reference_table": "principal",
+        "reference_column": "principal_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
         "fk_name": "FK__run__principal_i__382F5661",
         "parent_schema": "evidence",
         "parent_table": "run",
@@ -1899,6 +2307,28 @@
         "reference_schema": "identity",
         "reference_table": "session",
         "reference_column": "session_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_evidence_run_flight_recording",
+        "parent_schema": "evidence",
+        "parent_table": "run",
+        "parent_column": "flight_recording_id",
+        "reference_schema": "evidence",
+        "reference_table": "flight_recording",
+        "reference_column": "flight_recording_id",
+        "is_disabled": false,
+        "is_not_trusted": false
+      },
+      {
+        "fk_name": "FK_evidence_run_flight_recording",
+        "parent_schema": "evidence",
+        "parent_table": "run",
+        "parent_column": "principal_id",
+        "reference_schema": "evidence",
+        "reference_table": "flight_recording",
+        "reference_column": "principal_id",
         "is_disabled": false,
         "is_not_trusted": false
       },
@@ -2159,6 +2589,105 @@
       },
       {
         "schema_name": "evidence",
+        "procedure_name": "attach_run_to_recording",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "attach_run_to_recording",
+        "parameter_id": 2,
+        "parameter_name": "@run_id",
+        "data_type": "varchar",
+        "max_length": 128,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "attach_run_to_recording",
+        "parameter_id": 3,
+        "parameter_name": "@flight_recording_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "begin_flight_recording",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "begin_flight_recording",
+        "parameter_id": 2,
+        "parameter_name": "@agent_id",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "begin_flight_recording",
+        "parameter_id": 3,
+        "parameter_name": "@flight_recording_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_flight_recording",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_flight_recording",
+        "parameter_id": 2,
+        "parameter_name": "@flight_recording_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_flight_recording",
+        "parameter_id": 3,
+        "parameter_name": "@frontier_response",
+        "data_type": "nvarchar",
+        "max_length": -1,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
         "procedure_name": "complete_run",
         "parameter_id": 1,
         "parameter_name": "@run_id",
@@ -2239,6 +2768,28 @@
         "procedure_name": "list_runs",
         "parameter_id": 1,
         "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_flight_recording",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_flight_recording",
+        "parameter_id": 2,
+        "parameter_name": "@flight_recording_id",
         "data_type": "uniqueidentifier",
         "max_length": 16,
         "precision": 0,
@@ -2362,6 +2913,50 @@
         "parameter_name": "@writer_id",
         "data_type": "varchar",
         "max_length": 64,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "upsert_flight_plan",
+        "parameter_id": 1,
+        "parameter_name": "@principal_id",
+        "data_type": "uniqueidentifier",
+        "max_length": 16,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "upsert_flight_plan",
+        "parameter_id": 2,
+        "parameter_name": "@agent_id",
+        "data_type": "nvarchar",
+        "max_length": 510,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "upsert_flight_plan",
+        "parameter_id": 3,
+        "parameter_name": "@objective",
+        "data_type": "nvarchar",
+        "max_length": 4000,
+        "precision": 0,
+        "scale": 0,
+        "is_output": false
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "upsert_flight_plan",
+        "parameter_id": 4,
+        "parameter_name": "@steps_json",
+        "data_type": "nvarchar",
+        "max_length": -1,
         "precision": 0,
         "scale": 0,
         "is_output": false
@@ -2696,6 +3291,27 @@
       },
       {
         "schema_name": "evidence",
+        "procedure_name": "attach_run_to_recording",
+        "definition_sha256": "331920F87B6A62EBA03C38175D35D67644D4697DDC98B897646AF4541A045165",
+        "create_date": "2026-10-19T02:40:23.03",
+        "modify_date": "2026-10-19T02:42:39.5"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "begin_flight_recording",
+        "definition_sha256": "5EE9B40812E48D2FEF4A6D9826720E2DEFE1E68E9206B231B2AA8D088D257757",
+        "create_date": "2026-10-19T02:40:23.027",
+        "modify_date": "2026-10-19T02:42:39.5"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "complete_flight_recording",
+        "definition_sha256": "424FD082A0741DDC009D6651B3319CDF2333E82A4423B5E7ADE4EF27BF3463C5",
+        "create_date": "2026-10-19T02:40:23.03",
+        "modify_date": "2026-10-19T02:42:39.503"
+      },
+      {
+        "schema_name": "evidence",
         "procedure_name": "complete_run",
         "definition_sha256": "730B0D5167A192067A68DA4E7F2E03E7DDB8ABBF1AD2E9D467709CB8EA0119FE",
         "create_date": "2026-10-06T15:26:22.713",
@@ -2707,6 +3323,13 @@
         "definition_sha256": "18E34992FBE9242E49614ADFEB90BE4CA48F188C6AB3A806260C1EBCE270FA81",
         "create_date": "2026-10-06T15:26:22.713",
         "modify_date": "2026-10-06T15:26:25.463"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "read_flight_recording",
+        "definition_sha256": "09C554AB6F8984D978C78CBE875D7BF5C80401EE4F6E26801E22DDBE4A867888",
+        "create_date": "2026-10-19T02:40:23.033",
+        "modify_date": "2026-10-19T02:42:39.503"
       },
       {
         "schema_name": "evidence",
@@ -2725,9 +3348,16 @@
       {
         "schema_name": "evidence",
         "procedure_name": "register_run",
-        "definition_sha256": "90CDBF80330345CEC255DEAD7A5AB6443FBEEB0CB653A4AE1A100A0B9A8F6F6C",
+        "definition_sha256": "726805B5F29AE9ED81967702EEA9F17215C2F675D03AA9B0B30C8E3E0CE26BE7",
         "create_date": "2026-10-06T15:26:22.707",
-        "modify_date": "2026-10-06T15:26:25.45"
+        "modify_date": "2026-10-19T02:42:39.507"
+      },
+      {
+        "schema_name": "evidence",
+        "procedure_name": "upsert_flight_plan",
+        "definition_sha256": "B42E41867875D3DEA932234A17525F08CAE0313D5D58B651E9C52A5E5341C2DE",
+        "create_date": "2026-10-19T02:40:23.027",
+        "modify_date": "2026-10-19T02:42:39.497"
       },
       {
         "schema_name": "identity",
@@ -2801,6 +3431,46 @@
       }
     ],
     [
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "upsert_flight_plan"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "begin_flight_recording"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "attach_run_to_recording"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "complete_flight_recording"
+      },
+      {
+        "role_name": "sfx_evidence_runtime",
+        "securable_class": "OBJECT_OR_COLUMN",
+        "state_desc": "GRANT",
+        "permission_name": "EXECUTE",
+        "schema_name": "evidence",
+        "object_name": "read_flight_recording"
+      },
       {
         "role_name": "sfx_evidence_runtime",
         "securable_class": "OBJECT_OR_COLUMN",
@@ -3068,9 +3738,9 @@
     ],
     [
       {
-        "principal_count": 2,
-        "credential_count": 2,
-        "session_count": 315
+        "principal_count": 3,
+        "credential_count": 3,
+        "session_count": 401
       }
     ]
   ]

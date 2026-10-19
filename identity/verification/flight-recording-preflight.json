@@ -1,0 +1,84 @@
+{
+  "capturedAt": "2026-10-19T02:42:51.5109128+00:00",
+  "action": "preflight",
+  "migration": "006-flight-recording",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "006-flight-recording",
+        "added_tables": 2,
+        "added_procedures": 5
+      }
+    ],
+    [
+      {
+        "plan_revision": 1,
+        "plan_digest": "cHLGJgxSFIaUVZTuqJYmgidlMXs1jOLgzhY04tAPmpw=",
+        "updated_at": "2026-10-19T02:42:51.9231267+00:00"
+      }
+    ],
+    [
+      {
+        "plan_revision": 1,
+        "plan_digest": "cHLGJgxSFIaUVZTuqJYmgidlMXs1jOLgzhY04tAPmpw=",
+        "updated_at": "2026-10-19T02:42:51.9231267+00:00"
+      }
+    ],
+    [
+      {
+        "flight_recording_id": "310c775f-963c-4308-b070-da8f2f8d25c6",
+        "plan_revision": 1,
+        "plan_digest": "cHLGJgxSFIaUVZTuqJYmgidlMXs1jOLgzhY04tAPmpw=",
+        "started_at": "2026-10-19T02:42:51.9312422+00:00",
+        "completed_at": null,
+        "frontier_response": null
+      }
+    ],
+    [
+      {
+        "run_id": "DA4ADEB9-125D-4BEC-9654-7DC2E71CF106",
+        "admitted_at": "2026-10-19T02:42:51.9390992+00:00"
+      }
+    ],
+    [
+      {
+        "run_id": "DA4ADEB9-125D-4BEC-9654-7DC2E71CF106",
+        "flight_recording_id": "310c775f-963c-4308-b070-da8f2f8d25c6"
+      }
+    ],
+    [
+      {
+        "plan_revision": 2,
+        "plan_digest": "bYu4J572PYu+dS0SYZQAfZW6ubssuhqiWEHqzdy9dUk=",
+        "updated_at": "2026-10-19T02:42:51.9513156+00:00"
+      }
+    ],
+    [
+      {
+        "flight_recording_id": "310c775f-963c-4308-b070-da8f2f8d25c6",
+        "completed_at": "2026-10-19T02:42:51.9575518+00:00",
+        "frontier_response": "Repaired the topology and verified it.",
+        "response_recorded_at": "2026-10-19T02:42:51.9575518+00:00"
+      }
+    ],
+    [
+      {
+        "check_name": "flight-recording-contract-preflight",
+        "passed": true,
+        "assertion_count": 9
+      }
+    ]
+  ]
+}

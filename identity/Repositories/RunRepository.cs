@@ -38,7 +38,7 @@ namespace SFX.Identity.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [evidence].[run] ([admitted_at], [capability_id], [namespace_id], [principal_id], [run_id], [session_id], [writer_id]) VALUES (@AdmittedAt, @CapabilityId, @NamespaceId, @PrincipalId, @RunId, @SessionId, @WriterId); SELECT @RunId;", connection))
+                using (var command = new SqlCommand("INSERT INTO [evidence].[run] ([admitted_at], [capability_id], [flight_recording_id], [namespace_id], [principal_id], [run_id], [session_id], [writer_id]) VALUES (@AdmittedAt, @CapabilityId, @FlightRecordingId, @NamespaceId, @PrincipalId, @RunId, @SessionId, @WriterId); SELECT @RunId;", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [evidence].[run] SET
- [admitted_at] = @AdmittedAt, [capability_id] = @CapabilityId, [namespace_id] = @NamespaceId, [principal_id] = @PrincipalId, [session_id] = @SessionId, [writer_id] = @WriterId WHERE [run_id] = @RunId", connection))
+ [admitted_at] = @AdmittedAt, [capability_id] = @CapabilityId, [flight_recording_id] = @FlightRecordingId, [namespace_id] = @NamespaceId, [principal_id] = @PrincipalId, [session_id] = @SessionId, [writer_id] = @WriterId WHERE [run_id] = @RunId", connection))
                 {
                     connection.Open();
 
@@ -173,6 +173,31 @@ namespace SFX.Identity.DAL.Repositories
             }
         }
         
+        public async Task<List<Run>> GetByFlightRecordingIdAsync(Guid id)
+        {
+            List<Run> results = new List<Run>();
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                using (var command = new SqlCommand(@"SELECT * FROM [evidence].[run]   WHERE [flight_recording_id] = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            results.Add(await MapReaderToRunAsync(reader));
+                        }
+                    }
+                }
+                return results;
+            }
+            catch (SqlException ex)
+            {
+                throw new ApplicationException("Error retrieving entities from the database: " + ex.Message, ex);
+            }
+        }
         public async Task<List<Run>> GetByPrincipalIdAsync(Guid id)
         {
             List<Run> results = new List<Run>();
@@ -230,6 +255,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 AdmittedAt = reader.GetDateTimeOffset(reader.GetOrdinal("admitted_at")),
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
+                FlightRecordingId = await reader.IsDBNullAsync(reader.GetOrdinal("flight_recording_id")) ? (Guid?)null : reader.GetGuid(reader.GetOrdinal("flight_recording_id")),
                 NamespaceId = reader.GetString(reader.GetOrdinal("namespace_id")),
                 PrincipalId = reader.GetGuid(reader.GetOrdinal("principal_id")),
                 RunId = reader.GetString(reader.GetOrdinal("run_id")),
@@ -247,7 +273,7 @@ namespace SFX.Identity.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [evidence].[run] ([admitted_at], [capability_id], [namespace_id], [principal_id], [run_id], [session_id], [writer_id]) VALUES (@AdmittedAt, @CapabilityId, @NamespaceId, @PrincipalId, @RunId, @SessionId, @WriterId); SELECT @RunId;", connection))
+                using (var command = new SqlCommand("INSERT INTO [evidence].[run] ([admitted_at], [capability_id], [flight_recording_id], [namespace_id], [principal_id], [run_id], [session_id], [writer_id]) VALUES (@AdmittedAt, @CapabilityId, @FlightRecordingId, @NamespaceId, @PrincipalId, @RunId, @SessionId, @WriterId); SELECT @RunId;", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -270,7 +296,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [evidence].[run] SET
- [admitted_at] = @AdmittedAt, [capability_id] = @CapabilityId, [namespace_id] = @NamespaceId, [principal_id] = @PrincipalId, [session_id] = @SessionId, [writer_id] = @WriterId WHERE [run_id] = @RunId", connection))
+ [admitted_at] = @AdmittedAt, [capability_id] = @CapabilityId, [flight_recording_id] = @FlightRecordingId, [namespace_id] = @NamespaceId, [principal_id] = @PrincipalId, [session_id] = @SessionId, [writer_id] = @WriterId WHERE [run_id] = @RunId", connection))
                 {
                     connection.Open();
 
@@ -382,6 +408,31 @@ namespace SFX.Identity.DAL.Repositories
             }
         }
         
+        public List<Run> GetByFlightRecordingId(Guid id)
+        {
+            List<Run> results = new List<Run>();
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                using (var command = new SqlCommand(@"SELECT * FROM [evidence].[run]   WHERE [flight_recording_id] = @Id", connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            results.Add(MapReaderToRun(reader));
+                        }
+                    }
+                }
+                return results;
+            }
+            catch (SqlException ex)
+            {
+                throw new ApplicationException("Error retrieving entities from the database: " + ex.Message, ex);
+            }
+        }
         public List<Run> GetByPrincipalId(Guid id)
         {
             List<Run> results = new List<Run>();
@@ -439,6 +490,7 @@ namespace SFX.Identity.DAL.Repositories
             {
                 AdmittedAt = reader.GetDateTimeOffset(reader.GetOrdinal("admitted_at")),
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
+                FlightRecordingId = reader.IsDBNull(reader.GetOrdinal("flight_recording_id")) ? (Guid?)null : reader.GetGuid(reader.GetOrdinal("flight_recording_id")),
                 NamespaceId = reader.GetString(reader.GetOrdinal("namespace_id")),
                 PrincipalId = reader.GetGuid(reader.GetOrdinal("principal_id")),
                 RunId = reader.GetString(reader.GetOrdinal("run_id")),
@@ -451,6 +503,7 @@ namespace SFX.Identity.DAL.Repositories
         {
             { "AdmittedAt", "admitted_at" },
             { "CapabilityId", "capability_id" },
+            { "FlightRecordingId", "flight_recording_id" },
             { "NamespaceId", "namespace_id" },
             { "PrincipalId", "principal_id" },
             { "RunId", "run_id" },
@@ -494,6 +547,7 @@ namespace SFX.Identity.DAL.Repositories
         {
             command.Parameters.AddWithValue("@AdmittedAt", entity.AdmittedAt);
             command.Parameters.AddWithValue("@CapabilityId", entity.CapabilityId);
+            command.Parameters.AddWithValue("@FlightRecordingId", entity.FlightRecordingId ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@NamespaceId", entity.NamespaceId);
             command.Parameters.AddWithValue("@PrincipalId", entity.PrincipalId);
             command.Parameters.AddWithValue("@RunId", entity.RunId);

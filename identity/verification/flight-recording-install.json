@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-10-19T02:42:39.03202+00:00",
+  "action": "install",
+  "migration": "006-flight-recording",
+  "database": "sfx-identity",
+  "resultSetCounts": [
+    1
+  ],
+  "resultSets": [
+    [
+      {
+        "migration": "006-flight-recording",
+        "added_tables": 2,
+        "added_procedures": 5
+      }
+    ]
+  ]
+}
