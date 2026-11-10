@@ -38,7 +38,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [is_mcp_tooling], [namespace_pk], [object_kind], [relevant_inquery_1], [relevant_inquery_2], [relevant_inquery_3], [semantic_object_pk], [silent_failures_report_md], [silent_failures_resolved_date], [skill_md]) VALUES (@CapabilityId, @FeaturePk, @IsMcpTooling, @NamespacePk, @ObjectKind, @RelevantInquery1, @RelevantInquery2, @RelevantInquery3, @SemanticObjectPk, @SilentFailuresReportMd, @SilentFailuresResolvedDate, @SkillMd); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [generate_summary], [is_mcp_tooling], [is_technical_debt], [namespace_pk], [object_kind], [relevant_inquery_1], [relevant_inquery_2], [relevant_inquery_3], [semantic_object_pk], [silent_failures_report_md], [silent_failures_resolved_date], [skill_md], [technical_debt_reason]) VALUES (@CapabilityId, @FeaturePk, @GenerateSummary, @IsMcpTooling, @IsTechnicalDebt, @NamespacePk, @ObjectKind, @RelevantInquery1, @RelevantInquery2, @RelevantInquery3, @SemanticObjectPk, @SilentFailuresReportMd, @SilentFailuresResolvedDate, @SkillMd, @TechnicalDebtReason); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[capability] SET
- [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [is_mcp_tooling] = @IsMcpTooling, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [relevant_inquery_1] = @RelevantInquery1, [relevant_inquery_2] = @RelevantInquery2, [relevant_inquery_3] = @RelevantInquery3, [semantic_object_pk] = @SemanticObjectPk, [silent_failures_report_md] = @SilentFailuresReportMd, [silent_failures_resolved_date] = @SilentFailuresResolvedDate, [skill_md] = @SkillMd WHERE [capability_pk] = @CapabilityPk", connection))
+ [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [generate_summary] = @GenerateSummary, [is_mcp_tooling] = @IsMcpTooling, [is_technical_debt] = @IsTechnicalDebt, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [relevant_inquery_1] = @RelevantInquery1, [relevant_inquery_2] = @RelevantInquery2, [relevant_inquery_3] = @RelevantInquery3, [semantic_object_pk] = @SemanticObjectPk, [silent_failures_report_md] = @SilentFailuresReportMd, [silent_failures_resolved_date] = @SilentFailuresResolvedDate, [skill_md] = @SkillMd, [technical_debt_reason] = @TechnicalDebtReason WHERE [capability_pk] = @CapabilityPk", connection))
                 {
                     connection.Open();
 
@@ -306,7 +306,9 @@ namespace SFX.DAL.Repositories
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
                 CapabilityPk = reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 FeaturePk = reader.GetInt64(reader.GetOrdinal("feature_pk")),
+                GenerateSummary = await reader.IsDBNullAsync(reader.GetOrdinal("generate_summary")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("generate_summary")),
                 IsMcpTooling = reader.GetBoolean(reader.GetOrdinal("is_mcp_tooling")),
+                IsTechnicalDebt = await reader.IsDBNullAsync(reader.GetOrdinal("is_technical_debt")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("is_technical_debt")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 RelevantInquery1 = await reader.IsDBNullAsync(reader.GetOrdinal("relevant_inquery_1")) ? (string?)null : reader.GetString(reader.GetOrdinal("relevant_inquery_1")),
@@ -315,7 +317,8 @@ namespace SFX.DAL.Repositories
                 SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
                 SilentFailuresReportMd = await reader.IsDBNullAsync(reader.GetOrdinal("silent_failures_report_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("silent_failures_report_md")),
                 SilentFailuresResolvedDate = await reader.IsDBNullAsync(reader.GetOrdinal("silent_failures_resolved_date")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("silent_failures_resolved_date")),
-                SkillMd = await reader.IsDBNullAsync(reader.GetOrdinal("skill_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("skill_md"))
+                SkillMd = await reader.IsDBNullAsync(reader.GetOrdinal("skill_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("skill_md")),
+                TechnicalDebtReason = await reader.IsDBNullAsync(reader.GetOrdinal("technical_debt_reason")) ? (string?)null : reader.GetString(reader.GetOrdinal("technical_debt_reason"))
             };
         }
         
@@ -328,7 +331,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [is_mcp_tooling], [namespace_pk], [object_kind], [relevant_inquery_1], [relevant_inquery_2], [relevant_inquery_3], [semantic_object_pk], [silent_failures_report_md], [silent_failures_resolved_date], [skill_md]) VALUES (@CapabilityId, @FeaturePk, @IsMcpTooling, @NamespacePk, @ObjectKind, @RelevantInquery1, @RelevantInquery2, @RelevantInquery3, @SemanticObjectPk, @SilentFailuresReportMd, @SilentFailuresResolvedDate, @SkillMd); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[capability] ([capability_id], [feature_pk], [generate_summary], [is_mcp_tooling], [is_technical_debt], [namespace_pk], [object_kind], [relevant_inquery_1], [relevant_inquery_2], [relevant_inquery_3], [semantic_object_pk], [silent_failures_report_md], [silent_failures_resolved_date], [skill_md], [technical_debt_reason]) VALUES (@CapabilityId, @FeaturePk, @GenerateSummary, @IsMcpTooling, @IsTechnicalDebt, @NamespacePk, @ObjectKind, @RelevantInquery1, @RelevantInquery2, @RelevantInquery3, @SemanticObjectPk, @SilentFailuresReportMd, @SilentFailuresResolvedDate, @SkillMd, @TechnicalDebtReason); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -351,7 +354,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[capability] SET
- [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [is_mcp_tooling] = @IsMcpTooling, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [relevant_inquery_1] = @RelevantInquery1, [relevant_inquery_2] = @RelevantInquery2, [relevant_inquery_3] = @RelevantInquery3, [semantic_object_pk] = @SemanticObjectPk, [silent_failures_report_md] = @SilentFailuresReportMd, [silent_failures_resolved_date] = @SilentFailuresResolvedDate, [skill_md] = @SkillMd WHERE [capability_pk] = @CapabilityPk", connection))
+ [capability_id] = @CapabilityId, [feature_pk] = @FeaturePk, [generate_summary] = @GenerateSummary, [is_mcp_tooling] = @IsMcpTooling, [is_technical_debt] = @IsTechnicalDebt, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [relevant_inquery_1] = @RelevantInquery1, [relevant_inquery_2] = @RelevantInquery2, [relevant_inquery_3] = @RelevantInquery3, [semantic_object_pk] = @SemanticObjectPk, [silent_failures_report_md] = @SilentFailuresReportMd, [silent_failures_resolved_date] = @SilentFailuresResolvedDate, [skill_md] = @SkillMd, [technical_debt_reason] = @TechnicalDebtReason WHERE [capability_pk] = @CapabilityPk", connection))
                 {
                     connection.Open();
 
@@ -596,7 +599,9 @@ namespace SFX.DAL.Repositories
                 CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
                 CapabilityPk = reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 FeaturePk = reader.GetInt64(reader.GetOrdinal("feature_pk")),
+                GenerateSummary = reader.IsDBNull(reader.GetOrdinal("generate_summary")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("generate_summary")),
                 IsMcpTooling = reader.GetBoolean(reader.GetOrdinal("is_mcp_tooling")),
+                IsTechnicalDebt = reader.IsDBNull(reader.GetOrdinal("is_technical_debt")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("is_technical_debt")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 RelevantInquery1 = reader.IsDBNull(reader.GetOrdinal("relevant_inquery_1")) ? (string?)null : reader.GetString(reader.GetOrdinal("relevant_inquery_1")),
@@ -605,7 +610,8 @@ namespace SFX.DAL.Repositories
                 SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
                 SilentFailuresReportMd = reader.IsDBNull(reader.GetOrdinal("silent_failures_report_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("silent_failures_report_md")),
                 SilentFailuresResolvedDate = reader.IsDBNull(reader.GetOrdinal("silent_failures_resolved_date")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("silent_failures_resolved_date")),
-                SkillMd = reader.IsDBNull(reader.GetOrdinal("skill_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("skill_md"))
+                SkillMd = reader.IsDBNull(reader.GetOrdinal("skill_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("skill_md")),
+                TechnicalDebtReason = reader.IsDBNull(reader.GetOrdinal("technical_debt_reason")) ? (string?)null : reader.GetString(reader.GetOrdinal("technical_debt_reason"))
             };
         }
         
@@ -614,7 +620,9 @@ namespace SFX.DAL.Repositories
             { "CapabilityId", "capability_id" },
             { "CapabilityPk", "capability_pk" },
             { "FeaturePk", "feature_pk" },
+            { "GenerateSummary", "generate_summary" },
             { "IsMcpTooling", "is_mcp_tooling" },
+            { "IsTechnicalDebt", "is_technical_debt" },
             { "NamespacePk", "namespace_pk" },
             { "ObjectKind", "object_kind" },
             { "RelevantInquery1", "relevant_inquery_1" },
@@ -624,6 +632,7 @@ namespace SFX.DAL.Repositories
             { "SilentFailuresReportMd", "silent_failures_report_md" },
             { "SilentFailuresResolvedDate", "silent_failures_resolved_date" },
             { "SkillMd", "skill_md" },
+            { "TechnicalDebtReason", "technical_debt_reason" },
         };
 
         private static string GetColumnName(string propertyName)
@@ -663,7 +672,9 @@ namespace SFX.DAL.Repositories
             command.Parameters.AddWithValue("@CapabilityId", entity.CapabilityId);
             command.Parameters.AddWithValue("@CapabilityPk", entity.CapabilityPk);
             command.Parameters.AddWithValue("@FeaturePk", entity.FeaturePk);
+            command.Parameters.AddWithValue("@GenerateSummary", entity.GenerateSummary ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@IsMcpTooling", entity.IsMcpTooling);
+            command.Parameters.AddWithValue("@IsTechnicalDebt", entity.IsTechnicalDebt ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@NamespacePk", entity.NamespacePk);
             command.Parameters.AddWithValue("@ObjectKind", entity.ObjectKind);
             command.Parameters.AddWithValue("@RelevantInquery1", entity.RelevantInquery1 ?? (object)DBNull.Value);
@@ -673,6 +684,7 @@ namespace SFX.DAL.Repositories
             command.Parameters.AddWithValue("@SilentFailuresReportMd", entity.SilentFailuresReportMd ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@SilentFailuresResolvedDate", entity.SilentFailuresResolvedDate ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@SkillMd", entity.SkillMd ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@TechnicalDebtReason", entity.TechnicalDebtReason ?? (object)DBNull.Value);
         }
         
     }

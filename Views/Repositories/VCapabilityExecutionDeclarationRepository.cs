@@ -193,11 +193,11 @@ namespace SFX.DAL.Repositories
         {
             return new VCapabilityExecutionDeclaration
             {
-                CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
+                CapabilityId = await reader.IsDBNullAsync(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
                 Document = await reader.IsDBNullAsync(reader.GetOrdinal("document")) ? (string?)null : reader.GetString(reader.GetOrdinal("document")),
-                EntryId = reader.GetString(reader.GetOrdinal("entry_id")),
-                EstateModelPk = reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                SourcePath = reader.GetString(reader.GetOrdinal("source_path"))
+                EntryId = await reader.IsDBNullAsync(reader.GetOrdinal("entry_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("entry_id")),
+                EstateModelPk = await reader.IsDBNullAsync(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
+                SourcePath = await reader.IsDBNullAsync(reader.GetOrdinal("source_path")) ? (string?)null : reader.GetString(reader.GetOrdinal("source_path"))
             };
         }
         
@@ -205,11 +205,11 @@ namespace SFX.DAL.Repositories
         {
             return new VCapabilityExecutionDeclaration
             {
-                CapabilityId = reader.GetString(reader.GetOrdinal("capability_id")),
+                CapabilityId = reader.IsDBNull(reader.GetOrdinal("capability_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("capability_id")),
                 Document = reader.IsDBNull(reader.GetOrdinal("document")) ? (string?)null : reader.GetString(reader.GetOrdinal("document")),
-                EntryId = reader.GetString(reader.GetOrdinal("entry_id")),
-                EstateModelPk = reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
-                SourcePath = reader.GetString(reader.GetOrdinal("source_path"))
+                EntryId = reader.IsDBNull(reader.GetOrdinal("entry_id")) ? (string?)null : reader.GetString(reader.GetOrdinal("entry_id")),
+                EstateModelPk = reader.IsDBNull(reader.GetOrdinal("estate_model_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("estate_model_pk")),
+                SourcePath = reader.IsDBNull(reader.GetOrdinal("source_path")) ? (string?)null : reader.GetString(reader.GetOrdinal("source_path"))
             };
         }
         

@@ -13,10 +13,12 @@ namespace SFX.DAL.Models
 {
     public partial class Provider
     {
+        public bool? IsTechnicalDebt { get; set; }
         public long NamespacePk { get; set; }
         public string ObjectKind { get; set; } = default!;
         public string ProviderId { get; set; } = default!;
         public long ProviderPk { get; set; }
         public long SemanticObjectPk { get; set; }
+        public string? TechnicalDebtReason { get; set; }
     }
 }

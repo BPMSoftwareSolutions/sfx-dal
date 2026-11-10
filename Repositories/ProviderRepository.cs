@@ -38,7 +38,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[provider] ([namespace_pk], [object_kind], [provider_id], [semantic_object_pk]) VALUES (@NamespacePk, @ObjectKind, @ProviderId, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[provider] ([is_technical_debt], [namespace_pk], [object_kind], [provider_id], [semantic_object_pk], [technical_debt_reason]) VALUES (@IsTechnicalDebt, @NamespacePk, @ObjectKind, @ProviderId, @SemanticObjectPk, @TechnicalDebtReason); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[provider] SET
- [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [provider_id] = @ProviderId, [semantic_object_pk] = @SemanticObjectPk WHERE [provider_pk] = @ProviderPk", connection))
+ [is_technical_debt] = @IsTechnicalDebt, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [provider_id] = @ProviderId, [semantic_object_pk] = @SemanticObjectPk, [technical_debt_reason] = @TechnicalDebtReason WHERE [provider_pk] = @ProviderPk", connection))
                 {
                     connection.Open();
 
@@ -278,11 +278,13 @@ namespace SFX.DAL.Repositories
         {
             return new Provider
             {
+                IsTechnicalDebt = await reader.IsDBNullAsync(reader.GetOrdinal("is_technical_debt")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("is_technical_debt")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 ProviderId = reader.GetString(reader.GetOrdinal("provider_id")),
                 ProviderPk = reader.GetInt64(reader.GetOrdinal("provider_pk")),
-                SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk"))
+                SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
+                TechnicalDebtReason = await reader.IsDBNullAsync(reader.GetOrdinal("technical_debt_reason")) ? (string?)null : reader.GetString(reader.GetOrdinal("technical_debt_reason"))
             };
         }
         
@@ -295,7 +297,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[provider] ([namespace_pk], [object_kind], [provider_id], [semantic_object_pk]) VALUES (@NamespacePk, @ObjectKind, @ProviderId, @SemanticObjectPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[provider] ([is_technical_debt], [namespace_pk], [object_kind], [provider_id], [semantic_object_pk], [technical_debt_reason]) VALUES (@IsTechnicalDebt, @NamespacePk, @ObjectKind, @ProviderId, @SemanticObjectPk, @TechnicalDebtReason); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -318,7 +320,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[provider] SET
- [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [provider_id] = @ProviderId, [semantic_object_pk] = @SemanticObjectPk WHERE [provider_pk] = @ProviderPk", connection))
+ [is_technical_debt] = @IsTechnicalDebt, [namespace_pk] = @NamespacePk, [object_kind] = @ObjectKind, [provider_id] = @ProviderId, [semantic_object_pk] = @SemanticObjectPk, [technical_debt_reason] = @TechnicalDebtReason WHERE [provider_pk] = @ProviderPk", connection))
                 {
                     connection.Open();
 
@@ -535,21 +537,25 @@ namespace SFX.DAL.Repositories
         {
             return new Provider
             {
+                IsTechnicalDebt = reader.IsDBNull(reader.GetOrdinal("is_technical_debt")) ? (bool?)null : reader.GetBoolean(reader.GetOrdinal("is_technical_debt")),
                 NamespacePk = reader.GetInt64(reader.GetOrdinal("namespace_pk")),
                 ObjectKind = reader.GetString(reader.GetOrdinal("object_kind")),
                 ProviderId = reader.GetString(reader.GetOrdinal("provider_id")),
                 ProviderPk = reader.GetInt64(reader.GetOrdinal("provider_pk")),
-                SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk"))
+                SemanticObjectPk = reader.GetInt64(reader.GetOrdinal("semantic_object_pk")),
+                TechnicalDebtReason = reader.IsDBNull(reader.GetOrdinal("technical_debt_reason")) ? (string?)null : reader.GetString(reader.GetOrdinal("technical_debt_reason"))
             };
         }
         
         private static readonly Dictionary<string, string> _columnNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
+            { "IsTechnicalDebt", "is_technical_debt" },
             { "NamespacePk", "namespace_pk" },
             { "ObjectKind", "object_kind" },
             { "ProviderId", "provider_id" },
             { "ProviderPk", "provider_pk" },
             { "SemanticObjectPk", "semantic_object_pk" },
+            { "TechnicalDebtReason", "technical_debt_reason" },
         };
 
         private static string GetColumnName(string propertyName)
@@ -586,11 +592,13 @@ namespace SFX.DAL.Repositories
         
         public void MapValuesToProviderParameters(SqlCommand command, Provider entity)
         {
+            command.Parameters.AddWithValue("@IsTechnicalDebt", entity.IsTechnicalDebt ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@NamespacePk", entity.NamespacePk);
             command.Parameters.AddWithValue("@ObjectKind", entity.ObjectKind);
             command.Parameters.AddWithValue("@ProviderId", entity.ProviderId);
             command.Parameters.AddWithValue("@ProviderPk", entity.ProviderPk);
             command.Parameters.AddWithValue("@SemanticObjectPk", entity.SemanticObjectPk);
+            command.Parameters.AddWithValue("@TechnicalDebtReason", entity.TechnicalDebtReason ?? (object)DBNull.Value);
         }
         
     }

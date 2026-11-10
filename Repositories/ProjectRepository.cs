@@ -38,7 +38,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[project] ([acceptance_criteria], [agent_user_story], [assigned_actor_pk], [benefit], [capability_pk], [completion_evidence_ref], [created_by_actor_pk], [created_date], [goal], [modified_date], [project_completion_approval_date], [project_display_name], [project_id], [project_plan_approval_date], [project_plan_md], [project_status], [sponsor_actor_pk]) VALUES (@AcceptanceCriteria, @AgentUserStory, @AssignedActorPk, @Benefit, @CapabilityPk, @CompletionEvidenceRef, @CreatedByActorPk, @CreatedDate, @Goal, @ModifiedDate, @ProjectCompletionApprovalDate, @ProjectDisplayName, @ProjectId, @ProjectPlanApprovalDate, @ProjectPlanMd, @ProjectStatus, @SponsorActorPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[project] ([acceptance_criteria], [agent_user_story], [assigned_actor_pk], [benefit], [business_case], [capability_pk], [completion_evidence_ref], [created_by_actor_pk], [created_date], [goal], [modified_date], [project_completion_approval_date], [project_display_name], [project_id], [project_plan_approval_date], [project_plan_md], [project_status], [sponsor_actor_pk]) VALUES (@AcceptanceCriteria, @AgentUserStory, @AssignedActorPk, @Benefit, @BusinessCase, @CapabilityPk, @CompletionEvidenceRef, @CreatedByActorPk, @CreatedDate, @Goal, @ModifiedDate, @ProjectCompletionApprovalDate, @ProjectDisplayName, @ProjectId, @ProjectPlanApprovalDate, @ProjectPlanMd, @ProjectStatus, @SponsorActorPk); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[project] SET
- [acceptance_criteria] = @AcceptanceCriteria, [agent_user_story] = @AgentUserStory, [assigned_actor_pk] = @AssignedActorPk, [benefit] = @Benefit, [capability_pk] = @CapabilityPk, [completion_evidence_ref] = @CompletionEvidenceRef, [created_by_actor_pk] = @CreatedByActorPk, [created_date] = @CreatedDate, [goal] = @Goal, [modified_date] = @ModifiedDate, [project_completion_approval_date] = @ProjectCompletionApprovalDate, [project_display_name] = @ProjectDisplayName, [project_id] = @ProjectId, [project_plan_approval_date] = @ProjectPlanApprovalDate, [project_plan_md] = @ProjectPlanMd, [project_status] = @ProjectStatus, [sponsor_actor_pk] = @SponsorActorPk WHERE [project_pk] = @ProjectPk", connection))
+ [acceptance_criteria] = @AcceptanceCriteria, [agent_user_story] = @AgentUserStory, [assigned_actor_pk] = @AssignedActorPk, [benefit] = @Benefit, [business_case] = @BusinessCase, [capability_pk] = @CapabilityPk, [completion_evidence_ref] = @CompletionEvidenceRef, [created_by_actor_pk] = @CreatedByActorPk, [created_date] = @CreatedDate, [goal] = @Goal, [modified_date] = @ModifiedDate, [project_completion_approval_date] = @ProjectCompletionApprovalDate, [project_display_name] = @ProjectDisplayName, [project_id] = @ProjectId, [project_plan_approval_date] = @ProjectPlanApprovalDate, [project_plan_md] = @ProjectPlanMd, [project_status] = @ProjectStatus, [sponsor_actor_pk] = @SponsorActorPk WHERE [project_pk] = @ProjectPk", connection))
                 {
                     connection.Open();
 
@@ -282,6 +282,7 @@ namespace SFX.DAL.Repositories
                 AgentUserStory = await reader.IsDBNullAsync(reader.GetOrdinal("agent_user_story")) ? (string?)null : reader.GetString(reader.GetOrdinal("agent_user_story")),
                 AssignedActorPk = await reader.IsDBNullAsync(reader.GetOrdinal("assigned_actor_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("assigned_actor_pk")),
                 Benefit = await reader.IsDBNullAsync(reader.GetOrdinal("benefit")) ? (string?)null : reader.GetString(reader.GetOrdinal("benefit")),
+                BusinessCase = await reader.IsDBNullAsync(reader.GetOrdinal("business_case")) ? (string?)null : reader.GetString(reader.GetOrdinal("business_case")),
                 CapabilityPk = await reader.IsDBNullAsync(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 CompletionEvidenceRef = await reader.IsDBNullAsync(reader.GetOrdinal("completion_evidence_ref")) ? (string?)null : reader.GetString(reader.GetOrdinal("completion_evidence_ref")),
                 CreatedByActorPk = await reader.IsDBNullAsync(reader.GetOrdinal("created_by_actor_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("created_by_actor_pk")),
@@ -308,7 +309,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[project] ([acceptance_criteria], [agent_user_story], [assigned_actor_pk], [benefit], [capability_pk], [completion_evidence_ref], [created_by_actor_pk], [created_date], [goal], [modified_date], [project_completion_approval_date], [project_display_name], [project_id], [project_plan_approval_date], [project_plan_md], [project_status], [sponsor_actor_pk]) VALUES (@AcceptanceCriteria, @AgentUserStory, @AssignedActorPk, @Benefit, @CapabilityPk, @CompletionEvidenceRef, @CreatedByActorPk, @CreatedDate, @Goal, @ModifiedDate, @ProjectCompletionApprovalDate, @ProjectDisplayName, @ProjectId, @ProjectPlanApprovalDate, @ProjectPlanMd, @ProjectStatus, @SponsorActorPk); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[project] ([acceptance_criteria], [agent_user_story], [assigned_actor_pk], [benefit], [business_case], [capability_pk], [completion_evidence_ref], [created_by_actor_pk], [created_date], [goal], [modified_date], [project_completion_approval_date], [project_display_name], [project_id], [project_plan_approval_date], [project_plan_md], [project_status], [sponsor_actor_pk]) VALUES (@AcceptanceCriteria, @AgentUserStory, @AssignedActorPk, @Benefit, @BusinessCase, @CapabilityPk, @CompletionEvidenceRef, @CreatedByActorPk, @CreatedDate, @Goal, @ModifiedDate, @ProjectCompletionApprovalDate, @ProjectDisplayName, @ProjectId, @ProjectPlanApprovalDate, @ProjectPlanMd, @ProjectStatus, @SponsorActorPk); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -331,7 +332,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[project] SET
- [acceptance_criteria] = @AcceptanceCriteria, [agent_user_story] = @AgentUserStory, [assigned_actor_pk] = @AssignedActorPk, [benefit] = @Benefit, [capability_pk] = @CapabilityPk, [completion_evidence_ref] = @CompletionEvidenceRef, [created_by_actor_pk] = @CreatedByActorPk, [created_date] = @CreatedDate, [goal] = @Goal, [modified_date] = @ModifiedDate, [project_completion_approval_date] = @ProjectCompletionApprovalDate, [project_display_name] = @ProjectDisplayName, [project_id] = @ProjectId, [project_plan_approval_date] = @ProjectPlanApprovalDate, [project_plan_md] = @ProjectPlanMd, [project_status] = @ProjectStatus, [sponsor_actor_pk] = @SponsorActorPk WHERE [project_pk] = @ProjectPk", connection))
+ [acceptance_criteria] = @AcceptanceCriteria, [agent_user_story] = @AgentUserStory, [assigned_actor_pk] = @AssignedActorPk, [benefit] = @Benefit, [business_case] = @BusinessCase, [capability_pk] = @CapabilityPk, [completion_evidence_ref] = @CompletionEvidenceRef, [created_by_actor_pk] = @CreatedByActorPk, [created_date] = @CreatedDate, [goal] = @Goal, [modified_date] = @ModifiedDate, [project_completion_approval_date] = @ProjectCompletionApprovalDate, [project_display_name] = @ProjectDisplayName, [project_id] = @ProjectId, [project_plan_approval_date] = @ProjectPlanApprovalDate, [project_plan_md] = @ProjectPlanMd, [project_status] = @ProjectStatus, [sponsor_actor_pk] = @SponsorActorPk WHERE [project_pk] = @ProjectPk", connection))
                 {
                     connection.Open();
 
@@ -552,6 +553,7 @@ namespace SFX.DAL.Repositories
                 AgentUserStory = reader.IsDBNull(reader.GetOrdinal("agent_user_story")) ? (string?)null : reader.GetString(reader.GetOrdinal("agent_user_story")),
                 AssignedActorPk = reader.IsDBNull(reader.GetOrdinal("assigned_actor_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("assigned_actor_pk")),
                 Benefit = reader.IsDBNull(reader.GetOrdinal("benefit")) ? (string?)null : reader.GetString(reader.GetOrdinal("benefit")),
+                BusinessCase = reader.IsDBNull(reader.GetOrdinal("business_case")) ? (string?)null : reader.GetString(reader.GetOrdinal("business_case")),
                 CapabilityPk = reader.IsDBNull(reader.GetOrdinal("capability_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("capability_pk")),
                 CompletionEvidenceRef = reader.IsDBNull(reader.GetOrdinal("completion_evidence_ref")) ? (string?)null : reader.GetString(reader.GetOrdinal("completion_evidence_ref")),
                 CreatedByActorPk = reader.IsDBNull(reader.GetOrdinal("created_by_actor_pk")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("created_by_actor_pk")),
@@ -575,6 +577,7 @@ namespace SFX.DAL.Repositories
             { "AgentUserStory", "agent_user_story" },
             { "AssignedActorPk", "assigned_actor_pk" },
             { "Benefit", "benefit" },
+            { "BusinessCase", "business_case" },
             { "CapabilityPk", "capability_pk" },
             { "CompletionEvidenceRef", "completion_evidence_ref" },
             { "CreatedByActorPk", "created_by_actor_pk" },
@@ -629,6 +632,7 @@ namespace SFX.DAL.Repositories
             command.Parameters.AddWithValue("@AgentUserStory", entity.AgentUserStory ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@AssignedActorPk", entity.AssignedActorPk ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@Benefit", entity.Benefit ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@BusinessCase", entity.BusinessCase ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@CapabilityPk", entity.CapabilityPk ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@CompletionEvidenceRef", entity.CompletionEvidenceRef ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@CreatedByActorPk", entity.CreatedByActorPk ?? (object)DBNull.Value);

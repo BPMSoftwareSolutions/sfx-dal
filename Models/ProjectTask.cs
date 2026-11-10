@@ -25,6 +25,7 @@ namespace SFX.DAL.Models
         public string? ProjectTaskMd { get; set; }
         public long ProjectTaskPk { get; set; }
         public string ProjectTaskStatus { get; set; } = default!;
+        public string? ProjectTaskStatusDescription { get; set; }
         public string? RequiredOutcome { get; set; }
         public int TaskRevision { get; set; }
         public short? WsjfBusinessValue { get; set; }

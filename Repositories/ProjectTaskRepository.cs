@@ -38,7 +38,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[project_task] ([assigned_actor_pk], [completed_date], [completion_disposition], [created_date], [execution_evidence_ref], [modified_date], [project_pk], [project_task_description], [project_task_id], [project_task_md], [project_task_status], [required_outcome], [task_revision], [wsjf_business_value], [wsjf_job_size], [wsjf_rationale_md], [wsjf_risk_reduction], [wsjf_time_criticality]) VALUES (@AssignedActorPk, @CompletedDate, @CompletionDisposition, @CreatedDate, @ExecutionEvidenceRef, @ModifiedDate, @ProjectPk, @ProjectTaskDescription, @ProjectTaskId, @ProjectTaskMd, @ProjectTaskStatus, @RequiredOutcome, @TaskRevision, @WsjfBusinessValue, @WsjfJobSize, @WsjfRationaleMd, @WsjfRiskReduction, @WsjfTimeCriticality); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[project_task] ([assigned_actor_pk], [completed_date], [completion_disposition], [created_date], [execution_evidence_ref], [modified_date], [project_pk], [project_task_description], [project_task_id], [project_task_md], [project_task_status], [project_task_status_description], [required_outcome], [task_revision], [wsjf_business_value], [wsjf_job_size], [wsjf_rationale_md], [wsjf_risk_reduction], [wsjf_time_criticality]) VALUES (@AssignedActorPk, @CompletedDate, @CompletionDisposition, @CreatedDate, @ExecutionEvidenceRef, @ModifiedDate, @ProjectPk, @ProjectTaskDescription, @ProjectTaskId, @ProjectTaskMd, @ProjectTaskStatus, @ProjectTaskStatusDescription, @RequiredOutcome, @TaskRevision, @WsjfBusinessValue, @WsjfJobSize, @WsjfRationaleMd, @WsjfRiskReduction, @WsjfTimeCriticality); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -61,7 +61,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[project_task] SET
- [assigned_actor_pk] = @AssignedActorPk, [completed_date] = @CompletedDate, [completion_disposition] = @CompletionDisposition, [created_date] = @CreatedDate, [execution_evidence_ref] = @ExecutionEvidenceRef, [modified_date] = @ModifiedDate, [project_pk] = @ProjectPk, [project_task_description] = @ProjectTaskDescription, [project_task_id] = @ProjectTaskId, [project_task_md] = @ProjectTaskMd, [project_task_status] = @ProjectTaskStatus, [required_outcome] = @RequiredOutcome, [task_revision] = @TaskRevision, [wsjf_business_value] = @WsjfBusinessValue, [wsjf_job_size] = @WsjfJobSize, [wsjf_rationale_md] = @WsjfRationaleMd, [wsjf_risk_reduction] = @WsjfRiskReduction, [wsjf_time_criticality] = @WsjfTimeCriticality WHERE [project_task_pk] = @ProjectTaskPk", connection))
+ [assigned_actor_pk] = @AssignedActorPk, [completed_date] = @CompletedDate, [completion_disposition] = @CompletionDisposition, [created_date] = @CreatedDate, [execution_evidence_ref] = @ExecutionEvidenceRef, [modified_date] = @ModifiedDate, [project_pk] = @ProjectPk, [project_task_description] = @ProjectTaskDescription, [project_task_id] = @ProjectTaskId, [project_task_md] = @ProjectTaskMd, [project_task_status] = @ProjectTaskStatus, [project_task_status_description] = @ProjectTaskStatusDescription, [required_outcome] = @RequiredOutcome, [task_revision] = @TaskRevision, [wsjf_business_value] = @WsjfBusinessValue, [wsjf_job_size] = @WsjfJobSize, [wsjf_rationale_md] = @WsjfRationaleMd, [wsjf_risk_reduction] = @WsjfRiskReduction, [wsjf_time_criticality] = @WsjfTimeCriticality WHERE [project_task_pk] = @ProjectTaskPk", connection))
                 {
                     connection.Open();
 
@@ -240,6 +240,7 @@ namespace SFX.DAL.Repositories
                 ProjectTaskMd = await reader.IsDBNullAsync(reader.GetOrdinal("project_task_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("project_task_md")),
                 ProjectTaskPk = reader.GetInt64(reader.GetOrdinal("project_task_pk")),
                 ProjectTaskStatus = reader.GetString(reader.GetOrdinal("project_task_status")),
+                ProjectTaskStatusDescription = await reader.IsDBNullAsync(reader.GetOrdinal("project_task_status_description")) ? (string?)null : reader.GetString(reader.GetOrdinal("project_task_status_description")),
                 RequiredOutcome = await reader.IsDBNullAsync(reader.GetOrdinal("required_outcome")) ? (string?)null : reader.GetString(reader.GetOrdinal("required_outcome")),
                 TaskRevision = reader.GetInt32(reader.GetOrdinal("task_revision")),
                 WsjfBusinessValue = await reader.IsDBNullAsync(reader.GetOrdinal("wsjf_business_value")) ? (short?)null : reader.GetInt16(reader.GetOrdinal("wsjf_business_value")),
@@ -259,7 +260,7 @@ namespace SFX.DAL.Repositories
 
             try {
                 using (var connection = new SqlConnection(_connectionString))
-                using (var command = new SqlCommand("INSERT INTO [model].[project_task] ([assigned_actor_pk], [completed_date], [completion_disposition], [created_date], [execution_evidence_ref], [modified_date], [project_pk], [project_task_description], [project_task_id], [project_task_md], [project_task_status], [required_outcome], [task_revision], [wsjf_business_value], [wsjf_job_size], [wsjf_rationale_md], [wsjf_risk_reduction], [wsjf_time_criticality]) VALUES (@AssignedActorPk, @CompletedDate, @CompletionDisposition, @CreatedDate, @ExecutionEvidenceRef, @ModifiedDate, @ProjectPk, @ProjectTaskDescription, @ProjectTaskId, @ProjectTaskMd, @ProjectTaskStatus, @RequiredOutcome, @TaskRevision, @WsjfBusinessValue, @WsjfJobSize, @WsjfRationaleMd, @WsjfRiskReduction, @WsjfTimeCriticality); SELECT SCOPE_IDENTITY();", connection))
+                using (var command = new SqlCommand("INSERT INTO [model].[project_task] ([assigned_actor_pk], [completed_date], [completion_disposition], [created_date], [execution_evidence_ref], [modified_date], [project_pk], [project_task_description], [project_task_id], [project_task_md], [project_task_status], [project_task_status_description], [required_outcome], [task_revision], [wsjf_business_value], [wsjf_job_size], [wsjf_rationale_md], [wsjf_risk_reduction], [wsjf_time_criticality]) VALUES (@AssignedActorPk, @CompletedDate, @CompletionDisposition, @CreatedDate, @ExecutionEvidenceRef, @ModifiedDate, @ProjectPk, @ProjectTaskDescription, @ProjectTaskId, @ProjectTaskMd, @ProjectTaskStatus, @ProjectTaskStatusDescription, @RequiredOutcome, @TaskRevision, @WsjfBusinessValue, @WsjfJobSize, @WsjfRationaleMd, @WsjfRiskReduction, @WsjfTimeCriticality); SELECT SCOPE_IDENTITY();", connection))
                 {
                     command.CommandTimeout = 30; // Setting command timeout
                     connection.Open();
@@ -282,7 +283,7 @@ namespace SFX.DAL.Repositories
             {
                 using (var connection = new SqlConnection(_connectionString))
                 using (var command = new SqlCommand(@"UPDATE [model].[project_task] SET
- [assigned_actor_pk] = @AssignedActorPk, [completed_date] = @CompletedDate, [completion_disposition] = @CompletionDisposition, [created_date] = @CreatedDate, [execution_evidence_ref] = @ExecutionEvidenceRef, [modified_date] = @ModifiedDate, [project_pk] = @ProjectPk, [project_task_description] = @ProjectTaskDescription, [project_task_id] = @ProjectTaskId, [project_task_md] = @ProjectTaskMd, [project_task_status] = @ProjectTaskStatus, [required_outcome] = @RequiredOutcome, [task_revision] = @TaskRevision, [wsjf_business_value] = @WsjfBusinessValue, [wsjf_job_size] = @WsjfJobSize, [wsjf_rationale_md] = @WsjfRationaleMd, [wsjf_risk_reduction] = @WsjfRiskReduction, [wsjf_time_criticality] = @WsjfTimeCriticality WHERE [project_task_pk] = @ProjectTaskPk", connection))
+ [assigned_actor_pk] = @AssignedActorPk, [completed_date] = @CompletedDate, [completion_disposition] = @CompletionDisposition, [created_date] = @CreatedDate, [execution_evidence_ref] = @ExecutionEvidenceRef, [modified_date] = @ModifiedDate, [project_pk] = @ProjectPk, [project_task_description] = @ProjectTaskDescription, [project_task_id] = @ProjectTaskId, [project_task_md] = @ProjectTaskMd, [project_task_status] = @ProjectTaskStatus, [project_task_status_description] = @ProjectTaskStatusDescription, [required_outcome] = @RequiredOutcome, [task_revision] = @TaskRevision, [wsjf_business_value] = @WsjfBusinessValue, [wsjf_job_size] = @WsjfJobSize, [wsjf_rationale_md] = @WsjfRationaleMd, [wsjf_risk_reduction] = @WsjfRiskReduction, [wsjf_time_criticality] = @WsjfTimeCriticality WHERE [project_task_pk] = @ProjectTaskPk", connection))
                 {
                     connection.Open();
 
@@ -461,6 +462,7 @@ namespace SFX.DAL.Repositories
                 ProjectTaskMd = reader.IsDBNull(reader.GetOrdinal("project_task_md")) ? (string?)null : reader.GetString(reader.GetOrdinal("project_task_md")),
                 ProjectTaskPk = reader.GetInt64(reader.GetOrdinal("project_task_pk")),
                 ProjectTaskStatus = reader.GetString(reader.GetOrdinal("project_task_status")),
+                ProjectTaskStatusDescription = reader.IsDBNull(reader.GetOrdinal("project_task_status_description")) ? (string?)null : reader.GetString(reader.GetOrdinal("project_task_status_description")),
                 RequiredOutcome = reader.IsDBNull(reader.GetOrdinal("required_outcome")) ? (string?)null : reader.GetString(reader.GetOrdinal("required_outcome")),
                 TaskRevision = reader.GetInt32(reader.GetOrdinal("task_revision")),
                 WsjfBusinessValue = reader.IsDBNull(reader.GetOrdinal("wsjf_business_value")) ? (short?)null : reader.GetInt16(reader.GetOrdinal("wsjf_business_value")),
@@ -485,6 +487,7 @@ namespace SFX.DAL.Repositories
             { "ProjectTaskMd", "project_task_md" },
             { "ProjectTaskPk", "project_task_pk" },
             { "ProjectTaskStatus", "project_task_status" },
+            { "ProjectTaskStatusDescription", "project_task_status_description" },
             { "RequiredOutcome", "required_outcome" },
             { "TaskRevision", "task_revision" },
             { "WsjfBusinessValue", "wsjf_business_value" },
@@ -540,6 +543,7 @@ namespace SFX.DAL.Repositories
             command.Parameters.AddWithValue("@ProjectTaskMd", entity.ProjectTaskMd ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@ProjectTaskPk", entity.ProjectTaskPk);
             command.Parameters.AddWithValue("@ProjectTaskStatus", entity.ProjectTaskStatus);
+            command.Parameters.AddWithValue("@ProjectTaskStatusDescription", entity.ProjectTaskStatusDescription ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@RequiredOutcome", entity.RequiredOutcome ?? (object)DBNull.Value);
             command.Parameters.AddWithValue("@TaskRevision", entity.TaskRevision);
             command.Parameters.AddWithValue("@WsjfBusinessValue", entity.WsjfBusinessValue ?? (object)DBNull.Value);

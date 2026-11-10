@@ -17,6 +17,7 @@ namespace SFX.DAL.Models
         public string? AgentUserStory { get; set; }
         public long? AssignedActorPk { get; set; }
         public string? Benefit { get; set; }
+        public string? BusinessCase { get; set; }
         public long? CapabilityPk { get; set; }
         public string? CompletionEvidenceRef { get; set; }
         public long? CreatedByActorPk { get; set; }

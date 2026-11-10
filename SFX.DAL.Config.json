@@ -1653,6 +1653,15 @@
         { "Schema": "sidefx_ui", "Name": "declare_ui_layout" },
         { "Schema": "sidefx_ui", "Name": "promote_ui_page" },
         { "Schema": "sidefx_ui", "Name": "rollback_ui_page" },
-        { "Schema": "sidefx_ui", "Name": "stage_ui_page" }
+        { "Schema": "sidefx_ui", "Name": "stage_ui_page" },
+        { "Schema": "analysis", "Name": "capability_composition_feature" },
+        { "Schema": "analysis", "Name": "capability_composition_contracts" },
+        { "Schema": "analysis", "Name": "capability_composition_mechanic" },
+        { "Schema": "analysis", "Name": "capability_composition_proof" },
+        { "Schema": "analysis", "Name": "capability_composition_assemble" },
+        { "Schema": "analysis", "Name": "capability_composition_decompose" },
+        { "Schema": "analysis", "Name": "capability_composition_clone" },
+        { "Schema": "analysis", "Name": "capability_composition_scaffold" },
+        { "Schema": "analysis", "Name": "capability_composition_draft" }
     ]
 }

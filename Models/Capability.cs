@@ -16,7 +16,9 @@ namespace SFX.DAL.Models
         public string CapabilityId { get; set; } = default!;
         public long CapabilityPk { get; set; }
         public long FeaturePk { get; set; }
+        public bool? GenerateSummary { get; set; }
         public bool IsMcpTooling { get; set; }
+        public bool? IsTechnicalDebt { get; set; }
         public long NamespacePk { get; set; }
         public string ObjectKind { get; set; } = default!;
         public string? RelevantInquery1 { get; set; }
@@ -26,5 +28,6 @@ namespace SFX.DAL.Models
         public string? SilentFailuresReportMd { get; set; }
         public DateTime? SilentFailuresResolvedDate { get; set; }
         public string? SkillMd { get; set; }
+        public string? TechnicalDebtReason { get; set; }
     }
 }

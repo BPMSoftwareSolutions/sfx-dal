@@ -13,10 +13,10 @@ namespace SFX.DAL.Models
 {
     public partial class VCapabilityExecutionDeclaration
     {
-        public string CapabilityId { get; set; } = default!;
+        public string? CapabilityId { get; set; }
         public string? Document { get; set; }
-        public string EntryId { get; set; } = default!;
-        public long EstateModelPk { get; set; }
-        public string SourcePath { get; set; } = default!;
+        public string? EntryId { get; set; }
+        public long? EstateModelPk { get; set; }
+        public string? SourcePath { get; set; }
     }
 }
